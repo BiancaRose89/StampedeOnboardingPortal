@@ -56,6 +56,13 @@ export class MemStorage implements IStorage {
   private initializeDefaultGuides() {
     const defaultGuides = [
       {
+        guideType: "overview",
+        title: "Stampede Onboarding Journey",
+        description: "Your complete step-by-step guide to getting started with Stampede",
+        url: "internal://overview",
+        isActive: true,
+      },
+      {
         guideType: "bookings",
         title: "Table Bookings Readiness Guide",
         description: "Learn how to set up and manage your booking system effectively",
