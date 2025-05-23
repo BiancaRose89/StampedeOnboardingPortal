@@ -77,11 +77,18 @@ export default function GuideViewer({ onGuideView }: GuideViewerProps) {
   }
 
   return (
-    <section className="space-y-8">
-      <div className="text-center space-y-4">
-        <h2 className="text-3xl font-bold text-gray-900">Onboarding Guides</h2>
-        <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-          Interactive guides to help you set up and configure each feature of your Stampede platform
+    <section className="space-y-12">
+      <div className="text-center space-y-6">
+        <div className="inline-flex items-center gap-2 bg-blue-50 text-blue-700 px-4 py-2 rounded-full text-sm font-medium">
+          <Star className="h-4 w-4" />
+          Essential Training
+        </div>
+        <h2 className="text-4xl md:text-5xl font-bold text-gray-900 tracking-tight">
+          Master Your Platform
+        </h2>
+        <p className="text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
+          Step-by-step guides designed to get you up and running with confidence. 
+          Each guide includes hands-on training and real-world best practices from our experts.
         </p>
       </div>
 

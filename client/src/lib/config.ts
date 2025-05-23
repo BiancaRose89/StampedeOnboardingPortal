@@ -19,5 +19,17 @@ export const DEFAULT_GUIDE_CONFIGS = {
 export const APP_CONFIG = {
   onboardingJourneyUrl: "https://h.stampede.ai/stampede-onboarding-journey?hs_preview=OnvXWaAM-218573123802",
   knowledgeBaseUrl: "https://help.stampede.ai/hc/en-gb",
-  tawkToPropertyId: "YOUR_TAWK_ID" // To be replaced with actual Tawk.to ID
+  tawkToPropertyId: "YOUR_TAWK_ID", // Replace with your Tawk.to Property ID
+  
+  // Chat Widget Setup Instructions
+  chatSetupInstructions: {
+    steps: [
+      "Go to tawk.to and create a free account",
+      "Create a new property for your onboarding portal",
+      "Copy your Property ID from the admin panel",
+      "Update the tawkToPropertyId in this config file",
+      "The chat widget will automatically appear on your portal"
+    ],
+    helpUrl: "https://help.tawk.to/article/getting-started-with-tawk-to"
+  }
 };

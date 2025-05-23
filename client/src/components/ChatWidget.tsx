@@ -6,6 +6,12 @@ export default function ChatWidget() {
   const { dbUser } = useAuth();
 
   useEffect(() => {
+    // Only load Tawk.to if we have a valid property ID (not the placeholder)
+    if (APP_CONFIG.tawkToPropertyId === "YOUR_TAWK_ID") {
+      console.log("Chat widget placeholder - Tawk.to ID not configured");
+      return;
+    }
+
     // Load Tawk.to script
     const script = document.createElement("script");
     script.async = true;
@@ -24,7 +30,7 @@ export default function ChatWidget() {
       console.log("Tawk.to chat widget loaded");
       
       // Set user attributes if logged in
-      if (dbUser) {
+      if (dbUser && (window as any).Tawk_API.setAttributes) {
         (window as any).Tawk_API.setAttributes({
           name: dbUser.name || dbUser.email,
           email: dbUser.email,

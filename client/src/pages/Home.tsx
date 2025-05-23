@@ -139,25 +139,79 @@ export default function Home() {
         </div>
       </nav>
 
-      {/* Hero Section */}
-      <section className="bg-gradient-to-br from-blue-600 to-blue-700 text-white py-16">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h1 className="text-4xl md:text-5xl font-bold mb-6">
-            Welcome to the Stampede Onboarding Journey
-          </h1>
-          <p className="text-xl md:text-2xl opacity-90 mb-8 max-w-3xl mx-auto">
-            Your complete guide to getting started with Stampede's hospitality platform. 
-            Access training materials, readiness guides, and expert support.
-          </p>
-          <a
-            href={APP_CONFIG.onboardingJourneyUrl}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-flex items-center bg-white text-blue-600 px-8 py-3 rounded-lg font-semibold hover:bg-gray-50 transition-colors"
-          >
-            <ExternalLink className="h-4 w-4 mr-2" />
-            Start Your Journey
-          </a>
+      {/* Hero Section - Stampede Style */}
+      <section className="relative bg-gradient-to-br from-blue-600 via-blue-700 to-blue-800 text-white py-20 overflow-hidden">
+        {/* Background pattern similar to Stampede */}
+        <div className="absolute inset-0 opacity-10">
+          <div className="absolute top-0 left-0 w-96 h-96 bg-white rounded-full blur-3xl -translate-x-1/2 -translate-y-1/2"></div>
+          <div className="absolute bottom-0 right-0 w-96 h-96 bg-white rounded-full blur-3xl translate-x-1/2 translate-y-1/2"></div>
+        </div>
+        
+        <div className="relative max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center space-y-8">
+            {/* Stampede logo area */}
+            <div className="flex items-center justify-center space-x-3 mb-2">
+              <div className="w-12 h-12 bg-white rounded-xl flex items-center justify-center shadow-lg">
+                <div className="w-8 h-8 bg-blue-600 rounded-lg flex items-center justify-center">
+                  <ChartLine className="text-white text-lg" />
+                </div>
+              </div>
+              <span className="text-3xl font-bold">Stampede</span>
+            </div>
+            
+            <div className="space-y-6">
+              <h1 className="text-5xl md:text-6xl font-bold tracking-tight leading-tight">
+                Welcome to the
+                <br />
+                <span className="bg-gradient-to-r from-white to-blue-100 bg-clip-text text-transparent">
+                  Stampede Onboarding Journey
+                </span>
+              </h1>
+              
+              <p className="text-xl md:text-2xl text-blue-100 max-w-4xl mx-auto leading-relaxed">
+                Driving new and repeat customers for hospitality. Your complete ecosystem online and in-person, 
+                connecting marketing and operations with expert guidance every step of the way.
+              </p>
+            </div>
+
+            <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
+              <a
+                href={APP_CONFIG.onboardingJourneyUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center bg-white text-blue-600 px-8 py-4 rounded-lg font-semibold hover:bg-blue-50 transition-all duration-200 shadow-lg hover:shadow-xl transform hover:-translate-y-0.5"
+              >
+                <ExternalLink className="h-5 w-5 mr-2" />
+                Start Your Journey
+              </a>
+              
+              {!firebaseUser && (
+                <Button
+                  onClick={() => setShowAuthModal(true)}
+                  variant="outline"
+                  className="border-white text-white hover:bg-white hover:text-blue-600 px-8 py-4 font-semibold"
+                >
+                  Access Your Portal
+                </Button>
+              )}
+            </div>
+
+            {/* Stats or features */}
+            <div className="pt-8 grid grid-cols-1 md:grid-cols-3 gap-8 max-w-4xl mx-auto">
+              <div className="text-center">
+                <div className="text-3xl font-bold mb-2">3</div>
+                <div className="text-blue-200">Interactive Guides</div>
+              </div>
+              <div className="text-center">
+                <div className="text-3xl font-bold mb-2">100%</div>
+                <div className="text-blue-200">Expert Support</div>
+              </div>
+              <div className="text-center">
+                <div className="text-3xl font-bold mb-2">24/7</div>
+                <div className="text-blue-200">Knowledge Base</div>
+              </div>
+            </div>
+          </div>
         </div>
       </section>
 
