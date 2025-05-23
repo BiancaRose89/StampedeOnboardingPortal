@@ -4,58 +4,60 @@
 
 :root {
   --background: 0 0% 100%;
-  --foreground: 220 15% 15%; /* Darker for better contrast */
-  --muted: 210 11% 98%; /* Stampede light gray */
+  --foreground: 226 81% 9%; /* Stampede Navy #0D0D25 */
+  --muted: 210 11% 98%;
   --muted-foreground: 220 10% 45%;
   --popover: 0 0% 100%;
-  --popover-foreground: 220 15% 15%;
+  --popover-foreground: 226 81% 9%;
   --card: 0 0% 100%;
-  --card-foreground: 220 15% 15%;
+  --card-foreground: 226 81% 9%;
   --border: 210 11% 90%;
   --input: 210 11% 95%;
-  --primary: 221 83% 53%; /* Stampede's authentic blue #2563eb */
+  --primary: 226 81% 9%; /* Stampede Navy #0D0D25 */
   --primary-foreground: 0 0% 98%;
-  --secondary: 210 11% 98%;
-  --secondary-foreground: 220 15% 15%;
-  --accent: 197 88% 95%; /* Light blue accent */
-  --accent-foreground: 221 83% 53%;
+  --secondary: 322 95% 66%; /* Stampede Pink #FA58A8 */
+  --secondary-foreground: 0 0% 98%;
+  --accent: 322 95% 95%; /* Light pink accent */
+  --accent-foreground: 226 81% 9%;
   --destructive: 0 84.2% 60.2%;
   --destructive-foreground: 0 0% 98%;
-  --ring: 221 83% 53%;
-  --radius: 0.5rem; /* Stampede uses smaller border radius */
+  --ring: 322 95% 66%; /* Pink ring */
+  --radius: 0.5rem;
   
-  /* Authentic Stampede brand colors from their website */
-  --stampede-blue: 221 83% 53%; /* #2563eb - main brand blue */
-  --stampede-blue-dark: 221 83% 45%; /* #1d4ed8 - darker blue for hover states */
-  --stampede-blue-light: 214 95% 93%; /* #dbeafe - very light blue for backgrounds */
-  --stampede-gray-50: 210 11% 98%; /* #f8fafc - lightest gray */
-  --stampede-gray-100: 210 11% 96%; /* #f1f5f9 */
-  --stampede-gray-200: 214 13% 91%; /* #e2e8f0 */
-  --stampede-gray-600: 215 16% 47%; /* #64748b - text gray */
-  --stampede-gray-900: 222 84% 5%; /* #0f172a - darkest text */
-  --stampede-accent: 142 76% 36%; /* Green accent for success states */
+  /* Authentic Stampede brand colors */
+  --stampede-navy: 226 81% 9%; /* #0D0D25 - main brand navy */
+  --stampede-navy-dark: 226 81% 7%; /* Darker navy for hover */
+  --stampede-navy-light: 226 81% 95%; /* Very light navy for backgrounds */
+  --stampede-pink: 322 95% 66%; /* #FA58A8 - brand pink */
+  --stampede-pink-dark: 322 95% 56%; /* Darker pink for hover */
+  --stampede-pink-light: 322 95% 95%; /* Light pink for backgrounds */
+  --stampede-gray-50: 210 11% 98%;
+  --stampede-gray-100: 210 11% 96%;
+  --stampede-gray-200: 214 13% 91%;
+  --stampede-gray-600: 215 16% 47%;
+  --stampede-gray-900: 226 81% 9%; /* Navy for dark text */
 }
 
 .dark {
-  --background: 240 10% 3.9%;
+  --background: 226 81% 9%; /* Stampede Navy background */
   --foreground: 0 0% 98%;
-  --muted: 240 3.7% 15.9%;
-  --muted-foreground: 240 5% 64.9%;
-  --popover: 240 10% 3.9%;
+  --muted: 226 75% 15%;
+  --muted-foreground: 220 20% 65%;
+  --popover: 226 75% 12%;
   --popover-foreground: 0 0% 98%;
-  --card: 240 10% 3.9%;
+  --card: 226 75% 12%;
   --card-foreground: 0 0% 98%;
-  --border: 240 3.7% 15.9%;
-  --input: 240 3.7% 15.9%;
-  --primary: 207 90% 54%;
-  --primary-foreground: 0 0% 98%;
-  --secondary: 240 3.7% 15.9%;
+  --border: 226 75% 20%;
+  --input: 226 75% 15%;
+  --primary: 322 95% 66%; /* Pink primary in dark mode */
+  --primary-foreground: 226 81% 9%;
+  --secondary: 226 75% 15%;
   --secondary-foreground: 0 0% 98%;
-  --accent: 240 3.7% 15.9%;
-  --accent-foreground: 0 0% 98%;
+  --accent: 226 75% 15%;
+  --accent-foreground: 322 95% 66%;
   --destructive: 0 62.8% 30.6%;
   --destructive-foreground: 0 0% 98%;
-  --ring: 207 90% 54%;
+  --ring: 322 95% 66%;
 }
 
 @layer base {
@@ -119,7 +121,15 @@
 
   /* Stampede brand gradient */
   .stampede-gradient {
-    background: linear-gradient(135deg, hsl(207 90% 54%) 0%, hsl(213 94% 68%) 100%);
+    background: linear-gradient(135deg, hsl(226 81% 9%) 0%, hsl(322 95% 66%) 100%);
+  }
+
+  .stampede-navy-gradient {
+    background: linear-gradient(135deg, hsl(226 81% 9%) 0%, hsl(226 81% 15%) 100%);
+  }
+
+  .stampede-pink-gradient {
+    background: linear-gradient(135deg, hsl(322 95% 66%) 0%, hsl(322 95% 56%) 100%);
   }
 
   /* Enhanced focus styles for accessibility */

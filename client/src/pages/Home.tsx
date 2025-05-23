@@ -139,12 +139,13 @@ export default function Home() {
         </div>
       </nav>
 
-      {/* Hero Section - Stampede Style */}
-      <section className="relative bg-gradient-to-br from-blue-600 via-blue-700 to-blue-800 text-white py-20 overflow-hidden">
-        {/* Background pattern similar to Stampede */}
-        <div className="absolute inset-0 opacity-10">
-          <div className="absolute top-0 left-0 w-96 h-96 bg-white rounded-full blur-3xl -translate-x-1/2 -translate-y-1/2"></div>
-          <div className="absolute bottom-0 right-0 w-96 h-96 bg-white rounded-full blur-3xl translate-x-1/2 translate-y-1/2"></div>
+      {/* Hero Section - Authentic Stampede Style */}
+      <section className="relative stampede-gradient text-white py-20 overflow-hidden">
+        {/* Background pattern matching Stampede.ai */}
+        <div className="absolute inset-0 opacity-20">
+          <div className="absolute top-0 left-0 w-96 h-96 bg-[#FA58A8] rounded-full blur-3xl -translate-x-1/2 -translate-y-1/2"></div>
+          <div className="absolute bottom-0 right-0 w-96 h-96 bg-[#FA58A8] rounded-full blur-3xl translate-x-1/2 translate-y-1/2"></div>
+          <div className="absolute top-1/2 left-1/2 w-80 h-80 bg-white rounded-full blur-2xl -translate-x-1/2 -translate-y-1/2 opacity-10"></div>
         </div>
         
         <div className="relative max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
