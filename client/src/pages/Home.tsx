@@ -150,14 +150,9 @@ export default function Home() {
         
         <div className="relative max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center space-y-8">
-            {/* Stampede logo area */}
-            <div className="flex items-center justify-center space-x-3 mb-2">
-              <div className="w-12 h-12 bg-white rounded-xl flex items-center justify-center shadow-lg">
-                <div className="w-8 h-8 bg-[#FA58A8] rounded-lg flex items-center justify-center">
-                  <ChartLine className="text-white text-lg" />
-                </div>
-              </div>
-              <span className="text-3xl font-bold">Stampede</span>
+            {/* Authentic Stampede logo */}
+            <div className="flex items-center justify-center mb-2">
+              <span className="text-4xl md:text-5xl font-bold text-[#FA58A8]">Stampede</span>
             </div>
             
             <div className="space-y-6">
