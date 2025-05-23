@@ -153,7 +153,7 @@ export default function Home() {
             {/* Stampede logo area */}
             <div className="flex items-center justify-center space-x-3 mb-2">
               <div className="w-12 h-12 bg-white rounded-xl flex items-center justify-center shadow-lg">
-                <div className="w-8 h-8 bg-blue-600 rounded-lg flex items-center justify-center">
+                <div className="w-8 h-8 bg-[#FA58A8] rounded-lg flex items-center justify-center">
                   <ChartLine className="text-white text-lg" />
                 </div>
               </div>
@@ -192,7 +192,7 @@ export default function Home() {
                   }
                 }}
                 size="lg"
-                className="bg-white text-blue-600 hover:bg-blue-50 px-8 py-4 font-semibold shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 transition-all duration-200"
+                className="bg-white text-[#0D0D25] hover:bg-[#FA58A8] hover:text-white px-8 py-4 font-semibold shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 transition-all duration-200"
               >
                 <BookOpen className="h-5 w-5 mr-2" />
                 Start Your Journey
@@ -203,7 +203,7 @@ export default function Home() {
                   onClick={() => setShowAuthModal(true)}
                   variant="outline"
                   size="lg"
-                  className="border-white text-white hover:bg-white hover:text-blue-600 px-8 py-4 font-semibold"
+                  className="border-white text-white hover:bg-white hover:text-[#0D0D25] px-8 py-4 font-semibold"
                 >
                   Access Your Portal
                 </Button>
