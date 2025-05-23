@@ -5,7 +5,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Card, CardContent } from "@/components/ui/card";
 import { useToast } from "@/hooks/use-toast";
-import { ExternalLink, ChartLine, User, LogOut } from "lucide-react";
+import { ExternalLink, ChartLine, User, LogOut, BookOpen } from "lucide-react";
 import { signIn, signOutUser } from "@/lib/firebase";
 import { useAuth } from "@/components/AuthProvider";
 import GuideViewer from "@/components/GuideViewer";
@@ -175,20 +175,33 @@ export default function Home() {
             </div>
 
             <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
-              <a
-                href={APP_CONFIG.onboardingJourneyUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center bg-white text-blue-600 px-8 py-4 rounded-lg font-semibold hover:bg-blue-50 transition-all duration-200 shadow-lg hover:shadow-xl transform hover:-translate-y-0.5"
+              <Button
+                onClick={() => {
+                  // Scroll to the guides section and select the overview tab
+                  const guidesSection = document.querySelector('[role="tablist"]');
+                  if (guidesSection) {
+                    guidesSection.scrollIntoView({ behavior: 'smooth' });
+                    // Trigger the overview tab (it's already the default)
+                    setTimeout(() => {
+                      const overviewTab = document.querySelector('[value="overview"]');
+                      if (overviewTab) {
+                        (overviewTab as HTMLElement).click();
+                      }
+                    }, 500);
+                  }
+                }}
+                size="lg"
+                className="bg-white text-blue-600 hover:bg-blue-50 px-8 py-4 font-semibold shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 transition-all duration-200"
               >
-                <ExternalLink className="h-5 w-5 mr-2" />
+                <BookOpen className="h-5 w-5 mr-2" />
                 Start Your Journey
-              </a>
+              </Button>
               
               {!firebaseUser && (
                 <Button
                   onClick={() => setShowAuthModal(true)}
                   variant="outline"
+                  size="lg"
                   className="border-white text-white hover:bg-white hover:text-blue-600 px-8 py-4 font-semibold"
                 >
                   Access Your Portal

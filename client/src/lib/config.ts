@@ -1,4 +1,9 @@
 export const DEFAULT_GUIDE_CONFIGS = {
+  overview: {
+    title: "Stampede Onboarding Journey",
+    description: "Your complete step-by-step guide to getting started with Stampede",
+    url: "internal://overview"
+  },
   bookings: {
     title: "Table Bookings Readiness Guide",
     description: "Learn how to set up and manage your booking system effectively",

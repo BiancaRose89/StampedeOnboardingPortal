@@ -2,18 +2,19 @@ import { useState, useEffect } from "react";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { ExternalLink, Calendar, Star, Mail, AlertTriangle } from "lucide-react";
+import { ExternalLink, Calendar, Star, Mail, AlertTriangle, BookOpen } from "lucide-react";
 import { useQuery } from "@tanstack/react-query";
 import { Skeleton } from "@/components/ui/skeleton";
 import type { GuideConfig } from "@shared/schema";
 import { DEFAULT_GUIDE_CONFIGS } from "@/lib/config";
+import OnboardingOverview from "./OnboardingOverview";
 
 interface GuideViewerProps {
   onGuideView?: (guideType: string) => void;
 }
 
 export default function GuideViewer({ onGuideView }: GuideViewerProps) {
-  const [activeGuide, setActiveGuide] = useState("bookings");
+  const [activeGuide, setActiveGuide] = useState("overview");
 
   const { data: guides, isLoading } = useQuery<GuideConfig[]>({
     queryKey: ["/api/guides"],
@@ -41,6 +42,7 @@ export default function GuideViewer({ onGuideView }: GuideViewerProps) {
 
   const getGuideIcon = (guideType: string) => {
     switch (guideType) {
+      case "overview": return <BookOpen className="h-4 w-4" />;
       case "bookings": return <Calendar className="h-4 w-4" />;
       case "loyalty": return <Star className="h-4 w-4" />;
       case "marketing": return <Mail className="h-4 w-4" />;
@@ -50,6 +52,7 @@ export default function GuideViewer({ onGuideView }: GuideViewerProps) {
 
   const getGuideColor = (guideType: string) => {
     switch (guideType) {
+      case "overview": return "bg-orange-50 border-orange-200";
       case "bookings": return "bg-blue-50 border-blue-200";
       case "loyalty": return "bg-green-50 border-green-200";
       case "marketing": return "bg-purple-50 border-purple-200";
@@ -93,7 +96,11 @@ export default function GuideViewer({ onGuideView }: GuideViewerProps) {
       </div>
 
       <Tabs value={activeGuide} onValueChange={handleTabChange}>
-        <TabsList className="grid w-full grid-cols-3 max-w-2xl mx-auto">
+        <TabsList className="grid w-full grid-cols-4 max-w-4xl mx-auto">
+          <TabsTrigger value="overview" className="flex items-center gap-2">
+            <BookOpen className="h-4 w-4" />
+            Start Your Journey
+          </TabsTrigger>
           <TabsTrigger value="bookings" className="flex items-center gap-2">
             <Calendar className="h-4 w-4" />
             Bookings Guide
@@ -107,6 +114,20 @@ export default function GuideViewer({ onGuideView }: GuideViewerProps) {
             Marketing Guide
           </TabsTrigger>
         </TabsList>
+
+        {/* Overview Tab Content */}
+        <TabsContent value="overview">
+          <Card className="overflow-hidden shadow-lg">
+            <CardContent className="p-8">
+              <OnboardingOverview 
+                onStepClick={(stepId) => {
+                  console.log(`Starting step: ${stepId}`);
+                  onGuideView?.(`step_${stepId}`);
+                }}
+              />
+            </CardContent>
+          </Card>
+        </TabsContent>
 
         {["bookings", "loyalty", "marketing"].map((guideType) => {
           const guide = getGuideConfig(guideType);
