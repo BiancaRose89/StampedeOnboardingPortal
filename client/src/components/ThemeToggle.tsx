@@ -1,11 +1,11 @@
-import { Moon, Sun } from "lucide-react";
+import { Moon, Sun, Monitor } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useTheme } from "./ThemeProvider";
 
 /**
- * Theme toggle button component
- * Allows users to switch between light, dark, and system themes
- * Shows appropriate icon based on current theme
+ * Enhanced theme toggle component
+ * Cycles through light → dark → system themes with visual feedback
+ * Pink accent on hover matching Stampede branding
  */
 export function ThemeToggle() {
   const { theme, setTheme } = useTheme();
@@ -21,16 +21,36 @@ export function ThemeToggle() {
   };
 
   const getIcon = () => {
-    if (theme === "dark") {
-      return <Moon className="h-4 w-4" />;
+    switch (theme) {
+      case "dark":
+        return <Moon className="h-4 w-4" />;
+      case "system":
+        return <Monitor className="h-4 w-4" />;
+      default:
+        return <Sun className="h-4 w-4" />;
     }
-    return <Sun className="h-4 w-4" />;
   };
 
-  const getTooltipText = () => {
-    if (theme === "light") return "Switch to Dark Mode";
-    if (theme === "dark") return "Switch to System Theme";
-    return "Switch to Light Mode";
+  const getLabel = () => {
+    switch (theme) {
+      case "dark":
+        return "Dark mode";
+      case "system":
+        return "System mode";
+      default:
+        return "Light mode";
+    }
+  };
+
+  const getNextMode = () => {
+    switch (theme) {
+      case "light":
+        return "Switch to dark mode";
+      case "dark":
+        return "Switch to system mode";
+      default:
+        return "Switch to light mode";
+    }
   };
 
   return (
@@ -38,11 +58,11 @@ export function ThemeToggle() {
       variant="ghost"
       size="sm"
       onClick={toggleTheme}
-      title={getTooltipText()}
-      className="text-[#0D0D25] dark:text-white hover:bg-[#FA58A8]/10 dark:hover:bg-[#FA58A8]/20"
+      title={getNextMode()}
+      className="text-[#0D0D25] dark:text-white hover:bg-[#FA58A8]/10 dark:hover:bg-[#FA58A8]/20 hover:text-[#FA58A8] dark:hover:text-[#FA58A8] transition-all duration-200"
     >
       {getIcon()}
-      <span className="sr-only">Toggle theme</span>
+      <span className="sr-only">{getLabel()}</span>
     </Button>
   );
 }
