@@ -2,12 +2,18 @@ import {
   users, 
   onboardingProgress, 
   guideConfigs,
+  userActivities,
+  userSessions,
   type User, 
   type InsertUser, 
   type OnboardingProgress, 
   type InsertProgress,
   type GuideConfig,
-  type InsertGuideConfig
+  type InsertGuideConfig,
+  type UserActivity,
+  type InsertActivity,
+  type UserSession,
+  type InsertSession
 } from "@shared/schema";
 
 export interface IStorage {
@@ -30,6 +36,18 @@ export interface IStorage {
   getGuideByType(guideType: string): Promise<GuideConfig | undefined>;
   createGuide(guide: InsertGuideConfig): Promise<GuideConfig>;
   updateGuide(id: number, updates: Partial<GuideConfig>): Promise<GuideConfig | undefined>;
+
+  // Activity tracking methods
+  createActivity(activity: InsertActivity): Promise<UserActivity>;
+  getActivitiesByUser(userId: number): Promise<UserActivity[]>;
+  getActivitiesByType(activityType: string): Promise<UserActivity[]>;
+  getRecentActivities(limit?: number): Promise<UserActivity[]>;
+
+  // Session management methods
+  createSession(session: InsertSession): Promise<UserSession>;
+  updateSession(sessionId: string, updates: Partial<UserSession>): Promise<UserSession | undefined>;
+  getActiveSession(userId: number): Promise<UserSession | undefined>;
+  getSessionsByUser(userId: number): Promise<UserSession[]>;
 }
 
 export class MemStorage implements IStorage {
