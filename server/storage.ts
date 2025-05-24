@@ -54,9 +54,12 @@ export class MemStorage implements IStorage {
   private users: Map<number, User>;
   private progress: Map<number, OnboardingProgress>;
   private guides: Map<number, GuideConfig>;
+  private activities: Map<number, UserActivity>;
+  private sessions: Map<string, UserSession>;
   private currentUserId: number;
   private currentProgressId: number;
   private currentGuideId: number;
+  private currentActivityId: number;
 
   constructor() {
     this.users = new Map();

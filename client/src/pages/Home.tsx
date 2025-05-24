@@ -6,6 +6,7 @@ import { Label } from "@/components/ui/label";
 import { Card, CardContent } from "@/components/ui/card";
 import { useToast } from "@/hooks/use-toast";
 import { ExternalLink, ChartLine, User, LogOut, BookOpen } from "lucide-react";
+import { ThemeToggle } from "@/components/ThemeToggle";
 import { signIn, signOutUser } from "@/lib/firebase";
 import { useAuth } from "@/components/AuthProvider";
 import GuideViewer from "@/components/GuideViewer";
