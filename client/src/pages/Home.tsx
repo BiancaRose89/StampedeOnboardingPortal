@@ -90,27 +90,27 @@ export default function Home() {
 
   if (loading) {
     return (
-      <div className="min-h-screen flex items-center justify-center">
+      <div className="min-h-screen bg-[#16173F] flex items-center justify-center">
         <div className="text-center space-y-4">
-          <div className="w-8 h-8 border-4 border-blue-600 border-t-transparent rounded-full animate-spin mx-auto"></div>
-          <p className="text-gray-600">Loading your onboarding portal...</p>
+          <div className="w-8 h-8 border-4 border-[#FF389A] border-t-transparent rounded-full animate-spin mx-auto"></div>
+          <p className="text-gray-300">Loading your onboarding portal...</p>
         </div>
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen bg-white">
+    <div className="min-h-screen bg-[#16173F]">
       {/* Navigation Header */}
-      <nav className="bg-white shadow-sm border-b border-gray-100 sticky top-0 z-50">
+      <nav className="bg-[#16173F] shadow-sm border-b border-[#FF389A]/20 sticky top-0 z-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center h-16">
             <div className="flex items-center space-x-4">
               <div className="flex items-center space-x-2">
-                <div className="w-8 h-8 bg-blue-600 rounded-lg flex items-center justify-center">
+                <div className="w-8 h-8 bg-[#FF389A] rounded-lg flex items-center justify-center">
                   <ChartLine className="text-white text-sm" />
                 </div>
-                <span className="text-xl font-bold text-gray-900">Stampede</span>
+                <span className="text-xl font-bold text-white">Stampede</span>
               </div>
             </div>
             <div className="flex items-center space-x-4">
@@ -118,20 +118,20 @@ export default function Home() {
                 <Button
                   variant="ghost"
                   onClick={() => setShowAuthModal(true)}
-                  className="text-gray-600 hover:text-blue-600"
+                  className="text-gray-300 hover:text-[#FF389A]"
                 >
                   <User className="h-4 w-4 mr-2" />
                   Login
                 </Button>
               ) : (
                 <div className="flex items-center space-x-3">
-                  <span className="text-sm text-gray-600">
+                  <span className="text-sm text-gray-300">
                     {dbUser?.name || dbUser?.email || firebaseUser.email}
                   </span>
                   <Button
                     variant="ghost"
                     onClick={handleLogout}
-                    className="text-red-600 hover:text-red-700"
+                    className="text-[#FF389A] hover:text-red-400"
                   >
                     <LogOut className="h-4 w-4" />
                   </Button>
@@ -143,7 +143,7 @@ export default function Home() {
       </nav>
 
       {/* Hero Section - Classic Stampede Style */}
-      <section className="relative bg-[#0D0D24] text-white py-20 overflow-hidden">
+      <section className="relative bg-[#16173F] text-white py-20 overflow-hidden">
         {/* Background pattern matching Stampede.ai */}
         <div className="absolute inset-0 opacity-20">
           <div className="absolute top-0 left-0 w-96 h-96 bg-[#FF389A] rounded-full blur-3xl -translate-x-1/2 -translate-y-1/2"></div>
@@ -239,11 +239,11 @@ export default function Home() {
       </div>
 
       {/* Footer */}
-      <footer className="border-t bg-white mt-16">
+      <footer className="border-t border-[#FF389A]/20 bg-[#16173F] mt-16">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
           <div className="flex flex-col md:flex-row justify-between items-center gap-4">
             <div className="text-center md:text-left">
-              <p className="text-gray-600">
+              <p className="text-gray-300">
                 © 2024 Stampede. Built for seamless onboarding experiences.
               </p>
             </div>
@@ -258,7 +258,7 @@ export default function Home() {
 
       {/* Auth Modal */}
       <Dialog open={showAuthModal} onOpenChange={setShowAuthModal}>
-        <DialogContent className="sm:max-w-md">
+        <DialogContent className="sm:max-w-md bg-[#16173F] border-[#FF389A]/30 text-white">
           <DialogHeader>
             <DialogTitle>Access Your Portal</DialogTitle>
           </DialogHeader>
@@ -293,11 +293,11 @@ export default function Home() {
             >
               {isLoggingIn ? "Signing In..." : "Sign In"}
             </Button>
-            <p className="text-center text-sm text-gray-600">
+            <p className="text-center text-sm text-gray-300">
               Don't have access?{" "}
               <button
                 type="button"
-                className="text-blue-600 hover:underline"
+                className="text-[#FF389A] hover:underline"
                 onClick={() => {
                   toast({
                     title: "Request Access",
