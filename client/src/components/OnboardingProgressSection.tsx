@@ -425,77 +425,7 @@ export default function OnboardingProgressSection() {
         ))}
       </div>
 
-      {/* Progress to Go Live Section */}
-      <div className="mt-16 text-center">
-        <div className="max-w-2xl mx-auto">
-          <h3 className="text-3xl font-bold text-white mb-6">Progress Till Go Live!</h3>
-          
-          {/* Progress Gauge */}
-          <div className="relative w-64 h-64 mx-auto mb-8">
-            <svg className="w-full h-full transform -rotate-90" viewBox="0 0 100 100">
-              {/* Background circle */}
-              <circle
-                cx="50"
-                cy="50"
-                r="45"
-                stroke="rgba(255, 56, 154, 0.1)"
-                strokeWidth="8"
-                fill="none"
-              />
-              {/* Progress circle */}
-              <circle
-                cx="50"
-                cy="50"
-                r="45"
-                stroke="#FF389A"
-                strokeWidth="8"
-                fill="none"
-                strokeLinecap="round"
-                strokeDasharray={`${(onboardingBlocks.filter(block => block.status === 'completed').length / onboardingBlocks.length) * 283} 283`}
-                style={{
-                  filter: 'drop-shadow(0 0 10px rgba(255, 56, 154, 0.6))'
-                }}
-              />
-            </svg>
-            <div className="absolute inset-0 flex items-center justify-center">
-              <div className="text-center">
-                <div className="text-4xl font-bold text-white">
-                  {Math.round((onboardingBlocks.filter(block => block.status === 'completed').length / onboardingBlocks.length) * 100)}%
-                </div>
-                <div className="text-sm text-gray-300">Complete</div>
-              </div>
-            </div>
-          </div>
 
-          {/* Go Live Explanation */}
-          <div className="bg-gradient-to-r from-[#FF389A]/20 to-[#FF389A]/10 rounded-xl p-6 border border-[#FF389A]/30">
-            <h4 className="text-xl font-bold text-white mb-4">What does "Go Live" mean?</h4>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-4 text-left">
-              <div className="space-y-2">
-                <div className="w-8 h-8 bg-[#FF389A] rounded-full flex items-center justify-center">
-                  <span className="text-white font-bold text-sm">1</span>
-                </div>
-                <h5 className="font-semibold text-white">Platform Ready</h5>
-                <p className="text-gray-300 text-sm">All core features configured and tested</p>
-              </div>
-              <div className="space-y-2">
-                <div className="w-8 h-8 bg-[#FF389A] rounded-full flex items-center justify-center">
-                  <span className="text-white font-bold text-sm">2</span>
-                </div>
-                <h5 className="font-semibold text-white">Team Training</h5>
-                <p className="text-gray-300 text-sm">Staff onboarded and comfortable with tools</p>
-              </div>
-              <div className="space-y-2">
-                <div className="w-8 h-8 bg-[#FF389A] rounded-full flex items-center justify-center">
-                  <span className="text-white font-bold text-sm">3</span>
-                </div>
-                <h5 className="font-semibold text-white">Customer Launch</h5>
-                <p className="text-gray-300 text-sm">Begin serving customers with new system</p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
 
       {/* Progress Till Go Live Section - Clean Stepper Design */}
       <div className="space-y-8 mt-16">
