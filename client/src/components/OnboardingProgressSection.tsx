@@ -4,8 +4,9 @@ import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Progress } from '@/components/ui/progress';
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
-import { PlayCircle, CheckCircle2, Clock, Users, Palette, Shield, Settings, FileText, Video, Wifi, Star, Gift, Calendar, MessageSquare, Target, Zap, Heart, ChevronRight, Play, BookOpen, Image, Info, ArrowRight, X } from 'lucide-react';
+import { PlayCircle, CheckCircle2, Clock, Users, Palette, Shield, Settings, FileText, Video, Wifi, Star, Gift, Calendar, MessageSquare, Target, Zap, Heart, ChevronRight, Play, BookOpen, Image, Info, ArrowRight, X, Lock } from 'lucide-react';
 import mobileMockupsPath from "@assets/image_1748461158920.png";
+import { useAuth } from '@/components/AuthProvider';
 
 interface OnboardingBlock {
   id: string;
@@ -312,6 +313,35 @@ function OnboardingModal({ block, currentStep, onStepChange }: OnboardingModalPr
 export default function OnboardingProgressSection() {
   const [currentModalStep, setCurrentModalStep] = useState(0);
   const [showExamplesModal, setShowExamplesModal] = useState(false);
+  const { firebaseUser, dbUser } = useAuth();
+  
+  // Check if user is authenticated and has access
+  const isAuthenticated = !!firebaseUser && !!dbUser;
+  const isLocked = !isAuthenticated;
+
+  // Locked Overlay Component
+  const LockedOverlay = ({ children, title }: { children: React.ReactNode; title: string }) => (
+    <div className="relative">
+      {children}
+      <div className="absolute inset-0 bg-[#0D0D24]/75 backdrop-blur-sm rounded-2xl flex items-center justify-center z-10 animate-in fade-in duration-500">
+        <div className="text-center space-y-4 bg-[#0D0D24]/90 border border-[#FF389A]/30 rounded-2xl p-8 max-w-md mx-4">
+          <div className="flex items-center justify-center mb-4">
+            <div className="p-3 rounded-full bg-[#FF389A]/20 border border-[#FF389A]/30">
+              <Lock className="h-8 w-8 text-[#FF389A]" />
+            </div>
+          </div>
+          <h3 className="text-2xl font-bold text-white">Ready to Start?</h3>
+          <p className="text-gray-300 leading-relaxed">
+            Log in to access your personalized onboarding experience and unlock {title.toLowerCase()}.
+          </p>
+          <Button className="bg-[#FF389A] hover:bg-[#E6329C] text-white px-8 py-3 font-bold w-full">
+            Log In to Continue
+            <ArrowRight className="ml-2 h-5 w-5" />
+          </Button>
+        </div>
+      </div>
+    </div>
+  );
 
   const getStatusIcon = (status: OnboardingBlock['status']) => {
     switch (status) {
@@ -498,23 +528,61 @@ export default function OnboardingProgressSection() {
       </div>
 
       {/* Your Onboarding Progress Section */}
-      <div className="space-y-6">
-        <div className="flex items-center justify-between">
-          <div>
-            <h2 className="text-2xl font-bold">Your Onboarding Progress</h2>
-            <p className="text-muted-foreground">Complete these essential setup tasks to get the most out of your platform</p>
-          </div>
-          <div className="text-right">
-            <div className="text-2xl font-bold">
-              {onboardingBlocks.filter(block => block.status === 'completed').length}/{onboardingBlocks.length}
+      {isLocked ? (
+        <LockedOverlay title="Your Onboarding Progress">
+          <div className="space-y-6 opacity-40 pointer-events-none">
+            <div className="flex items-center justify-between">
+              <div>
+                <h2 className="text-2xl font-bold">Your Onboarding Progress</h2>
+                <p className="text-muted-foreground">Complete these essential setup tasks to get the most out of your platform</p>
+              </div>
+              <div className="text-right">
+                <div className="text-2xl font-bold">0/6</div>
+                <div className="text-sm text-muted-foreground">Tasks Complete</div>
+              </div>
             </div>
-            <div className="text-sm text-muted-foreground">Tasks Complete</div>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+              {onboardingBlocks.slice(0, 3).map((block) => (
+                <div key={block.id} className="interactive-card group opacity-60">
+                  <div className="flex items-start justify-between mb-4">
+                    <div className="flex items-center gap-4">
+                      <div className="p-4 rounded-xl bg-gradient-to-br from-[#FF389A]/30 to-[#FF389A]/10 border border-[#FF389A]/30 backdrop-blur-sm">
+                        {block.icon}
+                      </div>
+                      <div>
+                        <h3 className="text-2xl font-extrabold text-white">
+                          {block.title}
+                        </h3>
+                        <Badge className="bg-gray-600/20 text-gray-400 border-gray-600/30 font-semibold">
+                          Locked
+                        </Badge>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
           </div>
-        </div>
-      </div>
+        </LockedOverlay>
+      ) : (
+        <>
+          <div className="space-y-6">
+            <div className="flex items-center justify-between">
+              <div>
+                <h2 className="text-2xl font-bold">Your Onboarding Progress</h2>
+                <p className="text-muted-foreground">Complete these essential setup tasks to get the most out of your platform</p>
+              </div>
+              <div className="text-right">
+                <div className="text-2xl font-bold">
+                  {onboardingBlocks.filter(block => block.status === 'completed').length}/{onboardingBlocks.length}
+                </div>
+                <div className="text-sm text-muted-foreground">Tasks Complete</div>
+              </div>
+            </div>
+          </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        {onboardingBlocks.map((block) => (
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {onboardingBlocks.map((block) => (
           <Dialog key={block.id} onOpenChange={() => setCurrentModalStep(0)}>
             <DialogTrigger asChild>
               <div className="interactive-card group">
@@ -573,13 +641,31 @@ export default function OnboardingProgressSection() {
               onStepChange={setCurrentModalStep}
             />
           </Dialog>
-        ))}
-      </div>
-
-
+            ))}
+          </div>
+        </>
+      )}
 
       {/* Progress Till Go Live Section - Clean Stepper Design */}
-      <div className="space-y-8 mt-16">
+      {isLocked ? (
+        <LockedOverlay title="Progress Till Go Live">
+          <div className="space-y-8 mt-16 opacity-40 pointer-events-none">
+            <div className="flex items-center justify-between">
+              <div className="flex items-center space-x-3">
+                <h2 className="text-3xl font-bold text-white">Progress Till Go Live!</h2>
+              </div>
+              <div className="text-right">
+                <div className="text-4xl font-bold text-[#FF389A]">0%</div>
+                <div className="text-sm text-gray-300">Complete</div>
+              </div>
+            </div>
+            <div className="w-full bg-gray-700 rounded-full h-3 overflow-hidden opacity-50">
+              <div className="h-full bg-gradient-to-r from-[#FF389A] to-[#E6329C] w-0"></div>
+            </div>
+          </div>
+        </LockedOverlay>
+      ) : (
+        <div className="space-y-8 mt-16">
         <div className="flex items-center justify-between">
           <div className="flex items-center space-x-3">
             <h2 className="text-3xl font-bold text-white">Progress Till Go Live!</h2>
