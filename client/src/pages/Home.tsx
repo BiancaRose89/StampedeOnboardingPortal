@@ -11,7 +11,7 @@ import { ChartLine, User, LogOut, Rocket, BookOpen, HelpCircle, Users } from "lu
 import { ThemeToggle } from "@/components/ThemeToggle";
 import { signIn, signOutUser } from "@/lib/firebase";
 import { useAuth } from "@/components/AuthProvider";
-import OnboardingProgressSection from "@/components/OnboardingProgressSection";
+import LockedStateDemo from "@/components/LockedStateDemo";
 import PlatformTipsSection from "@/components/PlatformTipsSection";
 import KnowledgeBaseSection from "@/components/KnowledgeBaseSection";
 import ChatWidget from "@/components/ChatWidget";
@@ -220,9 +220,9 @@ export default function Home() {
       {/* Main Content */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         <div className="space-y-16">
-          {/* Section 1: Your Onboarding Progress */}
-          <section id="onboarding-progress">
-            <OnboardingProgressSection />
+          {/* Section 1: Locked State Demo */}
+          <section id="locked-state-demo">
+            <LockedStateDemo />
           </section>
 
           <Separator className="my-16" />
