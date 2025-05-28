@@ -25,7 +25,7 @@ interface OnboardingBlock {
     articles: Array<{
       title: string;
       url: string;
-      type: 'guide' | 'tutorial' | 'reference';
+      type: 'guide' | 'tutorial' | 'reference' | 'template';
     }>;
   }>;
 }
@@ -499,7 +499,6 @@ export default function OnboardingProgressSection() {
             </div>
           </div>
         </div>
-      </div>
       </div>
     </div>
   );
