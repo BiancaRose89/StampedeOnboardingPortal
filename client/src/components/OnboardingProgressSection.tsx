@@ -497,46 +497,7 @@ export default function OnboardingProgressSection() {
         </div>
       </div>
 
-      {/* Master Your Platform Section */}
-      <div className="space-y-6">
-        <div className="text-center">
-          <h2 className="text-2xl font-bold text-white mb-2">Master Your Platform</h2>
-          <p className="text-gray-300">Comprehensive training and resources for every feature and capability</p>
-        </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {onboardingBlocks.map((block) => (
-            <Card key={block.id} className="bg-[#16173F] border-[#FF389A]/20 hover:border-[#FF389A]/50 transition-all duration-300 cursor-pointer group">
-              <CardHeader className="pb-3">
-                <div className="flex items-center space-x-3">
-                  <div className="p-3 bg-gradient-to-br from-[#FF389A] to-[#E6329C] rounded-xl shadow-lg">
-                    {block.icon}
-                  </div>
-                  <div>
-                    <CardTitle className="text-white group-hover:text-[#FF389A] transition-colors">
-                      {block.title}
-                    </CardTitle>
-                  </div>
-                </div>
-              </CardHeader>
-              <CardContent>
-                <p className="text-gray-300 text-sm mb-4">{block.description}</p>
-                <div className="space-y-2">
-                  {block.steps.slice(0, 2).map((step) => (
-                    <div key={step.id} className="flex items-center justify-between p-2 bg-[#16173F] rounded-lg">
-                      <span className="text-sm text-gray-300">{step.title}</span>
-                      <ChevronRight className="h-4 w-4 text-[#FF389A]" />
-                    </div>
-                  ))}
-                </div>
-                <Button className="w-full mt-4 bg-[#FF389A] hover:bg-[#E6329C] text-white">
-                  Explore Features
-                </Button>
-              </CardContent>
-            </Card>
-          ))}
-        </div>
-      </div>
 
       {/* Go Readiness Section */}
       <div className="space-y-6">
