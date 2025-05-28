@@ -4,8 +4,7 @@ import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Progress } from '@/components/ui/progress';
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
-import { PlayCircle, CheckCircle2, Clock, Users, Palette, Shield, Settings, FileText, Video, Wifi, Star, Gift, Calendar, MessageSquare, Target, Zap, Heart } from 'lucide-react';
-import OnboardingFlowChart from './OnboardingFlowChart';
+import { PlayCircle, CheckCircle2, Clock, Users, Palette, Shield, Settings, FileText, Video, Wifi, Star, Gift, Calendar, MessageSquare, Target, Zap, Heart, ChevronRight, Play, BookOpen, Image } from 'lucide-react';
 
 interface OnboardingBlock {
   id: string;
@@ -347,9 +346,6 @@ export default function OnboardingProgressSection() {
 
   return (
     <div className="space-y-16">
-      {/* Onboarding Flow Chart */}
-      <OnboardingFlowChart />
-
       {/* Your Onboarding Progress Section */}
       <div className="space-y-6">
         <div className="flex items-center justify-between">
@@ -496,6 +492,138 @@ export default function OnboardingProgressSection() {
                 <h5 className="font-semibold text-white">Customer Launch</h5>
                 <p className="text-gray-300 text-sm">Begin serving customers with new system</p>
               </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* Master Your Platform Section */}
+      <div className="space-y-6">
+        <div className="text-center">
+          <h2 className="text-2xl font-bold text-white mb-2">Master Your Platform</h2>
+          <p className="text-gray-300">Comprehensive training and resources for every feature and capability</p>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {onboardingBlocks.map((block) => (
+            <Card key={block.id} className="bg-[#1A1A2E] border-[#FF389A]/20 hover:border-[#FF389A]/50 transition-all duration-300 cursor-pointer group">
+              <CardHeader className="pb-3">
+                <div className="flex items-center space-x-3">
+                  <div className="p-3 bg-gradient-to-br from-[#FF389A] to-[#E6329C] rounded-xl shadow-lg">
+                    {block.icon}
+                  </div>
+                  <div>
+                    <CardTitle className="text-white group-hover:text-[#FF389A] transition-colors">
+                      {block.title}
+                    </CardTitle>
+                  </div>
+                </div>
+              </CardHeader>
+              <CardContent>
+                <p className="text-gray-300 text-sm mb-4">{block.description}</p>
+                <div className="space-y-2">
+                  {block.steps.slice(0, 2).map((step) => (
+                    <div key={step.id} className="flex items-center justify-between p-2 bg-[#0D0D24] rounded-lg">
+                      <span className="text-sm text-gray-300">{step.title}</span>
+                      <ChevronRight className="h-4 w-4 text-[#FF389A]" />
+                    </div>
+                  ))}
+                </div>
+                <Button className="w-full mt-4 bg-[#FF389A] hover:bg-[#E6329C] text-white">
+                  Explore Features
+                </Button>
+              </CardContent>
+            </Card>
+          ))}
+        </div>
+      </div>
+
+      {/* Go Readiness Section */}
+      <div className="space-y-6">
+        <div className="text-center">
+          <h2 className="text-2xl font-bold text-white mb-2">Go Readiness</h2>
+          <p className="text-gray-300">Step-by-step checklist to ensure you're ready to launch</p>
+        </div>
+
+        <div className="max-w-4xl mx-auto">
+          <div className="bg-gradient-to-r from-[#FF389A]/10 to-transparent rounded-2xl p-8 border border-[#FF389A]/20">
+            <div className="flex items-center justify-between mb-6">
+              <div>
+                <h3 className="text-xl font-bold text-white mb-2">Launch Readiness Checklist</h3>
+                <p className="text-gray-300">Complete these final steps to go live</p>
+              </div>
+              <div className="text-right">
+                <div className="text-3xl font-bold text-[#FF389A]">60%</div>
+                <div className="text-gray-300 text-sm">Ready</div>
+              </div>
+            </div>
+
+            <div className="space-y-4">
+              {[
+                { title: "Platform Setup", status: "completed", description: "Basic account and initial configuration" },
+                { title: "Feature Configuration", status: "current", description: "Configure essential business tools" },
+                { title: "Brand Customization", status: "pending", description: "Apply your brand styling and personalization" },
+                { title: "Testing & Review", status: "pending", description: "Test functionality and review setup" },
+                { title: "Customer Launch", status: "pending", description: "Begin serving customers with new system" }
+              ].map((step, index) => (
+                <Dialog key={index}>
+                  <DialogTrigger asChild>
+                    <div className="flex items-center justify-between p-4 bg-[#1A1A2E] rounded-xl border border-[#FF389A]/10 hover:border-[#FF389A]/30 cursor-pointer transition-all duration-300 group">
+                      <div className="flex items-center space-x-4">
+                        <div className={`w-8 h-8 rounded-full flex items-center justify-center ${
+                          step.status === 'completed' ? 'bg-[#FF389A]' : 
+                          step.status === 'current' ? 'bg-white' : 'bg-gray-600'
+                        }`}>
+                          {step.status === 'completed' ? (
+                            <CheckCircle2 className="h-5 w-5 text-white" />
+                          ) : step.status === 'current' ? (
+                            <Clock className="h-5 w-5 text-[#0D0D24]" />
+                          ) : (
+                            <span className="text-xs font-bold text-white">{index + 1}</span>
+                          )}
+                        </div>
+                        <div>
+                          <h4 className="font-semibold text-white group-hover:text-[#FF389A] transition-colors">
+                            {step.title}
+                          </h4>
+                          <p className="text-gray-400 text-sm">{step.description}</p>
+                        </div>
+                      </div>
+                      <ChevronRight className="h-5 w-5 text-[#FF389A] group-hover:translate-x-1 transition-transform" />
+                    </div>
+                  </DialogTrigger>
+                  <DialogContent className="bg-[#1A1A2E] border-[#FF389A]/30 text-white max-w-2xl">
+                    <DialogHeader>
+                      <DialogTitle className="text-[#FF389A]">{step.title}</DialogTitle>
+                      <DialogDescription className="text-gray-300">
+                        {step.description}
+                      </DialogDescription>
+                    </DialogHeader>
+                    <div className="space-y-6">
+                      <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                        <div className="bg-[#0D0D24] p-4 rounded-lg border border-[#FF389A]/20">
+                          <Play className="h-6 w-6 text-[#FF389A] mb-2" />
+                          <h5 className="font-semibold text-white mb-1">Video Guide</h5>
+                          <p className="text-gray-400 text-sm">Step-by-step tutorial</p>
+                        </div>
+                        <div className="bg-[#0D0D24] p-4 rounded-lg border border-[#FF389A]/20">
+                          <BookOpen className="h-6 w-6 text-[#FF389A] mb-2" />
+                          <h5 className="font-semibold text-white mb-1">Articles</h5>
+                          <p className="text-gray-400 text-sm">Detailed instructions</p>
+                        </div>
+                        <div className="bg-[#0D0D24] p-4 rounded-lg border border-[#FF389A]/20">
+                          <Image className="h-6 w-6 text-[#FF389A] mb-2" />
+                          <h5 className="font-semibold text-white mb-1">Visual Aid</h5>
+                          <p className="text-gray-400 text-sm">Screenshots & diagrams</p>
+                        </div>
+                      </div>
+                      <Button className="w-full bg-[#FF389A] hover:bg-[#E6329C] text-white">
+                        Start This Step
+                      </Button>
+                    </div>
+                  </DialogContent>
+                </Dialog>
+              ))}
             </div>
           </div>
         </div>
