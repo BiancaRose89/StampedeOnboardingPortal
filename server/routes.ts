@@ -69,7 +69,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
 
   app.post("/api/progress", async (req, res) => {
     try {
-      const progressData = updateProgressSchema.parse(req.body);
+      const progressData = insertProgressSchema.parse(req.body);
       // In a real implementation, you'd get the user ID from the session
       const userId = 1; // Placeholder
       

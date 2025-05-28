@@ -5,13 +5,15 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Card, CardContent } from "@/components/ui/card";
 import { useToast } from "@/hooks/use-toast";
-import { ExternalLink, ChartLine, User, LogOut, BookOpen } from "lucide-react";
+import { Badge } from "@/components/ui/badge";
+import { Separator } from "@/components/ui/separator";
+import { ChartLine, User, LogOut, Rocket, BookOpen, HelpCircle } from "lucide-react";
 import { ThemeToggle } from "@/components/ThemeToggle";
 import { signIn, signOutUser } from "@/lib/firebase";
 import { useAuth } from "@/components/AuthProvider";
-import GuideViewer from "@/components/GuideViewer";
-import ResourcesSection from "@/components/ResourcesSection";
-import ProgressTracker from "@/components/ProgressTracker";
+import OnboardingProgressSection from "@/components/OnboardingProgressSection";
+import MasterPlatformSection from "@/components/MasterPlatformSection";
+import KnowledgeBaseSection from "@/components/KnowledgeBaseSection";
 import ChatWidget from "@/components/ChatWidget";
 import { APP_CONFIG } from "@/lib/config";
 
@@ -158,40 +160,32 @@ export default function Home() {
             
             <div className="space-y-6">
               <h1 className="text-5xl md:text-6xl font-bold tracking-tight leading-tight">
-                Welcome to the
+                Master Your Platform
                 <br />
                 <span className="bg-gradient-to-r from-white to-blue-100 bg-clip-text text-transparent">
-                  Stampede Onboarding Journey
+                  in Minutes, Not Days
                 </span>
               </h1>
               
               <p className="text-xl md:text-2xl text-blue-100 max-w-4xl mx-auto leading-relaxed">
-                Driving new and repeat customers for hospitality. Your complete ecosystem online and in-person, 
-                connecting marketing and operations with expert guidance every step of the way.
+                Complete your setup, explore powerful features, and get expert support—all in one seamless 
+                self-service experience designed to get you up and running quickly.
               </p>
             </div>
 
             <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
               <Button
                 onClick={() => {
-                  // Scroll to the guides section and select the overview tab
-                  const guidesSection = document.querySelector('[role="tablist"]');
-                  if (guidesSection) {
-                    guidesSection.scrollIntoView({ behavior: 'smooth' });
-                    // Trigger the overview tab (it's already the default)
-                    setTimeout(() => {
-                      const overviewTab = document.querySelector('[value="overview"]');
-                      if (overviewTab) {
-                        (overviewTab as HTMLElement).click();
-                      }
-                    }, 500);
+                  const onboardingSection = document.getElementById('onboarding-progress');
+                  if (onboardingSection) {
+                    onboardingSection.scrollIntoView({ behavior: 'smooth' });
                   }
                 }}
                 size="lg"
                 className="bg-white text-[#0D0D25] hover:bg-[#FA58A8] hover:text-white px-8 py-4 font-semibold shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 transition-all duration-200"
               >
-                <BookOpen className="h-5 w-5 mr-2" />
-                Start Your Journey
+                <Rocket className="h-5 w-5 mr-2" />
+                Start Setup
               </Button>
               
               {!firebaseUser && (
@@ -206,35 +200,75 @@ export default function Home() {
               )}
             </div>
 
-            {/* Stats or features */}
+            {/* Enhanced feature highlights */}
             <div className="pt-8 grid grid-cols-1 md:grid-cols-3 gap-8 max-w-4xl mx-auto">
               <div className="text-center">
-                <div className="text-3xl font-bold mb-2">3</div>
-                <div className="text-blue-200">Interactive Guides</div>
+                <div className="flex items-center justify-center mb-3">
+                  <Rocket className="h-8 w-8 text-green-400" />
+                </div>
+                <div className="text-2xl font-bold mb-2">Quick Setup</div>
+                <div className="text-blue-200">Interactive step-by-step guidance</div>
               </div>
               <div className="text-center">
-                <div className="text-3xl font-bold mb-2">100%</div>
-                <div className="text-blue-200">Expert Support</div>
+                <div className="flex items-center justify-center mb-3">
+                  <BookOpen className="h-8 w-8 text-blue-400" />
+                </div>
+                <div className="text-2xl font-bold mb-2">Expert Training</div>
+                <div className="text-blue-200">Comprehensive video tutorials</div>
               </div>
               <div className="text-center">
-                <div className="text-3xl font-bold mb-2">24/7</div>
-                <div className="text-blue-200">Knowledge Base</div>
+                <div className="flex items-center justify-center mb-3">
+                  <HelpCircle className="h-8 w-8 text-purple-400" />
+                </div>
+                <div className="text-2xl font-bold mb-2">24/7 Support</div>
+                <div className="text-blue-200">Instant help when you need it</div>
               </div>
             </div>
           </div>
         </div>
       </section>
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 space-y-16">
-        {/* Progress Tracker */}
-        <ProgressTracker onStepComplete={handleStepComplete} />
+      {/* Main Content */}
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+        <div className="space-y-16">
+          {/* Section 1: Your Onboarding Progress */}
+          <section id="onboarding-progress">
+            <OnboardingProgressSection />
+          </section>
 
-        {/* Onboarding Guides */}
-        <GuideViewer onGuideView={handleGuideView} />
+          <Separator className="my-16" />
 
-        {/* Resources Section */}
-        <ResourcesSection onContactSupport={handleContactSupport} />
+          {/* Section 2: Master Your Platform */}
+          <section id="master-platform">
+            <MasterPlatformSection />
+          </section>
+
+          <Separator className="my-16" />
+
+          {/* Section 3: Knowledge Base & Resources */}
+          <section id="knowledge-base">
+            <KnowledgeBaseSection />
+          </section>
+        </div>
       </div>
+
+      {/* Footer */}
+      <footer className="border-t bg-white mt-16">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+          <div className="flex flex-col md:flex-row justify-between items-center gap-4">
+            <div className="text-center md:text-left">
+              <p className="text-gray-600">
+                © 2024 Stampede. Built for seamless onboarding experiences.
+              </p>
+            </div>
+            <div className="flex items-center gap-4">
+              <Button variant="ghost" size="sm" onClick={handleContactSupport}>Contact Support</Button>
+              <Button variant="ghost" size="sm">Documentation</Button>
+              <Button variant="ghost" size="sm">Status</Button>
+            </div>
+          </div>
+        </div>
+      </footer>
 
       {/* Auth Modal */}
       <Dialog open={showAuthModal} onOpenChange={setShowAuthModal}>
