@@ -506,7 +506,7 @@ export default function OnboardingProgressSection() {
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {onboardingBlocks.map((block) => (
-            <Card key={block.id} className="bg-[#1A1A2E] border-[#FF389A]/20 hover:border-[#FF389A]/50 transition-all duration-300 cursor-pointer group">
+            <Card key={block.id} className="bg-[#16173F] border-[#FF389A]/20 hover:border-[#FF389A]/50 transition-all duration-300 cursor-pointer group">
               <CardHeader className="pb-3">
                 <div className="flex items-center space-x-3">
                   <div className="p-3 bg-gradient-to-br from-[#FF389A] to-[#E6329C] rounded-xl shadow-lg">
@@ -523,7 +523,7 @@ export default function OnboardingProgressSection() {
                 <p className="text-gray-300 text-sm mb-4">{block.description}</p>
                 <div className="space-y-2">
                   {block.steps.slice(0, 2).map((step) => (
-                    <div key={step.id} className="flex items-center justify-between p-2 bg-[#0D0D24] rounded-lg">
+                    <div key={step.id} className="flex items-center justify-between p-2 bg-[#16173F] rounded-lg">
                       <span className="text-sm text-gray-300">{step.title}</span>
                       <ChevronRight className="h-4 w-4 text-[#FF389A]" />
                     </div>
@@ -573,7 +573,7 @@ export default function OnboardingProgressSection() {
                     ? 'bg-[#FF389A]/10 border-[#FF389A] shadow-lg shadow-[#FF389A]/20' 
                     : block.status === 'current'
                     ? 'bg-white/5 border-white/30 shadow-lg shadow-white/10'
-                    : 'bg-[#1A1A2E] border-[#FF389A]/20 hover:border-[#FF389A]/50'
+                    : 'bg-[#16173F] border-[#FF389A]/20 hover:border-[#FF389A]/50'
                   }
                 `}>
                   <CardContent className="p-6 text-center">
@@ -609,7 +609,7 @@ export default function OnboardingProgressSection() {
                   </CardContent>
                 </Card>
               </DialogTrigger>
-              <DialogContent className="bg-[#1A1A2E] border-[#FF389A]/30 text-white max-w-2xl">
+              <DialogContent className="bg-[#16173F] border-[#FF389A]/30 text-white max-w-2xl">
                 <DialogHeader>
                   <DialogTitle className="text-[#FF389A]">{block.title}</DialogTitle>
                   <DialogDescription className="text-gray-300">
@@ -618,17 +618,17 @@ export default function OnboardingProgressSection() {
                 </DialogHeader>
                 <div className="space-y-6">
                   <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                    <div className="bg-[#0D0D24] p-4 rounded-lg border border-[#FF389A]/20">
+                    <div className="bg-[#16173F] p-4 rounded-lg border border-[#FF389A]/20">
                       <Play className="h-6 w-6 text-[#FF389A] mb-2" />
                       <h5 className="font-semibold text-white mb-1">Video Guide</h5>
                       <p className="text-gray-400 text-sm">Step-by-step tutorial</p>
                     </div>
-                    <div className="bg-[#0D0D24] p-4 rounded-lg border border-[#FF389A]/20">
+                    <div className="bg-[#16173F] p-4 rounded-lg border border-[#FF389A]/20">
                       <BookOpen className="h-6 w-6 text-[#FF389A] mb-2" />
                       <h5 className="font-semibold text-white mb-1">Articles</h5>
                       <p className="text-gray-400 text-sm">Detailed instructions</p>
                     </div>
-                    <div className="bg-[#0D0D24] p-4 rounded-lg border border-[#FF389A]/20">
+                    <div className="bg-[#16173F] p-4 rounded-lg border border-[#FF389A]/20">
                       <Image className="h-6 w-6 text-[#FF389A] mb-2" />
                       <h5 className="font-semibold text-white mb-1">Visual Aid</h5>
                       <p className="text-gray-400 text-sm">Screenshots & diagrams</p>
