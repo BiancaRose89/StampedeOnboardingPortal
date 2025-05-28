@@ -4,7 +4,7 @@ import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Progress } from '@/components/ui/progress';
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
-import { PlayCircle, CheckCircle2, Clock, Users, Palette, Shield, Settings, FileText, Video, Wifi, Star, Gift, Calendar, MessageSquare, Target, Zap, Heart, ChevronRight, Play, BookOpen, Image, Info, ArrowRight } from 'lucide-react';
+import { PlayCircle, CheckCircle2, Clock, Users, Palette, Shield, Settings, FileText, Video, Wifi, Star, Gift, Calendar, MessageSquare, Target, Zap, Heart, ChevronRight, Play, BookOpen, Image, Info, ArrowRight, X } from 'lucide-react';
 import mobileMockupsPath from "@assets/image_1748461158920.png";
 
 interface OnboardingBlock {
@@ -311,6 +311,7 @@ function OnboardingModal({ block, currentStep, onStepChange }: OnboardingModalPr
 
 export default function OnboardingProgressSection() {
   const [currentModalStep, setCurrentModalStep] = useState(0);
+  const [showExamplesModal, setShowExamplesModal] = useState(false);
 
   const getStatusIcon = (status: OnboardingBlock['status']) => {
     switch (status) {
@@ -365,14 +366,113 @@ export default function OnboardingProgressSection() {
               </p>
             </div>
             <div className="flex flex-wrap gap-4">
-              <Button className="bg-[#FF389A] hover:bg-[#E6329C] text-white px-8 py-3 text-lg font-bold shadow-lg">
-                Start Your Journey
-                <ArrowRight className="ml-2 h-5 w-5" />
-              </Button>
-              <Button variant="outline" className="border-white/30 text-white hover:bg-white/10 px-8 py-3 text-lg font-bold">
-                View Examples
-                <Play className="ml-2 h-5 w-5" />
-              </Button>
+              <Dialog open={showExamplesModal} onOpenChange={setShowExamplesModal}>
+                <DialogTrigger asChild>
+                  <Button variant="outline" className="border-white/30 text-white hover:bg-white/10 px-8 py-3 text-lg font-bold">
+                    View Examples
+                    <Play className="ml-2 h-5 w-5" />
+                  </Button>
+                </DialogTrigger>
+                <DialogContent className="bg-[#0D0D24] border-[#FF389A]/30 text-white max-w-5xl max-h-[80vh] overflow-y-auto">
+                  <DialogHeader>
+                    <div className="flex items-center justify-between">
+                      <DialogTitle className="text-[#FF389A] text-2xl font-bold">Customer Success Examples</DialogTitle>
+                      <Button 
+                        variant="ghost" 
+                        size="sm" 
+                        onClick={() => setShowExamplesModal(false)}
+                        className="text-white hover:text-[#FF389A]"
+                      >
+                        <X className="h-5 w-5" />
+                      </Button>
+                    </div>
+                  </DialogHeader>
+                  
+                  <div className="space-y-8 mt-6">
+                    {/* Customer Examples Grid */}
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                      
+                      {/* The Farmer's Dog - Loyalty Scheme */}
+                      <div className="space-y-4">
+                        <h3 className="text-xl font-bold text-white">The Farmer's Dog - Loyalty Program</h3>
+                        <div className="bg-gradient-to-br from-[#FF389A]/10 to-[#FF389A]/5 rounded-xl p-6 border border-[#FF389A]/20">
+                          <div className="aspect-video bg-gradient-to-br from-orange-100 to-orange-50 rounded-lg flex items-center justify-center mb-4">
+                            <div className="text-center text-gray-600">
+                              <Star className="h-12 w-12 mx-auto mb-2 text-orange-500" />
+                              <p className="font-semibold">Loyalty Dashboard Preview</p>
+                              <p className="text-sm">Points tracking & rewards</p>
+                            </div>
+                          </div>
+                          <p className="text-gray-300 text-sm">
+                            Custom loyalty program with point accumulation for repeat purchases and referral bonuses.
+                          </p>
+                        </div>
+                      </div>
+
+                      {/* Lane7 - Booking System */}
+                      <div className="space-y-4">
+                        <h3 className="text-xl font-bold text-white">Lane7 - Booking Confirmation</h3>
+                        <div className="bg-gradient-to-br from-[#FF389A]/10 to-[#FF389A]/5 rounded-xl p-6 border border-[#FF389A]/20">
+                          <div className="aspect-video bg-gradient-to-br from-red-100 to-red-50 rounded-lg flex items-center justify-center mb-4">
+                            <div className="text-center text-gray-600">
+                              <Calendar className="h-12 w-12 mx-auto mb-2 text-red-500" />
+                              <p className="font-semibold">Booking Confirmation</p>
+                              <p className="text-sm">Automated confirmations</p>
+                            </div>
+                          </div>
+                          <p className="text-gray-300 text-sm">
+                            Streamlined bowling lane reservations with instant confirmations and reminder notifications.
+                          </p>
+                        </div>
+                      </div>
+
+                      {/* Best Western - Email Template */}
+                      <div className="space-y-4">
+                        <h3 className="text-xl font-bold text-white">Best Western - Email Campaign</h3>
+                        <div className="bg-gradient-to-br from-[#FF389A]/10 to-[#FF389A]/5 rounded-xl p-6 border border-[#FF389A]/20">
+                          <div className="aspect-video bg-gradient-to-br from-blue-100 to-blue-50 rounded-lg flex items-center justify-center mb-4">
+                            <div className="text-center text-gray-600">
+                              <MessageSquare className="h-12 w-12 mx-auto mb-2 text-blue-500" />
+                              <p className="font-semibold">Email Template</p>
+                              <p className="text-sm">Branded communications</p>
+                            </div>
+                          </div>
+                          <p className="text-gray-300 text-sm">
+                            Professional email templates for guest communications and promotional campaigns.
+                          </p>
+                        </div>
+                      </div>
+
+                      {/* WiFi Marketing Example */}
+                      <div className="space-y-4">
+                        <h3 className="text-xl font-bold text-white">WiFi Marketing Portal</h3>
+                        <div className="bg-gradient-to-br from-[#FF389A]/10 to-[#FF389A]/5 rounded-xl p-6 border border-[#FF389A]/20">
+                          <div className="aspect-video bg-gradient-to-br from-green-100 to-green-50 rounded-lg flex items-center justify-center mb-4">
+                            <div className="text-center text-gray-600">
+                              <Wifi className="h-12 w-12 mx-auto mb-2 text-green-500" />
+                              <p className="font-semibold">Guest WiFi Portal</p>
+                              <p className="text-sm">Branded landing page</p>
+                            </div>
+                          </div>
+                          <p className="text-gray-300 text-sm">
+                            Custom splash pages that capture guest information while providing WiFi access.
+                          </p>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div className="text-center pt-6 border-t border-gray-600/30">
+                      <p className="text-gray-300 mb-4">
+                        Ready to create your own branded customer experiences?
+                      </p>
+                      <Button className="bg-[#FF389A] hover:bg-[#E6329C] text-white px-8 py-3 font-bold">
+                        Start Building
+                        <ArrowRight className="ml-2 h-5 w-5" />
+                      </Button>
+                    </div>
+                  </div>
+                </DialogContent>
+              </Dialog>
             </div>
           </div>
           
@@ -382,12 +482,17 @@ export default function OnboardingProgressSection() {
               <img 
                 src={mobileMockupsPath} 
                 alt="Mobile app mockups showing The Farmer's Dog, Lane7, and Best Western branded implementations"
-                className="mobile-mockup max-w-full h-auto object-contain"
+                className="mobile-mockup max-w-full h-auto object-contain mix-blend-screen filter brightness-110 contrast-110"
+                style={{
+                  filter: 'drop-shadow(0 20px 40px rgba(255, 56, 154, 0.3)) brightness(1.1) contrast(1.1)',
+                  mixBlendMode: 'screen'
+                }}
               />
             </div>
-            {/* Floating elements for visual interest */}
-            <div className="absolute -top-6 -right-6 w-24 h-24 bg-[#FF389A]/20 rounded-full blur-xl animate-pulse"></div>
-            <div className="absolute -bottom-4 -left-4 w-16 h-16 bg-white/10 rounded-full blur-lg animate-pulse delay-1000"></div>
+            {/* Enhanced floating elements for visual interest */}
+            <div className="absolute -top-8 -right-8 w-32 h-32 bg-gradient-to-br from-[#FF389A]/30 to-[#FF389A]/10 rounded-full blur-2xl animate-pulse"></div>
+            <div className="absolute -bottom-6 -left-6 w-20 h-20 bg-gradient-to-br from-white/20 to-white/5 rounded-full blur-xl animate-pulse delay-1000"></div>
+            <div className="absolute top-1/2 -right-4 w-16 h-16 bg-gradient-to-br from-[#FF389A]/20 to-transparent rounded-full blur-lg animate-pulse delay-500"></div>
           </div>
         </div>
       </div>
