@@ -541,91 +541,106 @@ export default function OnboardingProgressSection() {
       {/* Go Readiness Section */}
       <div className="space-y-6">
         <div className="text-center">
-          <h2 className="text-2xl font-bold text-white mb-2">Go Readiness</h2>
-          <p className="text-gray-300">Step-by-step checklist to ensure you're ready to launch</p>
+          <h2 className="text-2xl font-bold text-white mb-2">What does "Go Live" mean?</h2>
         </div>
 
-        <div className="max-w-4xl mx-auto">
-          <div className="bg-gradient-to-r from-[#FF389A]/10 to-transparent rounded-2xl p-8 border border-[#FF389A]/20">
-            <div className="flex items-center justify-between mb-6">
-              <div>
-                <h3 className="text-xl font-bold text-white mb-2">Launch Readiness Checklist</h3>
-                <p className="text-gray-300">Complete these final steps to go live</p>
-              </div>
-              <div className="text-right">
-                <div className="text-3xl font-bold text-[#FF389A]">60%</div>
-                <div className="text-gray-300 text-sm">Ready</div>
-              </div>
-            </div>
-
-            <div className="space-y-4">
-              {[
-                { title: "Platform Setup", status: "completed", description: "Basic account and initial configuration" },
-                { title: "Feature Configuration", status: "current", description: "Configure essential business tools" },
-                { title: "Brand Customization", status: "pending", description: "Apply your brand styling and personalization" },
-                { title: "Testing & Review", status: "pending", description: "Test functionality and review setup" },
-                { title: "Customer Launch", status: "pending", description: "Begin serving customers with new system" }
-              ].map((step, index) => (
-                <Dialog key={index}>
-                  <DialogTrigger asChild>
-                    <div className="flex items-center justify-between p-4 bg-[#1A1A2E] rounded-xl border border-[#FF389A]/10 hover:border-[#FF389A]/30 cursor-pointer transition-all duration-300 group">
-                      <div className="flex items-center space-x-4">
-                        <div className={`w-8 h-8 rounded-full flex items-center justify-center ${
-                          step.status === 'completed' ? 'bg-[#FF389A]' : 
-                          step.status === 'current' ? 'bg-white' : 'bg-gray-600'
-                        }`}>
-                          {step.status === 'completed' ? (
-                            <CheckCircle2 className="h-5 w-5 text-white" />
-                          ) : step.status === 'current' ? (
-                            <Clock className="h-5 w-5 text-[#0D0D24]" />
-                          ) : (
-                            <span className="text-xs font-bold text-white">{index + 1}</span>
-                          )}
-                        </div>
-                        <div>
-                          <h4 className="font-semibold text-white group-hover:text-[#FF389A] transition-colors">
-                            {step.title}
-                          </h4>
-                          <p className="text-gray-400 text-sm">{step.description}</p>
-                        </div>
-                      </div>
-                      <ChevronRight className="h-5 w-5 text-[#FF389A] group-hover:translate-x-1 transition-transform" />
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-6xl mx-auto">
+          {[
+            {
+              number: "1",
+              title: "Platform Ready",
+              description: "All core features configured and tested",
+              status: "completed"
+            },
+            {
+              number: "2", 
+              title: "Team Training",
+              description: "Staff onboarded and comfortable with tools",
+              status: "current"
+            },
+            {
+              number: "3",
+              title: "Customer Launch", 
+              description: "Begin serving customers with new system",
+              status: "pending"
+            }
+          ].map((block) => (
+            <Dialog key={block.number}>
+              <DialogTrigger asChild>
+                <Card className={`
+                  cursor-pointer transition-all duration-300 group border-2
+                  ${block.status === 'completed' 
+                    ? 'bg-[#FF389A]/10 border-[#FF389A] shadow-lg shadow-[#FF389A]/20' 
+                    : block.status === 'current'
+                    ? 'bg-white/5 border-white/30 shadow-lg shadow-white/10'
+                    : 'bg-[#1A1A2E] border-[#FF389A]/20 hover:border-[#FF389A]/50'
+                  }
+                `}>
+                  <CardContent className="p-6 text-center">
+                    <div className={`
+                      w-12 h-12 rounded-full mx-auto mb-4 flex items-center justify-center text-xl font-bold
+                      ${block.status === 'completed' 
+                        ? 'bg-[#FF389A] text-white' 
+                        : block.status === 'current'
+                        ? 'bg-white text-[#0D0D24]'
+                        : 'bg-gray-600 text-white'
+                      }
+                    `}>
+                      {block.status === 'completed' ? (
+                        <CheckCircle2 className="h-6 w-6" />
+                      ) : (
+                        block.number
+                      )}
                     </div>
-                  </DialogTrigger>
-                  <DialogContent className="bg-[#1A1A2E] border-[#FF389A]/30 text-white max-w-2xl">
-                    <DialogHeader>
-                      <DialogTitle className="text-[#FF389A]">{step.title}</DialogTitle>
-                      <DialogDescription className="text-gray-300">
-                        {step.description}
-                      </DialogDescription>
-                    </DialogHeader>
-                    <div className="space-y-6">
-                      <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                        <div className="bg-[#0D0D24] p-4 rounded-lg border border-[#FF389A]/20">
-                          <Play className="h-6 w-6 text-[#FF389A] mb-2" />
-                          <h5 className="font-semibold text-white mb-1">Video Guide</h5>
-                          <p className="text-gray-400 text-sm">Step-by-step tutorial</p>
-                        </div>
-                        <div className="bg-[#0D0D24] p-4 rounded-lg border border-[#FF389A]/20">
-                          <BookOpen className="h-6 w-6 text-[#FF389A] mb-2" />
-                          <h5 className="font-semibold text-white mb-1">Articles</h5>
-                          <p className="text-gray-400 text-sm">Detailed instructions</p>
-                        </div>
-                        <div className="bg-[#0D0D24] p-4 rounded-lg border border-[#FF389A]/20">
-                          <Image className="h-6 w-6 text-[#FF389A] mb-2" />
-                          <h5 className="font-semibold text-white mb-1">Visual Aid</h5>
-                          <p className="text-gray-400 text-sm">Screenshots & diagrams</p>
-                        </div>
-                      </div>
-                      <Button className="w-full bg-[#FF389A] hover:bg-[#E6329C] text-white">
-                        Start This Step
-                      </Button>
+                    <h3 className={`
+                      text-lg font-bold mb-2 group-hover:text-[#FF389A] transition-colors
+                      ${block.status === 'completed' 
+                        ? 'text-[#FF389A]' 
+                        : block.status === 'current'
+                        ? 'text-white'
+                        : 'text-white'
+                      }
+                    `}>
+                      {block.title}
+                    </h3>
+                    <p className="text-gray-300 text-sm">
+                      {block.description}
+                    </p>
+                  </CardContent>
+                </Card>
+              </DialogTrigger>
+              <DialogContent className="bg-[#1A1A2E] border-[#FF389A]/30 text-white max-w-2xl">
+                <DialogHeader>
+                  <DialogTitle className="text-[#FF389A]">{block.title}</DialogTitle>
+                  <DialogDescription className="text-gray-300">
+                    {block.description}
+                  </DialogDescription>
+                </DialogHeader>
+                <div className="space-y-6">
+                  <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                    <div className="bg-[#0D0D24] p-4 rounded-lg border border-[#FF389A]/20">
+                      <Play className="h-6 w-6 text-[#FF389A] mb-2" />
+                      <h5 className="font-semibold text-white mb-1">Video Guide</h5>
+                      <p className="text-gray-400 text-sm">Step-by-step tutorial</p>
                     </div>
-                  </DialogContent>
-                </Dialog>
-              ))}
-            </div>
-          </div>
+                    <div className="bg-[#0D0D24] p-4 rounded-lg border border-[#FF389A]/20">
+                      <BookOpen className="h-6 w-6 text-[#FF389A] mb-2" />
+                      <h5 className="font-semibold text-white mb-1">Articles</h5>
+                      <p className="text-gray-400 text-sm">Detailed instructions</p>
+                    </div>
+                    <div className="bg-[#0D0D24] p-4 rounded-lg border border-[#FF389A]/20">
+                      <Image className="h-6 w-6 text-[#FF389A] mb-2" />
+                      <h5 className="font-semibold text-white mb-1">Visual Aid</h5>
+                      <p className="text-gray-400 text-sm">Screenshots & diagrams</p>
+                    </div>
+                  </div>
+                  <Button className="w-full bg-[#FF389A] hover:bg-[#E6329C] text-white">
+                    Start This Step
+                  </Button>
+                </div>
+              </DialogContent>
+            </Dialog>
+          ))}
         </div>
       </div>
     </div>
