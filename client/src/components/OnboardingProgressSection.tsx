@@ -5,6 +5,7 @@ import { Badge } from '@/components/ui/badge';
 import { Progress } from '@/components/ui/progress';
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
 import { PlayCircle, CheckCircle2, Clock, Users, Palette, Shield, Settings, FileText, Video, Wifi, Star, Gift, Calendar, MessageSquare, Target, Zap, Heart, ChevronRight, Play, BookOpen, Image, Info, ArrowRight } from 'lucide-react';
+import mobileMockupsPath from "@assets/image_1748461158920.png";
 
 interface OnboardingBlock {
   id: string;
@@ -346,6 +347,51 @@ export default function OnboardingProgressSection() {
 
   return (
     <div className="space-y-16">
+      {/* Hero Section with Mobile Mockups */}
+      <div className="relative overflow-hidden rounded-3xl bg-gradient-to-r from-[#FF389A]/20 via-[#0D0D24] to-[#FF389A]/10 border border-[#FF389A]/30 p-8 lg:p-12">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+          <div className="space-y-6">
+            <div className="space-y-4">
+              <Badge className="bg-[#FF389A]/20 text-[#FF389A] border-[#FF389A]/30 font-semibold">
+                Real Customer Success Stories
+              </Badge>
+              <h1 className="text-4xl lg:text-5xl font-extrabold text-white leading-tight">
+                See Your Platform
+                <span className="block text-[#FF389A]">Come to Life</span>
+              </h1>
+              <p className="text-gray-300 text-lg leading-relaxed">
+                Discover how leading brands like The Farmer's Dog, Lane7, and Best Western 
+                create stunning customer experiences with our platform.
+              </p>
+            </div>
+            <div className="flex flex-wrap gap-4">
+              <Button className="bg-[#FF389A] hover:bg-[#E6329C] text-white px-8 py-3 text-lg font-bold shadow-lg">
+                Start Your Journey
+                <ArrowRight className="ml-2 h-5 w-5" />
+              </Button>
+              <Button variant="outline" className="border-white/30 text-white hover:bg-white/10 px-8 py-3 text-lg font-bold">
+                View Examples
+                <Play className="ml-2 h-5 w-5" />
+              </Button>
+            </div>
+          </div>
+          
+          {/* Mobile Mockups */}
+          <div className="relative">
+            <div className="flex justify-center items-end space-x-4 lg:space-x-6">
+              <img 
+                src={mobileMockupsPath} 
+                alt="Mobile app mockups showing The Farmer's Dog, Lane7, and Best Western branded implementations"
+                className="mobile-mockup max-w-full h-auto object-contain"
+              />
+            </div>
+            {/* Floating elements for visual interest */}
+            <div className="absolute -top-6 -right-6 w-24 h-24 bg-[#FF389A]/20 rounded-full blur-xl animate-pulse"></div>
+            <div className="absolute -bottom-4 -left-4 w-16 h-16 bg-white/10 rounded-full blur-lg animate-pulse delay-1000"></div>
+          </div>
+        </div>
+      </div>
+
       {/* Your Onboarding Progress Section */}
       <div className="space-y-6">
         <div className="flex items-center justify-between">

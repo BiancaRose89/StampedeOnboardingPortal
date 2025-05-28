@@ -39,28 +39,28 @@
 }
 
 .dark {
-  --background: 240 46% 16%; /* New background color #16173F */
+  --background: 246 59% 7%; /* New background color #0D0D24 */
   --foreground: 0 0% 98%; /* Crisp white text */
-  --muted: 240 46% 18%; /* Slightly lighter muted */
+  --muted: 246 59% 12%; /* Slightly lighter muted */
   --muted-foreground: 240 20% 75%; /* Light muted text */
-  --popover: 240 46% 16%; /* Match main background */
+  --popover: 246 59% 7%; /* Match main background */
   --popover-foreground: 0 0% 98%;
-  --card: 240 46% 20%; /* Slightly lighter card background */
+  --card: 246 59% 15%; /* Slightly lighter card background */
   --card-foreground: 0 0% 98%;
-  --border: 240 50% 25%; /* Adjusted borders */
-  --input: 240 46% 18%; /* Input backgrounds */
+  --border: 240 50% 20%; /* Adjusted borders */
+  --input: 246 59% 12%; /* Input backgrounds */
   --primary: 324 100% 62%; /* Pink as primary accent #FF389A */
   --primary-foreground: 0 0% 100%;
-  --secondary: 240 46% 22%; /* Adjusted secondary */
+  --secondary: 246 59% 18%; /* Adjusted secondary */
   --secondary-foreground: 0 0% 95%;
-  --accent: 240 46% 18%; /* Adjusted accent */
+  --accent: 246 59% 12%; /* Adjusted accent */
   --accent-foreground: 0 0% 98%;
   --destructive: 324 100% 62%; /* Pink destructive */
   --destructive-foreground: 0 0% 98%;
   --ring: 324 100% 62%; /* Pink focus ring */
   
   /* Brand colors - updated to new background */
-  --brand-navy: 240 46% 16%; /* #16173F */
+  --brand-navy: 246 59% 7%; /* #0D0D24 */
   --brand-pink: 324 100% 62%; /* #FF389A */
 }
 
@@ -70,7 +70,7 @@
   }
 
   body {
-    @apply font-sans antialiased bg-[#16173F] text-foreground;
+    @apply font-sans antialiased bg-[#0D0D24] text-foreground;
   }
 
   /* Custom scrollbar for webkit browsers */
@@ -203,6 +203,17 @@
   .interactive-card:hover {
     @apply transform -translate-y-3 border-[#FF389A]/50;
     box-shadow: 0 16px 48px rgba(255, 56, 154, 0.25), 0 0 0 2px rgba(255, 56, 154, 0.4);
+  }
+
+  /* Mobile mockup hover effects */
+  .mobile-mockup {
+    @apply transition-all duration-500 hover:scale-105;
+    filter: drop-shadow(0 10px 25px rgba(255, 56, 154, 0.3));
+  }
+
+  .mobile-mockup:hover {
+    filter: drop-shadow(0 20px 40px rgba(255, 56, 154, 0.4));
+    transform: translateY(-5px) scale(1.05);
   }
 
   /* Glowing text effects for navy and pink theme */
