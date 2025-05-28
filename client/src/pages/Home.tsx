@@ -234,10 +234,7 @@ export default function Home() {
 
           <Separator className="my-16" />
 
-          {/* Section 3: Knowledge Base & Resources */}
-          <section id="knowledge-base">
-            <KnowledgeBaseSection />
-          </section>
+
         </div>
       </div>
 

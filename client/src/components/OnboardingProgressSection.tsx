@@ -4,7 +4,8 @@ import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Progress } from '@/components/ui/progress';
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
-import { PlayCircle, CheckCircle2, Clock, Users, Palette, Shield, Settings, FileText, Video, Wifi, Star, Gift, Calendar, MessageSquare } from 'lucide-react';
+import { PlayCircle, CheckCircle2, Clock, Users, Palette, Shield, Settings, FileText, Video, Wifi, Star, Gift, Calendar, MessageSquare, Target, Zap, Heart } from 'lucide-react';
+import OnboardingFlowChart from './OnboardingFlowChart';
 
 interface OnboardingBlock {
   id: string;
@@ -75,20 +76,40 @@ const onboardingBlocks: OnboardingBlock[] = [
   {
     id: 'marketing',
     title: 'Marketing',
-    description: 'Set up automated marketing campaigns and customer engagement tools',
-    icon: <MessageSquare className="h-8 w-8 text-white" />,
+    description: 'Build powerful marketing campaigns that drive customer engagement and repeat business',
+    icon: <Target className="h-8 w-8 text-white" />,
     progress: 25,
     status: 'in-progress',
     estimatedTime: '30 minutes',
     difficulty: 'Intermediate',
-    videoUrl: 'https://example.com/marketing-setup',
+    videoUrl: 'https://h.stampede.ai/marketing-readiness',
     steps: [
       {
-        id: 'email-campaigns',
-        title: 'Email Campaigns',
-        description: 'Create automated email marketing sequences',
+        id: 'email-automation',
+        title: 'Email Marketing Automation',
+        description: 'Set up automated email sequences for welcome campaigns, birthday offers, and win-back campaigns',
         articles: [
-          { title: 'Email Marketing Strategy', url: '#', type: 'guide' }
+          { title: 'Welcome Email Sequences', url: '#', type: 'guide' },
+          { title: 'Birthday Campaign Setup', url: '#', type: 'tutorial' },
+          { title: 'Win-Back Email Strategies', url: '#', type: 'guide' }
+        ]
+      },
+      {
+        id: 'social-media',
+        title: 'Social Media Integration',
+        description: 'Connect your social accounts and automate posting for consistent brand presence',
+        articles: [
+          { title: 'Social Media Calendar', url: '#', type: 'template' },
+          { title: 'Instagram Integration Guide', url: '#', type: 'tutorial' }
+        ]
+      },
+      {
+        id: 'review-campaigns',
+        title: 'Review Generation Campaigns',
+        description: 'Automatically request reviews from satisfied customers to build your online reputation',
+        articles: [
+          { title: 'Review Request Templates', url: '#', type: 'template' },
+          { title: 'Timing Your Review Requests', url: '#', type: 'guide' }
         ]
       }
     ]
@@ -117,20 +138,40 @@ const onboardingBlocks: OnboardingBlock[] = [
   {
     id: 'loyalty',
     title: 'Loyalty',
-    description: 'Create customer loyalty programs and reward systems',
-    icon: <Gift className="h-8 w-8 text-white" />,
+    description: 'Build customer loyalty programs that increase repeat visits and customer lifetime value',
+    icon: <Heart className="h-8 w-8 text-white" />,
     progress: 0,
     status: 'not-started',
     estimatedTime: '25 minutes',
     difficulty: 'Intermediate',
-    videoUrl: 'https://example.com/loyalty-setup',
+    videoUrl: 'https://h.stampede.ai/loyalty',
     steps: [
       {
-        id: 'rewards-program',
-        title: 'Rewards Program',
-        description: 'Design your customer loyalty rewards',
+        id: 'loyalty-program-design',
+        title: 'Loyalty Program Design',
+        description: 'Create point-based rewards system with tiers and special perks for VIP customers',
         articles: [
-          { title: 'Loyalty Program Best Practices', url: '#', type: 'guide' }
+          { title: 'Points System Setup', url: '#', type: 'guide' },
+          { title: 'VIP Tier Benefits', url: '#', type: 'template' },
+          { title: 'Reward Redemption Rules', url: '#', type: 'guide' }
+        ]
+      },
+      {
+        id: 'referral-system',
+        title: 'Referral Program',
+        description: 'Reward customers for bringing friends and family to your business',
+        articles: [
+          { title: 'Referral Campaign Setup', url: '#', type: 'tutorial' },
+          { title: 'Referral Tracking Methods', url: '#', type: 'guide' }
+        ]
+      },
+      {
+        id: 'engagement-campaigns',
+        title: 'Engagement Campaigns',
+        description: 'Create special challenges and bonus point opportunities to keep customers active',
+        articles: [
+          { title: 'Birthday Bonus Campaigns', url: '#', type: 'template' },
+          { title: 'Seasonal Loyalty Events', url: '#', type: 'guide' }
         ]
       }
     ]
@@ -138,20 +179,40 @@ const onboardingBlocks: OnboardingBlock[] = [
   {
     id: 'bookings',
     title: 'Bookings',
-    description: 'Configure appointment scheduling and reservation management',
+    description: 'Set up table reservations and appointment scheduling for seamless customer booking experience',
     icon: <Calendar className="h-8 w-8 text-white" />,
     progress: 100,
     status: 'completed',
     estimatedTime: '35 minutes',
     difficulty: 'Advanced',
-    videoUrl: 'https://example.com/bookings-setup',
+    videoUrl: 'https://h.stampede.ai/table-bookings-readiness',
     steps: [
       {
-        id: 'calendar-setup',
-        title: 'Calendar Integration',
-        description: 'Connect your booking system with calendars',
+        id: 'table-management',
+        title: 'Table Management System',
+        description: 'Set up table layouts, capacity limits, and availability schedules for optimal seating',
         articles: [
-          { title: 'Booking System Guide', url: '#', type: 'guide' }
+          { title: 'Table Layout Configuration', url: '#', type: 'guide' },
+          { title: 'Capacity Management Rules', url: '#', type: 'guide' },
+          { title: 'Peak Hours Planning', url: '#', type: 'tutorial' }
+        ]
+      },
+      {
+        id: 'booking-automation',
+        title: 'Booking Automation',
+        description: 'Automate confirmations, reminders, and follow-up communications for reservations',
+        articles: [
+          { title: 'Confirmation Email Setup', url: '#', type: 'tutorial' },
+          { title: 'Reminder Scheduling', url: '#', type: 'guide' }
+        ]
+      },
+      {
+        id: 'payment-deposits',
+        title: 'Payment & Deposit Collection',
+        description: 'Collect deposits or full payments at booking time to reduce no-shows',
+        articles: [
+          { title: 'Deposit Collection Setup', url: '#', type: 'guide' },
+          { title: 'No-Show Prevention Strategies', url: '#', type: 'tutorial' }
         ]
       }
     ]
@@ -285,17 +346,23 @@ export default function OnboardingProgressSection() {
   };
 
   return (
-    <div className="space-y-6">
-      <div className="flex items-center justify-between">
-        <div>
-          <h2 className="text-2xl font-bold">Your Onboarding Progress</h2>
-          <p className="text-muted-foreground">Complete these essential setup tasks to get the most out of your platform</p>
-        </div>
-        <div className="text-right">
-          <div className="text-2xl font-bold">
-            {onboardingBlocks.filter(block => block.status === 'completed').length}/{onboardingBlocks.length}
+    <div className="space-y-16">
+      {/* Onboarding Flow Chart */}
+      <OnboardingFlowChart />
+
+      {/* Your Onboarding Progress Section */}
+      <div className="space-y-6">
+        <div className="flex items-center justify-between">
+          <div>
+            <h2 className="text-2xl font-bold">Your Onboarding Progress</h2>
+            <p className="text-muted-foreground">Complete these essential setup tasks to get the most out of your platform</p>
           </div>
-          <div className="text-sm text-muted-foreground">Tasks Complete</div>
+          <div className="text-right">
+            <div className="text-2xl font-bold">
+              {onboardingBlocks.filter(block => block.status === 'completed').length}/{onboardingBlocks.length}
+            </div>
+            <div className="text-sm text-muted-foreground">Tasks Complete</div>
+          </div>
         </div>
       </div>
 
@@ -432,6 +499,7 @@ export default function OnboardingProgressSection() {
             </div>
           </div>
         </div>
+      </div>
       </div>
     </div>
   );
