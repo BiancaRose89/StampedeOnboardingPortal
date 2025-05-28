@@ -208,20 +208,20 @@
     box-shadow: 0 16px 48px rgba(255, 0, 0, 0.25), 0 0 0 2px rgba(255, 0, 0, 0.4);
   }
 
-  /* Glowing text effects for red theme */
+  /* Glowing text effects for dark blue theme with red accents */
   .text-glow-white {
     color: #FFFFFF;
     text-shadow: 0 0 15px rgba(255, 255, 255, 0.5);
   }
 
+  .text-glow-red {
+    color: #FF0000;
+    text-shadow: 0 0 15px rgba(255, 0, 0, 0.6);
+  }
+
   .text-glow-gold {
     color: #FFD700;
     text-shadow: 0 0 15px rgba(255, 215, 0, 0.6);
-  }
-
-  .text-glow-silver {
-    color: #C0C0C0;
-    text-shadow: 0 0 15px rgba(192, 192, 192, 0.5);
   }
 
   /* Enhanced tab styling */

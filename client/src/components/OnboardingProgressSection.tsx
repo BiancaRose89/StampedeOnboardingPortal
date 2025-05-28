@@ -306,17 +306,17 @@ export default function OnboardingProgressSection() {
               <div className="interactive-card group">
                 <div className="flex items-start justify-between mb-4">
                   <div className="flex items-center gap-4">
-                    <div className="p-3 rounded-xl bg-gradient-to-br from-[#FF2E88]/20 to-[#8B5CF6]/20 border border-[#FF2E88]/20">
+                    <div className="p-4 rounded-xl bg-gradient-to-br from-red-600/30 to-red-800/20 border border-red-500/30 backdrop-blur-sm">
                       {block.icon}
                     </div>
                     <div>
-                      <h3 className="text-xl font-bold text-foreground group-hover:text-glow-pink transition-all duration-300">
+                      <h3 className="text-2xl font-extrabold text-white group-hover:text-glow-red transition-all duration-300">
                         {block.title}
                       </h3>
                       <div className="flex items-center gap-3 mt-2">
                         {getStatusIcon(block.status)}
-                        <span className="text-sm text-muted-foreground font-medium">{block.estimatedTime}</span>
-                        <Badge className={`${getDifficultyColor(block.difficulty)} shadow-sm`}>
+                        <span className="text-sm text-gray-300 font-medium">{block.estimatedTime}</span>
+                        <Badge className={`${getDifficultyColor(block.difficulty)} shadow-sm font-bold`}>
                           {block.difficulty}
                         </Badge>
                       </div>
@@ -328,26 +328,26 @@ export default function OnboardingProgressSection() {
                 
                 {block.status !== 'not-started' && (
                   <div className="space-y-3">
-                    <div className="flex justify-between items-center text-sm font-medium">
-                      <span className="text-foreground">Progress</span>
-                      <span className="text-glow-pink">{block.progress}%</span>
+                    <div className="flex justify-between items-center text-sm font-bold">
+                      <span className="text-white">Progress</span>
+                      <span className="text-glow-red">{block.progress}%</span>
                     </div>
                     <div className="relative">
-                      <Progress value={block.progress} className="h-3 bg-muted/50" />
+                      <Progress value={block.progress} className="h-3 bg-[#0D0D24]/80" />
                       <div 
-                        className="absolute top-0 left-0 h-3 rounded-full bg-gradient-to-r from-[#FF2E88] to-[#8B5CF6] transition-all duration-500"
-                        style={{ width: `${block.progress}%` }}
+                        className="absolute top-0 left-0 h-3 rounded-full bg-gradient-to-r from-red-600 to-red-500 transition-all duration-500 shadow-lg"
+                        style={{ width: `${block.progress}%`, boxShadow: '0 0 10px rgba(255, 0, 0, 0.5)' }}
                       />
                     </div>
                   </div>
                 )}
                 
-                <div className="flex items-center justify-between mt-6 pt-4 border-t border-border/50">
-                  <div className="flex items-center gap-2 text-xs text-muted-foreground">
-                    <div className="w-2 h-2 rounded-full bg-[#00D98B] animate-pulse" />
-                    Ready to start
+                <div className="flex items-center justify-between mt-6 pt-4 border-t border-red-500/30">
+                  <div className="flex items-center gap-2 text-xs text-gray-300 font-medium">
+                    <div className="w-3 h-3 rounded-full bg-red-500 animate-pulse shadow-lg" style={{boxShadow: '0 0 8px rgba(255, 0, 0, 0.6)'}} />
+                    Ready to launch
                   </div>
-                  <div className="text-[#FF2E88] group-hover:translate-x-1 transition-transform duration-300">
+                  <div className="text-red-500 group-hover:translate-x-2 transition-transform duration-300 text-lg font-bold">
                     →
                   </div>
                 </div>
