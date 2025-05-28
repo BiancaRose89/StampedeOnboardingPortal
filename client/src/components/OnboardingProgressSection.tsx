@@ -4,7 +4,7 @@ import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Progress } from '@/components/ui/progress';
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
-import { PlayCircle, CheckCircle2, Clock, Users, Palette, Shield, Settings, FileText, Video } from 'lucide-react';
+import { PlayCircle, CheckCircle2, Clock, Users, Palette, Shield, Settings, FileText, Video, Wifi, Star, Gift, Calendar, MessageSquare } from 'lucide-react';
 
 interface OnboardingBlock {
   id: string;
@@ -31,105 +31,127 @@ interface OnboardingBlock {
 
 const onboardingBlocks: OnboardingBlock[] = [
   {
-    id: 'custom-branding',
-    title: 'Custom Branding',
-    description: 'Set up your brand colors, logos, and visual identity across the platform',
-    icon: <Palette className="h-6 w-6" />,
-    progress: 75,
+    id: 'account-setup',
+    title: 'Account Setup',
+    description: 'Complete your basic account configuration and business profile setup',
+    icon: <Users className="h-8 w-8 text-white" />,
+    progress: 85,
     status: 'in-progress',
-    estimatedTime: '15 minutes',
+    estimatedTime: '10 minutes',
     difficulty: 'Beginner',
-    videoUrl: 'https://example.com/branding-main',
+    videoUrl: 'https://example.com/account-setup',
     steps: [
       {
-        id: 'upload-logo',
-        title: 'Upload Your Logo',
-        description: 'Add your company logo and favicon',
-        videoUrl: 'https://example.com/upload-logo',
+        id: 'business-profile',
+        title: 'Business Profile',
+        description: 'Set up your business information and contact details',
         articles: [
-          { title: 'Logo Guidelines', url: '#', type: 'guide' },
-          { title: 'Image Requirements', url: '#', type: 'reference' }
-        ]
-      },
-      {
-        id: 'color-scheme',
-        title: 'Configure Color Scheme',
-        description: 'Set primary and secondary brand colors',
-        videoUrl: 'https://example.com/color-scheme',
-        articles: [
-          { title: 'Color Theory Basics', url: '#', type: 'tutorial' },
-          { title: 'Accessibility Guidelines', url: '#', type: 'guide' }
+          { title: 'Profile Setup Guide', url: '#', type: 'guide' }
         ]
       }
     ]
   },
   {
-    id: 'adding-users',
-    title: 'Adding Users',
-    description: 'Invite team members and set up user accounts with appropriate access levels',
-    icon: <Users className="h-6 w-6" />,
+    id: 'wifi-setup',
+    title: 'WiFi',
+    description: 'Configure guest WiFi with marketing capture and customer engagement',
+    icon: <Wifi className="h-8 w-8 text-white" />,
+    progress: 60,
+    status: 'in-progress',
+    estimatedTime: '15 minutes',
+    difficulty: 'Beginner',
+    videoUrl: 'https://example.com/wifi-setup',
+    steps: [
+      {
+        id: 'guest-network',
+        title: 'Guest Network Setup',
+        description: 'Configure WiFi access for customers',
+        articles: [
+          { title: 'WiFi Marketing Best Practices', url: '#', type: 'guide' }
+        ]
+      }
+    ]
+  },
+  {
+    id: 'marketing',
+    title: 'Marketing',
+    description: 'Set up automated marketing campaigns and customer engagement tools',
+    icon: <MessageSquare className="h-8 w-8 text-white" />,
+    progress: 25,
+    status: 'in-progress',
+    estimatedTime: '30 minutes',
+    difficulty: 'Intermediate',
+    videoUrl: 'https://example.com/marketing-setup',
+    steps: [
+      {
+        id: 'email-campaigns',
+        title: 'Email Campaigns',
+        description: 'Create automated email marketing sequences',
+        articles: [
+          { title: 'Email Marketing Strategy', url: '#', type: 'guide' }
+        ]
+      }
+    ]
+  },
+  {
+    id: 'reviews',
+    title: 'Reviews',
+    description: 'Manage customer feedback and online reputation management',
+    icon: <Star className="h-8 w-8 text-white" />,
     progress: 0,
     status: 'not-started',
     estimatedTime: '20 minutes',
     difficulty: 'Beginner',
-    videoUrl: 'https://example.com/users-main',
+    videoUrl: 'https://example.com/reviews-setup',
     steps: [
       {
-        id: 'invite-users',
-        title: 'Send User Invitations',
-        description: 'Invite team members via email',
+        id: 'review-requests',
+        title: 'Review Requests',
+        description: 'Automate customer review requests',
         articles: [
-          { title: 'User Invitation Best Practices', url: '#', type: 'guide' }
-        ]
-      },
-      {
-        id: 'user-roles',
-        title: 'Assign User Roles',
-        description: 'Set appropriate permissions for each user',
-        articles: [
-          { title: 'Understanding User Roles', url: '#', type: 'tutorial' }
+          { title: 'Review Management Guide', url: '#', type: 'guide' }
         ]
       }
     ]
   },
   {
-    id: 'setting-permissions',
-    title: 'Setting Permissions',
-    description: 'Configure access controls and security settings for your organization',
-    icon: <Shield className="h-6 w-6" />,
-    progress: 100,
-    status: 'completed',
+    id: 'loyalty',
+    title: 'Loyalty',
+    description: 'Create customer loyalty programs and reward systems',
+    icon: <Gift className="h-8 w-8 text-white" />,
+    progress: 0,
+    status: 'not-started',
     estimatedTime: '25 minutes',
     difficulty: 'Intermediate',
-    videoUrl: 'https://example.com/permissions-main',
+    videoUrl: 'https://example.com/loyalty-setup',
     steps: [
       {
-        id: 'role-based-access',
-        title: 'Role-Based Access Control',
-        description: 'Set up RBAC for your organization',
+        id: 'rewards-program',
+        title: 'Rewards Program',
+        description: 'Design your customer loyalty rewards',
         articles: [
-          { title: 'RBAC Implementation Guide', url: '#', type: 'guide' }
+          { title: 'Loyalty Program Best Practices', url: '#', type: 'guide' }
         ]
       }
     ]
   },
   {
-    id: 'integration-setup',
-    title: 'Integration Setup',
-    description: 'Connect with third-party tools and configure API integrations',
-    icon: <Settings className="h-6 w-6" />,
-    progress: 30,
-    status: 'in-progress',
-    estimatedTime: '45 minutes',
+    id: 'bookings',
+    title: 'Bookings',
+    description: 'Configure appointment scheduling and reservation management',
+    icon: <Calendar className="h-8 w-8 text-white" />,
+    progress: 100,
+    status: 'completed',
+    estimatedTime: '35 minutes',
     difficulty: 'Advanced',
-    videoUrl: 'https://example.com/integrations-main',
+    videoUrl: 'https://example.com/bookings-setup',
     steps: [
       {
-        id: 'api-configuration',
-        title: 'API Configuration',
-        description: 'Set up API keys and endpoints',
+        id: 'calendar-setup',
+        title: 'Calendar Integration',
+        description: 'Connect your booking system with calendars',
         articles: [
-          { title: 'API Security Best Practices', url: '#', type: 'guide' }
+          { title: 'Booking System Guide', url: '#', type: 'guide' }
         ]
       }
     ]
