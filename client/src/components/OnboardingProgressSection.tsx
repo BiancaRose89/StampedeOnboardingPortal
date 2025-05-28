@@ -809,7 +809,7 @@ export default function OnboardingProgressSection() {
             </div>
           ))}
         </div>
-      </div>
+      )}
 
     </div>
   );
