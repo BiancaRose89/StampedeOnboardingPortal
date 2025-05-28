@@ -540,14 +540,17 @@ export default function OnboardingProgressSection() {
                 ${step.status === 'completed' 
                   ? 'bg-[#FF389A] border-[#FF389A] shadow-lg shadow-[#FF389A]/40' 
                   : step.status === 'current'
-                  ? 'bg-white border-[#FF389A] shadow-lg shadow-white/30 animate-pulse'
-                  : 'bg-[#16173F] border-gray-600'
+                  ? 'bg-white border-[#FF389A] shadow-lg shadow-white/30'
+                  : 'bg-[#0D0D24] border-gray-600'
                 }
               `}>
                 {step.status === 'completed' ? (
                   <CheckCircle2 className="h-6 w-6 text-white" />
                 ) : step.status === 'current' ? (
-                  <Clock className="h-6 w-6 text-[#16173F]" />
+                  <div 
+                    className="w-2 h-2 bg-[#00D98B] rounded-full"
+                    aria-label="in progress"
+                  />
                 ) : (
                   <span className="text-lg font-bold text-gray-400">{index + 1}</span>
                 )}
