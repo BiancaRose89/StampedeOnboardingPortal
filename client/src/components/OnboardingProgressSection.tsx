@@ -4,7 +4,7 @@ import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Progress } from '@/components/ui/progress';
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
-import { PlayCircle, CheckCircle2, Clock, Users, Palette, Shield, Settings, FileText, Video, Wifi, Star, Gift, Calendar, MessageSquare, Target, Zap, Heart, ChevronRight, Play, BookOpen, Image } from 'lucide-react';
+import { PlayCircle, CheckCircle2, Clock, Users, Palette, Shield, Settings, FileText, Video, Wifi, Star, Gift, Calendar, MessageSquare, Target, Zap, Heart, ChevronRight, Play, BookOpen, Image, Info, ArrowRight } from 'lucide-react';
 
 interface OnboardingBlock {
   id: string;
@@ -497,8 +497,191 @@ export default function OnboardingProgressSection() {
         </div>
       </div>
 
+      {/* Progress Till Go Live Section */}
+      <div className="space-y-8 mt-16">
+        <div className="flex items-center justify-between">
+          <div className="flex items-center space-x-3">
+            <h2 className="text-3xl font-bold text-white">Progress Till Go Live!</h2>
+            <Dialog>
+              <DialogTrigger asChild>
+                <Button variant="ghost" size="sm" className="p-1 h-8 w-8 text-gray-400 hover:text-[#FF389A]">
+                  <Info className="h-4 w-4" />
+                </Button>
+              </DialogTrigger>
+              <DialogContent className="bg-[#16173F] border-[#FF389A]/30 text-white max-w-md">
+                <DialogHeader>
+                  <DialogTitle className="text-[#FF389A]">What does "Go Live" mean?</DialogTitle>
+                </DialogHeader>
+                <div className="space-y-4">
+                  <p className="text-gray-300 text-sm">
+                    Going live means your platform is fully configured, your team is trained, 
+                    and you're ready to serve customers with your new system.
+                  </p>
+                  <div className="space-y-2">
+                    <div className="flex items-center space-x-2">
+                      <div className="w-2 h-2 bg-[#FF389A] rounded-full"></div>
+                      <span className="text-sm text-gray-300">Platform configured and tested</span>
+                    </div>
+                    <div className="flex items-center space-x-2">
+                      <div className="w-2 h-2 bg-[#FF389A] rounded-full"></div>
+                      <span className="text-sm text-gray-300">Team comfortable with tools</span>
+                    </div>
+                    <div className="flex items-center space-x-2">
+                      <div className="w-2 h-2 bg-[#FF389A] rounded-full"></div>
+                      <span className="text-sm text-gray-300">Ready to serve customers</span>
+                    </div>
+                  </div>
+                </div>
+              </DialogContent>
+            </Dialog>
+          </div>
+          <div className="text-right">
+            <div className="text-4xl font-bold text-[#FF389A]">17%</div>
+            <div className="text-sm text-gray-300">Complete</div>
+          </div>
+        </div>
 
+        {/* Modern Progress Timeline */}
+        <div className="relative">
+          {/* Background Progress Bar */}
+          <div className="absolute top-8 left-8 right-8 h-1 bg-gray-700 rounded-full"></div>
+          
+          {/* Active Progress Bar */}
+          <div className="absolute top-8 left-8 h-1 bg-gradient-to-r from-[#FF389A] to-[#E6329C] rounded-full transition-all duration-1000" 
+               style={{ width: '17%' }}></div>
 
+          {/* Progress Steps */}
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+            {[
+              {
+                id: 1,
+                title: "Platform Ready",
+                subtitle: "All core features configured and tested",
+                status: "pending",
+                progress: 0
+              },
+              {
+                id: 2,
+                title: "Team Training", 
+                subtitle: "Staff onboarded and comfortable with tools",
+                status: "current",
+                progress: 17
+              },
+              {
+                id: 3,
+                title: "Customer Launch",
+                subtitle: "Begin serving customers with new system", 
+                status: "pending",
+                progress: 0
+              }
+            ].map((step, index) => (
+              <div key={step.id} className="relative">
+                {/* Step Indicator */}
+                <div className={`
+                  relative z-10 w-16 h-16 mx-auto mb-6 rounded-full border-4 flex items-center justify-center
+                  transition-all duration-500
+                  ${step.status === 'completed' 
+                    ? 'bg-[#FF389A] border-[#FF389A] shadow-lg shadow-[#FF389A]/40' 
+                    : step.status === 'current'
+                    ? 'bg-white border-[#FF389A] shadow-lg shadow-white/30 animate-pulse'
+                    : 'bg-[#16173F] border-gray-600'
+                  }
+                `}>
+                  {step.status === 'completed' ? (
+                    <CheckCircle2 className="h-8 w-8 text-white" />
+                  ) : step.status === 'current' ? (
+                    <Clock className="h-8 w-8 text-[#16173F]" />
+                  ) : (
+                    <span className="text-xl font-bold text-gray-400">{step.id}</span>
+                  )}
+                </div>
+
+                {/* Step Content Card */}
+                <Card className={`
+                  transition-all duration-300 border-2 cursor-pointer group
+                  ${step.status === 'completed' 
+                    ? 'bg-[#FF389A]/10 border-[#FF389A] shadow-lg shadow-[#FF389A]/20' 
+                    : step.status === 'current'
+                    ? 'bg-white/5 border-white/30 shadow-lg shadow-white/10'
+                    : 'bg-[#16173F] border-gray-600/30 hover:border-[#FF389A]/30'
+                  }
+                `}>
+                  <CardContent className="p-6 text-center">
+                    <h3 className={`
+                      text-lg font-bold mb-3 transition-colors
+                      ${step.status === 'completed' 
+                        ? 'text-[#FF389A]' 
+                        : step.status === 'current'
+                        ? 'text-white'
+                        : 'text-gray-300 group-hover:text-white'
+                      }
+                    `}>
+                      {step.title}
+                    </h3>
+                    <p className="text-gray-300 text-sm mb-4 leading-relaxed">
+                      {step.subtitle}
+                    </p>
+                    
+                    {/* Individual Progress Bar */}
+                    <div className="mb-4">
+                      <div className="flex justify-between items-center mb-2">
+                        <span className="text-xs text-gray-400">Progress</span>
+                        <span className="text-xs font-medium text-[#FF389A]">{step.progress}%</span>
+                      </div>
+                      <div className="h-2 bg-gray-700 rounded-full overflow-hidden">
+                        <div 
+                          className="h-full bg-gradient-to-r from-[#FF389A] to-[#E6329C] transition-all duration-1000"
+                          style={{ width: `${step.progress}%` }}
+                        ></div>
+                      </div>
+                    </div>
+
+                    <Button 
+                      className={`
+                        w-full transition-all duration-300
+                        ${step.status === 'current'
+                          ? 'bg-[#FF389A] hover:bg-[#E6329C] text-white shadow-lg'
+                          : 'bg-gray-700 hover:bg-gray-600 text-gray-300'
+                        }
+                      `}
+                      disabled={step.status === 'pending'}
+                    >
+                      {step.status === 'completed' ? 'Completed' : 
+                       step.status === 'current' ? 'Continue' : 'Not Started'}
+                      {step.status === 'current' && <ArrowRight className="ml-2 h-4 w-4" />}
+                    </Button>
+                  </CardContent>
+                </Card>
+
+                {/* Connecting Line for Desktop */}
+                {index < 2 && (
+                  <div className="hidden lg:block absolute top-8 left-full w-8 h-1 bg-gray-700 z-0">
+                    <div 
+                      className={`h-full bg-gradient-to-r from-[#FF389A] to-[#E6329C] transition-all duration-500 ${
+                        step.status === 'completed' ? 'w-full' : 'w-0'
+                      }`}
+                    ></div>
+                  </div>
+                )}
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* Overall Progress Summary */}
+        <div className="bg-gradient-to-r from-[#FF389A]/10 to-transparent rounded-2xl p-6 border border-[#FF389A]/20">
+          <div className="flex items-center justify-between">
+            <div>
+              <h4 className="text-lg font-bold text-white mb-1">Current Phase: Team Training</h4>
+              <p className="text-gray-300 text-sm">Getting your staff comfortable with the new tools</p>
+            </div>
+            <Button className="bg-[#FF389A] hover:bg-[#E6329C] text-white px-6">
+              Continue Setup
+              <ArrowRight className="ml-2 h-4 w-4" />
+            </Button>
+          </div>
+        </div>
+      </div>
 
     </div>
   );
