@@ -246,105 +246,83 @@ export default function PlatformTipsSection() {
   };
 
   return (
-    <div className="space-y-8">
-      <div className="text-center">
-        <h2 className="text-3xl font-bold text-white">Master Your Platform</h2>
-        <p className="text-gray-300 mt-2">
-          Quick tips and best practices for each feature to get you up and running fast
-        </p>
-      </div>
-
-      {/* Feature Navigation */}
-      <div className="flex flex-wrap justify-center gap-3">
-        {platformTips.map((feature) => (
-          <Button
-            key={feature.id}
-            onClick={() => setSelectedFeature(feature)}
-            variant={selectedFeature.id === feature.id ? "default" : "outline"}
-            className={`flex items-center gap-2 px-4 py-2 ${
-              selectedFeature.id === feature.id 
-                ? 'btn-brand-pink' 
-                : 'border-[#FF389A]/30 text-gray-300 hover:bg-[#FF389A]/10'
-            }`}
-          >
-            {feature.icon}
-            {feature.title}
-          </Button>
-        ))}
-      </div>
-
-      {/* Selected Feature Tips */}
-      <div className="max-w-6xl mx-auto">
-        <div className={`bg-gradient-to-r ${selectedFeature.color} p-1 rounded-xl mb-6`}>
-          <div className="bg-[#0D0D24] rounded-lg p-6">
-            <div className="flex items-center gap-3 mb-4">
-              <div className={`p-3 rounded-lg bg-gradient-to-r ${selectedFeature.color}`}>
-                {selectedFeature.icon}
-              </div>
-              <h3 className="text-2xl font-bold text-white">{selectedFeature.title} Top Tips</h3>
+    <div className="space-y-16">
+      {/* Master Your Platform Section Header */}
+      <div className="space-y-6">
+        <div className="flex items-center justify-between">
+          <div>
+            <h2 className="text-2xl font-bold">Master Your Platform</h2>
+            <p className="text-muted-foreground">Deep-dive into features and best practices to unlock the full potential of your platform.</p>
+          </div>
+          <div className="text-right">
+            <div className="text-2xl font-bold">
+              6
             </div>
-            <p className="text-gray-300">
-              Essential tips and quick wins to maximize your {selectedFeature.title.toLowerCase()} success
-            </p>
+            <div className="text-sm text-muted-foreground">Core Features</div>
           </div>
         </div>
+      </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {selectedFeature.tips.map((tip) => (
-            <Card key={tip.id} className="card-glow h-full">
-              <CardHeader>
-                <div className="flex items-start justify-between">
-                  <div className="space-y-2">
-                    <CardTitle className="text-lg text-white">{tip.title}</CardTitle>
-                    <div className="flex items-center gap-2">
-                      <Badge className={getDifficultyColor(tip.difficulty)}>
-                        {tip.difficulty}
-                      </Badge>
-                      <div className="flex items-center gap-1 text-sm text-gray-400">
-                        <Clock className="h-3 w-3" />
-                        {tip.timeToImplement}
-                      </div>
-                    </div>
+      {/* Master Platform Cards - Matching Onboarding Progress Style */}
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        {platformTips.map((feature) => (
+          <div key={feature.id} className="interactive-card group">
+            <div className="flex items-start justify-between mb-4">
+              <div className="flex items-center gap-4">
+                <div className="p-4 rounded-xl bg-gradient-to-br from-[#FF389A]/30 to-[#FF389A]/10 border border-[#FF389A]/30 backdrop-blur-sm">
+                  {feature.icon}
+                </div>
+                <div>
+                  <h3 className="text-2xl font-extrabold text-white group-hover:text-glow-pink transition-all duration-300">
+                    {feature.title}
+                  </h3>
+                  <div className="flex items-center gap-3 mt-2">
+                    <Badge className="bg-[#FF389A]/20 text-[#FF389A] border-[#FF389A]/30 font-semibold">
+                      {feature.tips.length} Features
+                    </Badge>
                   </div>
                 </div>
-              </CardHeader>
-              <CardContent>
-                <CardDescription className="text-gray-300 mb-4 leading-relaxed">
-                  {tip.description}
-                </CardDescription>
-                <Button className="btn-brand-pink w-full">
-                  <Settings className="h-4 w-4 mr-2" />
-                  Get Started
-                </Button>
-              </CardContent>
-            </Card>
-          ))}
-        </div>
+              </div>
+            </div>
 
-        {/* Quick Stats */}
-        <div className="mt-8 grid grid-cols-1 md:grid-cols-4 gap-4">
-          <div className="text-center p-4 bg-gradient-to-r from-[#FF389A]/20 to-[#FF389A]/10 rounded-lg border border-[#FF389A]/30">
-            <div className="text-2xl font-bold text-white">{selectedFeature.tips.length}</div>
-            <div className="text-sm text-gray-300">Quick Tips</div>
-          </div>
-          <div className="text-center p-4 bg-gradient-to-r from-[#FF389A]/20 to-[#FF389A]/10 rounded-lg border border-[#FF389A]/30">
-            <div className="text-2xl font-bold text-white">
-              {selectedFeature.tips.filter(tip => tip.difficulty === 'Easy').length}
+            <div className="space-y-4 mb-6">
+              <p className="text-gray-300 leading-relaxed">
+                Master essential {feature.title.toLowerCase()} features with step-by-step guidance and best practices.
+              </p>
+              
+              {/* Nested Feature List */}
+              <div className="space-y-3">
+                {feature.tips.map((tip, index) => (
+                  <div key={tip.id} className="flex items-center justify-between p-3 bg-[#0D0D24]/50 rounded-lg border border-gray-600/30 hover:border-[#FF389A]/30 transition-all duration-300">
+                    <div className="flex items-center gap-3">
+                      <div className="w-6 h-6 rounded-full bg-[#FF389A]/20 flex items-center justify-center text-xs font-bold text-[#FF389A]">
+                        {index + 1}
+                      </div>
+                      <div>
+                        <h4 className="font-bold text-white text-sm">{tip.title}</h4>
+                        <p className="text-gray-400 text-xs">{tip.description}</p>
+                      </div>
+                    </div>
+                    <Badge className={getDifficultyColor(tip.difficulty)} variant="secondary">
+                      {tip.difficulty}
+                    </Badge>
+                  </div>
+                ))}
+              </div>
             </div>
-            <div className="text-sm text-gray-300">Easy Wins</div>
-          </div>
-          <div className="text-center p-4 bg-gradient-to-r from-[#FF389A]/20 to-[#FF389A]/10 rounded-lg border border-[#FF389A]/30">
-            <div className="text-2xl font-bold text-white">
-              ~{Math.round(selectedFeature.tips.reduce((acc, tip) => 
-                acc + parseInt(tip.timeToImplement.split(' ')[0]), 0) / selectedFeature.tips.length)}
+
+            <div className="flex items-center justify-between pt-4 border-t border-gray-600/30">
+              <div className="flex items-center gap-2 text-sm text-gray-400">
+                <Clock className="h-4 w-4" />
+                <span>10-20 min total</span>
+              </div>
+              <Button className="bg-[#FF389A] hover:bg-[#E6329C] text-white px-6 py-2 font-bold">
+                Start Learning
+                <Zap className="ml-2 h-4 w-4" />
+              </Button>
             </div>
-            <div className="text-sm text-gray-300">Avg Minutes</div>
           </div>
-          <div className="text-center p-4 bg-gradient-to-r from-[#FF389A]/20 to-[#FF389A]/10 rounded-lg border border-[#FF389A]/30">
-            <div className="text-2xl font-bold text-white">100%</div>
-            <div className="text-sm text-gray-300">Success Rate</div>
-          </div>
-        </div>
+        ))}
       </div>
     </div>
   );
