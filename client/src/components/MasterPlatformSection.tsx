@@ -214,54 +214,61 @@ function SectionCard({ section, onStartSection }: SectionCardProps) {
   const getTypeColor = (type: string) => {
     switch (type) {
       case 'overview':
-        return 'bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-300';
+        return 'bg-[#3B82F6]/20 text-[#3B82F6] border-[#3B82F6]/30';
       case 'tutorial':
-        return 'bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-300';
+        return 'bg-[#00D98B]/20 text-[#00D98B] border-[#00D98B]/30';
       case 'advanced':
-        return 'bg-purple-100 text-purple-800 dark:bg-purple-900 dark:text-purple-300';
+        return 'bg-[#8B5CF6]/20 text-[#8B5CF6] border-[#8B5CF6]/30';
       default:
-        return 'bg-gray-100 text-gray-800 dark:bg-gray-900 dark:text-gray-300';
+        return 'bg-muted/50 text-muted-foreground border-border';
     }
   };
 
   return (
-    <Card className="h-full">
-      <CardHeader>
-        <div className="flex items-start justify-between">
-          <div className="space-y-2">
-            <CardTitle className="text-lg">{section.title}</CardTitle>
-            <div className="flex items-center gap-2">
-              <Badge className={getTypeColor(section.type)}>
+    <div className="card-glow group h-full">
+      <div className="p-6 h-full flex flex-col">
+        <div className="flex items-start justify-between mb-4">
+          <div className="space-y-3">
+            <h3 className="text-xl font-bold text-foreground group-hover:text-glow-pink transition-all duration-300">
+              {section.title}
+            </h3>
+            <div className="flex items-center gap-3">
+              <Badge className={`${getTypeColor(section.type)} font-semibold border`}>
                 {section.type.charAt(0).toUpperCase() + section.type.slice(1)}
               </Badge>
               {section.estimatedTime && (
-                <div className="flex items-center gap-1 text-sm text-muted-foreground">
-                  <Clock className="h-3 w-3" />
+                <div className="flex items-center gap-2 text-sm text-muted-foreground font-medium">
+                  <Clock className="h-4 w-4" />
                   {section.estimatedTime}
                 </div>
               )}
             </div>
           </div>
           {section.completed && (
-            <CheckCircle2 className="h-5 w-5 text-green-600" />
+            <div className="p-2 rounded-full bg-[#00D98B]/20 border border-[#00D98B]/30">
+              <CheckCircle2 className="h-5 w-5 text-[#00D98B]" />
+            </div>
           )}
         </div>
-      </CardHeader>
-      <CardContent>
-        <CardDescription className="mb-4">{section.content}</CardDescription>
-        <div className="flex gap-2">
-          <Button onClick={() => onStartSection(section.id)} className="flex items-center gap-2">
+        
+        <p className="text-muted-foreground leading-relaxed mb-6 flex-grow">{section.content}</p>
+        
+        <div className="flex gap-3 pt-4 border-t border-border/50">
+          <Button 
+            onClick={() => onStartSection(section.id)} 
+            className="btn-brand-pink flex items-center gap-2 flex-1"
+          >
             <Play className="h-4 w-4" />
-            {section.completed ? 'Review' : 'Start'}
+            {section.completed ? 'Review' : 'Start Training'}
           </Button>
           {section.videoUrl && (
-            <Button variant="outline" size="sm">
+            <Button variant="outline" size="sm" className="border-[#FF2E88]/30 text-[#FF2E88] hover:bg-[#FF2E88]/10">
               <ExternalLink className="h-4 w-4" />
             </Button>
           )}
         </div>
-      </CardContent>
-    </Card>
+      </div>
+    </div>
   );
 }
 
@@ -284,11 +291,17 @@ export default function MasterPlatformSection() {
       </div>
 
       <Tabs defaultValue="bookings" className="w-full">
-        <TabsList className="grid w-full grid-cols-4">
+        <TabsList className="grid w-full grid-cols-4 mb-8 bg-muted/30 rounded-xl border border-border/50 backdrop-blur-sm h-auto p-2">
           {platformFeatures.map((feature) => (
-            <TabsTrigger key={feature.id} value={feature.id} className="flex items-center gap-2">
-              {feature.icon}
-              <span className="hidden sm:inline">{feature.title}</span>
+            <TabsTrigger 
+              key={feature.id} 
+              value={feature.id} 
+              className="brand-tab flex items-center gap-3 h-auto py-4 px-6"
+            >
+              <div className="p-1.5 rounded-lg bg-white/10">
+                {feature.icon}
+              </div>
+              <span className="font-bold text-sm md:text-base hidden sm:inline">{feature.title}</span>
             </TabsTrigger>
           ))}
         </TabsList>

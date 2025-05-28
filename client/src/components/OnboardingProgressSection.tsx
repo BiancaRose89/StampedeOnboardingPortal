@@ -281,37 +281,55 @@ export default function OnboardingProgressSection() {
         {onboardingBlocks.map((block) => (
           <Dialog key={block.id} onOpenChange={() => setCurrentModalStep(0)}>
             <DialogTrigger asChild>
-              <Card className={`cursor-pointer transition-all hover:shadow-md ${getStatusColor(block.status)}`}>
-                <CardHeader className="pb-3">
-                  <div className="flex items-start justify-between">
-                    <div className="flex items-center gap-3">
+              <div className="interactive-card group">
+                <div className="flex items-start justify-between mb-4">
+                  <div className="flex items-center gap-4">
+                    <div className="p-3 rounded-xl bg-gradient-to-br from-[#FF2E88]/20 to-[#8B5CF6]/20 border border-[#FF2E88]/20">
                       {block.icon}
-                      <div>
-                        <CardTitle className="text-lg">{block.title}</CardTitle>
-                        <div className="flex items-center gap-2 mt-1">
-                          {getStatusIcon(block.status)}
-                          <span className="text-sm text-muted-foreground">{block.estimatedTime}</span>
-                        </div>
+                    </div>
+                    <div>
+                      <h3 className="text-xl font-bold text-foreground group-hover:text-glow-pink transition-all duration-300">
+                        {block.title}
+                      </h3>
+                      <div className="flex items-center gap-3 mt-2">
+                        {getStatusIcon(block.status)}
+                        <span className="text-sm text-muted-foreground font-medium">{block.estimatedTime}</span>
+                        <Badge className={`${getDifficultyColor(block.difficulty)} shadow-sm`}>
+                          {block.difficulty}
+                        </Badge>
                       </div>
                     </div>
-                    <Badge className={getDifficultyColor(block.difficulty)}>
-                      {block.difficulty}
-                    </Badge>
                   </div>
-                </CardHeader>
-                <CardContent>
-                  <CardDescription className="mb-3">{block.description}</CardDescription>
-                  {block.status !== 'not-started' && (
-                    <div className="space-y-2">
-                      <div className="flex justify-between text-sm">
-                        <span>Progress</span>
-                        <span>{block.progress}%</span>
-                      </div>
-                      <Progress value={block.progress} className="h-2" />
+                </div>
+                
+                <p className="text-muted-foreground mb-4 leading-relaxed">{block.description}</p>
+                
+                {block.status !== 'not-started' && (
+                  <div className="space-y-3">
+                    <div className="flex justify-between items-center text-sm font-medium">
+                      <span className="text-foreground">Progress</span>
+                      <span className="text-glow-pink">{block.progress}%</span>
                     </div>
-                  )}
-                </CardContent>
-              </Card>
+                    <div className="relative">
+                      <Progress value={block.progress} className="h-3 bg-muted/50" />
+                      <div 
+                        className="absolute top-0 left-0 h-3 rounded-full bg-gradient-to-r from-[#FF2E88] to-[#8B5CF6] transition-all duration-500"
+                        style={{ width: `${block.progress}%` }}
+                      />
+                    </div>
+                  </div>
+                )}
+                
+                <div className="flex items-center justify-between mt-6 pt-4 border-t border-border/50">
+                  <div className="flex items-center gap-2 text-xs text-muted-foreground">
+                    <div className="w-2 h-2 rounded-full bg-[#00D98B] animate-pulse" />
+                    Ready to start
+                  </div>
+                  <div className="text-[#FF2E88] group-hover:translate-x-1 transition-transform duration-300">
+                    →
+                  </div>
+                </div>
+              </div>
             </DialogTrigger>
             <OnboardingModal 
               block={block} 

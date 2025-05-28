@@ -39,25 +39,31 @@
 }
 
 .dark {
-  --background: 226 81% 9%; /* Stampede Navy background */
-  --foreground: 0 0% 98%;
-  --muted: 226 75% 15%;
-  --muted-foreground: 220 20% 65%;
-  --popover: 226 75% 12%;
-  --popover-foreground: 0 0% 98%;
-  --card: 226 75% 12%;
-  --card-foreground: 0 0% 98%;
-  --border: 226 75% 20%;
-  --input: 226 75% 15%;
-  --primary: 322 95% 66%; /* Pink primary in dark mode */
-  --primary-foreground: 226 81% 9%;
-  --secondary: 226 75% 15%;
-  --secondary-foreground: 0 0% 98%;
-  --accent: 226 75% 15%;
-  --accent-foreground: 322 95% 66%;
-  --destructive: 0 62.8% 30.6%;
-  --destructive-foreground: 0 0% 98%;
-  --ring: 322 95% 66%;
+  --background: 240 18% 8%; /* Deep navy #0F0F1A */
+  --foreground: 240 5% 96%; /* Almost white text */
+  --muted: 240 12% 15%; /* Dark purple-gray #232340 */
+  --muted-foreground: 240 4% 65%; /* Muted text */
+  --popover: 240 15% 10%; /* Slightly lighter than background */
+  --popover-foreground: 240 5% 96%;
+  --card: 240 15% 10%; /* Card background #1A1A2E */
+  --card-foreground: 240 5% 96%;
+  --border: 240 12% 18%; /* Subtle borders */
+  --input: 240 12% 18%; /* Input backgrounds */
+  --primary: 334 89% 58%; /* Brand pink #FF2E88 */
+  --primary-foreground: 240 5% 96%;
+  --secondary: 240 12% 15%; /* Dark purple-gray */
+  --secondary-foreground: 240 5% 84%;
+  --accent: 240 12% 18%; /* Slightly lighter accent */
+  --accent-foreground: 240 5% 96%;
+  --destructive: 0 75% 58%;
+  --destructive-foreground: 240 5% 96%;
+  --ring: 334 89% 58%; /* Pink focus ring */
+  
+  /* Brand colors for dark mode */
+  --brand-pink: 334 89% 58%; /* #FF2E88 */
+  --brand-green: 162 89% 43%; /* #00D98B */
+  --brand-blue: 217 91% 60%; /* #3B82F6 */
+  --brand-purple: 263 85% 65%; /* #8B5CF6 */
 }
 
 @layer base {
@@ -139,53 +145,105 @@
 }
 
 @layer components {
-  /* Custom button variants */
-  .btn-stampede {
-    @apply bg-blue-600 text-white hover:bg-blue-700 active:bg-blue-800 transition-colors duration-200;
+  /* Branded button variants */
+  .btn-brand-pink {
+    @apply bg-[#FF2E88] text-white hover:bg-[#E0296F] active:bg-[#C7245E] transition-all duration-200 shadow-lg hover:shadow-xl;
   }
 
-  .btn-stampede-outline {
-    @apply border border-blue-600 text-blue-600 hover:bg-blue-600 hover:text-white transition-colors duration-200;
+  .btn-brand-green {
+    @apply bg-[#00D98B] text-white hover:bg-[#00C47B] active:bg-[#00B06D] transition-all duration-200 shadow-lg hover:shadow-xl;
   }
 
-  /* Progress indicator styles */
+  .btn-brand-blue {
+    @apply bg-[#3B82F6] text-white hover:bg-[#2563EB] active:bg-[#1D4ED8] transition-all duration-200 shadow-lg hover:shadow-xl;
+  }
+
+  .btn-brand-purple {
+    @apply bg-[#8B5CF6] text-white hover:bg-[#7C3AED] active:bg-[#6D28D9] transition-all duration-200 shadow-lg hover:shadow-xl;
+  }
+
+  /* Enhanced card styling with glow effects */
+  .card-glow {
+    @apply bg-card border border-border/50 backdrop-blur-sm transition-all duration-300;
+    box-shadow: 0 4px 24px rgba(0, 0, 0, 0.1), 0 0 0 1px rgba(255, 255, 255, 0.05);
+  }
+
+  .card-glow:hover {
+    @apply transform -translate-y-1;
+    box-shadow: 0 8px 32px rgba(255, 46, 136, 0.15), 0 0 0 1px rgba(255, 46, 136, 0.2);
+  }
+
+  /* Progress indicator with brand colors */
   .progress-step {
-    @apply flex items-center justify-center w-12 h-12 rounded-full border-2 transition-all duration-300;
+    @apply flex items-center justify-center w-12 h-12 rounded-full border-2 transition-all duration-300 font-bold;
   }
 
   .progress-step.completed {
-    @apply bg-green-100 border-green-500 text-green-700;
+    @apply bg-[#00D98B] border-[#00D98B] text-white shadow-lg;
+    box-shadow: 0 0 20px rgba(0, 217, 139, 0.3);
   }
 
   .progress-step.current {
-    @apply bg-blue-100 border-blue-500 text-blue-700 shadow-lg;
+    @apply bg-[#FF2E88] border-[#FF2E88] text-white shadow-lg;
+    box-shadow: 0 0 20px rgba(255, 46, 136, 0.4);
   }
 
   .progress-step.pending {
-    @apply bg-gray-100 border-gray-300 text-gray-500;
+    @apply bg-muted border-border text-muted-foreground;
   }
 
-  /* Card hover effects */
-  .card-hover {
-    @apply transition-all duration-200 hover:shadow-lg hover:-translate-y-1;
+  /* Interactive card with modern hover effects */
+  .interactive-card {
+    @apply bg-card border border-border/50 rounded-xl p-6 transition-all duration-300 cursor-pointer;
+    backdrop-filter: blur(8px);
   }
 
-  /* Loading skeleton */
+  .interactive-card:hover {
+    @apply transform -translate-y-2 border-[#FF2E88]/30;
+    box-shadow: 0 12px 40px rgba(255, 46, 136, 0.12), 0 0 0 1px rgba(255, 46, 136, 0.15);
+  }
+
+  /* Glowing text effects */
+  .text-glow-pink {
+    color: #FF2E88;
+    text-shadow: 0 0 10px rgba(255, 46, 136, 0.3);
+  }
+
+  .text-glow-green {
+    color: #00D98B;
+    text-shadow: 0 0 10px rgba(0, 217, 139, 0.3);
+  }
+
+  .text-glow-blue {
+    color: #3B82F6;
+    text-shadow: 0 0 10px rgba(59, 130, 246, 0.3);
+  }
+
+  /* Enhanced tab styling */
+  .brand-tab {
+    @apply relative px-6 py-3 font-semibold transition-all duration-200 rounded-lg;
+  }
+
+  .brand-tab.active {
+    @apply bg-[#FF2E88] text-white shadow-lg;
+    box-shadow: 0 4px 16px rgba(255, 46, 136, 0.25);
+  }
+
+  .brand-tab:not(.active) {
+    @apply text-muted-foreground hover:text-foreground hover:bg-muted/50;
+  }
+
+  /* Modern loading skeleton */
   .skeleton {
-    @apply animate-pulse bg-gray-200 rounded;
+    @apply animate-pulse bg-muted rounded-lg;
+    background: linear-gradient(90deg, hsl(var(--muted)) 25%, hsl(var(--muted)/0.5) 50%, hsl(var(--muted)) 75%);
+    background-size: 200% 100%;
+    animation: skeleton-loading 1.5s infinite;
   }
 
-  /* Guide tab styling */
-  .guide-tab {
-    @apply relative px-6 py-3 font-medium transition-all duration-200;
-  }
-
-  .guide-tab.active {
-    @apply text-blue-600 border-b-2 border-blue-600;
-  }
-
-  .guide-tab:not(.active):hover {
-    @apply text-gray-700 bg-gray-50;
+  @keyframes skeleton-loading {
+    0% { background-position: 200% 0; }
+    100% { background-position: -200% 0; }
   }
 }
 
