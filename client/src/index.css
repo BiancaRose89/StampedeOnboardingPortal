@@ -41,29 +41,27 @@
 .dark {
   --background: 240 85% 7%; /* Deep dark blue background #0D0D24 */
   --foreground: 0 0% 98%; /* Crisp white text */
-  --muted: 240 60% 12%; /* Darker blue muted */
-  --muted-foreground: 240 20% 70%; /* Light muted text */
-  --popover: 240 70% 10%; /* Dark blue popover */
+  --muted: 240 60% 10%; /* Darker blue muted */
+  --muted-foreground: 240 20% 75%; /* Light muted text */
+  --popover: 240 70% 9%; /* Dark blue popover */
   --popover-foreground: 0 0% 98%;
-  --card: 240 65% 10%; /* Deep blue card background */
+  --card: 240 65% 9%; /* Deep blue card background */
   --card-foreground: 0 0% 98%;
-  --border: 240 50% 20%; /* Blue borders */
-  --input: 240 60% 15%; /* Input backgrounds */
-  --primary: 0 100% 50%; /* Red as primary accent #FF0000 */
+  --border: 240 50% 15%; /* Blue borders */
+  --input: 240 60% 12%; /* Input backgrounds */
+  --primary: 324 100% 62%; /* Pink as primary accent #FF389A */
   --primary-foreground: 0 0% 100%;
-  --secondary: 240 40% 20%; /* Dark blue secondary */
+  --secondary: 240 40% 15%; /* Dark blue secondary */
   --secondary-foreground: 0 0% 95%;
-  --accent: 240 70% 18%; /* Blue accent */
+  --accent: 240 70% 12%; /* Blue accent */
   --accent-foreground: 0 0% 98%;
-  --destructive: 0 100% 60%; /* Red destructive */
+  --destructive: 324 100% 62%; /* Pink destructive */
   --destructive-foreground: 0 0% 98%;
-  --ring: 0 100% 50%; /* Red focus ring */
+  --ring: 324 100% 62%; /* Pink focus ring */
   
-  /* Brand colors for dark blue theme with red accents */
-  --brand-red: 0 100% 50%; /* #FF0000 */
-  --brand-white: 0 0% 100%; /* #FFFFFF */
-  --brand-gold: 45 100% 50%; /* #FFD700 */
-  --brand-blue: 240 85% 7%; /* #0D0D24 */
+  /* Brand colors - only the two specified */
+  --brand-navy: 240 85% 7%; /* #0D0D24 */
+  --brand-pink: 324 100% 62%; /* #FF389A */
 }
 
 @layer base {
@@ -145,10 +143,10 @@
 }
 
 @layer components {
-  /* Dark blue theme with red accent buttons */
-  .btn-brand-red {
-    @apply bg-red-600 text-white hover:bg-red-500 active:bg-red-700 transition-all duration-200 shadow-lg hover:shadow-xl font-bold;
-    box-shadow: 0 4px 16px rgba(255, 0, 0, 0.4);
+  /* Navy and pink theme buttons */
+  .btn-brand-pink {
+    @apply bg-[#FF389A] text-white hover:bg-[#E6329] active:bg-[#CC2D7F] transition-all duration-200 shadow-lg hover:shadow-xl font-bold;
+    box-shadow: 0 4px 16px rgba(255, 56, 154, 0.4);
   }
 
   .btn-brand-white {
@@ -156,72 +154,66 @@
     box-shadow: 0 4px 16px rgba(255, 255, 255, 0.3);
   }
 
-  .btn-brand-gold {
-    @apply bg-yellow-500 text-[#0D0D24] hover:bg-yellow-400 active:bg-yellow-600 transition-all duration-200 shadow-lg hover:shadow-xl font-bold;
-    box-shadow: 0 4px 16px rgba(255, 215, 0, 0.4);
-  }
-
-  .btn-brand-dark {
-    @apply bg-[#0D0D24] text-white hover:bg-blue-900 active:bg-blue-950 transition-all duration-200 shadow-lg hover:shadow-xl font-bold border border-red-600/30;
+  .btn-brand-navy {
+    @apply bg-[#0D0D24] text-white hover:bg-blue-950 active:bg-blue-900 transition-all duration-200 shadow-lg hover:shadow-xl font-bold border border-[#FF389A]/30;
     box-shadow: 0 4px 16px rgba(13, 13, 36, 0.6);
   }
 
-  /* Enhanced card styling with dark blue theme and red accents */
+  .btn-brand-outline {
+    @apply bg-transparent text-[#FF389A] border-2 border-[#FF389A] hover:bg-[#FF389A] hover:text-white transition-all duration-200 shadow-lg hover:shadow-xl font-bold;
+  }
+
+  /* Enhanced card styling with navy and pink theme */
   .card-glow {
     @apply bg-card border border-border/50 backdrop-blur-sm transition-all duration-300;
-    box-shadow: 0 4px 24px rgba(13, 13, 36, 0.4), 0 0 0 1px rgba(255, 0, 0, 0.1);
+    box-shadow: 0 4px 24px rgba(13, 13, 36, 0.4), 0 0 0 1px rgba(255, 56, 154, 0.1);
   }
 
   .card-glow:hover {
     @apply transform -translate-y-2;
-    box-shadow: 0 12px 40px rgba(255, 0, 0, 0.2), 0 0 0 2px rgba(255, 0, 0, 0.3);
+    box-shadow: 0 12px 40px rgba(255, 56, 154, 0.2), 0 0 0 2px rgba(255, 56, 154, 0.3);
   }
 
-  /* Progress indicator with dark blue theme and red accents */
+  /* Progress indicator with navy and pink theme */
   .progress-step {
     @apply flex items-center justify-center w-12 h-12 rounded-full border-2 transition-all duration-300 font-bold;
   }
 
   .progress-step.completed {
-    @apply bg-red-600 border-red-600 text-white shadow-lg;
-    box-shadow: 0 0 20px rgba(255, 0, 0, 0.6);
+    @apply bg-[#FF389A] border-[#FF389A] text-white shadow-lg;
+    box-shadow: 0 0 20px rgba(255, 56, 154, 0.6);
   }
 
   .progress-step.current {
-    @apply bg-yellow-500 border-yellow-500 text-[#0D0D24] shadow-lg;
-    box-shadow: 0 0 20px rgba(255, 215, 0, 0.6);
+    @apply bg-white border-white text-[#0D0D24] shadow-lg;
+    box-shadow: 0 0 20px rgba(255, 255, 255, 0.6);
   }
 
   .progress-step.pending {
     @apply bg-[#0D0D24] border-gray-600 text-white/70;
   }
 
-  /* Interactive card with dramatic dark blue theme hover effects */
+  /* Interactive card with navy and pink theme hover effects */
   .interactive-card {
     @apply bg-card border border-border/50 rounded-xl p-6 transition-all duration-300 cursor-pointer;
     backdrop-filter: blur(8px);
-    box-shadow: 0 4px 24px rgba(13, 13, 36, 0.4), 0 0 0 1px rgba(255, 0, 0, 0.1);
+    box-shadow: 0 4px 24px rgba(13, 13, 36, 0.4), 0 0 0 1px rgba(255, 56, 154, 0.1);
   }
 
   .interactive-card:hover {
-    @apply transform -translate-y-3 border-red-500/50;
-    box-shadow: 0 16px 48px rgba(255, 0, 0, 0.25), 0 0 0 2px rgba(255, 0, 0, 0.4);
+    @apply transform -translate-y-3 border-[#FF389A]/50;
+    box-shadow: 0 16px 48px rgba(255, 56, 154, 0.25), 0 0 0 2px rgba(255, 56, 154, 0.4);
   }
 
-  /* Glowing text effects for dark blue theme with red accents */
+  /* Glowing text effects for navy and pink theme */
   .text-glow-white {
     color: #FFFFFF;
     text-shadow: 0 0 15px rgba(255, 255, 255, 0.5);
   }
 
-  .text-glow-red {
-    color: #FF0000;
-    text-shadow: 0 0 15px rgba(255, 0, 0, 0.6);
-  }
-
-  .text-glow-gold {
-    color: #FFD700;
-    text-shadow: 0 0 15px rgba(255, 215, 0, 0.6);
+  .text-glow-pink {
+    color: #FF389A;
+    text-shadow: 0 0 15px rgba(255, 56, 154, 0.6);
   }
 
   /* Enhanced tab styling */

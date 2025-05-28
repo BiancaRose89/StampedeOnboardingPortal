@@ -306,11 +306,11 @@ export default function OnboardingProgressSection() {
               <div className="interactive-card group">
                 <div className="flex items-start justify-between mb-4">
                   <div className="flex items-center gap-4">
-                    <div className="p-4 rounded-xl bg-gradient-to-br from-red-600/30 to-red-800/20 border border-red-500/30 backdrop-blur-sm">
+                    <div className="p-4 rounded-xl bg-gradient-to-br from-[#FF389A]/30 to-[#FF389A]/10 border border-[#FF389A]/30 backdrop-blur-sm">
                       {block.icon}
                     </div>
                     <div>
-                      <h3 className="text-2xl font-extrabold text-white group-hover:text-glow-red transition-all duration-300">
+                      <h3 className="text-2xl font-extrabold text-white group-hover:text-glow-pink transition-all duration-300">
                         {block.title}
                       </h3>
                       <div className="flex items-center gap-3 mt-2">
@@ -330,24 +330,24 @@ export default function OnboardingProgressSection() {
                   <div className="space-y-3">
                     <div className="flex justify-between items-center text-sm font-bold">
                       <span className="text-white">Progress</span>
-                      <span className="text-glow-red">{block.progress}%</span>
+                      <span className="text-glow-pink">{block.progress}%</span>
                     </div>
                     <div className="relative">
                       <Progress value={block.progress} className="h-3 bg-[#0D0D24]/80" />
                       <div 
-                        className="absolute top-0 left-0 h-3 rounded-full bg-gradient-to-r from-red-600 to-red-500 transition-all duration-500 shadow-lg"
-                        style={{ width: `${block.progress}%`, boxShadow: '0 0 10px rgba(255, 0, 0, 0.5)' }}
+                        className="absolute top-0 left-0 h-3 rounded-full bg-gradient-to-r from-[#FF389A] to-[#FF389A] transition-all duration-500 shadow-lg"
+                        style={{ width: `${block.progress}%`, boxShadow: '0 0 10px rgba(255, 56, 154, 0.5)' }}
                       />
                     </div>
                   </div>
                 )}
                 
-                <div className="flex items-center justify-between mt-6 pt-4 border-t border-red-500/30">
+                <div className="flex items-center justify-between mt-6 pt-4 border-t border-[#FF389A]/30">
                   <div className="flex items-center gap-2 text-xs text-gray-300 font-medium">
-                    <div className="w-3 h-3 rounded-full bg-red-500 animate-pulse shadow-lg" style={{boxShadow: '0 0 8px rgba(255, 0, 0, 0.6)'}} />
+                    <div className="w-3 h-3 rounded-full bg-[#FF389A] animate-pulse shadow-lg" style={{boxShadow: '0 0 8px rgba(255, 56, 154, 0.6)'}} />
                     Ready to launch
                   </div>
-                  <div className="text-red-500 group-hover:translate-x-2 transition-transform duration-300 text-lg font-bold">
+                  <div className="text-[#FF389A] group-hover:translate-x-2 transition-transform duration-300 text-lg font-bold">
                     →
                   </div>
                 </div>

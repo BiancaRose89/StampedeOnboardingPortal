@@ -7,7 +7,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { useToast } from "@/hooks/use-toast";
 import { Badge } from "@/components/ui/badge";
 import { Separator } from "@/components/ui/separator";
-import { ChartLine, User, LogOut, Rocket, BookOpen, HelpCircle } from "lucide-react";
+import { ChartLine, User, LogOut, Rocket, BookOpen, HelpCircle, Users } from "lucide-react";
 import { ThemeToggle } from "@/components/ThemeToggle";
 import { signIn, signOutUser } from "@/lib/firebase";
 import { useAuth } from "@/components/AuthProvider";
@@ -142,86 +142,97 @@ export default function Home() {
         </div>
       </nav>
 
-      {/* Hero Section - Authentic Stampede Style */}
-      <section className="relative stampede-gradient text-white py-20 overflow-hidden">
-        {/* Background pattern matching Stampede.ai */}
-        <div className="absolute inset-0 opacity-20">
-          <div className="absolute top-0 left-0 w-96 h-96 bg-[#FA58A8] rounded-full blur-3xl -translate-x-1/2 -translate-y-1/2"></div>
-          <div className="absolute bottom-0 right-0 w-96 h-96 bg-[#FA58A8] rounded-full blur-3xl translate-x-1/2 translate-y-1/2"></div>
-          <div className="absolute top-1/2 left-1/2 w-80 h-80 bg-white rounded-full blur-2xl -translate-x-1/2 -translate-y-1/2 opacity-10"></div>
+      {/* Hero Section - Navy and Pink Theme */}
+      <section className="relative bg-[#0D0D24] text-white py-20 overflow-hidden">
+        {/* Background elements */}
+        <div className="absolute inset-0">
+          {/* Gradient overlay */}
+          <div className="absolute inset-0 bg-gradient-to-br from-[#0D0D24] via-[#1a1a3a] to-[#0D0D24]"></div>
+          
+          {/* Pink accent circles */}
+          <div className="absolute top-0 right-0 w-96 h-96 bg-[#FF389A] rounded-full blur-3xl opacity-10 translate-x-1/3 -translate-y-1/3"></div>
+          <div className="absolute bottom-0 left-0 w-80 h-80 bg-[#FF389A] rounded-full blur-3xl opacity-15 -translate-x-1/3 translate-y-1/3"></div>
+          
+          {/* Subtle grid pattern */}
+          <div className="absolute inset-0 opacity-5">
+            <div className="w-full h-full" style={{
+              backgroundImage: 'radial-gradient(circle at 1px 1px, rgba(255,255,255,0.15) 1px, transparent 0)',
+              backgroundSize: '50px 50px'
+            }}></div>
+          </div>
         </div>
         
-        <div className="relative max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center space-y-8">
-            {/* Authentic Stampede logo */}
-            <div className="flex items-center justify-center mb-2">
-              <span className="text-4xl md:text-5xl font-bold text-[#FA58A8]">Stampede</span>
-            </div>
-            
-            <div className="space-y-6">
-              <h1 className="text-5xl md:text-6xl font-bold tracking-tight leading-tight">
-                Master Your Platform
-                <br />
-                <span className="bg-gradient-to-r from-white to-blue-100 bg-clip-text text-transparent">
-                  in Minutes, Not Days
-                </span>
-              </h1>
+        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+            {/* Left content */}
+            <div className="space-y-8">
+              {/* Experience badge */}
+              <div className="inline-flex items-center px-4 py-2 rounded-full bg-[#FF389A]/20 border border-[#FF389A]/30 backdrop-blur-sm">
+                <span className="text-sm font-semibold text-[#FF389A] tracking-wide">✦ EXPERIENCE</span>
+              </div>
               
-              <p className="text-xl md:text-2xl text-blue-100 max-w-4xl mx-auto leading-relaxed">
-                Complete your setup, explore powerful features, and get expert support—all in one seamless 
-                self-service experience designed to get you up and running quickly.
-              </p>
-            </div>
+              <div className="space-y-6">
+                <h1 className="text-5xl md:text-6xl font-extrabold tracking-tight leading-tight">
+                  <span className="text-white">BEST-IN-CLASS</span>
+                  <br />
+                  <span className="text-white">EVERYWHERE</span>
+                </h1>
+                
+                <p className="text-xl text-gray-300 max-w-lg leading-relaxed">
+                  Craft a digital customer experience to match the high standards of your in-venue efforts. Our mobile-first, intuitive user interfaces make it easier for your customers to get booked, get online and remember your brand.
+                </p>
+              </div>
 
-            <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
-              <Button
-                onClick={() => {
-                  const onboardingSection = document.getElementById('onboarding-progress');
-                  if (onboardingSection) {
-                    onboardingSection.scrollIntoView({ behavior: 'smooth' });
-                  }
-                }}
-                size="lg"
-                className="bg-white text-[#0D0D25] hover:bg-[#FA58A8] hover:text-white px-8 py-4 font-semibold shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 transition-all duration-200"
-              >
-                <Rocket className="h-5 w-5 mr-2" />
-                Start Setup
-              </Button>
-              
-              {!firebaseUser && (
+              <div className="flex flex-col sm:flex-row gap-4">
                 <Button
-                  onClick={() => setShowAuthModal(true)}
-                  variant="outline"
-                  size="lg"
-                  className="border-white text-white hover:bg-white hover:text-[#0D0D25] px-8 py-4 font-semibold"
+                  onClick={() => {
+                    const onboardingSection = document.getElementById('onboarding-progress');
+                    if (onboardingSection) {
+                      onboardingSection.scrollIntoView({ behavior: 'smooth' });
+                    }
+                  }}
+                  className="btn-brand-pink px-8 py-4 text-lg"
                 >
-                  Access Your Portal
+                  Book a Demo
                 </Button>
-              )}
+                
+                {!firebaseUser && (
+                  <Button
+                    onClick={() => setShowAuthModal(true)}
+                    className="btn-brand-outline px-8 py-4 text-lg"
+                  >
+                    Access Portal
+                  </Button>
+                )}
+              </div>
             </div>
 
-            {/* Enhanced feature highlights */}
-            <div className="pt-8 grid grid-cols-1 md:grid-cols-3 gap-8 max-w-4xl mx-auto">
-              <div className="text-center">
-                <div className="flex items-center justify-center mb-3">
-                  <Rocket className="h-8 w-8 text-green-400" />
+            {/* Right side - Banner image area */}
+            <div className="relative">
+              {/* Main banner image container */}
+              <div className="relative bg-gradient-to-br from-[#FF389A]/20 to-transparent rounded-2xl p-8 backdrop-blur-sm border border-[#FF389A]/20">
+                <img 
+                  src="/api/placeholder/600/400" 
+                  alt="Platform preview showing customer experience interface"
+                  className="w-full h-auto rounded-xl shadow-2xl"
+                  style={{
+                    boxShadow: '0 25px 50px -12px rgba(255, 56, 154, 0.25)'
+                  }}
+                />
+                
+                {/* Floating elements to match the screenshots */}
+                <div className="absolute -top-4 -left-4 bg-white/10 backdrop-blur-sm rounded-full p-3 border border-white/20">
+                  <div className="w-12 h-12 bg-gradient-to-br from-[#FF389A] to-[#FF389A]/60 rounded-full flex items-center justify-center">
+                    <Users className="h-6 w-6 text-white" />
+                  </div>
                 </div>
-                <div className="text-2xl font-bold mb-2">Quick Setup</div>
-                <div className="text-blue-200">Interactive step-by-step guidance</div>
-              </div>
-              <div className="text-center">
-                <div className="flex items-center justify-center mb-3">
-                  <BookOpen className="h-8 w-8 text-blue-400" />
+                
+                <div className="absolute -bottom-4 -right-4 bg-white/10 backdrop-blur-sm rounded-lg p-4 border border-white/20">
+                  <div className="flex items-center gap-2 text-sm">
+                    <div className="w-2 h-2 bg-[#FF389A] rounded-full animate-pulse"></div>
+                    <span className="text-white font-medium">Live Demo</span>
+                  </div>
                 </div>
-                <div className="text-2xl font-bold mb-2">Expert Training</div>
-                <div className="text-blue-200">Comprehensive video tutorials</div>
-              </div>
-              <div className="text-center">
-                <div className="flex items-center justify-center mb-3">
-                  <HelpCircle className="h-8 w-8 text-purple-400" />
-                </div>
-                <div className="text-2xl font-bold mb-2">24/7 Support</div>
-                <div className="text-blue-200">Instant help when you need it</div>
               </div>
             </div>
           </div>
