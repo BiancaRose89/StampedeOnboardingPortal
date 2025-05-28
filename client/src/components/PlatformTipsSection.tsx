@@ -294,7 +294,70 @@ export default function PlatformTipsSection() {
       </div>
 
       {/* Master Platform Cards - Matching Onboarding Progress Style */}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+      {isLocked ? (
+        <LockedOverlay title="Master Your Platform">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 opacity-40 pointer-events-none">
+        {platformTips.map((feature) => (
+          <div key={feature.id} className="interactive-card group">
+            <div className="flex items-start justify-between mb-4">
+              <div className="flex items-center gap-4">
+                <div className="p-4 rounded-xl bg-gradient-to-br from-[#FF389A]/30 to-[#FF389A]/10 border border-[#FF389A]/30 backdrop-blur-sm">
+                  {feature.icon}
+                </div>
+                <div>
+                  <h3 className="text-2xl font-extrabold text-white group-hover:text-glow-pink transition-all duration-300">
+                    {feature.title}
+                  </h3>
+                  <div className="flex items-center gap-3 mt-2">
+                    <Badge className="bg-[#FF389A]/20 text-[#FF389A] border-[#FF389A]/30 font-semibold">
+                      {feature.tips.length} Features
+                    </Badge>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div className="space-y-4 mb-6">
+              <p className="text-gray-300 leading-relaxed">
+                Master essential {feature.title.toLowerCase()} features with step-by-step guidance and best practices.
+              </p>
+              
+              {/* Nested Feature List */}
+              <div className="space-y-3">
+                {feature.tips.map((tip, index) => (
+                  <div key={tip.id} className="flex items-center justify-between p-3 bg-[#0D0D24]/50 rounded-lg border border-gray-600/30 hover:border-[#FF389A]/30 transition-all duration-300">
+                    <div className="flex items-center gap-3">
+                      <div className="w-6 h-6 rounded-full bg-[#FF389A]/20 flex items-center justify-center text-xs font-bold text-[#FF389A]">
+                        {index + 1}
+                      </div>
+                      <div>
+                        <h4 className="font-bold text-white text-sm">{tip.title}</h4>
+                        <p className="text-gray-400 text-xs">{tip.description}</p>
+                      </div>
+                    </div>
+                    <Badge className={getDifficultyColor(tip.difficulty)} variant="secondary">
+                      {tip.difficulty}
+                    </Badge>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            <div className="flex items-center justify-between pt-4 border-t border-gray-600/30">
+              <div className="flex items-center gap-2 text-sm text-gray-400">
+                <Clock className="h-4 w-4" />
+                <span>10-20 min total</span>
+              </div>
+              <Button disabled className="bg-gray-600 text-gray-400 px-6 py-2 font-bold cursor-not-allowed">
+                Locked
+              </Button>
+            </div>
+          </div>
+        ))}
+          </div>
+        </LockedOverlay>
+      ) : (
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         {platformTips.map((feature) => (
           <div key={feature.id} className="interactive-card group">
             <div className="flex items-start justify-between mb-4">
@@ -354,6 +417,7 @@ export default function PlatformTipsSection() {
           </div>
         ))}
       </div>
+      )}
     </div>
   );
 }
