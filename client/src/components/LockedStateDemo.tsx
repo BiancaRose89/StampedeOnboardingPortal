@@ -2,6 +2,7 @@ import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Card, CardContent } from '@/components/ui/card';
 import { Lock, ArrowRight, Calendar, MessageSquare, Star, Wifi } from 'lucide-react';
+import { useAuth } from '@/components/AuthProvider';
 
 interface LockedOverlayProps {
   children: React.ReactNode;
@@ -20,7 +21,7 @@ const LockedOverlay = ({ children, title }: LockedOverlayProps) => (
         </div>
         <h3 className="text-2xl font-bold text-white">Ready to Start?</h3>
         <p className="text-gray-300 leading-relaxed">
-          Log in to access your personalized onboarding experience and unlock {title.toLowerCase()}.
+          Log in to access your personalized onboarding experience and unlock your onboarding progress.
         </p>
         <Button className="bg-[#FF389A] hover:bg-[#E6329C] text-white px-8 py-3 font-bold w-full">
           Log In to Continue
@@ -32,8 +33,10 @@ const LockedOverlay = ({ children, title }: LockedOverlayProps) => (
 );
 
 export default function LockedStateDemo() {
-  // Simulate logged out state
-  const isLoggedOut = true;
+  const { firebaseUser, dbUser } = useAuth();
+  
+  // Check if user is actually logged out
+  const isLoggedOut = !firebaseUser || !dbUser;
 
   const platformFeatures = [
     {
