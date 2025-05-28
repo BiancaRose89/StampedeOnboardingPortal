@@ -59,10 +59,6 @@ export default function OnboardingFlowChart() {
 
   return (
     <div className="space-y-8">
-      <div className="text-center">
-        <p className="text-gray-300 text-lg mb-8">Your step-by-step journey to platform mastery</p>
-      </div>
-
       {/* Timeline Design matching your image */}
       <div className="max-w-5xl mx-auto">
         {/* Desktop Timeline */}
