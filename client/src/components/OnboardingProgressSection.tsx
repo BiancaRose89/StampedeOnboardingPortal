@@ -497,7 +497,7 @@ export default function OnboardingProgressSection() {
         </div>
       </div>
 
-      {/* Progress Till Go Live Section */}
+      {/* Progress Till Go Live Section - Clean Stepper Design */}
       <div className="space-y-8 mt-16">
         <div className="flex items-center justify-between">
           <div className="flex items-center space-x-3">
@@ -517,20 +517,6 @@ export default function OnboardingProgressSection() {
                     Going live means your platform is fully configured, your team is trained, 
                     and you're ready to serve customers with your new system.
                   </p>
-                  <div className="space-y-2">
-                    <div className="flex items-center space-x-2">
-                      <div className="w-2 h-2 bg-[#FF389A] rounded-full"></div>
-                      <span className="text-sm text-gray-300">Platform configured and tested</span>
-                    </div>
-                    <div className="flex items-center space-x-2">
-                      <div className="w-2 h-2 bg-[#FF389A] rounded-full"></div>
-                      <span className="text-sm text-gray-300">Team comfortable with tools</span>
-                    </div>
-                    <div className="flex items-center space-x-2">
-                      <div className="w-2 h-2 bg-[#FF389A] rounded-full"></div>
-                      <span className="text-sm text-gray-300">Ready to serve customers</span>
-                    </div>
-                  </div>
                 </div>
               </DialogContent>
             </Dialog>
@@ -541,145 +527,117 @@ export default function OnboardingProgressSection() {
           </div>
         </div>
 
-        {/* Modern Progress Timeline */}
-        <div className="relative">
-          {/* Background Progress Bar */}
-          <div className="absolute top-8 left-8 right-8 h-1 bg-gray-700 rounded-full"></div>
-          
-          {/* Active Progress Bar */}
-          <div className="absolute top-8 left-8 h-1 bg-gradient-to-r from-[#FF389A] to-[#E6329C] rounded-full transition-all duration-1000" 
-               style={{ width: '17%' }}></div>
+        {/* Clean Progress Bar */}
+        <div className="w-full bg-gray-700 rounded-full h-3 overflow-hidden">
+          <div 
+            className="h-full bg-gradient-to-r from-[#FF389A] to-[#E6329C] transition-all duration-1000 relative"
+            style={{ width: '17%' }}
+          >
+            <div className="absolute inset-0 bg-white/20 animate-pulse"></div>
+          </div>
+        </div>
 
-          {/* Progress Steps */}
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-            {[
-              {
-                id: 1,
-                title: "Platform Ready",
-                subtitle: "All core features configured and tested",
-                status: "pending",
-                progress: 0
-              },
-              {
-                id: 2,
-                title: "Team Training", 
-                subtitle: "Staff onboarded and comfortable with tools",
-                status: "current",
-                progress: 17
-              },
-              {
-                id: 3,
-                title: "Customer Launch",
-                subtitle: "Begin serving customers with new system", 
-                status: "pending",
-                progress: 0
-              }
-            ].map((step, index) => (
-              <div key={step.id} className="relative">
-                {/* Step Indicator */}
-                <div className={`
-                  relative z-10 w-16 h-16 mx-auto mb-6 rounded-full border-4 flex items-center justify-center
-                  transition-all duration-500
-                  ${step.status === 'completed' 
-                    ? 'bg-[#FF389A] border-[#FF389A] shadow-lg shadow-[#FF389A]/40' 
-                    : step.status === 'current'
-                    ? 'bg-white border-[#FF389A] shadow-lg shadow-white/30 animate-pulse'
-                    : 'bg-[#16173F] border-gray-600'
-                  }
-                `}>
-                  {step.status === 'completed' ? (
-                    <CheckCircle2 className="h-8 w-8 text-white" />
-                  ) : step.status === 'current' ? (
-                    <Clock className="h-8 w-8 text-[#16173F]" />
-                  ) : (
-                    <span className="text-xl font-bold text-gray-400">{step.id}</span>
-                  )}
+        {/* Clean Vertical Stepper */}
+        <div className="space-y-6 max-w-3xl mx-auto">
+          {[
+            {
+              title: "Platform Ready",
+              description: "All core features configured and tested",
+              status: "pending"
+            },
+            {
+              title: "Team Training",
+              description: "Staff onboarded and comfortable with tools",
+              status: "current"
+            },
+            {
+              title: "Customer Launch",
+              description: "Begin serving customers with new system",
+              status: "pending"
+            }
+          ].map((step, index) => (
+            <div key={index} className="flex items-start space-x-4">
+              {/* Step Indicator */}
+              <div className={`
+                relative flex-shrink-0 w-12 h-12 rounded-full border-2 flex items-center justify-center
+                transition-all duration-300
+                ${step.status === 'completed' 
+                  ? 'bg-[#FF389A] border-[#FF389A] shadow-lg shadow-[#FF389A]/40' 
+                  : step.status === 'current'
+                  ? 'bg-white border-[#FF389A] shadow-lg shadow-white/30 animate-pulse'
+                  : 'bg-[#16173F] border-gray-600'
+                }
+              `}>
+                {step.status === 'completed' ? (
+                  <CheckCircle2 className="h-6 w-6 text-white" />
+                ) : step.status === 'current' ? (
+                  <Clock className="h-6 w-6 text-[#16173F]" />
+                ) : (
+                  <span className="text-lg font-bold text-gray-400">{index + 1}</span>
+                )}
+              </div>
+
+              {/* Connecting Line */}
+              {index < 2 && (
+                <div className="absolute left-6 top-12 w-0.5 h-16 bg-gray-600 translate-y-0">
+                  <div 
+                    className={`w-full bg-gradient-to-b from-[#FF389A] to-[#E6329C] transition-all duration-500 ${
+                      step.status === 'completed' ? 'h-full' : 'h-0'
+                    }`}
+                  ></div>
                 </div>
+              )}
 
-                {/* Step Content Card */}
+              {/* Step Content */}
+              <div className="flex-1">
                 <Card className={`
-                  transition-all duration-300 border-2 cursor-pointer group
+                  p-6 transition-all duration-300 border-2
                   ${step.status === 'completed' 
                     ? 'bg-[#FF389A]/10 border-[#FF389A] shadow-lg shadow-[#FF389A]/20' 
                     : step.status === 'current'
                     ? 'bg-white/5 border-white/30 shadow-lg shadow-white/10'
-                    : 'bg-[#16173F] border-gray-600/30 hover:border-[#FF389A]/30'
+                    : 'bg-[#16173F] border-gray-600/30'
                   }
                 `}>
-                  <CardContent className="p-6 text-center">
-                    <h3 className={`
-                      text-lg font-bold mb-3 transition-colors
-                      ${step.status === 'completed' 
-                        ? 'text-[#FF389A]' 
-                        : step.status === 'current'
-                        ? 'text-white'
-                        : 'text-gray-300 group-hover:text-white'
-                      }
-                    `}>
-                      {step.title}
-                    </h3>
-                    <p className="text-gray-300 text-sm mb-4 leading-relaxed">
-                      {step.subtitle}
-                    </p>
-                    
-                    {/* Individual Progress Bar */}
-                    <div className="mb-4">
-                      <div className="flex justify-between items-center mb-2">
-                        <span className="text-xs text-gray-400">Progress</span>
-                        <span className="text-xs font-medium text-[#FF389A]">{step.progress}%</span>
-                      </div>
-                      <div className="h-2 bg-gray-700 rounded-full overflow-hidden">
-                        <div 
-                          className="h-full bg-gradient-to-r from-[#FF389A] to-[#E6329C] transition-all duration-1000"
-                          style={{ width: `${step.progress}%` }}
-                        ></div>
-                      </div>
+                  <div className="flex items-center justify-between">
+                    <div>
+                      <h3 className={`
+                        text-xl font-bold mb-2
+                        ${step.status === 'completed' 
+                          ? 'text-[#FF389A]' 
+                          : step.status === 'current'
+                          ? 'text-white'
+                          : 'text-gray-300'
+                        }
+                      `}>
+                        {step.title}
+                      </h3>
+                      <p className="text-gray-300 leading-relaxed">
+                        {step.description}
+                      </p>
                     </div>
-
+                    
                     <Button 
                       className={`
-                        w-full transition-all duration-300
+                        ml-4 transition-all duration-300
                         ${step.status === 'current'
                           ? 'bg-[#FF389A] hover:bg-[#E6329C] text-white shadow-lg'
-                          : 'bg-gray-700 hover:bg-gray-600 text-gray-300'
+                          : step.status === 'completed'
+                          ? 'bg-green-600 hover:bg-green-700 text-white'
+                          : 'bg-gray-700 text-gray-400 cursor-not-allowed'
                         }
                       `}
                       disabled={step.status === 'pending'}
                     >
                       {step.status === 'completed' ? 'Completed' : 
-                       step.status === 'current' ? 'Continue' : 'Not Started'}
+                       step.status === 'current' ? 'Continue' : 'Locked'}
                       {step.status === 'current' && <ArrowRight className="ml-2 h-4 w-4" />}
                     </Button>
-                  </CardContent>
-                </Card>
-
-                {/* Connecting Line for Desktop */}
-                {index < 2 && (
-                  <div className="hidden lg:block absolute top-8 left-full w-8 h-1 bg-gray-700 z-0">
-                    <div 
-                      className={`h-full bg-gradient-to-r from-[#FF389A] to-[#E6329C] transition-all duration-500 ${
-                        step.status === 'completed' ? 'w-full' : 'w-0'
-                      }`}
-                    ></div>
                   </div>
-                )}
+                </Card>
               </div>
-            ))}
-          </div>
-        </div>
-
-        {/* Overall Progress Summary */}
-        <div className="bg-gradient-to-r from-[#FF389A]/10 to-transparent rounded-2xl p-6 border border-[#FF389A]/20">
-          <div className="flex items-center justify-between">
-            <div>
-              <h4 className="text-lg font-bold text-white mb-1">Current Phase: Team Training</h4>
-              <p className="text-gray-300 text-sm">Getting your staff comfortable with the new tools</p>
             </div>
-            <Button className="bg-[#FF389A] hover:bg-[#E6329C] text-white px-6">
-              Continue Setup
-              <ArrowRight className="ml-2 h-4 w-4" />
-            </Button>
-          </div>
+          ))}
         </div>
       </div>
 
