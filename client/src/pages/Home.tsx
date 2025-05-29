@@ -17,6 +17,7 @@ import KnowledgeBaseSection from "@/components/KnowledgeBaseSection";
 import ChatWidget from "@/components/ChatWidget";
 import TestimonialCarousel from "@/components/TestimonialCarousel";
 import ClientLogosSection from "@/components/ClientLogosSection";
+import FeedbackAndReferralSection from "@/components/FeedbackAndReferralSection";
 import { APP_CONFIG } from "@/lib/config";
 
 export default function Home() {
@@ -240,6 +241,9 @@ export default function Home() {
             
             {/* Client Logos Section */}
             <ClientLogosSection />
+            
+            {/* Feedback and Referral Section */}
+            <FeedbackAndReferralSection />
           </section>
 
           {/* Call to Action Section - Only for logged out users */}
