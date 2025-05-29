@@ -41,19 +41,19 @@
 .dark {
   --background: 0 0% 0%; /* Pure black background #000000 */
   --foreground: 0 0% 98%; /* Crisp white text */
-  --muted: 0 0% 8%; /* Slightly lighter muted */
+  --muted: 0 0% 0%; /* Pure black muted background */
   --muted-foreground: 240 20% 75%; /* Light muted text */
   --popover: 0 0% 0%; /* Match main background */
   --popover-foreground: 0 0% 98%;
-  --card: 0 0% 10%; /* Slightly lighter card background */
+  --card: 0 0% 0%; /* Pure black card background */
   --card-foreground: 0 0% 98%;
   --border: 240 50% 20%; /* Adjusted borders */
-  --input: 246 59% 12%; /* Input backgrounds */
+  --input: 0 0% 0%; /* Pure black input backgrounds */
   --primary: 324 100% 62%; /* Pink as primary accent #FF389A */
   --primary-foreground: 0 0% 100%;
-  --secondary: 246 59% 18%; /* Adjusted secondary */
+  --secondary: 0 0% 0%; /* Pure black secondary */
   --secondary-foreground: 0 0% 95%;
-  --accent: 246 59% 12%; /* Adjusted accent */
+  --accent: 0 0% 0%; /* Pure black accent */
   --accent-foreground: 0 0% 98%;
   --destructive: 324 100% 62%; /* Pink destructive */
   --destructive-foreground: 0 0% 98%;
@@ -70,25 +70,39 @@
   }
 
   body {
-    @apply font-sans antialiased bg-[#0D0D24] text-foreground;
+    @apply font-sans antialiased bg-black text-foreground;
+  }
+  
+  html, #root {
+    @apply bg-black;
   }
 
-  /* Custom scrollbar for webkit browsers */
+  /* Custom scrollbar for webkit browsers - dark theme */
   ::-webkit-scrollbar {
     width: 8px;
     height: 8px;
   }
 
   ::-webkit-scrollbar-track {
-    @apply bg-gray-100;
+    @apply bg-black;
   }
 
   ::-webkit-scrollbar-thumb {
-    @apply bg-gray-300 rounded-md;
+    @apply bg-gray-700 rounded-md;
   }
 
   ::-webkit-scrollbar-thumb:hover {
-    @apply bg-gray-400;
+    @apply bg-gray-600;
+  }
+  
+  /* Ensure all containers maintain black background */
+  .bg-background {
+    background-color: #000000 !important;
+  }
+  
+  /* Add subtle glow to cards for visual hierarchy */
+  .card-glow {
+    box-shadow: 0 0 20px rgba(255, 56, 154, 0.1);
   }
 
   /* Iframe responsive styling */
