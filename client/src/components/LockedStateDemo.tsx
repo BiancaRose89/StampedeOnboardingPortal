@@ -3,8 +3,8 @@ import { Badge } from '@/components/ui/badge';
 import { Card, CardContent } from '@/components/ui/card';
 import { Lock, ArrowRight, Calendar, MessageSquare, Star, Wifi, CheckCircle, Clock, Play } from 'lucide-react';
 import { useAuth } from '@/components/AuthProvider';
+import OnboardingFlowChart from '@/components/OnboardingFlowChart';
 import OnboardingProgressSection from '@/components/OnboardingProgressSection';
-import MasterPlatformSection from '@/components/MasterPlatformSection';
 import HelpResourcesSection from '@/components/HelpResourcesSection';
 
 interface LockedOverlayProps {
@@ -43,6 +43,9 @@ export default function LockedStateDemo() {
 
   return (
     <div className="space-y-16">
+      {/* Onboarding Journey Flowchart */}
+      <OnboardingFlowChart />
+
       {/* Your Onboarding Progress */}
       <div className="relative">
         <OnboardingProgressSection />
@@ -66,8 +69,6 @@ export default function LockedStateDemo() {
           </div>
         )}
       </div>
-
-
       
       {/* Help Resources Section - At Bottom */}
       <HelpResourcesSection />
