@@ -7,6 +7,7 @@ import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { useAuth } from "@/components/AuthProvider";
 import { apiRequest } from "@/lib/queryClient";
 import type { OnboardingProgress } from "@shared/schema";
+import LoyaltyCarousel from "@/components/LoyaltyCarousel";
 
 interface ProgressStep {
   id: string;
@@ -210,6 +211,9 @@ export default function ProgressTracker({ onStepComplete }: ProgressTrackerProps
           );
         })}
       </div>
+      
+      {/* Loyalty Carousel Section */}
+      <LoyaltyCarousel />
     </section>
   );
 }
