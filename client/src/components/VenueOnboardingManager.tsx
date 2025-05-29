@@ -13,7 +13,21 @@ import {
   Plus,
   Trash2
 } from 'lucide-react';
-import OnboardingProgressSection from './OnboardingProgressSection';
+import { Progress } from '@/components/ui/progress';
+import { Dialog, DialogContent, DialogTrigger, DialogTitle, DialogHeader, DialogDescription } from '@/components/ui/dialog';
+import { 
+  Users, 
+  Wifi, 
+  Target, 
+  MessageSquare, 
+  Star, 
+  Gift, 
+  Calendar, 
+  ArrowRight, 
+  Play, 
+  Clock, 
+  CheckCircle 
+} from 'lucide-react';
 
 interface Venue {
   id: string;
@@ -192,6 +206,10 @@ export default function VenueOnboardingManager() {
           <p className="text-xl text-gray-300 mb-6">
             Complete the onboarding for each of your {venues.length} venue{venues.length !== 1 ? 's' : ''}
           </p>
+          <div className="inline-flex items-center gap-3 bg-[#0D0D24] px-6 py-3 rounded-full border border-[#FF389A]/30">
+            <span className="text-2xl font-bold text-[#FF389A]">0/{venues.length * 7}</span>
+            <span className="text-gray-300">Total Tasks Complete</span>
+          </div>
         </div>
 
         {/* Venue Tabs */}
@@ -286,7 +304,7 @@ export default function VenueOnboardingManager() {
                 </div>
                 
                 {/* Onboarding sections for this specific venue */}
-                <OnboardingProgressSection />
+                <VenueSpecificOnboarding venueName={venue.name} />
               </div>
             ))}
           </div>
@@ -348,5 +366,199 @@ function VenueNameEditor({ venue, onSave, onCancel }: VenueNameEditorProps) {
         <X className="h-3 w-3" />
       </Button>
     </form>
+  );
+}
+
+interface VenueSpecificOnboardingProps {
+  venueName: string;
+}
+
+function VenueSpecificOnboarding({ venueName }: VenueSpecificOnboardingProps) {
+  const [currentModalStep, setCurrentModalStep] = useState(0);
+
+  const onboardingBlocks = [
+    {
+      id: 'account-setup',
+      title: 'Account Setup',
+      description: `Complete your basic account configuration and business profile setup for ${venueName}`,
+      icon: <Users className="h-10 w-10 text-white" />,
+      progress: 85,
+      status: 'in-progress' as const,
+      estimatedTime: '10 minutes'
+    },
+    {
+      id: 'bookings',
+      title: 'Bookings',
+      description: `Set up online booking system for appointments and reservations at ${venueName}`,
+      icon: <Calendar className="h-10 w-10 text-white" />,
+      progress: 0,
+      status: 'not-started' as const,
+      estimatedTime: '15 minutes'
+    },
+    {
+      id: 'wifi',
+      title: 'WiFi',
+      description: `Configure guest WiFi portal for customer data capture at ${venueName}`,
+      icon: <Wifi className="h-10 w-10 text-white" />,
+      progress: 40,
+      status: 'in-progress' as const,
+      estimatedTime: '20 minutes'
+    },
+    {
+      id: 'marketing',
+      title: 'Marketing',
+      description: `Launch automated marketing campaigns and customer communications for ${venueName}`,
+      icon: <Target className="h-10 w-10 text-white" />,
+      progress: 0,
+      status: 'not-started' as const,
+      estimatedTime: '25 minutes'
+    },
+    {
+      id: 'loyalty',
+      title: 'Loyalty',
+      description: `Implement loyalty programs to increase customer retention at ${venueName}`,
+      icon: <Star className="h-10 w-10 text-white" />,
+      progress: 0,
+      status: 'not-started' as const,
+      estimatedTime: '15 minutes'
+    },
+    {
+      id: 'reviews',
+      title: 'Reviews',
+      description: `Manage customer reviews and feedback collection for ${venueName}`,
+      icon: <MessageSquare className="h-10 w-10 text-white" />,
+      progress: 0,
+      status: 'not-started' as const,
+      estimatedTime: '10 minutes'
+    },
+    {
+      id: 'gift-cards',
+      title: 'Gift Cards',
+      description: `Set up digital gift card sales and management system for ${venueName}`,
+      icon: <Gift className="h-10 w-10 text-white" />,
+      progress: 0,
+      status: 'not-started' as const,
+      estimatedTime: '12 minutes'
+    }
+  ];
+
+  const completedTasks = onboardingBlocks.filter(block => block.status === 'completed').length;
+  const totalTasks = onboardingBlocks.length;
+
+  const getStatusColor = (status: string) => {
+    switch (status) {
+      case 'completed':
+        return 'text-green-400';
+      case 'in-progress':
+        return 'text-[#FF389A]';
+      default:
+        return 'text-gray-400';
+    }
+  };
+
+  const getStatusIcon = (status: string) => {
+    switch (status) {
+      case 'completed':
+        return <CheckCircle className="h-6 w-6 text-green-400" />;
+      case 'in-progress':
+        return <Clock className="h-6 w-6 text-[#FF389A]" />;
+      default:
+        return <ArrowRight className="h-6 w-6 text-gray-400" />;
+    }
+  };
+
+  return (
+    <div className="space-y-8">
+      {/* Progress Summary */}
+      <div className="text-center">
+        <div className="inline-flex items-center gap-3 bg-[#0D0D24] px-6 py-3 rounded-full border border-[#FF389A]/30">
+          <span className="text-2xl font-bold text-[#FF389A]">{completedTasks}/{totalTasks}</span>
+          <span className="text-gray-300">Tasks Complete</span>
+        </div>
+      </div>
+
+      {/* Account Setup - Full Width Row */}
+      <div className="mb-8">
+        {onboardingBlocks.filter(block => block.id === 'account-setup').map((block) => (
+          <Card key={block.id} className="bg-gradient-to-br from-[#0D0D24] to-black border-[#FF389A]/30 hover:border-[#FF389A]/50 transition-all duration-300 cursor-pointer group">
+            <CardContent className="p-10">
+              <div className="flex items-center justify-between">
+                <div className="flex items-center gap-8">
+                  <div className="p-5 rounded-xl bg-gradient-to-br from-[#FF389A]/30 to-[#FF389A]/10 border border-[#FF389A]/30 group-hover:scale-110 transition-transform duration-300">
+                    {block.icon}
+                  </div>
+                  <div className="flex-1">
+                    <h3 className="text-3xl font-bold text-white mb-3">{block.title}</h3>
+                    <p className="text-gray-300 text-xl mb-4">{block.description}</p>
+                    <div className="flex items-center gap-4 text-lg text-gray-400">
+                      <span className="flex items-center gap-2">
+                        <Clock className="h-5 w-5" />
+                        {block.estimatedTime}
+                      </span>
+                      <span className="capitalize">{block.status.replace('-', ' ')}</span>
+                    </div>
+                  </div>
+                </div>
+                <div className="flex items-center gap-8">
+                  <div className="text-right">
+                    <div className="text-lg text-gray-400 mb-2">Progress</div>
+                    <div className={`text-3xl font-bold ${getStatusColor(block.status)}`}>{block.progress}%</div>
+                    <Progress 
+                      value={block.progress} 
+                      className="h-4 w-40 mt-3"
+                      style={{
+                        background: 'rgba(255, 255, 255, 0.1)',
+                      } as React.CSSProperties}
+                    />
+                  </div>
+                  {getStatusIcon(block.status)}
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+        ))}
+      </div>
+
+      {/* Other Onboarding Blocks - Larger Grid */}
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        {onboardingBlocks.filter(block => block.id !== 'account-setup').map((block) => (
+          <Card key={block.id} className="bg-gradient-to-br from-[#0D0D24] to-black border-[#FF389A]/30 hover:border-[#FF389A]/50 transition-all duration-300 cursor-pointer group">
+            <CardContent className="p-8">
+              <div className="flex items-start justify-between mb-6">
+                <div className="p-4 rounded-xl bg-gradient-to-br from-[#FF389A]/30 to-[#FF389A]/10 border border-[#FF389A]/30 group-hover:scale-110 transition-transform duration-300">
+                  {block.icon}
+                </div>
+                {getStatusIcon(block.status)}
+              </div>
+              
+              <h3 className="text-2xl font-bold text-white mb-3">{block.title}</h3>
+              <p className="text-gray-300 text-lg mb-6">{block.description}</p>
+              
+              <div className="space-y-4">
+                <div className="flex items-center justify-between text-lg">
+                  <span className="text-gray-400">Progress</span>
+                  <span className={getStatusColor(block.status)}>{block.progress}%</span>
+                </div>
+                <Progress 
+                  value={block.progress} 
+                  className="h-3"
+                  style={{
+                    background: 'rgba(255, 255, 255, 0.1)',
+                  } as React.CSSProperties}
+                />
+                
+                <div className="flex items-center justify-between text-base text-gray-400">
+                  <span className="flex items-center gap-2">
+                    <Clock className="h-4 w-4" />
+                    {block.estimatedTime}
+                  </span>
+                  <span className="capitalize">{block.status.replace('-', ' ')}</span>
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+        ))}
+      </div>
+    </div>
   );
 }
