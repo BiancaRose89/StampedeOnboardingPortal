@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Progress } from "@/components/ui/progress";
 import { Dialog, DialogContent, DialogTrigger, DialogTitle } from "@/components/ui/dialog";
-import { Users, Wifi, Target, MessageSquare, Star, Gift, ArrowRight, Play, Clock, CheckCircle } from "lucide-react";
+import { Users, Wifi, Target, MessageSquare, Star, Gift, Calendar, ArrowRight, Play, Clock, CheckCircle } from "lucide-react";
 
 interface OnboardingBlock {
   id: string;
@@ -134,6 +134,27 @@ export default function OnboardingProgressSection() {
           description: 'Set up your business information and contact details',
           articles: [
             { title: 'Profile Setup Guide', url: '#', type: 'guide' }
+          ]
+        }
+      ]
+    },
+    {
+      id: 'bookings',
+      title: 'Bookings',
+      description: 'Set up booking and appointment management system for your business',
+      icon: <Calendar className="h-8 w-8 text-white" />,
+      progress: 0,
+      status: 'not-started',
+      estimatedTime: '12 minutes',
+      difficulty: 'Beginner',
+      videoUrl: 'https://example.com/bookings-setup',
+      steps: [
+        {
+          id: 'booking-calendar',
+          title: 'Calendar Setup',
+          description: 'Configure your booking calendar and availability',
+          articles: [
+            { title: 'Booking System Guide', url: '#', type: 'guide' }
           ]
         }
       ]
