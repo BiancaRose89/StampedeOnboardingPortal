@@ -5,6 +5,7 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
 import { useToast } from '@/hooks/use-toast';
+import { useAuth } from '@/components/AuthProvider';
 import { Heart, Users, Star, Gift } from 'lucide-react';
 
 export default function FeedbackAndReferralSection() {
@@ -15,6 +16,12 @@ export default function FeedbackAndReferralSection() {
   const [isSubmittingReferral, setIsSubmittingReferral] = useState(false);
   
   const { toast } = useToast();
+  const { firebaseUser } = useAuth();
+
+  // Hide entire section for logged out users
+  if (!firebaseUser) {
+    return null;
+  }
 
   const handleFeedbackSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
