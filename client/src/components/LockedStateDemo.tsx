@@ -4,7 +4,7 @@ import { Card, CardContent } from '@/components/ui/card';
 import { Lock, ArrowRight, Calendar, MessageSquare, Star, Wifi, CheckCircle, Clock, Play } from 'lucide-react';
 import { useAuth } from '@/components/AuthProvider';
 import OnboardingFlowChart from '@/components/OnboardingFlowChart';
-import OnboardingProgressSection from '@/components/OnboardingProgressSection';
+import VenueOnboardingManager from '@/components/VenueOnboardingManager';
 import HelpResourcesSection from '@/components/HelpResourcesSection';
 
 interface LockedOverlayProps {
@@ -48,7 +48,7 @@ export default function LockedStateDemo() {
 
       {/* Your Onboarding Progress */}
       <div className="relative">
-        <OnboardingProgressSection />
+        <VenueOnboardingManager />
         {isLoggedOut && (
           <div className="absolute inset-0 bg-[#0D0D24]/75 backdrop-blur-sm rounded-2xl flex items-center justify-center z-10 animate-in fade-in duration-500">
             <div className="text-center space-y-4 bg-[#0D0D24]/90 border border-[#FF389A]/30 rounded-2xl p-8 max-w-md mx-4">
@@ -59,7 +59,7 @@ export default function LockedStateDemo() {
               </div>
               <h3 className="text-2xl font-bold text-white">Ready to Start?</h3>
               <p className="text-gray-300 leading-relaxed">
-                Log in to access your personalized onboarding experience and unlock your onboarding progress.
+                Log in to access your personalized onboarding experience and unlock your venue onboarding progress.
               </p>
               <Button className="bg-[#FF389A] hover:bg-[#E6329C] text-white px-8 py-3 font-bold w-full">
                 Log In to Continue
