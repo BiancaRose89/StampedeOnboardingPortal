@@ -18,6 +18,7 @@ import ChatWidget from "@/components/ChatWidget";
 import TestimonialCarousel from "@/components/TestimonialCarousel";
 import ClientLogosSection from "@/components/ClientLogosSection";
 import FeedbackAndReferralSection from "@/components/FeedbackAndReferralSection";
+import HelpResourcesSection from "@/components/HelpResourcesSection";
 import { APP_CONFIG } from "@/lib/config";
 
 export default function Home() {
@@ -235,6 +236,9 @@ export default function Home() {
               </p>
             </div>
             <PlatformTipsSection />
+            
+            {/* Advanced Topics & Troubleshooting Dropdowns */}
+            <HelpResourcesSection />
             
             {/* Client Success Highlights at bottom of Master Platform section */}
             <TestimonialCarousel />

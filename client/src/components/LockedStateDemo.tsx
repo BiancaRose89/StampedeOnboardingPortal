@@ -70,8 +70,7 @@ export default function LockedStateDemo() {
         )}
       </div>
       
-      {/* Help Resources Section - At Bottom */}
-      <HelpResourcesSection />
+
     </div>
   );
 }
