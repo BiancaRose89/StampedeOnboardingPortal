@@ -231,7 +231,6 @@ export default function Home() {
           <section id="master-platform" className="space-y-8">
             <div className="text-center space-y-4">
               <h2 className="text-3xl font-bold text-white">Now that you have run through the setup and features, let's master the platform</h2>
-              <p className="text-gray-300">Deep-dive into features and best practices to unlock the full potential of your platform.</p>
             </div>
             <PlatformTipsSection />
           </section>
