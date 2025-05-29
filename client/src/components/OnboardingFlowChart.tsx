@@ -81,8 +81,8 @@ export default function OnboardingFlowChart() {
     <div className="space-y-8 mb-16">
       {/* Header */}
       <div className="text-center space-y-4">
-        <h2 className="text-3xl font-bold text-white">Your Onboarding Journey</h2>
-        <p className="text-gray-300 text-lg max-w-2xl mx-auto">
+        <h2 className="text-4xl md:text-5xl font-bold text-white">Your Onboarding Journey</h2>
+        <p className="text-xl text-gray-300 max-w-3xl mx-auto">
           Follow these 8 essential steps to get your platform ready for customers
         </p>
       </div>
