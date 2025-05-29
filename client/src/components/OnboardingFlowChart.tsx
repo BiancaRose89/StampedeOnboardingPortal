@@ -149,6 +149,38 @@ export default function OnboardingFlowChart() {
         </div>
       </div>
 
+      {/* Video Placeholder Section */}
+      <div className="mt-16 text-center">
+        <div className="max-w-4xl mx-auto">
+          <h3 className="text-2xl font-bold text-white mb-4">Watch Our Onboarding Overview</h3>
+          <p className="text-gray-300 mb-8">Get a complete walkthrough of your journey in just a few minutes</p>
+          
+          <div className="relative bg-black rounded-2xl overflow-hidden shadow-2xl border border-[#FF389A]/20">
+            <div className="aspect-video flex items-center justify-center bg-gradient-to-br from-black to-gray-900 relative group cursor-pointer hover:from-gray-900 hover:to-black transition-all duration-300">
+              {/* Play Button */}
+              <div className="w-20 h-20 rounded-full bg-[#FF389A] flex items-center justify-center shadow-2xl group-hover:scale-110 transition-transform duration-300">
+                <svg className="w-8 h-8 text-white ml-1" fill="currentColor" viewBox="0 0 24 24">
+                  <path d="M8 5v14l11-7z"/>
+                </svg>
+              </div>
+              
+              {/* Video overlay effects */}
+              <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent"></div>
+              
+              {/* Video title overlay */}
+              <div className="absolute bottom-6 left-6 text-left">
+                <h4 className="text-xl font-bold text-white mb-2">Your Complete Onboarding Guide</h4>
+                <p className="text-gray-300 text-sm">Duration: 8 minutes</p>
+              </div>
+              
+              {/* Hover effect */}
+              <div className="absolute inset-0 bg-[#FF389A]/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+            </div>
+          </div>
+          
+          <p className="text-gray-400 text-sm mt-4">Click to start your onboarding journey overview</p>
+        </div>
+      </div>
 
     </div>
   );
