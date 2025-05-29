@@ -324,9 +324,6 @@ export default function OnboardingProgressSection() {
                         <div className="flex items-center gap-3 mt-2">
                           {getStatusIcon(block.status)}
                           <span className="text-sm text-gray-300 font-medium">{block.estimatedTime}</span>
-                          <Badge className={`${getDifficultyColor(block.difficulty)} shadow-sm font-bold`}>
-                            {block.difficulty}
-                          </Badge>
                         </div>
                       </div>
                     </div>
@@ -388,9 +385,6 @@ export default function OnboardingProgressSection() {
                         <div className="flex items-center gap-2 mt-1">
                           {getStatusIcon(block.status)}
                           <span className="text-xs text-gray-300 font-medium">{block.estimatedTime}</span>
-                          <Badge className={`${getDifficultyColor(block.difficulty)} shadow-sm font-bold text-xs`}>
-                            {block.difficulty}
-                          </Badge>
                         </div>
                       </div>
                     </div>
