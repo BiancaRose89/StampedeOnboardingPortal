@@ -144,11 +144,8 @@ function PlatformModal({ feature }: PlatformModalProps) {
           <div className="space-y-3">
             {feature.features.map((featureDetail, index) => (
               <div key={featureDetail.id} className="p-4 bg-[#0D0D24]/50 rounded-lg border border-gray-600/30">
-                <div className="flex items-start justify-between mb-2">
+                <div className="mb-2">
                   <h4 className="font-bold text-white">{featureDetail.title}</h4>
-                  <Badge className={getDifficultyColor(featureDetail.difficulty)} variant="secondary">
-                    {featureDetail.difficulty}
-                  </Badge>
                 </div>
                 <p className="text-gray-300 text-sm mb-2">{featureDetail.description}</p>
                 <div className="flex items-center gap-2 text-xs text-gray-400">
@@ -180,22 +177,22 @@ function PlatformModal({ feature }: PlatformModalProps) {
 // Customer inspiration examples for platform features
 const getPlatformCustomerExamples = (featureId: string) => {
   const examples = {
-    'account': [
+    'analytics': [
       {
-        icon: '👥',
-        type: 'Team Setup',
-        title: 'Multi-Location Management',
-        description: 'Configured role-based access for 15 staff members across 3 locations',
-        business: 'Restaurant Chain',
-        result: 'Streamlined operations'
+        icon: '📊',
+        type: 'Performance Tracking',
+        title: 'Customer Behavior Dashboard',
+        description: 'Real-time tracking of customer visits, preferences, and spending patterns',
+        business: 'Coffee Shop',
+        result: '25% revenue increase'
       },
       {
-        icon: '🏢',
-        type: 'Business Profile',
-        title: 'Complete Brand Setup',
-        description: 'Professional business profile with hours, contact info, and social links',
-        business: 'Local Cafe',
-        result: 'Professional presence'
+        icon: '📈',
+        type: 'Custom Reports',
+        title: 'Weekly Business Intelligence',
+        description: 'Automated reports showing peak hours, popular items, and customer retention',
+        business: 'Restaurant',
+        result: 'Data-driven decisions'
       }
     ],
     'marketing': [
@@ -296,44 +293,44 @@ const getPlatformCustomerExamples = (featureId: string) => {
 export default function MasterPlatformSection() {
   const platformFeatures: PlatformFeature[] = [
     {
-      id: 'account',
-      title: 'Account Management',
-      description: 'Complete business profile configuration and team management system',
-      icon: <Users className="h-8 w-8 text-white" />,
-      progress: 100,
-      status: 'completed',
-      estimatedTime: '15 minutes',
-      masterDescription: 'Master account setup and business profile management for a professional platform presence.',
+      id: 'analytics',
+      title: 'Analytics',
+      description: 'Track performance metrics and gain insights into customer behavior',
+      icon: <BarChart3 className="h-8 w-8 text-white" />,
+      progress: 60,
+      status: 'in-progress',
+      estimatedTime: '20 minutes',
+      masterDescription: 'Master analytics and reporting to understand customer behavior and optimize your business performance.',
       examples: [
-        'Set up comprehensive business profiles with contact information',
-        'Configure team member roles and access permissions',
-        'Integrate business systems and existing tools',
-        'Customize platform branding and appearance'
+        'Set up comprehensive dashboard tracking key metrics',
+        'Configure customer behavior analytics and insights',
+        'Create custom reports for business intelligence',
+        'Monitor revenue trends and performance indicators'
       ],
       features: [
         {
-          id: 'business-profile',
-          title: 'Business Profile Setup',
-          description: 'Create comprehensive business profiles with contact info, hours, and branding',
+          id: 'dashboard-setup',
+          title: 'Analytics Dashboard',
+          description: 'Create comprehensive dashboards with key performance indicators and metrics',
           timeToImplement: '15 mins',
           difficulty: 'Easy',
-          category: 'Configuration'
+          category: 'Reporting'
         },
         {
-          id: 'team-management',
-          title: 'Team Member Access',
-          description: 'Add team members and configure role-based permissions for platform access',
-          timeToImplement: '10 mins',
-          difficulty: 'Easy',
-          category: 'User Management'
-        },
-        {
-          id: 'integrations',
-          title: 'System Integrations',
-          description: 'Connect existing business tools and systems for seamless data flow',
-          timeToImplement: '25 mins',
+          id: 'customer-insights',
+          title: 'Customer Behavior Analytics',
+          description: 'Track customer interactions, preferences, and engagement patterns',
+          timeToImplement: '20 mins',
           difficulty: 'Medium',
-          category: 'Integration'
+          category: 'Customer Intelligence'
+        },
+        {
+          id: 'custom-reports',
+          title: 'Custom Report Builder',
+          description: 'Design and schedule custom reports for business intelligence and decision making',
+          timeToImplement: '25 mins',
+          difficulty: 'Advanced',
+          category: 'Business Intelligence'
         }
       ]
     },
@@ -583,9 +580,9 @@ export default function MasterPlatformSection() {
           </p>
         </div>
 
-        {/* Account Management - Full Width Row */}
+        {/* Analytics - Full Width Row */}
         <div className="mb-8">
-          {platformFeatures.filter(feature => feature.id === 'account').map((feature) => (
+          {platformFeatures.filter(feature => feature.id === 'analytics').map((feature) => (
             <Dialog key={feature.id}>
               <DialogTrigger asChild>
                 <Card className="bg-gradient-to-br from-[#0D0D24] to-black border-[#FF389A]/30 hover:border-[#FF389A]/50 transition-all duration-300 cursor-pointer group">
@@ -633,7 +630,7 @@ export default function MasterPlatformSection() {
 
         {/* Other Platform Features */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {platformFeatures.filter(feature => feature.id !== 'account').map((feature) => (
+          {platformFeatures.filter(feature => feature.id !== 'analytics').map((feature) => (
             <Dialog key={feature.id}>
               <DialogTrigger asChild>
                 <Card className="bg-gradient-to-br from-[#0D0D24] to-black border-[#FF389A]/30 hover:border-[#FF389A]/50 transition-all duration-300 cursor-pointer group">
