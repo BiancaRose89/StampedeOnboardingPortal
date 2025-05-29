@@ -282,7 +282,7 @@ export default function PlatformTipsSection() {
       {/* Master Platform Cards - Matching Onboarding Progress Style */}
       {isLocked ? (
         <LockedOverlay title="Master Your Platform">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 opacity-40 pointer-events-none">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 opacity-40 pointer-events-none">
         {platformTips.map((feature) => (
           <div key={feature.id} className="interactive-card group">
             <div className="flex items-start justify-between mb-4">
@@ -343,7 +343,7 @@ export default function PlatformTipsSection() {
           </div>
         </LockedOverlay>
       ) : (
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         {platformTips.map((feature) => (
           <div key={feature.id} className="interactive-card group">
             <div className="flex items-start justify-between mb-4">
