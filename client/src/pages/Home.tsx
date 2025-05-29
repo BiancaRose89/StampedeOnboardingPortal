@@ -16,6 +16,7 @@ import PlatformTipsSection from "@/components/PlatformTipsSection";
 import KnowledgeBaseSection from "@/components/KnowledgeBaseSection";
 import ChatWidget from "@/components/ChatWidget";
 import TestimonialCarousel from "@/components/TestimonialCarousel";
+import ClientLogosSection from "@/components/ClientLogosSection";
 import { APP_CONFIG } from "@/lib/config";
 
 export default function Home() {
@@ -233,9 +234,10 @@ export default function Home() {
             
             {/* Client Success Highlights at bottom of Master Platform section */}
             <TestimonialCarousel />
+            
+            {/* Client Logos Section */}
+            <ClientLogosSection />
           </section>
-
-          <Separator className="my-16" />
 
           {/* Call to Action Section - Only for logged out users */}
           {!firebaseUser && (
