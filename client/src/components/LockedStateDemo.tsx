@@ -3,7 +3,7 @@ import { Badge } from '@/components/ui/badge';
 import { Card, CardContent } from '@/components/ui/card';
 import { Lock, ArrowRight, Calendar, MessageSquare, Star, Wifi, CheckCircle, Clock, Play } from 'lucide-react';
 import { useAuth } from '@/components/AuthProvider';
-import ProgressTracker from '@/components/ProgressTracker';
+import MasterPlatformSection from '@/components/MasterPlatformSection';
 import HelpResourcesSection from '@/components/HelpResourcesSection';
 
 interface LockedOverlayProps {
@@ -40,38 +40,11 @@ export default function LockedStateDemo() {
   // Check if user is actually logged out
   const isLoggedOut = !firebaseUser || !dbUser;
 
-  const platformFeatures = [
-    {
-      id: 'bookings',
-      title: 'Bookings',
-      icon: <Calendar className="h-6 w-6" />,
-      features: ['Create a Walk-In', 'Block Off Father\'s Day']
-    },
-    {
-      id: 'marketing',
-      title: 'Marketing',
-      icon: <MessageSquare className="h-6 w-6" />,
-      features: ['Set Up Email Automation', 'Schedule a Campaign']
-    },
-    {
-      id: 'loyalty',
-      title: 'Loyalty',
-      icon: <Star className="h-6 w-6" />,
-      features: ['Create a Loyalty Card', 'Set Redemption Rules']
-    },
-    {
-      id: 'wifi',
-      title: 'WiFi',
-      icon: <Wifi className="h-6 w-6" />,
-      features: ['Set Guest Access Rules', 'Add a Splash Page']
-    }
-  ];
-
   return (
     <div className="space-y-16">
-      {/* Progress Till Go Live */}
+      {/* Master Your Platform */}
       <div className="relative">
-        <ProgressTracker />
+        <MasterPlatformSection />
         {isLoggedOut && (
           <div className="absolute inset-0 bg-[#0D0D24]/75 backdrop-blur-sm rounded-2xl flex items-center justify-center z-10 animate-in fade-in duration-500">
             <div className="text-center space-y-4 bg-[#0D0D24]/90 border border-[#FF389A]/30 rounded-2xl p-8 max-w-md mx-4">
@@ -93,7 +66,7 @@ export default function LockedStateDemo() {
         )}
       </div>
       
-      {/* Help Resources Section - Moved to Bottom */}
+      {/* Help Resources Section - At Bottom */}
       <HelpResourcesSection />
     </div>
   );
