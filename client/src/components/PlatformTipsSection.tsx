@@ -234,38 +234,38 @@ const platformTips: FeatureTips[] = [
     ]
   },
   {
-    id: 'account',
-    title: 'Account Setup',
-    icon: <Users className="h-6 w-6" />,
-    color: 'from-gray-500 to-slate-500',
-    image: '/images/account-dashboard.png',
-    videoUrl: '/videos/account-setup.mp4',
-    description: 'Configure your business profile and team settings for optimal platform performance.',
-    examples: ['Team role management', 'Business profile completion', 'Integration setup', 'Security settings'],
+    id: 'analytics',
+    title: 'Analytics',
+    icon: <TrendingUp className="h-6 w-6" />,
+    color: 'from-blue-500 to-purple-500',
+    image: '/images/analytics-dashboard.png',
+    videoUrl: '/videos/analytics-setup.mp4',
+    description: 'Track performance metrics and gain insights into customer behavior and business trends.',
+    examples: ['Customer behavior tracking', 'Revenue analytics', 'Performance dashboards', 'Custom reporting'],
     tips: [
       {
-        id: 'team-roles',
-        title: 'Team Roles & Permissions',
-        description: 'Assign different access levels to staff members based on their responsibilities',
+        id: 'dashboard-setup',
+        title: 'Analytics Dashboard',
+        description: 'Create comprehensive dashboards with key performance indicators and metrics',
         timeToImplement: '15 mins',
         difficulty: 'Easy',
-        category: 'permissions'
+        category: 'reporting'
       },
       {
-        id: 'business-profile',
-        title: 'Business Profile Setup',
-        description: 'Complete your business information, hours, contact details, and social links',
-        timeToImplement: '10 mins',
-        difficulty: 'Easy',
-        category: 'profile'
+        id: 'customer-insights',
+        title: 'Customer Behavior Analytics',
+        description: 'Track customer interactions, preferences, and engagement patterns',
+        timeToImplement: '20 mins',
+        difficulty: 'Medium',
+        category: 'insights'
       },
       {
-        id: 'integration-setup',
-        title: 'Third-party Integrations',
-        description: 'Connect POS systems, payment processors, and marketing tools',
-        timeToImplement: '30 mins',
+        id: 'custom-reports',
+        title: 'Custom Report Builder',
+        description: 'Design and schedule custom reports for business intelligence and decision making',
+        timeToImplement: '25 mins',
         difficulty: 'Advanced',
-        category: 'integrations'
+        category: 'reports'
       }
     ]
   }
@@ -444,38 +444,38 @@ const getCustomerExamples = (featureId: string) => {
         result: '90% deposit rate'
       }
     ],
-    account: [
+    analytics: [
       {
-        icon: '👥',
-        type: 'Team Management',
-        title: 'Role-Based Access',
-        description: 'Staff permissions based on responsibilities',
-        business: 'Multi-location Chain',
-        result: 'Secure operations'
+        icon: '📊',
+        type: 'Performance Tracking',
+        title: 'Customer Behavior Dashboard',
+        description: 'Real-time tracking of customer visits, preferences, and spending patterns',
+        business: 'Coffee Shop',
+        result: '25% revenue increase'
       },
       {
-        icon: '🏢',
-        type: 'Business Profile',
-        title: 'Complete Brand Setup',
-        description: 'Business hours, contact info, and social links',
-        business: 'Local Business',
-        result: 'Professional presence'
+        icon: '📈',
+        type: 'Custom Reports',
+        title: 'Weekly Business Intelligence',
+        description: 'Automated reports showing peak hours, popular items, and customer retention',
+        business: 'Restaurant',
+        result: 'Data-driven decisions'
       },
       {
-        icon: '🔌',
-        type: 'Integrations',
-        title: 'POS System Connection',
-        description: 'Seamless integration with existing POS systems',
+        icon: '🎯',
+        type: 'Customer Insights',
+        title: 'Behavior Analytics',
+        description: 'Track customer engagement and identify high-value segments',
         business: 'Retail Store',
-        result: 'Unified data'
+        result: '40% better targeting'
       },
       {
-        icon: '🔒',
-        type: 'Security',
-        title: 'Two-Factor Authentication',
-        description: 'Enhanced security for business accounts',
-        business: 'Financial Services',
-        result: 'Bank-level security'
+        icon: '📋',
+        type: 'Custom Analytics',
+        title: 'Revenue Forecasting',
+        description: 'Predictive analytics for inventory and staffing decisions',
+        business: 'Hotel',
+        result: '15% cost savings'
       }
     ]
   };
@@ -640,9 +640,6 @@ export default function PlatformTipsSection() {
                         <p className="text-gray-400 text-xs">{tip.description}</p>
                       </div>
                     </div>
-                    <Badge className={getDifficultyColor(tip.difficulty)} variant="secondary">
-                      {tip.difficulty}
-                    </Badge>
                   </div>
                 ))}
               </div>
