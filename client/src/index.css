@@ -39,13 +39,13 @@
 }
 
 .dark {
-  --background: 246 59% 7%; /* New background color #0D0D24 */
+  --background: 0 0% 0%; /* Pure black background #000000 */
   --foreground: 0 0% 98%; /* Crisp white text */
-  --muted: 246 59% 12%; /* Slightly lighter muted */
+  --muted: 0 0% 8%; /* Slightly lighter muted */
   --muted-foreground: 240 20% 75%; /* Light muted text */
-  --popover: 246 59% 7%; /* Match main background */
+  --popover: 0 0% 0%; /* Match main background */
   --popover-foreground: 0 0% 98%;
-  --card: 246 59% 15%; /* Slightly lighter card background */
+  --card: 0 0% 10%; /* Slightly lighter card background */
   --card-foreground: 0 0% 98%;
   --border: 240 50% 20%; /* Adjusted borders */
   --input: 246 59% 12%; /* Input backgrounds */
