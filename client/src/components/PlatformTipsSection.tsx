@@ -32,6 +32,7 @@ interface FeatureTips {
   title: string;
   icon: React.ReactNode;
   color: string;
+  image?: string;
   tips: TipCard[];
 }
 
@@ -41,6 +42,7 @@ const platformTips: FeatureTips[] = [
     title: 'Marketing',
     icon: <MessageSquare className="h-6 w-6" />,
     color: 'from-pink-500 to-rose-500',
+    image: '/images/marketing-dashboard.png',
     tips: [
       {
         id: 'email-automation',
@@ -73,6 +75,7 @@ const platformTips: FeatureTips[] = [
     title: 'WiFi',
     icon: <Wifi className="h-6 w-6" />,
     color: 'from-blue-500 to-cyan-500',
+    image: '/images/wifi-dashboard.png',
     tips: [
       {
         id: 'guest-network',
@@ -105,6 +108,7 @@ const platformTips: FeatureTips[] = [
     title: 'Reviews',
     icon: <Star className="h-6 w-6" />,
     color: 'from-yellow-500 to-orange-500',
+    image: '/images/reviews-dashboard.png',
     tips: [
       {
         id: 'review-requests',
@@ -137,6 +141,7 @@ const platformTips: FeatureTips[] = [
     title: 'Loyalty',
     icon: <Gift className="h-6 w-6" />,
     color: 'from-purple-500 to-indigo-500',
+    image: '/images/loyalty-dashboard.png',
     tips: [
       {
         id: 'points-system',
@@ -169,6 +174,7 @@ const platformTips: FeatureTips[] = [
     title: 'Bookings',
     icon: <Calendar className="h-6 w-6" />,
     color: 'from-green-500 to-emerald-500',
+    image: '/images/bookings-dashboard.png',
     tips: [
       {
         id: 'calendar-sync',
@@ -282,7 +288,7 @@ export default function PlatformTipsSection() {
       {/* Master Platform Cards - Matching Onboarding Progress Style */}
       {isLocked ? (
         <LockedOverlay title="Master Your Platform">
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 opacity-40 pointer-events-none">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 opacity-40 pointer-events-none">
         {platformTips.map((feature) => (
           <div key={feature.id} className="interactive-card group">
             <div className="flex items-start justify-between mb-4">
@@ -343,7 +349,7 @@ export default function PlatformTipsSection() {
           </div>
         </LockedOverlay>
       ) : (
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         {platformTips.map((feature) => (
           <div key={feature.id} className="interactive-card group">
             <div className="flex items-start justify-between mb-4">
