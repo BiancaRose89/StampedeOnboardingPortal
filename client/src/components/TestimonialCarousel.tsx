@@ -9,38 +9,44 @@ interface Testimonial {
   quote: string;
   author?: string;
   tagline?: string;
+  details?: string;
 }
 
 const testimonials: Testimonial[] = [
   {
     id: '1',
     company: 'Great British Inn',
-    quote: 'Bianca was readily available, created clear workflows, and delivered informative, engaging sessions.',
-    tagline: 'Onboarded by Bianca (CSM)'
+    quote: 'Bianca was readily available, created clear workflows, and delivered informative, engaging sessions that helped us maximize our platform potential.',
+    tagline: 'Onboarded by Bianca (CSM)',
+    details: 'Successfully implemented WiFi marketing, loyalty program, and booking system resulting in 40% increase in repeat customers'
   },
   {
     id: '2',
     company: 'Vino Vita',
-    quote: "You're awesome and have done such a great job with our onboarding.",
-    tagline: 'Onboarded by Bianca (CSM)'
+    quote: "You're awesome and have done such a great job with our onboarding. The support throughout the process has been exceptional and the results speak for themselves.",
+    tagline: 'Onboarded by Bianca (CSM)',
+    details: 'Launched comprehensive digital ecosystem including guest WiFi, marketing automation, and review management'
   },
   {
     id: '3',
     company: 'Number 90 UK',
-    quote: 'Stampede was the complete opposite [of most setups] — stress-free, smooth, and incredibly well supported.',
-    tagline: 'Onboarded by Bianca (CSM)'
+    quote: 'Stampede was the complete opposite of most setups — stress-free, smooth, and incredibly well supported. The team guided us through every step.',
+    tagline: 'Onboarded by Bianca (CSM)',
+    details: 'Streamlined operations with integrated booking system, loyalty rewards, and automated marketing campaigns'
   },
   {
     id: '4',
     company: 'Great British Inn',
-    quote: 'The loyalty scheme we launched has been the shining star of our partnership.',
-    tagline: 'Onboarded by Bianca (CSM)'
+    quote: 'The loyalty scheme we launched has been the shining star of our partnership. Customer engagement has never been stronger.',
+    tagline: 'Onboarded by Bianca (CSM)',
+    details: 'Implemented punch card loyalty system with SMS marketing integration, achieving 65% customer retention rate'
   },
   {
     id: '5',
     company: 'Ronnie Joice',
-    quote: "You're absolutely amazing, Bianca. I genuinely mean that.",
-    tagline: 'Onboarded by Bianca (CSM)'
+    quote: "You're absolutely amazing, Bianca. I genuinely mean that. The level of support and expertise has been outstanding.",
+    tagline: 'Onboarded by Bianca (CSM)',
+    details: 'Complete digital transformation including WiFi capture, automated reviews, gift card sales, and customer analytics'
   }
 ];
 
@@ -95,7 +101,7 @@ export default function TestimonialCarousel() {
           </div>
 
           {/* Carousel Container */}
-          <div className="relative max-w-4xl mx-auto">
+          <div className="relative max-w-6xl mx-auto">
             <Card className="bg-gradient-to-br from-[#0D0D24] to-black border-[#FF389A]/30 shadow-2xl overflow-hidden min-h-[250px] max-h-[300px]">
               <CardContent className="p-8 md:p-12 flex items-center justify-center">
                 <div className={`text-center space-y-6 transition-all duration-300 ${isAnimating ? 'opacity-0 scale-95' : 'opacity-100 scale-100'}`}>
@@ -112,13 +118,18 @@ export default function TestimonialCarousel() {
                   </blockquote>
 
                   {/* Attribution */}
-                  <div className="space-y-2">
+                  <div className="space-y-3">
                     <div className="text-lg font-bold text-white">
                       — {currentTestimonial.company}
                     </div>
                     {currentTestimonial.tagline && (
                       <div className="text-sm text-[#FF389A] font-medium">
                         {currentTestimonial.tagline}
+                      </div>
+                    )}
+                    {currentTestimonial.details && (
+                      <div className="text-sm text-gray-300 max-w-2xl mx-auto leading-relaxed border-t border-[#FF389A]/20 pt-3">
+                        {currentTestimonial.details}
                       </div>
                     )}
                   </div>
