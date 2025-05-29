@@ -234,40 +234,40 @@ export default function HelpResourcesSection() {
               <ChevronDown className="h-5 w-5 text-[#FF389A]" />
             )}
           </Button>
-        
-        {expandedSection === 'troubleshooting' && (
-          <CardContent className="px-6 pb-6 pt-0">
-            <div className="space-y-4">
-              {troubleshooting.map((issue) => (
-                <div
-                  key={issue.id}
-                  className="p-4 bg-[#0D0D24]/50 rounded-lg border border-gray-600/30 hover:border-[#FF389A]/30 transition-colors duration-200 group cursor-pointer"
-                >
-                  <div className="flex items-start justify-between">
-                    <div className="flex items-start gap-3 flex-1">
-                      <div className="p-2 rounded-lg bg-[#FF389A]/10 border border-[#FF389A]/20 mt-1">
-                        <Settings className="h-4 w-4 text-[#FF389A]" />
-                      </div>
-                      <div className="flex-1">
-                        <h4 className="font-bold text-white group-hover:text-[#FF389A] transition-colors duration-200">
-                          {issue.title}
-                        </h4>
-                        <p className="text-gray-400 text-sm mt-1">{issue.description}</p>
-                        <div className="flex items-center gap-3 mt-3">
-                          <Badge className={`${getUrgencyColor(issue.urgency)} text-xs font-semibold`}>
-                            {issue.urgency} Priority
-                          </Badge>
-                          <span className="text-xs text-gray-400">{issue.solutions} Solutions</span>
+          
+          {expandedSection === 'troubleshooting' && (
+            <CardContent className="px-6 pb-6 pt-0">
+              <div className="space-y-4">
+                {troubleshooting.map((issue) => (
+                  <div
+                    key={issue.id}
+                    className="p-4 bg-[#0D0D24]/50 rounded-lg border border-gray-600/30 hover:border-[#FF389A]/30 transition-colors duration-200 group cursor-pointer"
+                  >
+                    <div className="flex items-start justify-between">
+                      <div className="flex items-start gap-3 flex-1">
+                        <div className="p-2 rounded-lg bg-[#FF389A]/10 border border-[#FF389A]/20 mt-1">
+                          <Settings className="h-4 w-4 text-[#FF389A]" />
+                        </div>
+                        <div className="flex-1">
+                          <h4 className="font-bold text-white group-hover:text-[#FF389A] transition-colors duration-200">
+                            {issue.title}
+                          </h4>
+                          <p className="text-gray-400 text-sm mt-1">{issue.description}</p>
+                          <div className="flex items-center gap-3 mt-3">
+                            <Badge className={`${getUrgencyColor(issue.urgency)} text-xs font-semibold`}>
+                              {issue.urgency} Priority
+                            </Badge>
+                            <span className="text-xs text-gray-400">{issue.solutions} Solutions</span>
+                          </div>
                         </div>
                       </div>
+                      <ExternalLink className="h-4 w-4 text-gray-400 group-hover:text-[#FF389A] transition-colors duration-200 mt-1" />
                     </div>
-                    <ExternalLink className="h-4 w-4 text-gray-400 group-hover:text-[#FF389A] transition-colors duration-200 mt-1" />
                   </div>
-                </div>
-              ))}
-            </div>
-          </CardContent>
-        )}
+                ))}
+              </div>
+            </CardContent>
+          )}
         </Card>
       )}
     </div>
