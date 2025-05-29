@@ -766,8 +766,61 @@ export default function OnboardingProgressSection() {
           </div>
         </div>
 
+        {/* Account Setup - Full Width Row */}
+        <div className="mb-8">
+          {onboardingBlocks.filter(block => block.id === 'account-setup').map((block) => (
+            <Dialog key={block.id}>
+              <DialogTrigger asChild>
+                <Card className="bg-gradient-to-br from-[#0D0D24] to-black border-[#FF389A]/30 hover:border-[#FF389A]/50 transition-all duration-300 cursor-pointer group">
+                  <CardContent className="p-8">
+                    <div className="flex items-center justify-between">
+                      <div className="flex items-center gap-6">
+                        <div className="p-4 rounded-xl bg-gradient-to-br from-[#FF389A]/30 to-[#FF389A]/10 border border-[#FF389A]/30 group-hover:scale-110 transition-transform duration-300">
+                          {block.icon}
+                        </div>
+                        <div className="flex-1">
+                          <h3 className="text-2xl font-bold text-white mb-2">{block.title}</h3>
+                          <p className="text-gray-300 text-lg mb-4">{block.description}</p>
+                          <div className="flex items-center gap-4 text-sm text-gray-400">
+                            <span className="flex items-center gap-1">
+                              <Clock className="h-4 w-4" />
+                              {block.estimatedTime}
+                            </span>
+                            <span className="capitalize">{block.status.replace('-', ' ')}</span>
+                          </div>
+                        </div>
+                      </div>
+                      <div className="flex items-center gap-6">
+                        <div className="text-right">
+                          <div className="text-sm text-gray-400 mb-1">Progress</div>
+                          <div className={`text-2xl font-bold ${getStatusColor(block.status)}`}>{block.progress}%</div>
+                          <Progress 
+                            value={block.progress} 
+                            className="h-3 w-32 mt-2"
+                            style={{
+                              background: 'rgba(255, 255, 255, 0.1)',
+                            } as React.CSSProperties}
+                          />
+                        </div>
+                        {getStatusIcon(block.status)}
+                      </div>
+                    </div>
+                  </CardContent>
+                </Card>
+              </DialogTrigger>
+              
+              <OnboardingModal 
+                block={block} 
+                currentStep={currentModalStep} 
+                onStepChange={setCurrentModalStep} 
+              />
+            </Dialog>
+          ))}
+        </div>
+
+        {/* Other Onboarding Blocks */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {onboardingBlocks.map((block) => (
+          {onboardingBlocks.filter(block => block.id !== 'account-setup').map((block) => (
             <Dialog key={block.id}>
               <DialogTrigger asChild>
                 <Card className="bg-gradient-to-br from-[#0D0D24] to-black border-[#FF389A]/30 hover:border-[#FF389A]/50 transition-all duration-300 cursor-pointer group">
