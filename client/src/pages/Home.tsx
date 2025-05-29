@@ -15,6 +15,7 @@ import LockedStateDemo from "@/components/LockedStateDemo";
 import PlatformTipsSection from "@/components/PlatformTipsSection";
 import KnowledgeBaseSection from "@/components/KnowledgeBaseSection";
 import ChatWidget from "@/components/ChatWidget";
+import TestimonialCarousel from "@/components/TestimonialCarousel";
 import { APP_CONFIG } from "@/lib/config";
 
 export default function Home() {
@@ -142,6 +143,9 @@ export default function Home() {
           </div>
         </div>
       </nav>
+
+      {/* Testimonial Carousel */}
+      <TestimonialCarousel />
 
       {/* Hero Section - Classic Stampede Style */}
       <section className="relative bg-background text-foreground py-20 overflow-hidden">
