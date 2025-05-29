@@ -306,8 +306,9 @@ export default function OnboardingProgressSection() {
           </div>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {onboardingBlocks.map((block) => (
+        {/* Account Setup - Full Width Row */}
+        <div className="mb-8">
+          {onboardingBlocks.slice(0, 1).map((block) => (
             <Dialog key={block.id} onOpenChange={() => setCurrentModalStep(0)}>
               <DialogTrigger asChild>
                 <div className="interactive-card group cursor-pointer">
@@ -352,6 +353,70 @@ export default function OnboardingProgressSection() {
                   <div className="flex items-center justify-between mt-6 pt-4 border-t border-[#FF389A]/30">
                     <div className="flex items-center gap-2 text-xs text-gray-300 font-medium">
                       <div className="w-3 h-3 rounded-full bg-[#FF389A] animate-pulse shadow-lg" style={{boxShadow: '0 0 8px rgba(255, 56, 154, 0.6)'}} />
+                      Ready to launch
+                    </div>
+                    <div className="text-[#FF389A] group-hover:translate-x-2 transition-transform duration-300 text-lg font-bold">
+                      →
+                    </div>
+                  </div>
+                </div>
+              </DialogTrigger>
+              <OnboardingModal 
+                block={block} 
+                currentStep={currentModalStep}
+                onStepChange={setCurrentModalStep}
+              />
+            </Dialog>
+          ))}
+        </div>
+
+        {/* Feature Blocks - 2 Rows of 3 */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          {onboardingBlocks.slice(1).map((block) => (
+            <Dialog key={block.id} onOpenChange={() => setCurrentModalStep(0)}>
+              <DialogTrigger asChild>
+                <div className="interactive-card group cursor-pointer">
+                  <div className="flex items-start justify-between mb-4">
+                    <div className="flex items-center gap-4">
+                      <div className="p-3 rounded-xl bg-gradient-to-br from-[#FF389A]/30 to-[#FF389A]/10 border border-[#FF389A]/30 backdrop-blur-sm">
+                        {block.icon}
+                      </div>
+                      <div>
+                        <h3 className="text-xl font-extrabold text-white group-hover:text-glow-pink transition-all duration-300">
+                          {block.title}
+                        </h3>
+                        <div className="flex items-center gap-2 mt-1">
+                          {getStatusIcon(block.status)}
+                          <span className="text-xs text-gray-300 font-medium">{block.estimatedTime}</span>
+                          <Badge className={`${getDifficultyColor(block.difficulty)} shadow-sm font-bold text-xs`}>
+                            {block.difficulty}
+                          </Badge>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  
+                  <p className="text-gray-300 mb-3 leading-relaxed text-sm">{block.description}</p>
+                  
+                  {block.status !== 'not-started' && (
+                    <div className="space-y-2">
+                      <div className="flex justify-between items-center text-sm font-bold">
+                        <span className="text-white">Progress</span>
+                        <span className="text-[#FF389A]">{block.progress}%</span>
+                      </div>
+                      <div className="relative">
+                        <Progress value={block.progress} className="h-2 bg-[#0D0D24]/80" />
+                        <div 
+                          className="absolute top-0 left-0 h-2 rounded-full bg-gradient-to-r from-[#FF389A] to-[#FF389A] transition-all duration-500 shadow-lg"
+                          style={{ width: `${block.progress}%`, boxShadow: '0 0 10px rgba(255, 56, 154, 0.5)' }}
+                        />
+                      </div>
+                    </div>
+                  )}
+                  
+                  <div className="flex items-center justify-between mt-4 pt-3 border-t border-[#FF389A]/30">
+                    <div className="flex items-center gap-2 text-xs text-gray-300 font-medium">
+                      <div className="w-2 h-2 rounded-full bg-[#FF389A] animate-pulse shadow-lg" style={{boxShadow: '0 0 8px rgba(255, 56, 154, 0.6)'}} />
                       Ready to launch
                     </div>
                     <div className="text-[#FF389A] group-hover:translate-x-2 transition-transform duration-300 text-lg font-bold">
