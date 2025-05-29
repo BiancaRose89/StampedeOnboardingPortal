@@ -7,7 +7,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { useToast } from "@/hooks/use-toast";
 import { Badge } from "@/components/ui/badge";
 import { Separator } from "@/components/ui/separator";
-import { ChartLine, User, LogOut, Rocket, BookOpen, HelpCircle, Users, Play } from "lucide-react";
+import { ChartLine, User, LogOut, Rocket, BookOpen, HelpCircle, Users } from "lucide-react";
 import { ThemeToggle } from "@/components/ThemeToggle";
 import { signIn, signOutUser } from "@/lib/firebase";
 import { useAuth } from "@/components/AuthProvider";
@@ -167,17 +167,15 @@ export default function Home() {
           <div className="absolute top-1/2 left-1/2 w-80 h-80 bg-muted rounded-full blur-2xl -translate-x-1/2 -translate-y-1/2 opacity-10"></div>
         </div>
         
-        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          {/* Authentic Stampede logo - centered above everything */}
-          <div className="flex items-center justify-center mb-8">
-            <span className="text-4xl md:text-5xl font-bold text-[#FF389A]">Stampede</span>
-          </div>
-          
-          {/* Hero Content with Image Layout */}
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-center">
-            {/* Left Column - Text Content */}
-            <div className="space-y-6 text-center lg:text-left order-2 lg:order-1">
-              <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight leading-tight">
+        <div className="relative max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center space-y-8">
+            {/* Authentic Stampede logo */}
+            <div className="flex items-center justify-center mb-2">
+              <span className="text-4xl md:text-5xl font-bold text-[#FF389A]">Stampede</span>
+            </div>
+            
+            <div className="space-y-6">
+              <h1 className="text-5xl md:text-6xl font-bold tracking-tight leading-tight">
                 Welcome to the
                 <br />
                 <span className="bg-gradient-to-r from-[#FF389A] to-pink-400 bg-clip-text text-transparent">
@@ -185,56 +183,36 @@ export default function Home() {
                 </span>
               </h1>
               
-              <p className="text-lg md:text-xl lg:text-2xl text-muted-foreground leading-relaxed">
+              <p className="text-xl md:text-2xl text-muted-foreground max-w-4xl mx-auto leading-relaxed">
                 Driving new and repeat customers for hospitality. Your complete ecosystem online and in-person, 
                 connecting marketing and operations with expert guidance every step of the way.
               </p>
             </div>
-            
-            {/* Right Column - Hero Image */}
-            <div className="order-1 lg:order-2 flex justify-center lg:justify-end">
-              <div className="relative w-full max-w-lg lg:max-w-xl">
-                <img 
-                  src="/_next/image?url=https%3A%2F%2Fwebsite-backend.stampede.ai%2Fwp-content%2Fuploads%2F2024%2F05%2FLoyalty-header.png&w=2048&q=75"
-                  alt="Stampede Onboarding Journey"
-                  className="w-full h-auto object-contain rounded-2xl shadow-2xl border border-[#FF389A]/20"
-                  style={{
-                    maxHeight: '400px',
-                    objectFit: 'contain'
-                  }}
-                />
-                {/* Subtle glow effect around image */}
-                <div className="absolute inset-0 bg-gradient-to-r from-[#FF389A]/10 to-pink-400/10 rounded-2xl blur-xl -z-10"></div>
-              </div>
+
+            <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
+              <Button
+                onClick={() => {
+                  const element = document.getElementById('onboarding-progress');
+                  element?.scrollIntoView({ behavior: 'smooth' });
+                }}
+                className="bg-[#FF389A] hover:bg-[#E6329C] text-white px-8 py-4 text-lg font-semibold rounded-full transition-all duration-200 shadow-lg shadow-[#FF389A]/25"
+              >
+                <Rocket className="mr-2 h-5 w-5" />
+                Start Your Journey
+              </Button>
+              
+              <Button
+                variant="outline"
+                onClick={() => {
+                  const element = document.getElementById('master-platform');
+                  element?.scrollIntoView({ behavior: 'smooth' });
+                }}
+                className="border-[#FF389A] text-[#FF389A] hover:bg-[#FF389A] hover:text-white px-8 py-4 text-lg font-semibold rounded-full transition-all duration-200"
+              >
+                <BookOpen className="mr-2 h-5 w-5" />
+                Explore Features
+              </Button>
             </div>
-          </div>
-          
-          {/* Action Buttons */}
-          <div className="mt-12 flex flex-col sm:flex-row gap-4 justify-center items-center">
-            <Button
-              onClick={() => {
-                const element = document.getElementById('onboarding-progress');
-                element?.scrollIntoView({ behavior: 'smooth' });
-              }}
-              size="lg"
-              className="bg-[#FF389A] hover:bg-[#E6329C] text-white px-8 py-4 text-lg font-semibold rounded-full transition-all duration-200 shadow-lg shadow-[#FF389A]/25"
-            >
-              <Play className="mr-2 h-5 w-5" />
-              Start Your Journey
-            </Button>
-            
-            <Button
-              variant="outline"
-              size="lg"
-              onClick={() => {
-                const element = document.getElementById('master-platform');
-                element?.scrollIntoView({ behavior: 'smooth' });
-              }}
-              className="border-[#FF389A] text-[#FF389A] hover:bg-[#FF389A] hover:text-white px-8 py-4 text-lg font-semibold rounded-full transition-all duration-200"
-            >
-              <BookOpen className="mr-2 h-5 w-5" />
-              Explore Features
-            </Button>
           </div>
         </div>
       </section>
