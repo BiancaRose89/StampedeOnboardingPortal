@@ -3,65 +3,56 @@
 @tailwind utilities;
 
 :root {
-  --background: 0 0% 100%;
-  --foreground: 226 81% 9%; /* Stampede Navy #0D0D25 */
-  --muted: 210 11% 98%;
-  --muted-foreground: 220 10% 45%;
-  --popover: 0 0% 100%;
-  --popover-foreground: 226 81% 9%;
-  --card: 0 0% 100%;
-  --card-foreground: 226 81% 9%;
-  --border: 210 11% 90%;
-  --input: 210 11% 95%;
-  --primary: 226 81% 9%; /* Stampede Navy #0D0D25 */
-  --primary-foreground: 0 0% 98%;
-  --secondary: 322 95% 66%; /* Stampede Pink #FA58A8 */
-  --secondary-foreground: 0 0% 98%;
-  --accent: 322 95% 95%; /* Light pink accent */
-  --accent-foreground: 226 81% 9%;
-  --destructive: 0 84.2% 60.2%;
-  --destructive-foreground: 0 0% 98%;
-  --ring: 322 95% 66%; /* Pink ring */
+  /* Light Mode Colors */
+  --background: 0 0% 100%; /* Pure white #FFFFFF */
+  --foreground: 0 0% 0%; /* Pure black #000000 */
+  --muted: 0 0% 96%; /* Light gray muted areas */
+  --muted-foreground: 0 0% 45%; /* Medium gray text */
+  --popover: 0 0% 100%; /* White popover */
+  --popover-foreground: 0 0% 0%; /* Black text */
+  --card: 0 0% 100%; /* White cards */
+  --card-foreground: 0 0% 0%; /* Black text */
+  --border: 0 0% 90%; /* Light gray borders */
+  --input: 0 0% 96%; /* Light gray inputs */
+  --primary: 324 100% 62%; /* Pink primary #FF389A */
+  --primary-foreground: 0 0% 100%; /* White text on pink */
+  --secondary: 0 0% 96%; /* Light gray secondary */
+  --secondary-foreground: 0 0% 0%; /* Black text */
+  --accent: 0 0% 96%; /* Light gray accent */
+  --accent-foreground: 0 0% 0%; /* Black text */
+  --destructive: 0 84.2% 60.2%; /* Red destructive */
+  --destructive-foreground: 0 0% 98%; /* White text */
+  --ring: 324 100% 62%; /* Pink focus ring */
   --radius: 0.5rem;
   
-  /* Authentic Stampede brand colors */
-  --stampede-navy: 226 81% 9%; /* #0D0D25 - main brand navy */
-  --stampede-navy-dark: 226 81% 7%; /* Darker navy for hover */
-  --stampede-navy-light: 226 81% 95%; /* Very light navy for backgrounds */
-  --stampede-pink: 322 95% 66%; /* #FA58A8 - brand pink */
-  --stampede-pink-dark: 322 95% 56%; /* Darker pink for hover */
-  --stampede-pink-light: 322 95% 95%; /* Light pink for backgrounds */
-  --stampede-gray-50: 210 11% 98%;
-  --stampede-gray-100: 210 11% 96%;
-  --stampede-gray-200: 214 13% 91%;
-  --stampede-gray-600: 215 16% 47%;
-  --stampede-gray-900: 226 81% 9%; /* Navy for dark text */
+  /* Brand colors */
+  --stampede-pink: 324 100% 62%; /* #FF389A */
 }
 
 .dark {
+  /* Dark Mode Colors - Pure Black Theme */
   --background: 0 0% 0%; /* Pure black background #000000 */
-  --foreground: 0 0% 98%; /* Crisp white text */
-  --muted: 0 0% 0%; /* Pure black muted background */
-  --muted-foreground: 240 20% 75%; /* Light muted text */
-  --popover: 0 0% 0%; /* Match main background */
-  --popover-foreground: 0 0% 98%;
-  --card: 0 0% 0%; /* Pure black card background */
-  --card-foreground: 0 0% 98%;
-  --border: 240 50% 20%; /* Adjusted borders */
-  --input: 0 0% 0%; /* Pure black input backgrounds */
-  --primary: 324 100% 62%; /* Pink as primary accent #FF389A */
-  --primary-foreground: 0 0% 100%;
-  --secondary: 0 0% 0%; /* Pure black secondary */
-  --secondary-foreground: 0 0% 95%;
-  --accent: 0 0% 0%; /* Pure black accent */
-  --accent-foreground: 0 0% 98%;
-  --destructive: 324 100% 62%; /* Pink destructive */
-  --destructive-foreground: 0 0% 98%;
+  --foreground: 0 0% 100%; /* Pure white text */
+  --muted: 0 0% 5%; /* Very dark gray muted areas */
+  --muted-foreground: 0 0% 65%; /* Light gray text */
+  --popover: 0 0% 0%; /* Black popover */
+  --popover-foreground: 0 0% 100%; /* White text */
+  --card: 0 0% 0%; /* Pure black cards */
+  --card-foreground: 0 0% 100%; /* White text */
+  --border: 0 0% 20%; /* Dark gray borders */
+  --input: 0 0% 5%; /* Very dark gray inputs */
+  --primary: 324 100% 62%; /* Pink primary #FF389A */
+  --primary-foreground: 0 0% 100%; /* White text on pink */
+  --secondary: 0 0% 10%; /* Dark gray secondary */
+  --secondary-foreground: 0 0% 100%; /* White text */
+  --accent: 0 0% 10%; /* Dark gray accent */
+  --accent-foreground: 0 0% 100%; /* White text */
+  --destructive: 0 84.2% 60.2%; /* Red destructive */
+  --destructive-foreground: 0 0% 100%; /* White text */
   --ring: 324 100% 62%; /* Pink focus ring */
   
-  /* Brand colors - updated to new background */
-  --brand-navy: 246 59% 7%; /* #0D0D24 */
-  --brand-pink: 324 100% 62%; /* #FF389A */
+  /* Brand colors */
+  --stampede-pink: 324 100% 62%; /* #FF389A */
 }
 
 @layer base {
@@ -70,11 +61,11 @@
   }
 
   body {
-    @apply font-sans antialiased bg-black text-foreground;
+    @apply font-sans antialiased bg-background text-foreground transition-colors duration-300;
   }
   
   html, #root {
-    @apply bg-black;
+    @apply bg-background transition-colors duration-300;
   }
 
   /* Custom scrollbar for webkit browsers - dark theme */

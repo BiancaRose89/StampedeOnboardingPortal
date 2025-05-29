@@ -90,19 +90,19 @@ export default function Home() {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-[#16173F] flex items-center justify-center">
+      <div className="min-h-screen bg-background flex items-center justify-center">
         <div className="text-center space-y-4">
           <div className="w-8 h-8 border-4 border-[#FF389A] border-t-transparent rounded-full animate-spin mx-auto"></div>
-          <p className="text-gray-300">Loading your onboarding portal...</p>
+          <p className="text-muted-foreground">Loading your onboarding portal...</p>
         </div>
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen bg-[#16173F]">
+    <div className="min-h-screen bg-background">
       {/* Navigation Header */}
-      <nav className="bg-[#16173F] shadow-sm border-b border-[#FF389A]/20 sticky top-0 z-50">
+      <nav className="bg-background shadow-sm border-b border-[#FF389A]/20 sticky top-0 z-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center h-16">
             <div className="flex items-center space-x-4">
@@ -110,22 +110,23 @@ export default function Home() {
                 <div className="w-8 h-8 bg-[#FF389A] rounded-lg flex items-center justify-center">
                   <ChartLine className="text-white text-sm" />
                 </div>
-                <span className="text-xl font-bold text-white">Stampede</span>
+                <span className="text-xl font-bold text-foreground">Stampede</span>
               </div>
             </div>
             <div className="flex items-center space-x-4">
+              <ThemeToggle />
               {!firebaseUser ? (
                 <Button
                   variant="ghost"
                   onClick={() => setShowAuthModal(true)}
-                  className="text-gray-300 hover:text-[#FF389A]"
+                  className="text-muted-foreground hover:text-[#FF389A]"
                 >
                   <User className="h-4 w-4 mr-2" />
                   Login
                 </Button>
               ) : (
                 <div className="flex items-center space-x-3">
-                  <span className="text-sm text-gray-300">
+                  <span className="text-sm text-muted-foreground">
                     {dbUser?.name || dbUser?.email || firebaseUser.email}
                   </span>
                   <Button
@@ -143,12 +144,12 @@ export default function Home() {
       </nav>
 
       {/* Hero Section - Classic Stampede Style */}
-      <section className="relative bg-[#16173F] text-white py-20 overflow-hidden">
+      <section className="relative bg-background text-foreground py-20 overflow-hidden">
         {/* Background pattern matching Stampede.ai */}
         <div className="absolute inset-0 opacity-20">
           <div className="absolute top-0 left-0 w-96 h-96 bg-[#FF389A] rounded-full blur-3xl -translate-x-1/2 -translate-y-1/2"></div>
           <div className="absolute bottom-0 right-0 w-96 h-96 bg-[#FF389A] rounded-full blur-3xl translate-x-1/2 translate-y-1/2"></div>
-          <div className="absolute top-1/2 left-1/2 w-80 h-80 bg-white rounded-full blur-2xl -translate-x-1/2 -translate-y-1/2 opacity-10"></div>
+          <div className="absolute top-1/2 left-1/2 w-80 h-80 bg-muted rounded-full blur-2xl -translate-x-1/2 -translate-y-1/2 opacity-10"></div>
         </div>
         
         <div className="relative max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
