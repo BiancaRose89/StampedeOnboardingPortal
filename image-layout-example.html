@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Onboarding Journey with Image Layout</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: #000000;
+            color: white;
+            line-height: 1.6;
+        }
+
+        .hero-section {
+            position: relative;
+            background: #000000;
+            padding: 5rem 0;
+            overflow: hidden;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+        }
+
+        .background-effects {
+            position: absolute;
+            inset: 0;
+            opacity: 0.2;
+        }
+
+        .gradient-blob {
+            position: absolute;
+            width: 24rem;
+            height: 24rem;
+            background: #FF389A;
+            border-radius: 50%;
+            filter: blur(3rem);
+        }
+
+        .gradient-blob:nth-child(1) {
+            top: 0;
+            left: 0;
+            transform: translate(-50%, -50%);
+        }
+
+        .gradient-blob:nth-child(2) {
+            bottom: 0;
+            right: 0;
+            transform: translate(50%, 50%);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .stampede-logo {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .stampede-logo h1 {
+            font-size: 3rem;
+            font-weight: bold;
+            color: #FF389A;
+        }
+
+        .hero-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 3rem;
+            align-items: center;
+        }
+
+        .hero-content {
+            text-align: center;
+        }
+
+        .hero-content h2 {
+            font-size: 3rem;
+            font-weight: bold;
+            line-height: 1.2;
+            margin-bottom: 1.5rem;
+        }
+
+        .hero-highlight {
+            background: linear-gradient(to right, #FF389A, #ff69b4);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero-description {
+            font-size: 1.25rem;
+            color: #d1d5db;
+            margin-bottom: 2rem;
+            line-height: 1.6;
+        }
+
+        .hero-image-container {
+            display: flex;
+            justify-content: center;
+            position: relative;
+        }
+
+        .hero-image-wrapper {
+            position: relative;
+            max-width: 500px;
+            width: 100%;
+        }
+
+        .hero-image {
+            width: 100%;
+            height: auto;
+            max-height: 400px;
+            object-fit: contain;
+            border-radius: 1rem;
+            box-shadow: 0 25px 50px -12px rgba(255, 56, 154, 0.25);
+            border: 1px solid rgba(255, 56, 154, 0.2);
+        }
+
+        .image-glow {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(45deg, rgba(255, 56, 154, 0.1), rgba(255, 105, 180, 0.1));
+            border-radius: 1rem;
+            filter: blur(1rem);
+            z-index: -1;
+        }
+
+        .action-buttons {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            margin-top: 3rem;
+            align-items: center;
+        }
+
+        .btn {
+            padding: 1rem 2rem;
+            font-size: 1.125rem;
+            font-weight: 600;
+            border-radius: 9999px;
+            border: none;
+            cursor: pointer;
+            transition: all 0.2s;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .btn-primary {
+            background: #FF389A;
+            color: white;
+            box-shadow: 0 10px 25px rgba(255, 56, 154, 0.25);
+        }
+
+        .btn-primary:hover {
+            background: #E6329C;
+            transform: translateY(-2px);
+        }
+
+        .btn-outline {
+            background: transparent;
+            color: #FF389A;
+            border: 2px solid #FF389A;
+        }
+
+        .btn-outline:hover {
+            background: #FF389A;
+            color: white;
+        }
+
+        /* Image URL Switcher for Testing */
+        .image-switcher {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: rgba(0, 0, 0, 0.8);
+            padding: 1rem;
+            border-radius: 0.5rem;
+            border: 1px solid #FF389A;
+            z-index: 1000;
+        }
+
+        .image-switcher h3 {
+            color: #FF389A;
+            margin-bottom: 0.5rem;
+            font-size: 0.875rem;
+        }
+
+        .image-switcher button {
+            display: block;
+            width: 100%;
+            padding: 0.5rem;
+            margin: 0.25rem 0;
+            background: transparent;
+            color: #d1d5db;
+            border: 1px solid #374151;
+            border-radius: 0.25rem;
+            cursor: pointer;
+            font-size: 0.75rem;
+        }
+
+        .image-switcher button:hover {
+            background: #FF389A;
+            color: white;
+        }
+
+        .image-switcher button.active {
+            background: #FF389A;
+            color: white;
+        }
+
+        /* Responsive Design */
+        @media (min-width: 1024px) {
+            .hero-grid {
+                grid-template-columns: 1fr 1fr;
+                gap: 4rem;
+            }
+
+            .hero-content {
+                text-align: left;
+            }
+
+            .hero-content h2 {
+                font-size: 4rem;
+            }
+
+            .action-buttons {
+                flex-direction: row;
+                justify-content: flex-start;
+            }
+
+            .hero-image-container {
+                justify-content: flex-end;
+            }
+        }
+
+        @media (min-width: 768px) {
+            .action-buttons {
+                flex-direction: row;
+                justify-content: center;
+            }
+
+            .hero-content h2 {
+                font-size: 3.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Image URL Switcher for Testing -->
+    <div class="image-switcher">
+        <h3>Test Images:</h3>
+        <button onclick="switchImage(1)" class="active">Loyalty Header</button>
+        <button onclick="switchImage(2)">Reviews Header</button>
+        <button onclick="switchImage(3)">Reviews Screens</button>
+    </div>
+
+    <section class="hero-section">
+        <!-- Background Effects -->
+        <div class="background-effects">
+            <div class="gradient-blob"></div>
+            <div class="gradient-blob"></div>
+        </div>
+
+        <div class="container">
+            <!-- Stampede Logo -->
+            <div class="stampede-logo">
+                <h1>Stampede</h1>
+            </div>
+
+            <!-- Hero Grid Layout -->
+            <div class="hero-grid">
+                <!-- Text Content -->
+                <div class="hero-content">
+                    <h2>
+                        Welcome to the<br>
+                        <span class="hero-highlight">Stampede Onboarding Journey</span>
+                    </h2>
+                    
+                    <p class="hero-description">
+                        Driving new and repeat customers for hospitality. Your complete ecosystem online and in-person, 
+                        connecting marketing and operations with expert guidance every step of the way.
+                    </p>
+
+                    <!-- Action Buttons -->
+                    <div class="action-buttons">
+                        <a href="#onboarding" class="btn btn-primary">
+                            ▶ Start Your Journey
+                        </a>
+                        <a href="#features" class="btn btn-outline">
+                            📖 Explore Features
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Hero Image -->
+                <div class="hero-image-container">
+                    <div class="hero-image-wrapper">
+                        <img 
+                            id="heroImage"
+                            src="/_next/image?url=https%3A%2F%2Fwebsite-backend.stampede.ai%2Fwp-content%2Fuploads%2F2024%2F05%2FLoyalty-header.png&w=2048&q=75"
+                            alt="Stampede Onboarding Journey"
+                            class="hero-image"
+                        />
+                        <div class="image-glow"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        const imageUrls = [
+            "/_next/image?url=https%3A%2F%2Fwebsite-backend.stampede.ai%2Fwp-content%2Fuploads%2F2024%2F05%2FLoyalty-header.png&w=2048&q=75",
+            "/_next/image?url=https%3A%2F%2Fwebsite-backend.stampede.ai%2Fwp-content%2Fuploads%2F2024%2F06%2FReviews-header.png&w=1920&q=75",
+            "/_next/image?url=https%3A%2F%2Fwebsite-backend.stampede.ai%2Fwp-content%2Fuploads%2F2025%2F05%2Freviews-screens.png&w=3840&q=75"
+        ];
+
+        const imageNames = ["Loyalty Header", "Reviews Header", "Reviews Screens"];
+        
+        function switchImage(index) {
+            const heroImage = document.getElementById('heroImage');
+            const buttons = document.querySelectorAll('.image-switcher button');
+            
+            // Update image
+            heroImage.src = imageUrls[index - 1];
+            heroImage.alt = `Stampede ${imageNames[index - 1]}`;
+            
+            // Update active button
+            buttons.forEach(btn => btn.classList.remove('active'));
+            buttons[index - 1].classList.add('active');
+        }
+    </script>
+</body>
+</html>
