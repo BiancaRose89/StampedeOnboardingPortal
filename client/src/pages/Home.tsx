@@ -228,17 +228,10 @@ export default function Home() {
           {/* Section 2: Master Your Platform */}
           <section id="master-platform" className="space-y-8">
             <div className="text-center space-y-4">
+              <h2 className="text-4xl md:text-5xl font-bold text-white">Master Your Platform</h2>
               <p className="text-xl text-gray-300 max-w-3xl mx-auto">
                 Now that you have run through the setup and features, let's master the platform
               </p>
-              <h2 className="text-4xl md:text-5xl font-bold text-white">Master Your Platform</h2>
-              <p className="text-xl text-gray-300 max-w-3xl mx-auto">
-                Deep-dive into features and best practices to unlock the full potential of your platform.
-              </p>
-              <div className="text-center">
-                <div className="text-2xl font-bold text-white">6</div>
-                <div className="text-sm text-gray-300">Core Features</div>
-              </div>
             </div>
             <PlatformTipsSection />
             
