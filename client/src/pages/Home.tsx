@@ -217,8 +217,8 @@ export default function Home() {
       {/* Main Content */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         <div className="space-y-16">
-          {/* Section 1: Locked State Demo */}
-          <section id="locked-state-demo">
+          {/* Section 1: Your Onboarding Progress */}
+          <section id="onboarding-progress">
             <LockedStateDemo />
           </section>
 
