@@ -238,6 +238,88 @@ export default function Home() {
 
           <Separator className="my-16" />
 
+          {/* Call to Action Section - Only for logged out users */}
+          {!firebaseUser && (
+            <section className="bg-background py-16">
+              <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div className="text-left space-y-8">
+                  <div className="space-y-4">
+                    <p className="text-[#FF389A] text-sm font-medium">From £89 per venue monthly</p>
+                    <h2 className="text-4xl md:text-5xl font-bold text-foreground leading-tight">
+                      Let's do this,<br />
+                      choose your path
+                    </h2>
+                    <div className="space-y-2 max-w-4xl">
+                      <p className="text-muted-foreground text-lg">
+                        We're constantly reviewing our pricing to remain competitive and fair for business of all sizes.
+                      </p>
+                      <p className="text-muted-foreground text-lg">
+                        Prices start from £89 per month, per venue. This allows you to design and send unlimited emails to your customers.
+                      </p>
+                    </div>
+                  </div>
+
+                  <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
+                    {/* Left side - Live Demo */}
+                    <div className="space-y-6">
+                      <h3 className="text-2xl font-bold text-foreground">Book a live demo</h3>
+                      <p className="text-muted-foreground">
+                        Book a screen-share demo at a time to suit you with one of our specialists to learn more about Stampede and see how it works in real-time.
+                      </p>
+                      <Button 
+                        className="bg-[#FF389A] hover:bg-[#E6329] text-white px-8 py-4 text-lg font-semibold rounded-full"
+                        onClick={() => {
+                          // Handle demo booking
+                          toast({
+                            title: "Demo Booking",
+                            description: "Redirecting to demo booking page...",
+                          });
+                        }}
+                      >
+                        Show me
+                      </Button>
+                    </div>
+
+                    {/* Right side - Request Quote */}
+                    <div className="bg-card border border-border rounded-2xl p-8 space-y-6">
+                      <div className="flex items-center gap-3">
+                        <div className="w-8 h-8 bg-[#FF389A] rounded-lg flex items-center justify-center">
+                          <svg className="w-5 h-5 text-white" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-5 14H7v-2h7v2zm3-4H7v-2h10v2zm0-4H7V7h10v2z"/>
+                          </svg>
+                        </div>
+                        <h3 className="text-xl font-bold text-foreground">REQUEST A QUOTE</h3>
+                      </div>
+                      
+                      <div className="space-y-4">
+                        <div>
+                          <label className="text-sm text-muted-foreground mb-2 block">Business Email</label>
+                          <input 
+                            type="email" 
+                            placeholder="you@company.com"
+                            className="w-full px-4 py-3 bg-input border border-border rounded-lg text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-[#FF389A] focus:border-transparent"
+                          />
+                        </div>
+                        
+                        <Button 
+                          className="w-full bg-[#FF389A] hover:bg-[#E6329] text-white py-3 text-lg font-semibold rounded-lg"
+                          onClick={() => {
+                            // Handle quote request
+                            toast({
+                              title: "Quote Request",
+                              description: "Thank you! We'll be in touch soon.",
+                            });
+                          }}
+                        >
+                          Get Started
+                        </Button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </section>
+          )}
 
         </div>
       </div>
