@@ -151,10 +151,7 @@ export default function OnboardingFlowChart() {
 
       {/* Video Placeholder Section */}
       <div className="mt-16 text-center">
-        <div className="max-w-4xl mx-auto">
-          <h3 className="text-2xl font-bold text-white mb-4">Watch Our Onboarding Overview</h3>
-          <p className="text-gray-300 mb-8">Get a complete walkthrough of your journey in just a few minutes</p>
-          
+        <div className="max-w-6xl mx-auto">
           <div className="relative bg-black rounded-2xl overflow-hidden shadow-2xl border border-[#FF389A]/20">
             <div className="aspect-video flex items-center justify-center bg-gradient-to-br from-black to-gray-900 relative group cursor-pointer hover:from-gray-900 hover:to-black transition-all duration-300">
               {/* Play Button */}
