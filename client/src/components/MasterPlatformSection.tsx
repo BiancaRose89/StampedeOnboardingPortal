@@ -1,10 +1,9 @@
 import { useState } from 'react';
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
+import { Card, CardContent } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
-import { Separator } from '@/components/ui/separator';
+import { Progress } from '@/components/ui/progress';
+import { Dialog, DialogContent, DialogTrigger, DialogTitle, DialogHeader, DialogDescription } from '@/components/ui/dialog';
 import { 
   CreditCard, 
   Users, 
@@ -14,394 +13,671 @@ import {
   Star,
   Gift,
   Wifi,
-  ExternalLink,
   Play,
-  FileText,
-  CheckCircle2,
-  Clock
+  Clock,
+  ArrowRight,
+  CheckCircle
 } from 'lucide-react';
 
-interface FeatureContent {
+interface PlatformFeature {
   id: string;
   title: string;
   description: string;
   icon: React.ReactNode;
-  sections: Array<{
+  progress: number;
+  status: 'not-started' | 'in-progress' | 'completed';
+  estimatedTime: string;
+  masterDescription: string;
+  examples: string[];
+  features: Array<{
     id: string;
     title: string;
-    content: string;
-    type: 'overview' | 'tutorial' | 'advanced';
-    videoUrl?: string;
-    estimatedTime?: string;
-    completed?: boolean;
-  }>;
-  quickActions: Array<{
-    label: string;
-    action: string;
-    primary?: boolean;
+    description: string;
+    timeToImplement: string;
+    difficulty: 'Easy' | 'Medium' | 'Advanced';
+    category: string;
   }>;
 }
 
-const platformFeatures: FeatureContent[] = [
-  {
-    id: 'bookings',
-    title: 'Booking Management',
-    description: 'Complete reservation and appointment management system',
-    icon: <BarChart3 className="h-5 w-5" />,
-    sections: [
-      {
-        id: 'booking-overview',
-        title: 'Getting Started with Bookings',
-        content: 'Learn the fundamentals of setting up your booking system, including calendar integration, availability settings, and customer notification preferences. This comprehensive overview covers everything from basic setup to advanced customization options.',
-        type: 'overview',
-        videoUrl: 'booking-intro-tutorial',
-        estimatedTime: '15 minutes',
-        completed: true
-      },
-      {
-        id: 'calendar-setup',
-        title: 'Calendar Integration & Sync',
-        content: 'Connect your existing calendars (Google, Outlook, Apple) to automatically sync availability and prevent double bookings. Configure timezone settings, buffer times between appointments, and set up recurring availability patterns.',
-        type: 'tutorial',
-        videoUrl: 'calendar-integration-guide',
-        estimatedTime: '20 minutes',
-        completed: false
-      },
-      {
-        id: 'booking-automation',
-        title: 'Advanced Automation Rules',
-        content: 'Set up sophisticated automation workflows including automatic confirmations, reminder sequences, follow-up emails, and waitlist management. Create conditional logic based on booking types, customer segments, or time-based triggers.',
-        type: 'advanced',
-        videoUrl: 'automation-workflows',
-        estimatedTime: '35 minutes',
-        completed: false
-      }
-    ],
-    quickActions: [
-      { label: 'Create New Booking', action: 'create-booking', primary: true },
-      { label: 'View Calendar', action: 'view-calendar' },
-      { label: 'Booking Settings', action: 'booking-settings' }
-    ]
-  },
-  {
-    id: 'payments',
-    title: 'Payment Processing',
-    description: 'Secure payment handling and financial management',
-    icon: <CreditCard className="h-5 w-5" />,
-    sections: [
-      {
-        id: 'payment-setup',
-        title: 'Payment Gateway Configuration',
-        content: 'Configure your preferred payment processors including Stripe, PayPal, and Square. Set up merchant accounts, enable multiple payment methods (credit cards, digital wallets, bank transfers), and configure currency settings for international transactions.',
-        type: 'overview',
-        videoUrl: 'payment-gateway-setup',
-        estimatedTime: '25 minutes',
-        completed: true
-      },
-      {
-        id: 'pricing-models',
-        title: 'Pricing & Subscription Models',
-        content: 'Create flexible pricing structures including one-time payments, recurring subscriptions, tiered pricing, and promotional codes. Set up tax calculations, handling refunds, and managing subscription lifecycle events.',
-        type: 'tutorial',
-        videoUrl: 'pricing-configuration',
-        estimatedTime: '30 minutes',
-        completed: false
-      },
-      {
-        id: 'financial-reporting',
-        title: 'Financial Analytics & Reporting',
-        content: 'Generate comprehensive financial reports, track revenue trends, analyze payment success rates, and export data for accounting software. Set up automated reporting schedules and create custom dashboards for financial insights.',
-        type: 'advanced',
-        videoUrl: 'financial-analytics',
-        estimatedTime: '40 minutes',
-        completed: false
-      }
-    ],
-    quickActions: [
-      { label: 'Process Payment', action: 'process-payment', primary: true },
-      { label: 'View Transactions', action: 'view-transactions' },
-      { label: 'Financial Reports', action: 'financial-reports' }
-    ]
-  },
-  {
-    id: 'customer-management',
-    title: 'Customer Management',
-    description: 'Comprehensive customer relationship and data management',
-    icon: <Users className="h-5 w-5" />,
-    sections: [
-      {
-        id: 'customer-profiles',
-        title: 'Customer Profile Management',
-        content: 'Create detailed customer profiles with contact information, preferences, booking history, and custom fields. Organize customers into segments, track customer lifetime value, and manage communication preferences.',
-        type: 'overview',
-        videoUrl: 'customer-profiles-guide',
-        estimatedTime: '18 minutes',
-        completed: true
-      },
-      {
-        id: 'communication-tools',
-        title: 'Customer Communication Hub',
-        content: 'Set up automated email campaigns, SMS notifications, and in-app messaging. Create personalized communication templates, schedule follow-ups, and track engagement metrics across all communication channels.',
-        type: 'tutorial',
-        videoUrl: 'communication-setup',
-        estimatedTime: '28 minutes',
-        completed: false
-      },
-      {
-        id: 'loyalty-programs',
-        title: 'Loyalty & Rewards Programs',
-        content: 'Design and implement customer loyalty programs with points systems, tier-based benefits, referral rewards, and special member pricing. Track program performance and adjust rewards based on customer behavior analytics.',
-        type: 'advanced',
-        videoUrl: 'loyalty-program-advanced',
-        estimatedTime: '45 minutes',
-        completed: false
-      }
-    ],
-    quickActions: [
-      { label: 'Add Customer', action: 'add-customer', primary: true },
-      { label: 'View Customers', action: 'view-customers' },
-      { label: 'Send Message', action: 'send-message' }
-    ]
-  },
-  {
-    id: 'analytics',
-    title: 'Analytics & Insights',
-    description: 'Business intelligence and performance tracking',
-    icon: <BarChart3 className="h-5 w-5" />,
-    sections: [
-      {
-        id: 'dashboard-overview',
-        title: 'Analytics Dashboard Overview',
-        content: 'Navigate your comprehensive analytics dashboard featuring key performance indicators, real-time metrics, and customizable widgets. Learn to interpret data visualizations and set up automated alerts for important business metrics.',
-        type: 'overview',
-        videoUrl: 'analytics-dashboard-tour',
-        estimatedTime: '12 minutes',
-        completed: true
-      },
-      {
-        id: 'custom-reports',
-        title: 'Custom Report Builder',
-        content: 'Create tailored reports using the drag-and-drop report builder. Combine data from multiple sources, apply filters and date ranges, and schedule automated report delivery to stakeholders.',
-        type: 'tutorial',
-        videoUrl: 'custom-reports-tutorial',
-        estimatedTime: '25 minutes',
-        completed: false
-      },
-      {
-        id: 'predictive-analytics',
-        title: 'Predictive Analytics & Forecasting',
-        content: 'Leverage machine learning algorithms to predict customer behavior, forecast revenue trends, and identify growth opportunities. Set up predictive models for demand forecasting and customer churn prevention.',
-        type: 'advanced',
-        videoUrl: 'predictive-analytics-deep-dive',
-        estimatedTime: '50 minutes',
-        completed: false
-      }
-    ],
-    quickActions: [
-      { label: 'View Dashboard', action: 'view-dashboard', primary: true },
-      { label: 'Create Report', action: 'create-report' },
-      { label: 'Export Data', action: 'export-data' }
-    ]
-  }
-];
-
-interface SectionCardProps {
-  section: FeatureContent['sections'][0];
-  onStartSection: (sectionId: string) => void;
+interface PlatformModalProps {
+  feature: PlatformFeature;
 }
 
-function SectionCard({ section, onStartSection }: SectionCardProps) {
-  const getTypeColor = (type: string) => {
-    switch (type) {
-      case 'overview':
-        return 'bg-[#3B82F6]/20 text-[#3B82F6] border-[#3B82F6]/30';
-      case 'tutorial':
-        return 'bg-[#00D98B]/20 text-[#00D98B] border-[#00D98B]/30';
-      case 'advanced':
-        return 'bg-[#8B5CF6]/20 text-[#8B5CF6] border-[#8B5CF6]/30';
+function PlatformModal({ feature }: PlatformModalProps) {
+  const getDifficultyColor = (difficulty: string) => {
+    switch (difficulty) {
+      case 'Easy':
+        return 'bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-300';
+      case 'Medium':
+        return 'bg-yellow-100 text-yellow-800 dark:bg-yellow-900 dark:text-yellow-300';
+      case 'Advanced':
+        return 'bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-300';
       default:
-        return 'bg-muted/50 text-muted-foreground border-border';
+        return 'bg-gray-100 text-gray-800 dark:bg-gray-900 dark:text-gray-300';
     }
   };
 
   return (
-    <div className="card-glow group h-full">
-      <div className="p-6 h-full flex flex-col">
-        <div className="flex items-start justify-between mb-4">
-          <div className="space-y-3">
-            <h3 className="text-xl font-bold text-foreground group-hover:text-glow-pink transition-all duration-300">
-              {section.title}
-            </h3>
-            <div className="flex items-center gap-3">
-              <Badge className={`${getTypeColor(section.type)} font-semibold border`}>
-                {section.type.charAt(0).toUpperCase() + section.type.slice(1)}
-              </Badge>
-              {section.estimatedTime && (
-                <div className="flex items-center gap-2 text-sm text-muted-foreground font-medium">
-                  <Clock className="h-4 w-4" />
-                  {section.estimatedTime}
-                </div>
-              )}
+    <DialogContent className="max-w-4xl max-h-[90vh] overflow-y-auto bg-gradient-to-br from-[#0D0D24] to-black border-[#FF389A]/30">
+      <DialogHeader className="space-y-4">
+        <div className="flex items-center gap-4">
+          <div className="p-3 rounded-xl bg-gradient-to-br from-[#FF389A]/30 to-[#FF389A]/10 border border-[#FF389A]/30">
+            {feature.icon}
+          </div>
+          <div>
+            <DialogTitle className="text-2xl font-bold text-white">
+              Master {feature.title}
+            </DialogTitle>
+            <DialogDescription className="text-gray-300 text-lg">
+              {feature.masterDescription}
+            </DialogDescription>
+          </div>
+        </div>
+      </DialogHeader>
+
+      <div className="space-y-6">
+        {/* Video Section */}
+        <div className="space-y-4">
+          <h3 className="text-xl font-bold text-white flex items-center gap-2">
+            <Play className="h-5 w-5 text-[#FF389A]" />
+            Training Video
+          </h3>
+          <div className="rounded-lg overflow-hidden border border-[#FF389A]/20 bg-black/50">
+            <div className="w-full h-64 flex items-center justify-center bg-gray-800">
+              <div className="text-center space-y-2">
+                <Play className="h-12 w-12 text-gray-400 mx-auto" />
+                <p className="text-gray-400">Training video coming soon</p>
+              </div>
             </div>
           </div>
-          {section.completed && (
-            <div className="p-2 rounded-full bg-[#00D98B]/20 border border-[#00D98B]/30">
-              <CheckCircle2 className="h-5 w-5 text-[#00D98B]" />
-            </div>
-          )}
         </div>
-        
-        <p className="text-muted-foreground leading-relaxed mb-6 flex-grow">{section.content}</p>
-        
-        <div className="flex gap-3 pt-4 border-t border-border/50">
+
+        {/* Customer Inspiration Section */}
+        <div className="space-y-4">
+          <div className="text-center space-y-2 py-4">
+            <h3 className="text-xl font-bold text-white">Need Some Inspiration?</h3>
+            <p className="text-gray-300">
+              Check out some of what our customers have done and let's get your dream started
+            </p>
+          </div>
+          
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            {getPlatformCustomerExamples(feature.id).map((example, index) => (
+              <div key={index} className="bg-[#0D0D24]/30 rounded-lg border border-[#FF389A]/20 overflow-hidden">
+                <div className="h-32 bg-gradient-to-br from-gray-700 to-gray-800 flex items-center justify-center">
+                  <div className="text-center space-y-1">
+                    <div className="text-2xl">{example.icon}</div>
+                    <p className="text-xs text-gray-400">{example.type}</p>
+                  </div>
+                </div>
+                <div className="p-3 space-y-2">
+                  <h4 className="font-bold text-white text-sm">{example.title}</h4>
+                  <p className="text-gray-300 text-xs">{example.description}</p>
+                  <div className="flex items-center justify-between">
+                    <span className="text-[#FF389A] text-xs font-medium">{example.business}</span>
+                    <span className="text-gray-400 text-xs">{example.result}</span>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* What You'll Learn Section */}
+        <div className="space-y-4">
+          <h3 className="text-xl font-bold text-white">What You'll Learn</h3>
+          <div className="grid gap-3">
+            {feature.examples.map((example, index) => (
+              <div key={index} className="flex items-start gap-3 p-3 bg-[#0D0D24]/50 rounded-lg border border-[#FF389A]/20">
+                <div className="w-6 h-6 rounded-full bg-[#FF389A]/20 flex items-center justify-center text-xs font-bold text-[#FF389A] mt-0.5">
+                  {index + 1}
+                </div>
+                <p className="text-gray-300">{example}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* Feature Details */}
+        <div className="space-y-4">
+          <h3 className="text-xl font-bold text-white">Feature Details</h3>
+          <div className="space-y-3">
+            {feature.features.map((featureDetail, index) => (
+              <div key={featureDetail.id} className="p-4 bg-[#0D0D24]/50 rounded-lg border border-gray-600/30">
+                <div className="flex items-start justify-between mb-2">
+                  <h4 className="font-bold text-white">{featureDetail.title}</h4>
+                  <Badge className={getDifficultyColor(featureDetail.difficulty)} variant="secondary">
+                    {featureDetail.difficulty}
+                  </Badge>
+                </div>
+                <p className="text-gray-300 text-sm mb-2">{featureDetail.description}</p>
+                <div className="flex items-center gap-2 text-xs text-gray-400">
+                  <Clock className="h-3 w-3" />
+                  <span>{featureDetail.timeToImplement}</span>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* Action Buttons */}
+        <div className="flex justify-between pt-4 border-t border-[#FF389A]/20">
           <Button 
-            onClick={() => onStartSection(section.id)} 
-            className="btn-brand-pink flex items-center gap-2 flex-1"
+            variant="outline" 
+            className="border-gray-600 text-gray-300 hover:bg-gray-800"
           >
-            <Play className="h-4 w-4" />
-            {section.completed ? 'Review' : 'Start Training'}
+            Close
           </Button>
-          {section.videoUrl && (
-            <Button variant="outline" size="sm" className="border-[#FF2E88]/30 text-[#FF2E88] hover:bg-[#FF2E88]/10">
-              <ExternalLink className="h-4 w-4" />
-            </Button>
-          )}
+          <Button className="bg-[#FF389A] hover:bg-[#E6329C] text-white">
+            Start Learning
+          </Button>
         </div>
       </div>
-    </div>
+    </DialogContent>
   );
 }
 
-export default function MasterPlatformSection() {
-  const [selectedSection, setSelectedSection] = useState<string | null>(null);
+// Customer inspiration examples for platform features
+const getPlatformCustomerExamples = (featureId: string) => {
+  const examples = {
+    'account': [
+      {
+        icon: '👥',
+        type: 'Team Setup',
+        title: 'Multi-Location Management',
+        description: 'Configured role-based access for 15 staff members across 3 locations',
+        business: 'Restaurant Chain',
+        result: 'Streamlined operations'
+      },
+      {
+        icon: '🏢',
+        type: 'Business Profile',
+        title: 'Complete Brand Setup',
+        description: 'Professional business profile with hours, contact info, and social links',
+        business: 'Local Cafe',
+        result: 'Professional presence'
+      }
+    ],
+    'marketing': [
+      {
+        icon: '📧',
+        type: 'Email Campaign',
+        title: 'Welcome Series Success',
+        description: 'Automated 3-email welcome sequence with 40% open rates',
+        business: 'Great British Inn',
+        result: '+25% bookings'
+      },
+      {
+        icon: '🎂',
+        type: 'Birthday Campaign',
+        title: 'Birthday Rewards Program',
+        description: 'Monthly birthday offers driving repeat visits',
+        business: 'Vino Vita',
+        result: '65% redemption'
+      }
+    ],
+    'wifi': [
+      {
+        icon: '📶',
+        type: 'Guest Portal',
+        title: 'Branded WiFi Landing',
+        description: 'Custom splash page capturing customer data',
+        business: 'Coffee Shop',
+        result: '500+ emails/month'
+      },
+      {
+        icon: '📱',
+        type: 'Social Login',
+        title: 'Facebook WiFi Access',
+        description: 'Social media login for seamless data collection',
+        business: 'Restaurant',
+        result: '80% data capture'
+      }
+    ],
+    'loyalty': [
+      {
+        icon: '🎁',
+        type: 'Points System',
+        title: 'Visit-Based Rewards',
+        description: 'Earn points for every visit and purchase',
+        business: 'Bakery',
+        result: '70% participation'
+      },
+      {
+        icon: '👑',
+        type: 'VIP Tiers',
+        title: 'Gold Membership Program',
+        description: 'Exclusive perks for top customers',
+        business: 'Wine Bar',
+        result: '45% retention'
+      }
+    ],
+    'reviews': [
+      {
+        icon: '⭐',
+        type: 'Review Request',
+        title: 'Automated Review Invites',
+        description: 'Timed review requests 24 hours after visits',
+        business: 'Hotel',
+        result: '4.8★ average'
+      },
+      {
+        icon: '💬',
+        type: 'Response System',
+        title: 'Review Response Templates',
+        description: 'Quick responses to all customer feedback',
+        business: 'Restaurant',
+        result: '100% response rate'
+      }
+    ],
+    'gift-cards': [
+      {
+        icon: '🎁',
+        type: 'Digital Cards',
+        title: 'Online Gift Card Sales',
+        description: 'Digital gift cards with instant delivery',
+        business: 'Spa',
+        result: '+30% revenue'
+      },
+      {
+        icon: '📱',
+        type: 'Mobile Redemption',
+        title: 'Easy Redemption Process',
+        description: 'QR code scanning for quick gift card redemption',
+        business: 'Restaurant',
+        result: 'Seamless experience'
+      }
+    ]
+  };
+  
+  return examples[featureId as keyof typeof examples] || [];
+};
 
-  const handleStartSection = (sectionId: string) => {
-    setSelectedSection(sectionId);
-    // In a real implementation, this would navigate to the detailed tutorial
-    console.log(`Starting section: ${sectionId}`);
+export default function MasterPlatformSection() {
+  const platformFeatures: PlatformFeature[] = [
+    {
+      id: 'account',
+      title: 'Account Management',
+      description: 'Complete business profile configuration and team management system',
+      icon: <Users className="h-8 w-8 text-white" />,
+      progress: 100,
+      status: 'completed',
+      estimatedTime: '15 minutes',
+      masterDescription: 'Master account setup and business profile management for a professional platform presence.',
+      examples: [
+        'Set up comprehensive business profiles with contact information',
+        'Configure team member roles and access permissions',
+        'Integrate business systems and existing tools',
+        'Customize platform branding and appearance'
+      ],
+      features: [
+        {
+          id: 'business-profile',
+          title: 'Business Profile Setup',
+          description: 'Create comprehensive business profiles with contact info, hours, and branding',
+          timeToImplement: '15 mins',
+          difficulty: 'Easy',
+          category: 'Configuration'
+        },
+        {
+          id: 'team-management',
+          title: 'Team Member Access',
+          description: 'Add team members and configure role-based permissions for platform access',
+          timeToImplement: '10 mins',
+          difficulty: 'Easy',
+          category: 'User Management'
+        },
+        {
+          id: 'integrations',
+          title: 'System Integrations',
+          description: 'Connect existing business tools and systems for seamless data flow',
+          timeToImplement: '25 mins',
+          difficulty: 'Medium',
+          category: 'Integration'
+        }
+      ]
+    },
+    {
+      id: 'marketing',
+      title: 'Marketing',
+      description: 'Launch automated marketing campaigns and customer communications',
+      icon: <BarChart3 className="h-8 w-8 text-white" />,
+      progress: 0,
+      status: 'not-started',
+      estimatedTime: '25 minutes',
+      masterDescription: 'Build automated marketing campaigns that drive customer engagement and increase revenue through targeted communications.',
+      examples: [
+        'Set up welcome email sequences for new customers',
+        'Create birthday and anniversary campaigns with special offers',
+        'Build win-back campaigns for inactive customers',
+        'Design targeted promotions based on customer behavior'
+      ],
+      features: [
+        {
+          id: 'email-automations',
+          title: 'Email Automations',
+          description: 'Set up welcome sequences, birthday campaigns, and win-back series to engage customers automatically',
+          timeToImplement: '15 mins',
+          difficulty: 'Easy',
+          category: 'Email Marketing'
+        },
+        {
+          id: 'lead-forms',
+          title: 'Create Lead Forms',
+          description: 'Build high-converting forms for newsletters, events, and special promotions with custom fields',
+          timeToImplement: '10 mins',
+          difficulty: 'Easy',
+          category: 'Lead Generation'
+        },
+        {
+          id: 'customer-segmentation',
+          title: 'Customer Segmentation',
+          description: 'Group customers by behavior, preferences, or demographics for targeted campaigns',
+          timeToImplement: '20 mins',
+          difficulty: 'Medium',
+          category: 'Targeting'
+        }
+      ]
+    },
+    {
+      id: 'wifi',
+      title: 'WiFi',
+      description: 'Configure guest WiFi portal for customer data capture',
+      icon: <Wifi className="h-8 w-8 text-white" />,
+      progress: 40,
+      status: 'in-progress',
+      estimatedTime: '20 minutes',
+      masterDescription: 'Create a branded WiFi experience that captures valuable customer data while providing seamless internet access.',
+      examples: [
+        'Design custom WiFi splash pages with your branding',
+        'Set up social media login options for easy access',
+        'Configure data collection forms and surveys',
+        'Enable location-based marketing and analytics'
+      ],
+      features: [
+        {
+          id: 'guest-portal',
+          title: 'Branded Guest Portal',
+          description: 'Custom WiFi landing page with your branding and data collection forms',
+          timeToImplement: '25 mins',
+          difficulty: 'Easy',
+          category: 'Customer Experience'
+        },
+        {
+          id: 'social-login',
+          title: 'Social Media Login',
+          description: 'Allow customers to access WiFi using Facebook, Google, or other social accounts',
+          timeToImplement: '15 mins',
+          difficulty: 'Medium',
+          category: 'Authentication'
+        },
+        {
+          id: 'analytics',
+          title: 'WiFi Analytics',
+          description: 'Track usage patterns, customer behavior, and engagement metrics',
+          timeToImplement: '10 mins',
+          difficulty: 'Easy',
+          category: 'Analytics'
+        }
+      ]
+    },
+    {
+      id: 'loyalty',
+      title: 'Loyalty',
+      description: 'Implement loyalty programs to increase customer retention',
+      icon: <Star className="h-8 w-8 text-white" />,
+      progress: 0,
+      status: 'not-started',
+      estimatedTime: '15 minutes',
+      masterDescription: 'Create engaging loyalty programs that reward customers and encourage repeat business through points, tiers, and special perks.',
+      examples: [
+        'Set up points-based reward systems for purchases and visits',
+        'Create VIP membership tiers with exclusive benefits',
+        'Design referral programs to grow your customer base',
+        'Configure automatic reward redemption and notifications'
+      ],
+      features: [
+        {
+          id: 'points-system',
+          title: 'Points & Rewards',
+          description: 'Create flexible points systems with customizable earning and redemption rules',
+          timeToImplement: '20 mins',
+          difficulty: 'Easy',
+          category: 'Loyalty Program'
+        },
+        {
+          id: 'vip-tiers',
+          title: 'VIP Membership Tiers',
+          description: 'Set up tiered loyalty programs with escalating benefits for top customers',
+          timeToImplement: '15 mins',
+          difficulty: 'Medium',
+          category: 'Customer Retention'
+        },
+        {
+          id: 'referral-program',
+          title: 'Referral Rewards',
+          description: 'Encourage customer referrals with automatic reward distribution',
+          timeToImplement: '10 mins',
+          difficulty: 'Easy',
+          category: 'Growth'
+        }
+      ]
+    },
+    {
+      id: 'reviews',
+      title: 'Reviews',
+      description: 'Manage customer reviews and feedback collection',
+      icon: <MessageSquare className="h-8 w-8 text-white" />,
+      progress: 0,
+      status: 'not-started',
+      estimatedTime: '10 minutes',
+      masterDescription: 'Automate review collection and management to build your online reputation and gather valuable customer feedback.',
+      examples: [
+        'Set up automated review requests after customer visits',
+        'Create response templates for positive and negative reviews',
+        'Monitor reviews across multiple platforms from one dashboard',
+        'Use feedback to improve your products and services'
+      ],
+      features: [
+        {
+          id: 'review-requests',
+          title: 'Automated Review Requests',
+          description: 'Send timed review invitations via email and SMS after customer interactions',
+          timeToImplement: '15 mins',
+          difficulty: 'Easy',
+          category: 'Reputation Management'
+        },
+        {
+          id: 'response-management',
+          title: 'Review Response Tools',
+          description: 'Manage and respond to reviews with templates and automated notifications',
+          timeToImplement: '10 mins',
+          difficulty: 'Easy',
+          category: 'Customer Service'
+        },
+        {
+          id: 'multi-platform',
+          title: 'Multi-Platform Monitoring',
+          description: 'Monitor reviews from Google, Facebook, Yelp, and other platforms in one place',
+          timeToImplement: '5 mins',
+          difficulty: 'Easy',
+          category: 'Monitoring'
+        }
+      ]
+    },
+    {
+      id: 'gift-cards',
+      title: 'Gift Cards',
+      description: 'Set up digital gift card sales and management system',
+      icon: <Gift className="h-8 w-8 text-white" />,
+      progress: 0,
+      status: 'not-started',
+      estimatedTime: '12 minutes',
+      masterDescription: 'Launch a digital gift card program that drives sales and introduces new customers to your business.',
+      examples: [
+        'Create digital gift cards with instant delivery via email',
+        'Set up gift card purchase forms on your website',
+        'Configure automated gift card delivery and redemption',
+        'Track gift card sales and usage analytics'
+      ],
+      features: [
+        {
+          id: 'digital-cards',
+          title: 'Digital Gift Cards',
+          description: 'Create and sell digital gift cards with customizable designs and instant delivery',
+          timeToImplement: '20 mins',
+          difficulty: 'Medium',
+          category: 'E-commerce'
+        },
+        {
+          id: 'redemption-system',
+          title: 'Easy Redemption',
+          description: 'Simple QR code or PIN-based redemption system for staff and customers',
+          timeToImplement: '10 mins',
+          difficulty: 'Easy',
+          category: 'Point of Sale'
+        },
+        {
+          id: 'sales-tracking',
+          title: 'Sales Analytics',
+          description: 'Track gift card sales performance, redemption rates, and customer behavior',
+          timeToImplement: '5 mins',
+          difficulty: 'Easy',
+          category: 'Analytics'
+        }
+      ]
+    }
+  ];
+
+  const getStatusColor = (status: PlatformFeature['status']) => {
+    switch (status) {
+      case 'completed':
+        return 'text-green-400';
+      case 'in-progress':
+        return 'text-[#FF389A]';
+      default:
+        return 'text-gray-400';
+    }
+  };
+
+  const getStatusIcon = (status: PlatformFeature['status']) => {
+    switch (status) {
+      case 'completed':
+        return <CheckCircle className="h-5 w-5 text-green-400" />;
+      case 'in-progress':
+        return <Clock className="h-5 w-5 text-[#FF389A]" />;
+      default:
+        return <ArrowRight className="h-5 w-5 text-gray-400" />;
+    }
   };
 
   return (
-    <div className="space-y-6">
-      <div>
-        <h2 className="text-2xl font-bold">Master Your Platform</h2>
-        <p className="text-muted-foreground">
-          Comprehensive training and resources for every feature and capability
-        </p>
-      </div>
+    <section className="py-16 bg-black">
+      <div className="max-w-7xl mx-auto px-4">
+        <div className="text-center mb-12">
+          <h2 className="text-4xl md:text-5xl font-bold text-white mb-4">
+            Master Your Platform
+          </h2>
+          <p className="text-xl text-gray-300 mb-6">
+            Now that you have run through the setup and features, let's master the platform
+          </p>
+        </div>
 
-      <Tabs defaultValue="bookings" className="w-full">
-        <TabsList className="grid w-full grid-cols-4 mb-8 bg-muted/30 rounded-xl border border-border/50 backdrop-blur-sm h-auto p-2">
-          {platformFeatures.map((feature) => (
-            <TabsTrigger 
-              key={feature.id} 
-              value={feature.id} 
-              className="brand-tab flex items-center gap-3 h-auto py-4 px-6"
-            >
-              <div className="p-1.5 rounded-lg bg-white/10">
-                {feature.icon}
-              </div>
-              <span className="font-bold text-sm md:text-base hidden sm:inline">{feature.title}</span>
-            </TabsTrigger>
+        {/* Account Management - Full Width Row */}
+        <div className="mb-8">
+          {platformFeatures.filter(feature => feature.id === 'account').map((feature) => (
+            <Dialog key={feature.id}>
+              <DialogTrigger asChild>
+                <Card className="bg-gradient-to-br from-[#0D0D24] to-black border-[#FF389A]/30 hover:border-[#FF389A]/50 transition-all duration-300 cursor-pointer group">
+                  <CardContent className="p-8">
+                    <div className="flex items-center justify-between">
+                      <div className="flex items-center gap-6">
+                        <div className="p-4 rounded-xl bg-gradient-to-br from-[#FF389A]/30 to-[#FF389A]/10 border border-[#FF389A]/30 group-hover:scale-110 transition-transform duration-300">
+                          {feature.icon}
+                        </div>
+                        <div className="flex-1">
+                          <h3 className="text-2xl font-bold text-white mb-2">{feature.title}</h3>
+                          <p className="text-gray-300 text-lg mb-4">{feature.description}</p>
+                          <div className="flex items-center gap-4 text-sm text-gray-400">
+                            <span className="flex items-center gap-1">
+                              <Clock className="h-4 w-4" />
+                              {feature.estimatedTime}
+                            </span>
+                            <span className="capitalize">{feature.status.replace('-', ' ')}</span>
+                          </div>
+                        </div>
+                      </div>
+                      <div className="flex items-center gap-6">
+                        <div className="text-right">
+                          <div className="text-sm text-gray-400 mb-1">Progress</div>
+                          <div className={`text-2xl font-bold ${getStatusColor(feature.status)}`}>{feature.progress}%</div>
+                          <Progress 
+                            value={feature.progress} 
+                            className="h-3 w-32 mt-2"
+                            style={{
+                              background: 'rgba(255, 255, 255, 0.1)',
+                            } as React.CSSProperties}
+                          />
+                        </div>
+                        {getStatusIcon(feature.status)}
+                      </div>
+                    </div>
+                  </CardContent>
+                </Card>
+              </DialogTrigger>
+              
+              <PlatformModal feature={feature} />
+            </Dialog>
           ))}
-        </TabsList>
+        </div>
 
-        {platformFeatures.map((feature) => (
-          <TabsContent key={feature.id} value={feature.id} className="space-y-6">
-            <div className="flex items-center justify-between">
-              <div>
-                <h3 className="text-xl font-semibold">{feature.title}</h3>
-                <p className="text-muted-foreground">{feature.description}</p>
-              </div>
-              <div className="flex gap-2">
-                {feature.quickActions.map((action) => (
-                  <Button 
-                    key={action.action}
-                    variant={action.primary ? "default" : "outline"}
-                    size="sm"
-                  >
-                    {action.label}
-                  </Button>
-                ))}
-              </div>
-            </div>
-
-            <Separator />
-
-            <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-              {feature.sections.map((section) => (
-                <SectionCard 
-                  key={section.id} 
-                  section={section} 
-                  onStartSection={handleStartSection}
-                />
-              ))}
-            </div>
-
-            {/* Advanced accordion for additional details */}
-            <Accordion type="single" collapsible className="w-full">
-              <AccordionItem value="advanced-topics">
-                <AccordionTrigger>Advanced Topics & Best Practices</AccordionTrigger>
-                <AccordionContent>
-                  <div className="space-y-4">
-                    <p className="text-muted-foreground">
-                      Explore advanced configurations, integration patterns, and optimization techniques 
-                      for {feature.title.toLowerCase()}.
-                    </p>
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                      <Card>
-                        <CardHeader className="pb-3">
-                          <CardTitle className="text-base">API Integration</CardTitle>
-                        </CardHeader>
-                        <CardContent>
-                          <CardDescription>
-                            Connect with external services and build custom integrations
-                          </CardDescription>
-                        </CardContent>
-                      </Card>
-                      <Card>
-                        <CardHeader className="pb-3">
-                          <CardTitle className="text-base">Performance Optimization</CardTitle>
-                        </CardHeader>
-                        <CardContent>
-                          <CardDescription>
-                            Fine-tune settings for maximum efficiency and speed
-                          </CardDescription>
-                        </CardContent>
-                      </Card>
+        {/* Other Platform Features */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {platformFeatures.filter(feature => feature.id !== 'account').map((feature) => (
+            <Dialog key={feature.id}>
+              <DialogTrigger asChild>
+                <Card className="bg-gradient-to-br from-[#0D0D24] to-black border-[#FF389A]/30 hover:border-[#FF389A]/50 transition-all duration-300 cursor-pointer group">
+                  <CardContent className="p-6">
+                    <div className="flex items-start justify-between mb-4">
+                      <div className="p-3 rounded-xl bg-gradient-to-br from-[#FF389A]/30 to-[#FF389A]/10 border border-[#FF389A]/30 group-hover:scale-110 transition-transform duration-300">
+                        {feature.icon}
+                      </div>
+                      {getStatusIcon(feature.status)}
                     </div>
-                  </div>
-                </AccordionContent>
-              </AccordionItem>
-              <AccordionItem value="troubleshooting">
-                <AccordionTrigger>Common Issues & Troubleshooting</AccordionTrigger>
-                <AccordionContent>
-                  <div className="space-y-3">
-                    <div className="border-l-4 border-yellow-500 pl-4">
-                      <h4 className="font-medium">Configuration Issues</h4>
-                      <p className="text-sm text-muted-foreground">
-                        Common setup problems and their solutions
-                      </p>
+                    
+                    <h3 className="text-xl font-bold text-white mb-2">{feature.title}</h3>
+                    <p className="text-gray-300 text-sm mb-4">{feature.description}</p>
+                    
+                    <div className="space-y-3">
+                      <div className="flex items-center justify-between text-sm">
+                        <span className="text-gray-400">Progress</span>
+                        <span className={getStatusColor(feature.status)}>{feature.progress}%</span>
+                      </div>
+                      <Progress 
+                        value={feature.progress} 
+                        className="h-2"
+                        style={{
+                          background: 'rgba(255, 255, 255, 0.1)',
+                        } as React.CSSProperties}
+                      />
+                      
+                      <div className="flex items-center justify-between text-xs text-gray-400">
+                        <span className="flex items-center gap-1">
+                          <Clock className="h-3 w-3" />
+                          {feature.estimatedTime}
+                        </span>
+                        <span className="capitalize">{feature.status.replace('-', ' ')}</span>
+                      </div>
                     </div>
-                    <div className="border-l-4 border-red-500 pl-4">
-                      <h4 className="font-medium">Error Resolution</h4>
-                      <p className="text-sm text-muted-foreground">
-                        How to diagnose and fix common errors
-                      </p>
-                    </div>
-                    <div className="border-l-4 border-blue-500 pl-4">
-                      <h4 className="font-medium">Performance Issues</h4>
-                      <p className="text-sm text-muted-foreground">
-                        Identifying and resolving performance bottlenecks
-                      </p>
-                    </div>
-                  </div>
-                </AccordionContent>
-              </AccordionItem>
-            </Accordion>
-          </TabsContent>
-        ))}
-      </Tabs>
-    </div>
+                  </CardContent>
+                </Card>
+              </DialogTrigger>
+              
+              <PlatformModal feature={feature} />
+            </Dialog>
+          ))}
+        </div>
+      </div>
+    </section>
   );
 }
