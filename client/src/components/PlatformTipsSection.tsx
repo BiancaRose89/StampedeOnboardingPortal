@@ -545,7 +545,7 @@ export default function PlatformTipsSection() {
                   {feature.icon}
                 </div>
                 <div>
-                  <h3 className="text-2xl font-extrabold text-white group-hover:text-glow-pink transition-all duration-300">
+                  <h3 className="text-2xl font-extrabold text-white transition-all duration-300">
                     {feature.title}
                   </h3>
                   <div className="flex items-center gap-3 mt-2">
@@ -605,7 +605,7 @@ export default function PlatformTipsSection() {
                   {feature.icon}
                 </div>
                 <div>
-                  <h3 className="text-2xl font-extrabold text-white group-hover:text-glow-pink transition-all duration-300">
+                  <h3 className="text-2xl font-extrabold text-white transition-all duration-300">
                     {feature.title}
                   </h3>
                   <div className="flex items-center gap-3 mt-2">
