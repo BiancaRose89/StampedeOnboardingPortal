@@ -277,21 +277,7 @@ export default function PlatformTipsSection() {
 
   return (
     <div className="space-y-16">
-      {/* Master Your Platform Section Header */}
-      <div className="space-y-6">
-        <div className="flex items-center justify-between">
-          <div>
-            <h2 className="text-2xl font-bold">Master Your Platform</h2>
-            <p className="text-muted-foreground">Deep-dive into features and best practices to unlock the full potential of your platform.</p>
-          </div>
-          <div className="text-right">
-            <div className="text-2xl font-bold">
-              6
-            </div>
-            <div className="text-sm text-muted-foreground">Core Features</div>
-          </div>
-        </div>
-      </div>
+
 
       {/* Master Platform Cards - Matching Onboarding Progress Style */}
       {isLocked ? (
