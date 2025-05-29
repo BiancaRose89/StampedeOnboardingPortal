@@ -144,9 +144,6 @@ export default function Home() {
         </div>
       </nav>
 
-      {/* Testimonial Carousel */}
-      <TestimonialCarousel />
-
       {/* Hero Section - Classic Stampede Style */}
       <section className="relative bg-background text-foreground py-20 overflow-hidden">
         {/* Background pattern matching Stampede.ai */}
@@ -238,6 +235,9 @@ export default function Home() {
               <h2 className="text-3xl font-bold text-white">Now that you have run through the setup and features, let's master the platform</h2>
             </div>
             <PlatformTipsSection />
+            
+            {/* Client Success Highlights at bottom of Master Platform section */}
+            <TestimonialCarousel />
           </section>
 
           <Separator className="my-16" />
