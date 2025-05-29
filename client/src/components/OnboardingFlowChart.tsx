@@ -1,4 +1,4 @@
-import { Users, Wifi, Target, Star, MessageSquare, Gift, ArrowRight } from 'lucide-react';
+import { Users, Wifi, Target, Star, MessageSquare, Gift, Calendar, Rocket, ArrowRight } from 'lucide-react';
 
 interface FlowStep {
   id: string;
@@ -20,12 +20,20 @@ export default function OnboardingFlowChart() {
       stepNumber: 1
     },
     {
+      id: 'bookings',
+      title: 'Bookings',
+      icon: <Calendar className="h-6 w-6 text-white" />,
+      description: 'Set up booking and appointment management',
+      estimatedTime: '12 min',
+      stepNumber: 2
+    },
+    {
       id: 'wifi-setup',
       title: 'WiFi',
       icon: <Wifi className="h-6 w-6 text-white" />,
       description: 'Configure guest WiFi with marketing capture',
       estimatedTime: '15 min',
-      stepNumber: 2
+      stepNumber: 3
     },
     {
       id: 'marketing',
@@ -33,7 +41,7 @@ export default function OnboardingFlowChart() {
       icon: <Target className="h-6 w-6 text-white" />,
       description: 'Build powerful marketing campaigns',
       estimatedTime: '20 min',
-      stepNumber: 3
+      stepNumber: 4
     },
     {
       id: 'loyalty',
@@ -41,7 +49,7 @@ export default function OnboardingFlowChart() {
       icon: <Star className="h-6 w-6 text-white" />,
       description: 'Create customer loyalty programs',
       estimatedTime: '15 min',
-      stepNumber: 4
+      stepNumber: 5
     },
     {
       id: 'reviews',
@@ -49,7 +57,7 @@ export default function OnboardingFlowChart() {
       icon: <MessageSquare className="h-6 w-6 text-white" />,
       description: 'Set up review management systems',
       estimatedTime: '12 min',
-      stepNumber: 5
+      stepNumber: 6
     },
     {
       id: 'gift-cards',
@@ -57,7 +65,15 @@ export default function OnboardingFlowChart() {
       icon: <Gift className="h-6 w-6 text-white" />,
       description: 'Launch digital gift card sales',
       estimatedTime: '18 min',
-      stepNumber: 6
+      stepNumber: 7
+    },
+    {
+      id: 'launch',
+      title: 'Launch',
+      icon: <Rocket className="h-6 w-6 text-white" />,
+      description: 'Go live with your fully configured platform',
+      estimatedTime: '5 min',
+      stepNumber: 8
     }
   ];
 
@@ -67,7 +83,7 @@ export default function OnboardingFlowChart() {
       <div className="text-center space-y-4">
         <h2 className="text-3xl font-bold text-white">Your Onboarding Journey</h2>
         <p className="text-gray-300 text-lg max-w-2xl mx-auto">
-          Follow these 6 essential steps to get your platform ready for customers
+          Follow these 8 essential steps to get your platform ready for customers
         </p>
       </div>
 
@@ -136,11 +152,11 @@ export default function OnboardingFlowChart() {
       {/* Summary Stats */}
       <div className="flex justify-center items-center space-x-8 pt-6 border-t border-gray-700">
         <div className="text-center">
-          <div className="text-2xl font-bold text-[#FF389A]">6</div>
+          <div className="text-2xl font-bold text-[#FF389A]">8</div>
           <div className="text-sm text-gray-400">Essential Steps</div>
         </div>
         <div className="text-center">
-          <div className="text-2xl font-bold text-[#FF389A]">90</div>
+          <div className="text-2xl font-bold text-[#FF389A]">107</div>
           <div className="text-sm text-gray-400">Total Minutes</div>
         </div>
         <div className="text-center">
