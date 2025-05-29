@@ -110,11 +110,16 @@ export default function FeedbackAndReferralSection() {
                       placeholder="Tell us what you loved about the onboarding process..."
                       className="bg-[#0D0D24]/50 border-[#FF389A]/30 text-white placeholder-gray-400 min-h-[120px] resize-none"
                       maxLength={500}
-                      aria-describedby="feedback-description"
+                      aria-describedby="feedback-description feedback-counter"
                     />
-                    <p id="feedback-description" className="text-sm text-gray-400">
-                      Help us improve the experience for future users
-                    </p>
+                    <div className="flex justify-between items-center">
+                      <p id="feedback-description" className="text-sm text-gray-400">
+                        Help us improve the experience for future users
+                      </p>
+                      <p id="feedback-counter" className="text-sm text-gray-400">
+                        {feedbackText.length} / 500
+                      </p>
+                    </div>
                   </div>
 
                   <Button
@@ -130,7 +135,7 @@ export default function FeedbackAndReferralSection() {
                     ) : (
                       <div className="flex items-center gap-2">
                         <Star className="h-5 w-5" />
-                        Leave a Review
+                        Share your experience
                       </div>
                     )}
                   </Button>
