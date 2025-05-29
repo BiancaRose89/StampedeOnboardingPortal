@@ -4,6 +4,7 @@ import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
 import { useAuth } from '@/components/AuthProvider';
+import { useQuery } from '@tanstack/react-query';
 import { 
   MessageSquare, 
   Wifi, 
@@ -18,7 +19,8 @@ import {
   TrendingUp,
   Clock,
   Play,
-  X
+  X,
+  Target
 } from 'lucide-react';
 
 interface TipCard {
@@ -490,31 +492,69 @@ export default function PlatformTipsSection() {
   
   // Check if user is authenticated
   const isAuthenticated = !!firebaseUser && !!dbUser;
-  const isLocked = !isAuthenticated;
+  
+  // Fetch onboarding progress
+  const { data: progress = [], isLoading } = useQuery({
+    queryKey: ["/api/progress"],
+    enabled: !!dbUser,
+  });
+
+  // Calculate progress percentage based on actual onboarding tasks
+  const totalOnboardingTasks = 8; // Account Setup, Marketing, WiFi, Bookings, Reviews, Loyalty, Gift Cards, Launch
+  const completedTasks = progress?.length || 0;
+  const progressPercentage = Math.round((completedTasks / totalOnboardingTasks) * 100);
+  
+  // Check if section should be locked (need 75% onboarding completion)
+  const isProgressLocked = progressPercentage < 75;
+  const isLocked = !isAuthenticated || isProgressLocked;
 
   // Locked Overlay Component
-  const LockedOverlay = ({ children, title }: { children: React.ReactNode; title: string }) => (
-    <div className="relative">
-      {children}
-      <div className="absolute inset-0 bg-[#0D0D24]/75 backdrop-blur-sm rounded-2xl flex items-center justify-center z-10 animate-in fade-in duration-500">
-        <div className="text-center space-y-4 bg-[#0D0D24]/90 border border-[#FF389A]/30 rounded-2xl p-8 max-w-md mx-4">
-          <div className="flex items-center justify-center mb-4">
-            <div className="p-3 rounded-full bg-[#FF389A]/20 border border-[#FF389A]/30">
-              <Settings className="h-8 w-8 text-[#FF389A]" />
+  const LockedOverlay = ({ children, title }: { children: React.ReactNode; title: string }) => {
+    const isAuthLocked = !isAuthenticated;
+    const isProgressLocked = isAuthenticated && progressPercentage < 75;
+
+    return (
+      <div className="relative">
+        {children}
+        <div className="absolute inset-0 bg-[#0D0D24]/75 backdrop-blur-sm rounded-2xl flex items-center justify-center z-10 animate-in fade-in duration-500">
+          <div className="text-center space-y-4 bg-[#0D0D24]/90 border border-[#FF389A]/30 rounded-2xl p-8 max-w-md mx-4">
+            <div className="flex items-center justify-center mb-4">
+              <div className="p-3 rounded-full bg-[#FF389A]/20 border border-[#FF389A]/30">
+                {isAuthLocked ? (
+                  <Settings className="h-8 w-8 text-[#FF389A]" />
+                ) : (
+                  <Target className="h-8 w-8 text-[#FF389A]" />
+                )}
+              </div>
             </div>
+            
+            {isAuthLocked ? (
+              <>
+                <h3 className="text-2xl font-bold text-white">Ready to Start?</h3>
+                <p className="text-gray-300 leading-relaxed">
+                  Log in to access your personalized onboarding experience and unlock {title.toLowerCase()}.
+                </p>
+                <Button className="bg-[#FF389A] hover:bg-[#E6329C] text-white px-8 py-3 font-bold w-full">
+                  Log In to Continue
+                  <TrendingUp className="ml-2 h-5 w-5" />
+                </Button>
+              </>
+            ) : (
+              <>
+                <h3 className="text-2xl font-bold text-white">🎯 Complete 75% of your onboarding to unlock this section.</h3>
+                <p className="text-gray-300 leading-relaxed">
+                  Current progress: {progressPercentage}% ({completedTasks}/{totalOnboardingTasks} tasks completed)
+                </p>
+                <p className="text-gray-400 text-sm">
+                  Complete more onboarding tasks to access platform mastery features.
+                </p>
+              </>
+            )}
           </div>
-          <h3 className="text-2xl font-bold text-white">Ready to Start?</h3>
-          <p className="text-gray-300 leading-relaxed">
-            Log in to access your personalized onboarding experience and unlock {title.toLowerCase()}.
-          </p>
-          <Button className="bg-[#FF389A] hover:bg-[#E6329C] text-white px-8 py-3 font-bold w-full">
-            Log In to Continue
-            <TrendingUp className="ml-2 h-5 w-5" />
-          </Button>
         </div>
       </div>
-    </div>
-  );
+    );
+  };
 
   const getDifficultyColor = (difficulty: string) => {
     switch (difficulty) {
