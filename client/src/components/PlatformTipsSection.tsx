@@ -271,6 +271,218 @@ const platformTips: FeatureTips[] = [
   }
 ];
 
+// Customer inspiration examples for each feature
+const getCustomerExamples = (featureId: string) => {
+  const examples = {
+    marketing: [
+      {
+        icon: '📧',
+        type: 'Email Campaign',
+        title: 'Welcome Series Success',
+        description: 'Automated 3-email welcome sequence with 40% open rates',
+        business: 'Great British Inn',
+        result: '+25% bookings'
+      },
+      {
+        icon: '🎂',
+        type: 'Birthday Campaign',
+        title: 'Birthday Rewards Program',
+        description: 'Monthly birthday offers driving repeat visits',
+        business: 'Vino Vita',
+        result: '65% redemption'
+      },
+      {
+        icon: '🔄',
+        type: 'Win-back Campaign',
+        title: 'Inactive Customer Recovery',
+        description: 'Targeted offers to customers who haven\'t visited in 90 days',
+        business: 'Number 90 UK',
+        result: '30% return rate'
+      },
+      {
+        icon: '🎯',
+        type: 'Targeted Promo',
+        title: 'Behavioral Triggers',
+        description: 'Promotions based on visit frequency and spending patterns',
+        business: 'Local Cafe',
+        result: '+40% revenue'
+      }
+    ],
+    wifi: [
+      {
+        icon: '📶',
+        type: 'Guest Portal',
+        title: 'Branded WiFi Landing',
+        description: 'Custom splash page capturing customer data',
+        business: 'Coffee Shop',
+        result: '500+ emails/month'
+      },
+      {
+        icon: '📱',
+        type: 'Social Login',
+        title: 'Facebook WiFi Access',
+        description: 'Social media login for seamless data collection',
+        business: 'Restaurant',
+        result: '80% data capture'
+      },
+      {
+        icon: '📊',
+        type: 'Analytics',
+        title: 'Foot Traffic Insights',
+        description: 'Real-time visitor analytics and return visit tracking',
+        business: 'Retail Store',
+        result: 'Daily insights'
+      },
+      {
+        icon: '📍',
+        type: 'Location Based',
+        title: 'Geofencing Campaigns',
+        description: 'Location-triggered marketing messages',
+        business: 'Shopping Center',
+        result: '15% uplift'
+      }
+    ],
+    reviews: [
+      {
+        icon: '⭐',
+        type: 'Review Request',
+        title: 'Automated Review Invites',
+        description: 'Timed review requests 24 hours after visits',
+        business: 'Hotel',
+        result: '4.8★ average'
+      },
+      {
+        icon: '💬',
+        type: 'Response System',
+        title: 'Review Response Templates',
+        description: 'Quick responses to all customer feedback',
+        business: 'Restaurant',
+        result: '100% response rate'
+      },
+      {
+        icon: '🔔',
+        type: 'Monitoring',
+        title: 'Review Alerts',
+        description: 'Instant notifications for new reviews across platforms',
+        business: 'Spa',
+        result: 'Real-time tracking'
+      },
+      {
+        icon: '📈',
+        type: 'Analytics',
+        title: 'Review Performance',
+        description: 'Monthly review analytics and improvement insights',
+        business: 'Gym',
+        result: '+1.2★ improvement'
+      }
+    ],
+    loyalty: [
+      {
+        icon: '🎁',
+        type: 'Points System',
+        title: 'Visit-Based Rewards',
+        description: 'Earn points for every visit and purchase',
+        business: 'Bakery',
+        result: '70% participation'
+      },
+      {
+        icon: '👑',
+        type: 'VIP Tiers',
+        title: 'Gold Membership Program',
+        description: 'Exclusive perks for top customers',
+        business: 'Wine Bar',
+        result: '45% retention'
+      },
+      {
+        icon: '🤝',
+        type: 'Referral Program',
+        title: 'Friend Referral Rewards',
+        description: 'Bonus points for bringing new customers',
+        business: 'Fitness Studio',
+        result: '25% new customers'
+      },
+      {
+        icon: '🎪',
+        type: 'Special Events',
+        title: 'Member-Only Events',
+        description: 'Exclusive access to special events and tastings',
+        business: 'Brewery',
+        result: 'Sold out events'
+      }
+    ],
+    bookings: [
+      {
+        icon: '📅',
+        type: 'Online Booking',
+        title: 'Table Reservations',
+        description: '24/7 online booking with real-time availability',
+        business: 'Fine Dining',
+        result: '60% online bookings'
+      },
+      {
+        icon: '🔄',
+        type: 'Calendar Sync',
+        title: 'Multi-Platform Integration',
+        description: 'Synced across Google, Outlook, and Apple calendars',
+        business: 'Salon',
+        result: 'Zero conflicts'
+      },
+      {
+        icon: '✅',
+        type: 'Confirmations',
+        title: 'Automated Reminders',
+        description: 'SMS and email confirmations with reminder sequences',
+        business: 'Dental Practice',
+        result: '5% no-shows'
+      },
+      {
+        icon: '💳',
+        type: 'Payment Processing',
+        title: 'Deposit Collection',
+        description: 'Secure deposit collection for reservations',
+        business: 'Event Venue',
+        result: '90% deposit rate'
+      }
+    ],
+    account: [
+      {
+        icon: '👥',
+        type: 'Team Management',
+        title: 'Role-Based Access',
+        description: 'Staff permissions based on responsibilities',
+        business: 'Multi-location Chain',
+        result: 'Secure operations'
+      },
+      {
+        icon: '🏢',
+        type: 'Business Profile',
+        title: 'Complete Brand Setup',
+        description: 'Business hours, contact info, and social links',
+        business: 'Local Business',
+        result: 'Professional presence'
+      },
+      {
+        icon: '🔌',
+        type: 'Integrations',
+        title: 'POS System Connection',
+        description: 'Seamless integration with existing POS systems',
+        business: 'Retail Store',
+        result: 'Unified data'
+      },
+      {
+        icon: '🔒',
+        type: 'Security',
+        title: 'Two-Factor Authentication',
+        description: 'Enhanced security for business accounts',
+        business: 'Financial Services',
+        result: 'Bank-level security'
+      }
+    ]
+  };
+  
+  return examples[featureId as keyof typeof examples] || [];
+};
+
 export default function PlatformTipsSection() {
   const [selectedFeature, setSelectedFeature] = useState(platformTips[0]);
   const [selectedModal, setSelectedModal] = useState<FeatureTips | null>(null);
@@ -497,6 +709,37 @@ export default function PlatformTipsSection() {
                         </div>
                       </div>
                     )}
+                  </div>
+                </div>
+
+                {/* Customer Inspiration Section */}
+                <div className="space-y-4">
+                  <div className="text-center space-y-2 py-4">
+                    <h3 className="text-xl font-bold text-white">Need Some Inspiration?</h3>
+                    <p className="text-gray-300">
+                      Check out some of what our customers have done and let's get your dream started
+                    </p>
+                  </div>
+                  
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    {getCustomerExamples(selectedModal.id).map((example, index) => (
+                      <div key={index} className="bg-[#0D0D24]/30 rounded-lg border border-[#FF389A]/20 overflow-hidden">
+                        <div className="h-32 bg-gradient-to-br from-gray-700 to-gray-800 flex items-center justify-center">
+                          <div className="text-center space-y-1">
+                            <div className="text-2xl">{example.icon}</div>
+                            <p className="text-xs text-gray-400">{example.type}</p>
+                          </div>
+                        </div>
+                        <div className="p-3 space-y-2">
+                          <h4 className="font-bold text-white text-sm">{example.title}</h4>
+                          <p className="text-gray-300 text-xs">{example.description}</p>
+                          <div className="flex items-center justify-between">
+                            <span className="text-[#FF389A] text-xs font-medium">{example.business}</span>
+                            <span className="text-gray-400 text-xs">{example.result}</span>
+                          </div>
+                        </div>
+                      </div>
+                    ))}
                   </div>
                 </div>
 
