@@ -148,30 +148,42 @@
 }
 
 @layer components {
-  /* Navy and pink theme buttons */
+  /* Theme-aware button styles */
   .btn-brand-pink {
     @apply bg-[#FF389A] text-white hover:bg-[#E6329] active:bg-[#CC2D7F] transition-all duration-200 shadow-lg hover:shadow-xl font-bold;
     box-shadow: 0 4px 16px rgba(255, 56, 154, 0.4);
   }
 
   .btn-brand-white {
-    @apply bg-white text-[#0D0D24] hover:bg-gray-100 active:bg-gray-200 transition-all duration-200 shadow-lg hover:shadow-xl font-bold;
-    box-shadow: 0 4px 16px rgba(255, 255, 255, 0.3);
+    @apply bg-background text-foreground border border-border hover:bg-muted active:bg-muted/80 transition-all duration-200 shadow-lg hover:shadow-xl font-bold;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+  }
+
+  .dark .btn-brand-white {
+    box-shadow: 0 4px 16px rgba(255, 255, 255, 0.1);
   }
 
   .btn-brand-navy {
-    @apply bg-[#0D0D24] text-white hover:bg-blue-950 active:bg-blue-900 transition-all duration-200 shadow-lg hover:shadow-xl font-bold border border-[#FF389A]/30;
-    box-shadow: 0 4px 16px rgba(13, 13, 36, 0.6);
+    @apply bg-foreground text-background hover:bg-foreground/90 active:bg-foreground/80 transition-all duration-200 shadow-lg hover:shadow-xl font-bold border border-[#FF389A]/30;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+  }
+
+  .dark .btn-brand-navy {
+    box-shadow: 0 4px 16px rgba(255, 255, 255, 0.2);
   }
 
   .btn-brand-outline {
     @apply bg-transparent text-[#FF389A] border-2 border-[#FF389A] hover:bg-[#FF389A] hover:text-white transition-all duration-200 shadow-lg hover:shadow-xl font-bold;
   }
 
-  /* Enhanced card styling with navy and pink theme */
+  /* Enhanced card styling with theme awareness */
   .card-glow {
     @apply bg-card border border-border/50 backdrop-blur-sm transition-all duration-300;
-    box-shadow: 0 4px 24px rgba(13, 13, 36, 0.4), 0 0 0 1px rgba(255, 56, 154, 0.1);
+    box-shadow: 0 4px 24px rgba(0, 0, 0, 0.1), 0 0 0 1px rgba(255, 56, 154, 0.1);
+  }
+
+  .dark .card-glow {
+    box-shadow: 0 4px 24px rgba(255, 255, 255, 0.1), 0 0 0 1px rgba(255, 56, 154, 0.1);
   }
 
   .card-glow:hover {
@@ -190,19 +202,23 @@
   }
 
   .progress-step.current {
-    @apply bg-white border-white text-[#0D0D24] shadow-lg;
-    box-shadow: 0 0 20px rgba(255, 255, 255, 0.6);
+    @apply bg-background border-foreground text-foreground shadow-lg;
+    box-shadow: 0 0 20px rgba(255, 56, 154, 0.3);
   }
 
   .progress-step.pending {
-    @apply bg-[#0D0D24] border-gray-600 text-white/70;
+    @apply bg-muted border-border text-muted-foreground;
   }
 
-  /* Interactive card with navy and pink theme hover effects */
+  /* Interactive card with theme-aware hover effects */
   .interactive-card {
     @apply bg-card border border-border/50 rounded-xl p-6 transition-all duration-300 cursor-pointer;
     backdrop-filter: blur(8px);
-    box-shadow: 0 4px 24px rgba(13, 13, 36, 0.4), 0 0 0 1px rgba(255, 56, 154, 0.1);
+    box-shadow: 0 4px 24px rgba(0, 0, 0, 0.1), 0 0 0 1px rgba(255, 56, 154, 0.1);
+  }
+
+  .dark .interactive-card {
+    box-shadow: 0 4px 24px rgba(255, 255, 255, 0.1), 0 0 0 1px rgba(255, 56, 154, 0.1);
   }
 
   .interactive-card:hover {
