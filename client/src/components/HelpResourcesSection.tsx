@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
+import { useAuth } from '@/components/AuthProvider';
 import { 
   ChevronDown, 
   ChevronUp, 
@@ -17,6 +18,7 @@ import {
 
 export default function HelpResourcesSection() {
   const [expandedSection, setExpandedSection] = useState<string | null>(null);
+  const { firebaseUser } = useAuth();
 
   const toggleSection = (sectionId: string) => {
     setExpandedSection(expandedSection === sectionId ? null : sectionId);
@@ -149,8 +151,9 @@ export default function HelpResourcesSection() {
 
   return (
     <div className="space-y-8">
-      {/* Advanced Topics & Best Practices */}
-      <Card className="bg-[#16173F] border-[#FF389A]/30 overflow-hidden">
+      {/* Advanced Topics & Best Practices - Only show for authenticated users */}
+      {firebaseUser && (
+        <Card className="bg-[#16173F] border-[#FF389A]/30 overflow-hidden">
         <Button
           variant="ghost"
           className="w-full p-6 h-auto justify-between hover:bg-[#FF389A]/10 transition-colors duration-200"
@@ -205,30 +208,32 @@ export default function HelpResourcesSection() {
             </div>
           </CardContent>
         )}
-      </Card>
+        </Card>
+      )}
 
-      {/* Common Issues & Troubleshooting */}
-      <Card className="bg-[#16173F] border-[#FF389A]/30 overflow-hidden">
-        <Button
-          variant="ghost"
-          className="w-full p-6 h-auto justify-between hover:bg-[#FF389A]/10 transition-colors duration-200"
-          onClick={() => toggleSection('troubleshooting')}
-        >
-          <div className="flex items-center gap-4">
-            <div className="p-3 rounded-xl bg-[#FF389A]/20 border border-[#FF389A]/30">
-              <AlertTriangle className="h-6 w-6 text-[#FF389A]" />
+      {/* Common Issues & Troubleshooting - Only show for authenticated users */}
+      {firebaseUser && (
+        <Card className="bg-[#16173F] border-[#FF389A]/30 overflow-hidden">
+          <Button
+            variant="ghost"
+            className="w-full p-6 h-auto justify-between hover:bg-[#FF389A]/10 transition-colors duration-200"
+            onClick={() => toggleSection('troubleshooting')}
+          >
+            <div className="flex items-center gap-4">
+              <div className="p-3 rounded-xl bg-[#FF389A]/20 border border-[#FF389A]/30">
+                <AlertTriangle className="h-6 w-6 text-[#FF389A]" />
+              </div>
+              <div className="text-left">
+                <h3 className="text-xl font-bold text-white">Common Issues & Troubleshooting</h3>
+                <p className="text-gray-300 text-sm">Quick solutions to frequent problems</p>
+              </div>
             </div>
-            <div className="text-left">
-              <h3 className="text-xl font-bold text-white">Common Issues & Troubleshooting</h3>
-              <p className="text-gray-300 text-sm">Quick solutions to frequent problems</p>
-            </div>
-          </div>
-          {expandedSection === 'troubleshooting' ? (
-            <ChevronUp className="h-5 w-5 text-[#FF389A]" />
-          ) : (
-            <ChevronDown className="h-5 w-5 text-[#FF389A]" />
-          )}
-        </Button>
+            {expandedSection === 'troubleshooting' ? (
+              <ChevronUp className="h-5 w-5 text-[#FF389A]" />
+            ) : (
+              <ChevronDown className="h-5 w-5 text-[#FF389A]" />
+            )}
+          </Button>
         
         {expandedSection === 'troubleshooting' && (
           <CardContent className="px-6 pb-6 pt-0">
@@ -263,7 +268,8 @@ export default function HelpResourcesSection() {
             </div>
           </CardContent>
         )}
-      </Card>
+        </Card>
+      )}
     </div>
   );
 }
