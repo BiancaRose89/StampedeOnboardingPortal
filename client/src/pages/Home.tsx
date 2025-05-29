@@ -163,12 +163,12 @@ export default function Home() {
               <h1 className="text-5xl md:text-6xl font-bold tracking-tight leading-tight">
                 Welcome to the
                 <br />
-                <span className="bg-gradient-to-r from-white to-blue-100 bg-clip-text text-transparent">
+                <span className="bg-gradient-to-r from-foreground to-muted-foreground bg-clip-text text-transparent">
                   Stampede Onboarding Journey
                 </span>
               </h1>
               
-              <p className="text-xl md:text-2xl text-blue-100 max-w-4xl mx-auto leading-relaxed">
+              <p className="text-xl md:text-2xl text-muted-foreground max-w-4xl mx-auto leading-relaxed">
                 Driving new and repeat customers for hospitality. Your complete ecosystem online and in-person, 
                 connecting marketing and operations with expert guidance every step of the way.
               </p>
@@ -202,16 +202,16 @@ export default function Home() {
             {/* Stats or features */}
             <div className="pt-8 grid grid-cols-1 md:grid-cols-3 gap-8 max-w-4xl mx-auto">
               <div className="text-center">
-                <div className="text-3xl font-bold mb-2">6</div>
-                <div className="text-blue-200">Core Features</div>
+                <div className="text-3xl font-bold mb-2 text-foreground">6</div>
+                <div className="text-muted-foreground">Core Features</div>
               </div>
               <div className="text-center">
-                <div className="text-3xl font-bold mb-2">100%</div>
-                <div className="text-blue-200">Expert Support</div>
+                <div className="text-3xl font-bold mb-2 text-foreground">100%</div>
+                <div className="text-muted-foreground">Expert Support</div>
               </div>
               <div className="text-center">
-                <div className="text-3xl font-bold mb-2">24/7</div>
-                <div className="text-blue-200">Knowledge Base</div>
+                <div className="text-3xl font-bold mb-2 text-foreground">24/7</div>
+                <div className="text-muted-foreground">Knowledge Base</div>
               </div>
             </div>
           </div>
@@ -243,11 +243,11 @@ export default function Home() {
       </div>
 
       {/* Footer */}
-      <footer className="border-t border-[#FF389A]/20 bg-[#16173F] mt-16">
+      <footer className="border-t border-[#FF389A]/20 bg-background mt-16">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
           <div className="flex flex-col md:flex-row justify-between items-center gap-4">
             <div className="text-center md:text-left">
-              <p className="text-gray-300">
+              <p className="text-muted-foreground">
                 © 2024 Stampede. Built for seamless onboarding experiences.
               </p>
             </div>
@@ -262,7 +262,7 @@ export default function Home() {
 
       {/* Auth Modal */}
       <Dialog open={showAuthModal} onOpenChange={setShowAuthModal}>
-        <DialogContent className="sm:max-w-md bg-[#16173F] border-[#FF389A]/30 text-white">
+        <DialogContent className="sm:max-w-md bg-background border-[#FF389A]/30 text-foreground">
           <DialogHeader>
             <DialogTitle>Access Your Portal</DialogTitle>
           </DialogHeader>
