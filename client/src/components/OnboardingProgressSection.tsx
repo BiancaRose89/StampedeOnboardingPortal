@@ -647,9 +647,27 @@ export default function OnboardingProgressSection() {
       )}
 
       {/* Progress Till Go Live Section - Clean Stepper Design */}
-      {isLocked ? (
-        <LockedOverlay title="Progress Till Go Live">
-          <div className="space-y-8 mt-16 opacity-40 pointer-events-none">
+      <div className="space-y-8 mt-16">
+        <div className="flex items-center justify-between">
+          <div className="flex items-center space-x-3">
+            <h2 className="text-3xl font-bold text-white">Progress Till Go Live!</h2>
+          </div>
+          <div className="text-right">
+            <div className="text-4xl font-bold text-[#FF389A]">17%</div>
+            <div className="text-sm text-gray-300">Complete</div>
+          </div>
+        </div>
+        
+        <div className="w-full bg-gray-700 rounded-full h-3 overflow-hidden">
+          <div 
+            className="h-full bg-gradient-to-r from-[#FF389A] to-[#E6329C] transition-all duration-1000 relative"
+            style={{ width: '17%' }}
+          >
+            <div className="absolute inset-0 bg-white/20 animate-pulse"></div>
+          </div>
+        </div>
+
+        <div className="space-y-6 max-w-3xl mx-auto">
             <div className="flex items-center justify-between">
               <div className="flex items-center space-x-3">
                 <h2 className="text-3xl font-bold text-white">Progress Till Go Live!</h2>
@@ -810,7 +828,6 @@ export default function OnboardingProgressSection() {
           ))}
         </div>
       )}
-
     </div>
   );
 }
