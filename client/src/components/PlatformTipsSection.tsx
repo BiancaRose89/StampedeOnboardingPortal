@@ -565,19 +565,14 @@ export default function PlatformTipsSection() {
               {/* Nested Feature List */}
               <div className="space-y-3">
                 {feature.tips.map((tip, index) => (
-                  <div key={tip.id} className="flex items-center justify-between p-3 bg-[#0D0D24]/50 rounded-lg border border-gray-600/30 hover:border-[#FF389A]/30 transition-all duration-300">
-                    <div className="flex items-center gap-3">
-                      <div className="w-6 h-6 rounded-full bg-[#FF389A]/20 flex items-center justify-center text-xs font-bold text-[#FF389A]">
-                        {index + 1}
-                      </div>
-                      <div>
-                        <h4 className="font-bold text-white text-sm">{tip.title}</h4>
-                        <p className="text-gray-400 text-xs">{tip.description}</p>
-                      </div>
+                  <div key={tip.id} className="flex items-center gap-3 p-3 bg-[#0D0D24]/50 rounded-lg border border-gray-600/30 hover:border-[#FF389A]/30 transition-all duration-300">
+                    <div className="w-6 h-6 rounded-full bg-[#FF389A]/20 flex items-center justify-center text-xs font-bold text-[#FF389A]">
+                      {index + 1}
                     </div>
-                    <Badge className={getDifficultyColor(tip.difficulty)} variant="secondary">
-                      {tip.difficulty}
-                    </Badge>
+                    <div>
+                      <h4 className="font-bold text-white text-sm">{tip.title}</h4>
+                      <p className="text-gray-400 text-xs">{tip.description}</p>
+                    </div>
                   </div>
                 ))}
               </div>
@@ -594,7 +589,7 @@ export default function PlatformTipsSection() {
             </div>
           </div>
         ))}
-          </div>
+        </div>
         </LockedOverlay>
       ) : (
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
