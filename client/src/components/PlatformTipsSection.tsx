@@ -207,6 +207,7 @@ const platformTips: FeatureTips[] = [
     title: 'Account Setup',
     icon: <Users className="h-6 w-6" />,
     color: 'from-gray-500 to-slate-500',
+    image: '/images/account-dashboard.png',
     tips: [
       {
         id: 'team-roles',
