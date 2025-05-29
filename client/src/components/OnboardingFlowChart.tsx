@@ -149,21 +149,7 @@ export default function OnboardingFlowChart() {
         </div>
       </div>
 
-      {/* Summary Stats */}
-      <div className="flex justify-center items-center space-x-8 pt-6 border-t border-gray-700">
-        <div className="text-center">
-          <div className="text-2xl font-bold text-[#FF389A]">8</div>
-          <div className="text-sm text-gray-400">Essential Steps</div>
-        </div>
-        <div className="text-center">
-          <div className="text-2xl font-bold text-[#FF389A]">107</div>
-          <div className="text-sm text-gray-400">Total Minutes</div>
-        </div>
-        <div className="text-center">
-          <div className="text-2xl font-bold text-[#FF389A]">100%</div>
-          <div className="text-sm text-gray-400">Platform Ready</div>
-        </div>
-      </div>
+
     </div>
   );
 }
