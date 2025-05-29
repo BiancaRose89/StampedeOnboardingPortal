@@ -102,7 +102,7 @@ export default function TestimonialCarousel() {
 
           {/* Carousel Container */}
           <div className="relative max-w-6xl mx-auto">
-            <Card className="bg-gradient-to-br from-[#0D0D24] to-black border-[#FF389A]/30 shadow-2xl overflow-hidden min-h-[250px] max-h-[300px]">
+            <Card className="bg-gradient-to-br from-[#0D0D24] to-black border-[#FF389A]/30 shadow-2xl overflow-hidden min-h-[350px] max-h-[450px]">
               <CardContent className="p-8 md:p-12 flex items-center justify-center">
                 <div className={`text-center space-y-6 transition-all duration-300 ${isAnimating ? 'opacity-0 scale-95' : 'opacity-100 scale-100'}`}>
                   {/* Quote Icon */}
