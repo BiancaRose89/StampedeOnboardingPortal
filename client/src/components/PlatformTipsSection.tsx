@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
+import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
 import { useAuth } from '@/components/AuthProvider';
 import { 
   MessageSquare, 
@@ -15,7 +16,9 @@ import {
   FileText,
   Settings,
   TrendingUp,
-  Clock
+  Clock,
+  Play,
+  X
 } from 'lucide-react';
 
 interface TipCard {
@@ -33,6 +36,9 @@ interface FeatureTips {
   icon: React.ReactNode;
   color: string;
   image?: string;
+  videoUrl?: string;
+  description: string;
+  examples: string[];
   tips: TipCard[];
 }
 
@@ -43,6 +49,14 @@ const platformTips: FeatureTips[] = [
     icon: <MessageSquare className="h-6 w-6" />,
     color: 'from-pink-500 to-rose-500',
     image: '/images/marketing-dashboard.png',
+    videoUrl: '/videos/marketing-mastery.mp4',
+    description: 'Master automated marketing campaigns that drive customer engagement and revenue growth.',
+    examples: [
+      'Set up welcome email sequences for new customers',
+      'Create birthday and anniversary campaigns with special offers',
+      'Build win-back campaigns for inactive customers',
+      'Design targeted promotions based on customer behavior'
+    ],
     tips: [
       {
         id: 'email-automation',
@@ -76,6 +90,14 @@ const platformTips: FeatureTips[] = [
     icon: <Wifi className="h-6 w-6" />,
     color: 'from-blue-500 to-cyan-500',
     image: '/images/wifi-dashboard.png',
+    videoUrl: '/videos/wifi-setup.mp4',
+    description: 'Transform your WiFi into a powerful customer acquisition and data collection tool.',
+    examples: [
+      'Configure secure guest networks with branded landing pages',
+      'Capture customer data through social WiFi login',
+      'Track foot traffic and visitor analytics',
+      'Set up location-based marketing triggers'
+    ],
     tips: [
       {
         id: 'guest-network',
@@ -109,6 +131,9 @@ const platformTips: FeatureTips[] = [
     icon: <Star className="h-6 w-6" />,
     color: 'from-yellow-500 to-orange-500',
     image: '/images/reviews-dashboard.png',
+    videoUrl: '/videos/reviews-mastery.mp4',
+    description: 'Build a systematic approach to collecting and managing customer reviews.',
+    examples: ['Automated review requests after visits', 'Response templates for feedback', 'Review monitoring and alerts', 'Integration with review platforms'],
     tips: [
       {
         id: 'review-requests',
@@ -142,6 +167,9 @@ const platformTips: FeatureTips[] = [
     icon: <Gift className="h-6 w-6" />,
     color: 'from-purple-500 to-indigo-500',
     image: '/images/loyalty-dashboard.png',
+    videoUrl: '/videos/loyalty-setup.mp4',
+    description: 'Create engaging loyalty programs that drive repeat business and customer retention.',
+    examples: ['Points-based reward systems', 'VIP membership tiers', 'Referral programs', 'Birthday and milestone rewards'],
     tips: [
       {
         id: 'points-system',
@@ -175,6 +203,9 @@ const platformTips: FeatureTips[] = [
     icon: <Calendar className="h-6 w-6" />,
     color: 'from-green-500 to-emerald-500',
     image: '/images/bookings-dashboard.png',
+    videoUrl: '/videos/bookings-setup.mp4',
+    description: 'Streamline reservations and appointments with automated booking management.',
+    examples: ['Online reservation system', 'Calendar synchronization', 'Automated confirmations', 'Payment processing'],
     tips: [
       {
         id: 'calendar-sync',
