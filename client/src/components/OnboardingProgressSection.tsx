@@ -293,12 +293,12 @@ export default function OnboardingProgressSection() {
   return (
     <div className="space-y-16">
       <div className="space-y-6">
-        <div className="flex items-center justify-between">
-          <div>
-            <h2 className="text-2xl font-bold text-white">Your Onboarding Progress</h2>
-            <p className="text-gray-300">Complete these essential setup tasks to get the most out of your platform</p>
-          </div>
-          <div className="text-right">
+        <div className="text-center space-y-4">
+          <h2 className="text-4xl md:text-5xl font-bold text-white">Your Onboarding Progress</h2>
+          <p className="text-xl text-gray-300 max-w-3xl mx-auto">
+            Complete these essential setup tasks to get the most out of your platform
+          </p>
+          <div className="text-center">
             <div className="text-2xl font-bold text-white">
               {onboardingBlocks.filter(block => block.status === 'completed').length}/{onboardingBlocks.length}
             </div>
