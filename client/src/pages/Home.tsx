@@ -145,76 +145,103 @@ export default function Home() {
       </nav>
 
       {/* Hero Section - Classic Stampede Style */}
-      <section className="relative bg-background text-foreground py-20 overflow-hidden">
-        {/* Background pattern matching Stampede.ai */}
-        <div className="absolute inset-0 opacity-20">
-          <div className="absolute top-0 left-0 w-96 h-96 bg-[#FF389A] rounded-full blur-3xl -translate-x-1/2 -translate-y-1/2"></div>
-          <div className="absolute bottom-0 right-0 w-96 h-96 bg-[#FF389A] rounded-full blur-3xl translate-x-1/2 translate-y-1/2"></div>
-          <div className="absolute top-1/2 left-1/2 w-80 h-80 bg-muted rounded-full blur-2xl -translate-x-1/2 -translate-y-1/2 opacity-10"></div>
-        </div>
-        
-        <div className="relative max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center space-y-8">
-            {/* Authentic Stampede logo */}
-            <div className="flex items-center justify-center mb-2">
-              <span className="text-4xl md:text-5xl font-bold text-[#FF389A]">Stampede</span>
+      <section className="relative bg-black text-white py-20 overflow-hidden min-h-[80vh]">
+        {/* Phone Background with Animated Icons */}
+        <div className="absolute inset-0">
+          {/* Phone Image Background */}
+          <div className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-1/4 z-10">
+            <img 
+              src="/attached_assets/Group 1000003725.png" 
+              alt="Stampede Mobile App" 
+              className="w-[600px] h-auto opacity-80"
+            />
+          </div>
+          
+          {/* Animated Icons Around Phone */}
+          <div className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-1/4 z-20">
+            {/* Customer Profile Icons - Animated */}
+            <div className="absolute -left-32 -top-16 animate-pulse">
+              <div className="w-16 h-16 bg-gradient-to-br from-[#FF389A] to-pink-600 rounded-full flex items-center justify-center border-2 border-white shadow-lg">
+                <Users className="h-8 w-8 text-white" />
+              </div>
             </div>
             
-            <div className="space-y-6">
-              <h1 className="text-5xl md:text-6xl font-bold tracking-tight leading-tight">
-                Welcome to the
-                <br />
-                <span className="bg-gradient-to-r from-foreground to-muted-foreground bg-clip-text text-transparent">
-                  Stampede Onboarding Journey
-                </span>
-              </h1>
-              
-              <p className="text-xl md:text-2xl text-muted-foreground max-w-4xl mx-auto leading-relaxed">
-                Driving new and repeat customers for hospitality. Your complete ecosystem online and in-person, 
-                connecting marketing and operations with expert guidance every step of the way.
-              </p>
+            <div className="absolute -left-40 top-20 animate-bounce delay-300">
+              <div className="w-14 h-14 bg-gradient-to-br from-[#FF389A] to-pink-600 rounded-full flex items-center justify-center border-2 border-white shadow-lg">
+                <User className="h-6 w-6 text-white" />
+              </div>
             </div>
-
-            <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
-              <Button
-                onClick={() => {
-                  const onboardingSection = document.getElementById('onboarding-progress');
-                  if (onboardingSection) {
-                    onboardingSection.scrollIntoView({ behavior: 'smooth' });
-                  }
-                }}
-                size="lg"
-                className="btn-brand-white px-8 py-4 font-semibold shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 transition-all duration-200"
-              >
-                <BookOpen className="h-5 w-5 mr-2" />
-                Start Your Journey
-              </Button>
+            
+            {/* Rotating Icons */}
+            <div className="absolute -left-20 -top-32 animate-spin" style={{ animationDuration: '8s' }}>
+              <div className="w-12 h-12 bg-gradient-to-br from-[#FF389A] to-pink-600 rounded-full flex items-center justify-center border-2 border-white shadow-lg">
+                <ChartLine className="h-6 w-6 text-white" />
+              </div>
+            </div>
+            
+            <div className="absolute -left-48 -top-4 animate-ping">
+              <div className="w-10 h-10 bg-gradient-to-br from-[#FF389A] to-pink-600 rounded-full flex items-center justify-center border-2 border-white shadow-lg">
+                <Rocket className="h-5 w-5 text-white" />
+              </div>
+            </div>
+          </div>
+          
+          {/* Dark overlay for text readability */}
+          <div className="absolute inset-0 bg-gradient-to-r from-black via-black/80 to-transparent z-5"></div>
+        </div>
+        
+        <div className="relative max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 z-30">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+            {/* Left side - Text content */}
+            <div className="space-y-8 text-left lg:text-left">
+              {/* Authentic Stampede logo */}
+              <div className="flex items-start justify-start mb-2">
+                <span className="text-4xl md:text-5xl font-bold text-[#FF389A]">Stampede</span>
+              </div>
               
-              {!firebaseUser && (
+              <div className="space-y-6">
+                <h1 className="text-4xl md:text-6xl font-bold tracking-tight leading-tight text-white">
+                  Welcome to the
+                  <br />
+                  <span className="bg-gradient-to-r from-[#FF389A] to-pink-400 bg-clip-text text-transparent">
+                    Stampede Onboarding Journey
+                  </span>
+                </h1>
+                
+                <p className="text-lg md:text-xl text-gray-300 max-w-2xl leading-relaxed">
+                  Driving new and repeat customers for hospitality. Your complete ecosystem online and in-person, 
+                  connecting marketing and operations with expert guidance every step of the way.
+                </p>
+              </div>
+              
+              <div className="flex flex-col sm:flex-row gap-4">
                 <Button
-                  onClick={() => setShowAuthModal(true)}
-                  className="btn-brand-outline px-8 py-4 font-semibold"
+                  onClick={() => {
+                    const element = document.getElementById('onboarding-progress');
+                    element?.scrollIntoView({ behavior: 'smooth' });
+                  }}
+                  className="bg-[#FF389A] hover:bg-[#E6329C] text-white px-8 py-4 text-lg font-semibold rounded-full transition-all duration-200 shadow-lg shadow-[#FF389A]/25"
                 >
-                  Access Your Portal
+                  <Rocket className="mr-2 h-5 w-5" />
+                  Start Your Journey
                 </Button>
-              )}
-            </div>
-
-            {/* Stats or features */}
-            <div className="pt-8 grid grid-cols-1 md:grid-cols-3 gap-8 max-w-4xl mx-auto">
-              <div className="text-center">
-                <div className="text-3xl font-bold mb-2 text-foreground">6</div>
-                <div className="text-muted-foreground">Core Features</div>
-              </div>
-              <div className="text-center">
-                <div className="text-3xl font-bold mb-2 text-foreground">100%</div>
-                <div className="text-muted-foreground">Expert Support</div>
-              </div>
-              <div className="text-center">
-                <div className="text-3xl font-bold mb-2 text-foreground">24/7</div>
-                <div className="text-muted-foreground">Knowledge Base</div>
+                
+                <Button
+                  variant="outline"
+                  onClick={() => {
+                    const element = document.getElementById('master-platform');
+                    element?.scrollIntoView({ behavior: 'smooth' });
+                  }}
+                  className="border-[#FF389A] text-[#FF389A] hover:bg-[#FF389A] hover:text-white px-8 py-4 text-lg font-semibold rounded-full transition-all duration-200"
+                >
+                  <BookOpen className="mr-2 h-5 w-5" />
+                  Explore Features
+                </Button>
               </div>
             </div>
+            
+            {/* Right side - Reserved for phone image (handled by absolute positioning) */}
+            <div className="hidden lg:block"></div>
           </div>
         </div>
       </section>
