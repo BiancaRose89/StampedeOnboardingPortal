@@ -153,7 +153,7 @@ export default function HelpResourcesSection() {
     <div className="space-y-8">
       {/* Advanced Topics & Best Practices - Only show for authenticated users */}
       {firebaseUser && (
-        <Card className="bg-[#16173F] border-[#FF389A]/30 overflow-hidden">
+        <Card className="bg-gradient-to-br from-[#0D0D24] to-black border-[#FF389A]/30 overflow-hidden">
         <Button
           variant="ghost"
           className="w-full p-6 h-auto justify-between hover:bg-[#FF389A]/10 transition-colors duration-200"
@@ -213,7 +213,7 @@ export default function HelpResourcesSection() {
 
       {/* Common Issues & Troubleshooting - Only show for authenticated users */}
       {firebaseUser && (
-        <Card className="bg-[#16173F] border-[#FF389A]/30 overflow-hidden">
+        <Card className="bg-gradient-to-br from-[#0D0D24] to-black border-[#FF389A]/30 overflow-hidden">
           <Button
             variant="ghost"
             className="w-full p-6 h-auto justify-between hover:bg-[#FF389A]/10 transition-colors duration-200"
