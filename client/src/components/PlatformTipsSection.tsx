@@ -239,6 +239,9 @@ const platformTips: FeatureTips[] = [
     icon: <Users className="h-6 w-6" />,
     color: 'from-gray-500 to-slate-500',
     image: '/images/account-dashboard.png',
+    videoUrl: '/videos/account-setup.mp4',
+    description: 'Configure your business profile and team settings for optimal platform performance.',
+    examples: ['Team role management', 'Business profile completion', 'Integration setup', 'Security settings'],
     tips: [
       {
         id: 'team-roles',
@@ -270,6 +273,7 @@ const platformTips: FeatureTips[] = [
 
 export default function PlatformTipsSection() {
   const [selectedFeature, setSelectedFeature] = useState(platformTips[0]);
+  const [selectedModal, setSelectedModal] = useState<FeatureTips | null>(null);
   const { firebaseUser, dbUser } = useAuth();
   
   // Check if user is authenticated
@@ -383,7 +387,11 @@ export default function PlatformTipsSection() {
       ) : (
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         {platformTips.map((feature) => (
-          <div key={feature.id} className="interactive-card group">
+          <div 
+            key={feature.id} 
+            className="interactive-card group cursor-pointer"
+            onClick={() => setSelectedModal(feature)}
+          >
             <div className="flex items-start justify-between mb-4">
               <div className="flex items-center gap-4">
                 <div className="p-4 rounded-xl bg-gradient-to-br from-[#FF389A]/30 to-[#FF389A]/10 border border-[#FF389A]/30 backdrop-blur-sm">
@@ -442,6 +450,111 @@ export default function PlatformTipsSection() {
         ))}
       </div>
       )}
+
+      {/* Feature Mastery Modal */}
+      <Dialog open={!!selectedModal} onOpenChange={() => setSelectedModal(null)}>
+        <DialogContent className="max-w-4xl max-h-[90vh] overflow-y-auto bg-gradient-to-br from-[#0D0D24] to-black border-[#FF389A]/30">
+          {selectedModal && (
+            <>
+              <DialogHeader className="space-y-4">
+                <div className="flex items-center gap-4">
+                  <div className="p-3 rounded-xl bg-gradient-to-br from-[#FF389A]/30 to-[#FF389A]/10 border border-[#FF389A]/30">
+                    {selectedModal.icon}
+                  </div>
+                  <div>
+                    <DialogTitle className="text-2xl font-bold text-white">
+                      Master {selectedModal.title}
+                    </DialogTitle>
+                    <DialogDescription className="text-gray-300 text-lg">
+                      {selectedModal.description}
+                    </DialogDescription>
+                  </div>
+                </div>
+              </DialogHeader>
+
+              <div className="space-y-6">
+                {/* Video Section */}
+                <div className="space-y-4">
+                  <h3 className="text-xl font-bold text-white flex items-center gap-2">
+                    <Play className="h-5 w-5 text-[#FF389A]" />
+                    Training Video
+                  </h3>
+                  <div className="rounded-lg overflow-hidden border border-[#FF389A]/20 bg-black/50">
+                    {selectedModal.videoUrl ? (
+                      <video 
+                        className="w-full h-64 object-cover"
+                        controls
+                        poster={selectedModal.image}
+                      >
+                        <source src={selectedModal.videoUrl} type="video/mp4" />
+                        Your browser does not support the video tag.
+                      </video>
+                    ) : (
+                      <div className="w-full h-64 flex items-center justify-center bg-gray-800">
+                        <div className="text-center space-y-2">
+                          <Play className="h-12 w-12 text-gray-400 mx-auto" />
+                          <p className="text-gray-400">Training video coming soon</p>
+                        </div>
+                      </div>
+                    )}
+                  </div>
+                </div>
+
+                {/* Examples Section */}
+                <div className="space-y-4">
+                  <h3 className="text-xl font-bold text-white">What You'll Learn</h3>
+                  <div className="grid gap-3">
+                    {selectedModal.examples.map((example, index) => (
+                      <div key={index} className="flex items-start gap-3 p-3 bg-[#0D0D24]/50 rounded-lg border border-[#FF389A]/20">
+                        <div className="w-6 h-6 rounded-full bg-[#FF389A]/20 flex items-center justify-center text-xs font-bold text-[#FF389A] mt-0.5">
+                          {index + 1}
+                        </div>
+                        <p className="text-gray-300">{example}</p>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+
+                {/* Feature Details */}
+                <div className="space-y-4">
+                  <h3 className="text-xl font-bold text-white">Feature Details</h3>
+                  <div className="space-y-3">
+                    {selectedModal.tips.map((tip, index) => (
+                      <div key={tip.id} className="p-4 bg-[#0D0D24]/50 rounded-lg border border-gray-600/30">
+                        <div className="flex items-start justify-between mb-2">
+                          <h4 className="font-bold text-white">{tip.title}</h4>
+                          <Badge className={getDifficultyColor(tip.difficulty)} variant="secondary">
+                            {tip.difficulty}
+                          </Badge>
+                        </div>
+                        <p className="text-gray-300 text-sm mb-2">{tip.description}</p>
+                        <div className="flex items-center gap-2 text-xs text-gray-400">
+                          <Clock className="h-3 w-3" />
+                          <span>{tip.timeToImplement}</span>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+
+                {/* Action Buttons */}
+                <div className="flex justify-between pt-4 border-t border-[#FF389A]/20">
+                  <Button 
+                    variant="outline" 
+                    onClick={() => setSelectedModal(null)}
+                    className="border-gray-600 text-gray-300 hover:bg-gray-800"
+                  >
+                    Close
+                  </Button>
+                  <Button className="bg-[#FF389A] hover:bg-[#E6329C] text-white">
+                    Start Learning
+                  </Button>
+                </div>
+              </div>
+            </>
+          )}
+        </DialogContent>
+      </Dialog>
     </div>
   );
 }
