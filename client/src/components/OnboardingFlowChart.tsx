@@ -88,16 +88,7 @@ export default function OnboardingFlowChart() {
           <p className="text-xl text-gray-300 max-w-3xl mx-auto">
             Follow these 9 essential steps to get your platform ready for customers:
           </p>
-        ) : (
-          <div className="space-y-3">
-            <p className="text-xl text-gray-300 max-w-3xl mx-auto">
-              Welcome to your onboarding journey.
-            </p>
-            <p className="text-lg text-gray-400 max-w-2xl mx-auto">
-              Let's run through what to expect and get you set up for success.
-            </p>
-          </div>
-        )}
+        ) : null}
       </div>
 
       {/* Desktop Flow Chart */}
