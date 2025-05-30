@@ -314,12 +314,11 @@ export default function MultiVenueOnboarding() {
 
   return (
     <div className="space-y-8">
-      {/* Venue Training Header */}
+      {/* Welcome Header */}
       <div className="text-center space-y-4">
-        <h2 className="text-3xl font-bold text-white">Venue Training</h2>
-        <h3 className="text-2xl font-bold text-white">
+        <h2 className="text-3xl font-bold text-white">
           Welcome, {userName}!
-        </h3>
+        </h2>
         <Button 
           variant="outline" 
           className="border-[#FF389A]/30 text-[#FF389A] hover:bg-[#FF389A]/10"
