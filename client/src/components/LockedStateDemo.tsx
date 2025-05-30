@@ -4,7 +4,7 @@ import { Card, CardContent } from '@/components/ui/card';
 import { Lock, ArrowRight, Calendar, MessageSquare, Star, Wifi, CheckCircle, Clock, Play } from 'lucide-react';
 import { useAuth } from '@/components/AuthProvider';
 import OnboardingFlowChart from '@/components/OnboardingFlowChart';
-import VenueOnboardingManager from '@/components/VenueOnboardingManager';
+import MultiVenueOnboarding from '@/components/MultiVenueOnboarding';
 import HelpResourcesSection from '@/components/HelpResourcesSection';
 
 interface LockedOverlayProps {
@@ -47,7 +47,7 @@ export default function LockedStateDemo() {
       <OnboardingFlowChart />
 
       {/* Your Onboarding Progress */}
-      <VenueOnboardingManager />
+      <MultiVenueOnboarding />
       
 
     </div>
