@@ -320,6 +320,10 @@ export default function MultiVenueOnboarding() {
     <div className="space-y-8">
       {/* Welcome Header */}
       <div className="text-center space-y-4">
+        <h1 className="text-4xl md:text-5xl font-bold text-white">Venue Training</h1>
+        <p className="text-lg text-gray-300 max-w-4xl mx-auto">
+          This is great excited to get your {venues.length} venue{venues.length !== 1 ? 's' : ''} live! Please follow each step carefully and when you are done! Navigate to the Master the Platform section.
+        </p>
         <h2 className="text-3xl font-bold text-white">
           Welcome, {userName}!
         </h2>
