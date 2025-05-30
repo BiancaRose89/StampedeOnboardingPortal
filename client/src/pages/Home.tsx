@@ -174,45 +174,97 @@ export default function Home() {
               <span className="text-4xl md:text-5xl font-bold text-[#FF389A]">Stampede</span>
             </div>
             
-            <div className="space-y-6">
-              <h1 className="text-5xl md:text-6xl font-bold tracking-tight leading-tight">
-                Welcome to the
-                <br />
-                <span className="bg-gradient-to-r from-[#FF389A] to-pink-400 bg-clip-text text-transparent">
-                  Stampede Onboarding Journey
-                </span>
-              </h1>
-              
-              <p className="text-xl md:text-2xl text-muted-foreground max-w-4xl mx-auto leading-relaxed">
-                Driving new and repeat customers for hospitality. Your complete ecosystem online and in-person, 
-                connecting marketing and operations with expert guidance every step of the way.
-              </p>
-            </div>
+            {!firebaseUser ? (
+              <>
+                <div className="space-y-6">
+                  <h1 className="text-5xl md:text-6xl font-bold tracking-tight leading-tight">
+                    Welcome to the
+                    <br />
+                    <span className="bg-gradient-to-r from-[#FF389A] to-pink-400 bg-clip-text text-transparent">
+                      Stampede Onboarding Journey
+                    </span>
+                  </h1>
+                  
+                  <p className="text-xl md:text-2xl text-muted-foreground max-w-4xl mx-auto leading-relaxed">
+                    Driving new and repeat customers for hospitality. Your complete ecosystem online and in-person, 
+                    connecting marketing and operations with expert guidance every step of the way.
+                  </p>
+                </div>
 
-            <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
-              <Button
-                onClick={() => {
-                  const element = document.getElementById('onboarding-progress');
-                  element?.scrollIntoView({ behavior: 'smooth' });
-                }}
-                className="bg-[#FF389A] hover:bg-[#E6329C] text-white px-8 py-4 text-lg font-semibold rounded-full transition-all duration-200 shadow-lg shadow-[#FF389A]/25"
-              >
-                <Rocket className="mr-2 h-5 w-5" />
-                Start Your Journey
-              </Button>
-              
-              <Button
-                variant="outline"
-                onClick={() => {
-                  const element = document.getElementById('master-platform');
-                  element?.scrollIntoView({ behavior: 'smooth' });
-                }}
-                className="border-[#FF389A] text-[#FF389A] hover:bg-[#FF389A] hover:text-white px-8 py-4 text-lg font-semibold rounded-full transition-all duration-200"
-              >
-                <BookOpen className="mr-2 h-5 w-5" />
-                Explore Features
-              </Button>
-            </div>
+                <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
+                  <Button
+                    onClick={() => {
+                      const element = document.getElementById('onboarding-progress');
+                      element?.scrollIntoView({ behavior: 'smooth' });
+                    }}
+                    className="bg-[#FF389A] hover:bg-[#E6329C] text-white px-8 py-4 text-lg font-semibold rounded-full transition-all duration-200 shadow-lg shadow-[#FF389A]/25"
+                  >
+                    <Rocket className="mr-2 h-5 w-5" />
+                    Start Your Journey
+                  </Button>
+                  
+                  <Button
+                    variant="outline"
+                    onClick={() => {
+                      const element = document.getElementById('master-platform');
+                      element?.scrollIntoView({ behavior: 'smooth' });
+                    }}
+                    className="border-[#FF389A] text-[#FF389A] hover:bg-[#FF389A] hover:text-white px-8 py-4 text-lg font-semibold rounded-full transition-all duration-200"
+                  >
+                    <BookOpen className="mr-2 h-5 w-5" />
+                    Explore Features
+                  </Button>
+                </div>
+              </>
+            ) : (
+              <>
+                <div className="space-y-6">
+                  <h1 className="text-5xl md:text-6xl font-bold tracking-tight leading-tight">
+                    <span className="bg-gradient-to-r from-[#FF389A] to-pink-400 bg-clip-text text-transparent">
+                      You are in! Welcome to Stampede
+                    </span>
+                  </h1>
+                  
+                  <p className="text-xl md:text-2xl text-muted-foreground max-w-4xl mx-auto leading-relaxed">
+                    Super excited to get this over the line for you!
+                  </p>
+                </div>
+
+                <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
+                  <Button
+                    onClick={() => {
+                      const element = document.getElementById('onboarding-progress');
+                      element?.scrollIntoView({ behavior: 'smooth' });
+                    }}
+                    className="bg-[#FF389A] hover:bg-[#E6329C] text-white px-8 py-4 text-lg font-semibold rounded-full transition-all duration-200 shadow-lg shadow-[#FF389A]/25"
+                  >
+                    <Rocket className="mr-2 h-5 w-5" />
+                    Your Onboarding Journey
+                  </Button>
+                  
+                  <Button
+                    variant="outline"
+                    onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+                    className="border-[#FF389A] text-[#FF389A] hover:bg-[#FF389A] hover:text-white px-8 py-4 text-lg font-semibold rounded-full transition-all duration-200"
+                  >
+                    <User className="mr-2 h-5 w-5" />
+                    Venue Management
+                  </Button>
+
+                  <Button
+                    variant="outline"
+                    onClick={() => {
+                      const element = document.getElementById('master-platform');
+                      element?.scrollIntoView({ behavior: 'smooth' });
+                    }}
+                    className="border-[#FF389A] text-[#FF389A] hover:bg-[#FF389A] hover:text-white px-8 py-4 text-lg font-semibold rounded-full transition-all duration-200"
+                  >
+                    <BookOpen className="mr-2 h-5 w-5" />
+                    Master Your Platform
+                  </Button>
+                </div>
+              </>
+            )}
           </div>
         </div>
       </section>
