@@ -43,8 +43,8 @@ export default function LockedStateDemo() {
 
   return (
     <div className="space-y-16">
-      {/* Onboarding Journey Flowchart */}
-      <OnboardingFlowChart />
+      {/* Onboarding Journey Flowchart - Only show for logged-out users */}
+      {isLoggedOut && <OnboardingFlowChart />}
 
       {/* Your Onboarding Progress */}
       <MultiVenueOnboarding />
