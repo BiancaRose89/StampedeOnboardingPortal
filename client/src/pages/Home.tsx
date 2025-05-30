@@ -9,6 +9,7 @@ import { Badge } from "@/components/ui/badge";
 import { Separator } from "@/components/ui/separator";
 import { ChartLine, User, LogOut, Rocket, BookOpen, HelpCircle, Users } from "lucide-react";
 import bannerImage from "@assets/banne_1.png";
+import frontBannerImage from "@assets/Banner 1 (1).png";
 import { ThemeToggle } from "@/components/ThemeToggle";
 import { signIn, signOutUser } from "@/lib/firebase";
 import { useAuth } from "@/components/AuthProvider";
@@ -190,6 +191,17 @@ export default function Home() {
                     Driving new and repeat customers for hospitality. Your complete ecosystem online and in-person, 
                     connecting marketing and operations with expert guidance every step of the way.
                   </p>
+                </div>
+
+                {/* Image Block for Logged-out Users */}
+                <div className="flex justify-center">
+                  <div className="relative w-full max-w-4xl mx-auto">
+                    <img 
+                      src={frontBannerImage} 
+                      alt="Stampede Mobile Platform Features" 
+                      className="w-full h-auto rounded-2xl shadow-2xl border border-[#FF389A]/20"
+                    />
+                  </div>
                 </div>
 
                 <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
