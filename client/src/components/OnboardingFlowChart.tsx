@@ -107,14 +107,20 @@ export default function OnboardingFlowChart() {
             <div key={step.id} className="flex items-center">
               {/* Step Icon */}
               <div className="flex flex-col items-center space-y-3">
-                <div className="relative">
-                  <div className="w-16 h-16 rounded-xl bg-gradient-to-br from-[#FF389A]/30 to-[#FF389A]/10 border border-[#FF389A]/30 backdrop-blur-sm flex items-center justify-center shadow-lg shadow-[#FF389A]/20">
-                    {step.icon}
+{!isLoggedIn ? (
+                  <div className="relative">
+                    <div className="w-16 h-16 rounded-xl bg-gradient-to-br from-[#FF389A]/30 to-[#FF389A]/10 border border-[#FF389A]/30 backdrop-blur-sm flex items-center justify-center shadow-lg shadow-[#FF389A]/20">
+                      {step.icon}
+                    </div>
+                    <div className="absolute -top-2 -right-2 w-6 h-6 bg-[#FF389A] rounded-full flex items-center justify-center text-xs font-bold text-white">
+                      {step.stepNumber}
+                    </div>
                   </div>
-                  <div className="absolute -top-2 -right-2 w-6 h-6 bg-[#FF389A] rounded-full flex items-center justify-center text-xs font-bold text-white">
+                ) : (
+                  <div className="w-8 h-8 bg-[#FF389A] rounded-full flex items-center justify-center text-sm font-bold text-white">
                     {step.stepNumber}
                   </div>
-                </div>
+                )}
                 <div className="text-center max-w-[120px]">
                   <h3 className="font-bold text-white text-sm">{step.title}</h3>
                 </div>
@@ -137,14 +143,20 @@ export default function OnboardingFlowChart() {
           {flowSteps.map((step, index) => (
             <div key={step.id} className="flex flex-col items-center space-y-3 relative">
               {/* Step Icon */}
-              <div className="relative">
-                <div className="w-14 h-14 rounded-xl bg-gradient-to-br from-[#FF389A]/30 to-[#FF389A]/10 border border-[#FF389A]/30 backdrop-blur-sm flex items-center justify-center shadow-lg shadow-[#FF389A]/20">
-                  {step.icon}
+              {!isLoggedIn ? (
+                <div className="relative">
+                  <div className="w-14 h-14 rounded-xl bg-gradient-to-br from-[#FF389A]/30 to-[#FF389A]/10 border border-[#FF389A]/30 backdrop-blur-sm flex items-center justify-center shadow-lg shadow-[#FF389A]/20">
+                    {step.icon}
+                  </div>
+                  <div className="absolute -top-1 -right-1 w-5 h-5 bg-[#FF389A] rounded-full flex items-center justify-center text-xs font-bold text-white">
+                    {step.stepNumber}
+                  </div>
                 </div>
-                <div className="absolute -top-1 -right-1 w-5 h-5 bg-[#FF389A] rounded-full flex items-center justify-center text-xs font-bold text-white">
+              ) : (
+                <div className="w-7 h-7 bg-[#FF389A] rounded-full flex items-center justify-center text-sm font-bold text-white">
                   {step.stepNumber}
                 </div>
-              </div>
+              )}
               
               {/* Step Info */}
               <div className="text-center">
