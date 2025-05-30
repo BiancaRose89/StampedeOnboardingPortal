@@ -54,6 +54,49 @@ export const userSessions = pgTable("user_sessions", {
   isActive: boolean("is_active").notNull().default(true),
 });
 
+// Venues table for multi-venue management
+export const venues = pgTable("venues", {
+  id: serial("id").primaryKey(),
+  userId: integer("user_id").notNull().references(() => users.id),
+  name: text("name").notNull(),
+  isActive: boolean("is_active").notNull().default(true),
+  createdAt: timestamp("created_at").notNull().defaultNow(),
+});
+
+// Team members table
+export const teamMembers = pgTable("team_members", {
+  id: serial("id").primaryKey(),
+  userId: integer("user_id").notNull().references(() => users.id),
+  name: text("name").notNull(),
+  email: text("email"),
+  isActive: boolean("is_active").notNull().default(true),
+  createdAt: timestamp("created_at").notNull().defaultNow(),
+});
+
+// Onboarding tasks with venue and team member assignments
+export const onboardingTasks = pgTable("onboarding_tasks", {
+  id: serial("id").primaryKey(),
+  venueId: integer("venue_id").notNull().references(() => venues.id),
+  taskName: text("task_name").notNull(),
+  description: text("description"),
+  estimatedTime: text("estimated_time"),
+  status: text("status").notNull().default("not-started"), // "not-started", "in-progress", "completed"
+  assignedTeamMemberId: integer("assigned_team_member_id").references(() => teamMembers.id),
+  dueDate: timestamp("due_date"),
+  completedAt: timestamp("completed_at"),
+  createdAt: timestamp("created_at").notNull().defaultNow(),
+});
+
+// User settings for onboarding preferences
+export const userSettings = pgTable("user_settings", {
+  id: serial("id").primaryKey(),
+  userId: integer("user_id").notNull().references(() => users.id),
+  goLiveDate: timestamp("go_live_date"),
+  showOnboardingOverview: boolean("show_onboarding_overview").notNull().default(true),
+  reminderFrequency: text("reminder_frequency").default("daily"), // "daily", "weekly", "none"
+  updatedAt: timestamp("updated_at").notNull().defaultNow(),
+});
+
 export const insertUserSchema = createInsertSchema(users).omit({
   id: true,
   createdAt: true,
@@ -85,6 +128,27 @@ export const insertSessionSchema = createInsertSchema(userSessions).omit({
   lastActivity: true,
 });
 
+export const insertVenueSchema = createInsertSchema(venues).omit({
+  id: true,
+  createdAt: true,
+});
+
+export const insertTeamMemberSchema = createInsertSchema(teamMembers).omit({
+  id: true,
+  createdAt: true,
+});
+
+export const insertOnboardingTaskSchema = createInsertSchema(onboardingTasks).omit({
+  id: true,
+  createdAt: true,
+  completedAt: true,
+});
+
+export const insertUserSettingsSchema = createInsertSchema(userSettings).omit({
+  id: true,
+  updatedAt: true,
+});
+
 export type InsertUser = z.infer<typeof insertUserSchema>;
 export type User = typeof users.$inferSelect;
 export type InsertProgress = z.infer<typeof insertProgressSchema>;
@@ -95,3 +159,11 @@ export type InsertActivity = z.infer<typeof insertActivitySchema>;
 export type UserActivity = typeof userActivities.$inferSelect;
 export type InsertSession = z.infer<typeof insertSessionSchema>;
 export type UserSession = typeof userSessions.$inferSelect;
+export type InsertVenue = z.infer<typeof insertVenueSchema>;
+export type Venue = typeof venues.$inferSelect;
+export type InsertTeamMember = z.infer<typeof insertTeamMemberSchema>;
+export type TeamMember = typeof teamMembers.$inferSelect;
+export type InsertOnboardingTask = z.infer<typeof insertOnboardingTaskSchema>;
+export type OnboardingTask = typeof onboardingTasks.$inferSelect;
+export type InsertUserSettings = z.infer<typeof insertUserSettingsSchema>;
+export type UserSettings = typeof userSettings.$inferSelect;

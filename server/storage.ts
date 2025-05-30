@@ -4,6 +4,10 @@ import {
   guideConfigs,
   userActivities,
   userSessions,
+  venues,
+  teamMembers,
+  onboardingTasks,
+  userSettings,
   type User, 
   type InsertUser, 
   type OnboardingProgress, 
@@ -13,7 +17,15 @@ import {
   type UserActivity,
   type InsertActivity,
   type UserSession,
-  type InsertSession
+  type InsertSession,
+  type Venue,
+  type InsertVenue,
+  type TeamMember,
+  type InsertTeamMember,
+  type OnboardingTask,
+  type InsertOnboardingTask,
+  type UserSettings,
+  type InsertUserSettings
 } from "@shared/schema";
 
 export interface IStorage {
@@ -48,6 +60,30 @@ export interface IStorage {
   updateSession(sessionId: string, updates: Partial<UserSession>): Promise<UserSession | undefined>;
   getActiveSession(userId: number): Promise<UserSession | undefined>;
   getSessionsByUser(userId: number): Promise<UserSession[]>;
+
+  // Venue management methods
+  createVenue(venue: InsertVenue): Promise<Venue>;
+  getVenuesByUser(userId: number): Promise<Venue[]>;
+  updateVenue(id: number, updates: Partial<Venue>): Promise<Venue | undefined>;
+  deleteVenue(id: number): Promise<boolean>;
+
+  // Team member management methods
+  createTeamMember(teamMember: InsertTeamMember): Promise<TeamMember>;
+  getTeamMembersByUser(userId: number): Promise<TeamMember[]>;
+  updateTeamMember(id: number, updates: Partial<TeamMember>): Promise<TeamMember | undefined>;
+  deleteTeamMember(id: number): Promise<boolean>;
+
+  // Onboarding task management methods
+  createOnboardingTask(task: InsertOnboardingTask): Promise<OnboardingTask>;
+  getTasksByVenue(venueId: number): Promise<OnboardingTask[]>;
+  getTasksByUser(userId: number): Promise<OnboardingTask[]>;
+  updateOnboardingTask(id: number, updates: Partial<OnboardingTask>): Promise<OnboardingTask | undefined>;
+  deleteOnboardingTask(id: number): Promise<boolean>;
+
+  // User settings methods
+  getUserSettings(userId: number): Promise<UserSettings | undefined>;
+  createUserSettings(settings: InsertUserSettings): Promise<UserSettings>;
+  updateUserSettings(userId: number, updates: Partial<UserSettings>): Promise<UserSettings | undefined>;
 }
 
 export class MemStorage implements IStorage {
@@ -56,18 +92,35 @@ export class MemStorage implements IStorage {
   private guides: Map<number, GuideConfig>;
   private activities: Map<number, UserActivity>;
   private sessions: Map<string, UserSession>;
+  private venues: Map<number, Venue>;
+  private teamMembers: Map<number, TeamMember>;
+  private onboardingTasks: Map<number, OnboardingTask>;
+  private userSettings: Map<number, UserSettings>;
   private currentUserId: number;
   private currentProgressId: number;
   private currentGuideId: number;
   private currentActivityId: number;
+  private currentVenueId: number;
+  private currentTeamMemberId: number;
+  private currentTaskId: number;
 
   constructor() {
     this.users = new Map();
     this.progress = new Map();
     this.guides = new Map();
+    this.activities = new Map();
+    this.sessions = new Map();
+    this.venues = new Map();
+    this.teamMembers = new Map();
+    this.onboardingTasks = new Map();
+    this.userSettings = new Map();
     this.currentUserId = 1;
     this.currentProgressId = 1;
     this.currentGuideId = 1;
+    this.currentActivityId = 1;
+    this.currentVenueId = 1;
+    this.currentTeamMemberId = 1;
+    this.currentTaskId = 1;
 
     // Initialize with default guide configurations and demo data
     this.initializeDefaultGuides();
