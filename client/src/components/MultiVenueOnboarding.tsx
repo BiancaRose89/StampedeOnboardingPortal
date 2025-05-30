@@ -253,6 +253,10 @@ export default function MultiVenueOnboarding() {
     return (
       <div className="space-y-8">
         <div className="text-center space-y-4">
+          <h1 className="text-4xl md:text-5xl font-bold text-white">Venue Training</h1>
+          <p className="text-lg text-gray-300 max-w-4xl mx-auto">
+            Please add your name and the number of venues which will be linked to the Onboarding. Once added in you will get a full journey for each and please ensure you add in your go live date!
+          </p>
           <h2 className="text-3xl font-bold text-white">
             Welcome, {userName || dbUser?.name || 'User'}!
           </h2>

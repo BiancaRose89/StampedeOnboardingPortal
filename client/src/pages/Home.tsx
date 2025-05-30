@@ -256,23 +256,15 @@ export default function Home() {
 
                 <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
                   <Button
+                    variant="outline"
                     onClick={() => {
                       const element = document.getElementById('onboarding-progress');
                       element?.scrollIntoView({ behavior: 'smooth' });
                     }}
-                    className="bg-[#FF389A] hover:bg-[#E6329C] text-white px-8 py-4 text-lg font-semibold rounded-full transition-all duration-200 shadow-lg shadow-[#FF389A]/25"
-                  >
-                    <Rocket className="mr-2 h-5 w-5" />
-                    Your Onboarding Journey
-                  </Button>
-                  
-                  <Button
-                    variant="outline"
-                    onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
                     className="border-[#FF389A] text-[#FF389A] hover:bg-[#FF389A] hover:text-white px-8 py-4 text-lg font-semibold rounded-full transition-all duration-200"
                   >
                     <User className="mr-2 h-5 w-5" />
-                    Venue Management
+                    Venue Training
                   </Button>
 
                   <Button
