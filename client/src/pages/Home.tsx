@@ -8,6 +8,7 @@ import { useToast } from "@/hooks/use-toast";
 import { Badge } from "@/components/ui/badge";
 import { Separator } from "@/components/ui/separator";
 import { ChartLine, User, LogOut, Rocket, BookOpen, HelpCircle, Users } from "lucide-react";
+import bannerImage from "@assets/banne_1.png";
 import { ThemeToggle } from "@/components/ThemeToggle";
 import { signIn, signOutUser } from "@/lib/firebase";
 import { useAuth } from "@/components/AuthProvider";
@@ -234,7 +235,7 @@ export default function Home() {
                 <div className="flex justify-center">
                   <div className="relative w-full max-w-4xl mx-auto">
                     <img 
-                      src="/attached_assets/banne_1.png" 
+                      src={bannerImage} 
                       alt="Stampede Platform Overview" 
                       className="w-full h-auto rounded-2xl shadow-2xl border border-[#FF389A]/20"
                     />
