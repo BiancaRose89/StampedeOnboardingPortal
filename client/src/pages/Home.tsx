@@ -230,6 +230,17 @@ export default function Home() {
                   </p>
                 </div>
 
+                {/* Image Block for Logged-in Users */}
+                <div className="flex justify-center">
+                  <div className="relative w-full max-w-4xl mx-auto">
+                    <img 
+                      src="/attached_assets/Group 1000003725.png" 
+                      alt="Stampede Platform Overview" 
+                      className="w-full h-auto rounded-2xl shadow-2xl border border-[#FF389A]/20"
+                    />
+                  </div>
+                </div>
+
                 <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
                   <Button
                     onClick={() => {
