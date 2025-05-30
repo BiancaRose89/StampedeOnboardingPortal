@@ -272,7 +272,7 @@ export default function Home() {
                     className="border-[#FF389A] text-[#FF389A] hover:bg-[#FF389A] hover:text-white px-8 py-4 text-lg font-semibold rounded-full transition-all duration-200"
                   >
                     <User className="mr-2 h-5 w-5" />
-                    Venue Management
+                    Venue Training
                   </Button>
 
                   <Button
