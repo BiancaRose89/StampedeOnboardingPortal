@@ -1,4 +1,5 @@
 import { Users, Wifi, Target, Star, MessageSquare, Gift, Calendar, Rocket, ArrowRight, BarChart3, Heart } from 'lucide-react';
+import { useAuth } from '@/components/AuthProvider';
 
 interface FlowStep {
   id: string;
@@ -9,6 +10,9 @@ interface FlowStep {
 }
 
 export default function OnboardingFlowChart() {
+  const { firebaseUser } = useAuth();
+  const isLoggedIn = !!firebaseUser;
+
   const flowSteps: FlowStep[] = [
     {
       id: 'account-setup',
@@ -80,9 +84,20 @@ export default function OnboardingFlowChart() {
       {/* Header */}
       <div className="text-center space-y-4">
         <h2 className="text-4xl md:text-5xl font-bold text-white">Your Onboarding Journey</h2>
-        <p className="text-xl text-gray-300 max-w-3xl mx-auto">
-          Follow these 9 essential steps to get your platform ready for customers
-        </p>
+{!isLoggedIn ? (
+          <p className="text-xl text-gray-300 max-w-3xl mx-auto">
+            Follow these 9 essential steps to get your platform ready for customers:
+          </p>
+        ) : (
+          <div className="space-y-3">
+            <p className="text-xl text-gray-300 max-w-3xl mx-auto">
+              Welcome to your onboarding journey.
+            </p>
+            <p className="text-lg text-gray-400 max-w-2xl mx-auto">
+              Let's run through what to expect and get you set up for success.
+            </p>
+          </div>
+        )}
       </div>
 
       {/* Desktop Flow Chart */}
