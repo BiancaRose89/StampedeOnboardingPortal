@@ -4,6 +4,7 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Badge } from '@/components/ui/badge';
+import { useAuth } from '@/components/AuthProvider';
 import { 
   User, 
   Building2, 
@@ -36,11 +37,17 @@ interface Venue {
 }
 
 export default function VenueOnboardingManager() {
+  const { firebaseUser } = useAuth();
   const [userName, setUserName] = useState('');
   const [venueCount, setVenueCount] = useState<number | ''>('');
   const [venues, setVenues] = useState<Venue[]>([]);
   const [activeVenue, setActiveVenue] = useState<string>('');
   const [isSetupComplete, setIsSetupComplete] = useState(false);
+
+  // Hide the entire form for logged-out users
+  if (!firebaseUser) {
+    return null;
+  }
 
   const handleSetupSubmit = (e: React.FormEvent) => {
     e.preventDefault();
