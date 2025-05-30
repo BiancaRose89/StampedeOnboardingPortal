@@ -400,87 +400,47 @@ export default function MultiVenueOnboarding() {
         </CardContent>
       </Card>
 
-      {/* Onboarding Overview Toggle */}
-      {showOnboardingOverview ? (
+      {/* Tasks Outstanding and Go-Live Date */}
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        {/* Tasks Outstanding */}
         <Card className="bg-[#0D0D24] border-gray-800">
           <CardHeader>
-            <div className="flex items-center justify-between">
-              <CardTitle className="text-white">Your Onboarding Journey</CardTitle>
-              <Button
-                variant="ghost"
-                onClick={() => setShowOnboardingOverview(false)}
-                className="text-gray-400 hover:text-white"
-              >
-                <ChevronUp className="h-4 w-4" />
-                Hide Overview
-              </Button>
-            </div>
+            <CardTitle className="text-white flex items-center gap-2">
+              <Clock className="h-5 w-5" />
+              Tasks Outstanding
+            </CardTitle>
           </CardHeader>
           <CardContent>
-            <div className="text-center space-y-4">
-              <p className="text-gray-300">
-                Complete these essential setup tasks for all your venues.
-              </p>
-              <div className="text-xl font-semibold text-white">
-                Duration: {Math.ceil(getTotalTasks() * 0.3)} minutes
-              </div>
+            <div className="text-2xl font-bold text-[#FF389A]">
+              {getTotalTasks() - getCompletedTasks()}
             </div>
+            <p className="text-gray-400">tasks remaining across all venues</p>
           </CardContent>
         </Card>
-      ) : (
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          {/* Tasks Outstanding */}
-          <Card className="bg-[#0D0D24] border-gray-800">
-            <CardHeader>
-              <CardTitle className="text-white flex items-center gap-2">
-                <Clock className="h-5 w-5" />
-                Tasks Outstanding
-              </CardTitle>
-            </CardHeader>
-            <CardContent>
-              <div className="text-2xl font-bold text-[#FF389A]">
-                {getTotalTasks() - getCompletedTasks()}
-              </div>
-              <p className="text-gray-400">tasks remaining across all venues</p>
-            </CardContent>
-          </Card>
 
-          {/* Go-Live Date */}
-          <Card className="bg-[#0D0D24] border-gray-800">
-            <CardHeader>
-              <CardTitle className="text-white flex items-center gap-2">
-                <Calendar className="h-5 w-5" />
-                Go-Live Date
-              </CardTitle>
-            </CardHeader>
-            <CardContent className="space-y-3">
-              <Input
-                type="date"
-                value={goLiveDate}
-                onChange={(e) => setGoLiveDate(e.target.value)}
-                className="bg-[#1A1A2E] border-gray-700 text-white"
-              />
-              {goLiveDate && (
-                <p className="text-sm text-gray-400">
-                  Target launch: {new Date(goLiveDate).toLocaleDateString()}
-                </p>
-              )}
-            </CardContent>
-          </Card>
-        </div>
-      )}
-
-      {/* Show Overview Button */}
-      {!showOnboardingOverview && (
-        <Button
-          variant="outline"
-          onClick={() => setShowOnboardingOverview(true)}
-          className="w-full border-[#FF389A]/30 text-[#FF389A] hover:bg-[#FF389A]/10"
-        >
-          <ChevronDown className="h-4 w-4 mr-2" />
-          Show Onboarding Overview
-        </Button>
-      )}
+        {/* Go-Live Date */}
+        <Card className="bg-[#0D0D24] border-gray-800">
+          <CardHeader>
+            <CardTitle className="text-white flex items-center gap-2">
+              <Calendar className="h-5 w-5" />
+              Go-Live Date
+            </CardTitle>
+          </CardHeader>
+          <CardContent className="space-y-3">
+            <Input
+              type="date"
+              value={goLiveDate}
+              onChange={(e) => setGoLiveDate(e.target.value)}
+              className="bg-[#1A1A2E] border-gray-700 text-white"
+            />
+            {goLiveDate && (
+              <p className="text-sm text-gray-400">
+                Target launch: {new Date(goLiveDate).toLocaleDateString()}
+              </p>
+            )}
+          </CardContent>
+        </Card>
+      </div>
 
       {/* Venue Progress Tabs */}
       <Tabs value={activeVenue} onValueChange={setActiveVenue} className="w-full">
