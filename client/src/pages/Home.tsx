@@ -234,7 +234,7 @@ export default function Home() {
                 <div className="flex justify-center">
                   <div className="relative w-full max-w-4xl mx-auto">
                     <img 
-                      src="/attached_assets/Group 1000003725.png" 
+                      src="/attached_assets/Banner 1.png" 
                       alt="Stampede Platform Overview" 
                       className="w-full h-auto rounded-2xl shadow-2xl border border-[#FF389A]/20"
                     />
