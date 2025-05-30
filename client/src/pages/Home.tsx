@@ -199,7 +199,7 @@ export default function Home() {
                     <img 
                       src={frontBannerImage} 
                       alt="Stampede Mobile Platform Features" 
-                      className="w-full h-auto rounded-2xl shadow-2xl border border-[#FF389A]/20"
+                      className="w-full h-auto rounded-2xl shadow-2xl"
                     />
                   </div>
                 </div>
@@ -249,7 +249,7 @@ export default function Home() {
                     <img 
                       src={bannerImage} 
                       alt="Stampede Platform Overview" 
-                      className="w-full h-auto rounded-2xl shadow-2xl border border-[#FF389A]/20"
+                      className="w-full h-auto rounded-2xl shadow-2xl"
                     />
                   </div>
                 </div>
