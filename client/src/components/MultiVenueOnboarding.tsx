@@ -268,10 +268,10 @@ export default function MultiVenueOnboarding() {
           </Button>
         </div>
 
-        <Card className="bg-[#0D0D24] border-gray-800">
+        <Card className="bg-black border-[#FF389A]/20">
           <CardHeader>
             <CardTitle className="text-white">Your Onboarding Journey</CardTitle>
-            <p className="text-gray-400">Let's get started by setting up your venue information</p>
+            <p className="text-gray-300">Let's get started by setting up your venue information</p>
           </CardHeader>
           <CardContent>
             <form onSubmit={handleSetupSubmit} className="space-y-6">
@@ -281,10 +281,10 @@ export default function MultiVenueOnboarding() {
                   id="userName"
                   value={userName}
                   onChange={(e) => setUserName(e.target.value)}
-                  className="bg-[#1A1A2E] border-gray-700 text-white mt-2"
+                  className="bg-black border-[#FF389A]/30 text-white mt-2 focus:border-[#FF389A] focus:ring-[#FF389A]"
                   placeholder="Enter your full name"
                 />
-                <p className="text-sm text-gray-400 mt-1">This will personalize your onboarding experience</p>
+                <p className="text-sm text-gray-300 mt-1">This will personalize your onboarding experience</p>
               </div>
 
               <div>
@@ -296,10 +296,10 @@ export default function MultiVenueOnboarding() {
                   max="20"
                   value={venueCount}
                   onChange={(e) => setVenueCount(e.target.value ? Number(e.target.value) : '')}
-                  className="bg-[#1A1A2E] border-gray-700 text-white mt-2"
+                  className="bg-black border-[#FF389A]/30 text-white mt-2 focus:border-[#FF389A] focus:ring-[#FF389A]"
                   placeholder="How many venues are you onboarding?"
                 />
-                <p className="text-sm text-gray-400 mt-1">Each venue will have its own personalized onboarding checklist</p>
+                <p className="text-sm text-gray-300 mt-1">Each venue will have its own personalized onboarding checklist</p>
               </div>
 
               <Button 
