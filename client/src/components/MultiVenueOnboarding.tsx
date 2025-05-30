@@ -44,6 +44,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 
 interface Venue {
   id: string;
@@ -473,129 +474,149 @@ export default function MultiVenueOnboarding() {
         </Button>
       )}
 
-      {/* Venue Progress Sections */}
-      <div className="space-y-6">
-        {venues.map((venue) => (
-          <Card key={venue.id} className="bg-[#0D0D24] border-gray-800">
-            <CardHeader>
-              <div className="flex items-center justify-between">
-                <div className="flex items-center gap-3">
-                  <Building2 className="h-5 w-5 text-[#FF389A]" />
-                  {venue.isEditing ? (
-                    <Input
-                      defaultValue={venue.name}
-                      onBlur={(e) => handleVenueNameEdit(venue.id, e.target.value)}
-                      onKeyDown={(e) => {
-                        if (e.key === 'Enter') {
-                          handleVenueNameEdit(venue.id, e.currentTarget.value);
-                        }
-                      }}
-                      className="bg-[#1A1A2E] border-gray-700 text-white w-48"
-                      autoFocus
-                    />
-                  ) : (
-                    <CardTitle className="text-white">{venue.name} Onboarding Progress</CardTitle>
-                  )}
-                  <Button
-                    variant="ghost"
-                    size="sm"
-                    onClick={() => setVenues(venues.map(v => 
-                      v.id === venue.id ? { ...v, isEditing: !v.isEditing } : v
-                    ))}
-                    className="text-gray-400 hover:text-white"
-                  >
-                    <Edit3 className="h-4 w-4" />
-                  </Button>
-                </div>
-                <div className="text-right">
-                  <div className="text-sm text-gray-400">Progress</div>
-                  <div className="text-lg font-bold text-white">{getVenueProgress(venue.id)}%</div>
-                </div>
+      {/* Venue Progress Tabs */}
+      <Tabs value={activeVenue} onValueChange={setActiveVenue} className="w-full">
+        <TabsList className="grid w-full bg-[#1A1A2E] border border-gray-700" style={{ gridTemplateColumns: `repeat(${venues.length}, minmax(0, 1fr))` }}>
+          {venues.map((venue) => (
+            <TabsTrigger
+              key={venue.id}
+              value={venue.id}
+              className="data-[state=active]:bg-[#FF389A] data-[state=active]:text-white text-gray-400 hover:text-white transition-colors"
+            >
+              <div className="flex items-center gap-2">
+                <Building2 className="h-4 w-4" />
+                {venue.name}
+                <Badge variant="secondary" className="ml-2 bg-gray-700 text-white">
+                  {getVenueProgress(venue.id)}%
+                </Badge>
               </div>
-              <p className="text-gray-400">Complete these essential setup tasks for {venue.name}</p>
-              <Progress value={getVenueProgress(venue.id)} className="h-2" />
-            </CardHeader>
-            <CardContent>
-              <div className="space-y-3">
-                {getVenueTasks(venue.id).map((task) => {
-                  const TaskIcon = TASK_TEMPLATES.find(t => t.name === task.name)?.icon || User;
-                  const assignedMember = teamMembers.find(m => m.id === task.assignedTo);
-                  
-                  return (
-                    <div 
-                      key={task.id} 
-                      className="flex items-center justify-between p-4 bg-[#1A1A2E] rounded-lg hover:bg-[#1F1F33] transition-colors"
+            </TabsTrigger>
+          ))}
+        </TabsList>
+
+        {venues.map((venue) => (
+          <TabsContent key={venue.id} value={venue.id} className="mt-6">
+            <Card className="bg-[#0D0D24] border-gray-800">
+              <CardHeader>
+                <div className="flex items-center justify-between">
+                  <div className="flex items-center gap-3">
+                    <Building2 className="h-5 w-5 text-[#FF389A]" />
+                    {venue.isEditing ? (
+                      <Input
+                        defaultValue={venue.name}
+                        onBlur={(e) => handleVenueNameEdit(venue.id, e.target.value)}
+                        onKeyDown={(e) => {
+                          if (e.key === 'Enter') {
+                            handleVenueNameEdit(venue.id, e.currentTarget.value);
+                          }
+                        }}
+                        className="bg-[#1A1A2E] border-gray-700 text-white w-48"
+                        autoFocus
+                      />
+                    ) : (
+                      <CardTitle className="text-white">{venue.name} Onboarding Progress</CardTitle>
+                    )}
+                    <Button
+                      variant="ghost"
+                      size="sm"
+                      onClick={() => setVenues(venues.map(v => 
+                        v.id === venue.id ? { ...v, isEditing: !v.isEditing } : v
+                      ))}
+                      className="text-gray-400 hover:text-white"
                     >
-                      <div className="flex items-center gap-3">
-                        <TaskIcon className="h-5 w-5 text-[#FF389A]" />
-                        <div>
-                          <h4 className="font-medium text-white">{task.name}</h4>
-                          <p className="text-sm text-gray-400">{task.description}</p>
-                          <div className="flex items-center gap-4 mt-1">
-                            <span className="text-xs text-gray-500 flex items-center gap-1">
-                              <Clock className="h-3 w-3" />
-                              {task.estimatedTime}
-                            </span>
-                            {assignedMember && (
-                              <span className="text-xs text-blue-400">
-                                Assigned to {assignedMember.name}
+                      <Edit3 className="h-4 w-4" />
+                    </Button>
+                  </div>
+                  <div className="text-right">
+                    <div className="text-sm text-gray-400">Progress</div>
+                    <div className="text-lg font-bold text-white">{getVenueProgress(venue.id)}%</div>
+                  </div>
+                </div>
+                <p className="text-gray-400">Complete these essential setup tasks for {venue.name}</p>
+                <Progress value={getVenueProgress(venue.id)} className="h-2" />
+              </CardHeader>
+              <CardContent>
+                <div className="space-y-3">
+                  {getVenueTasks(venue.id).map((task) => {
+                    const TaskIcon = TASK_TEMPLATES.find(t => t.name === task.name)?.icon || User;
+                    const assignedMember = teamMembers.find(m => m.id === task.assignedTo);
+                    
+                    return (
+                      <div 
+                        key={task.id} 
+                        className="flex items-center justify-between p-4 bg-[#1A1A2E] rounded-lg hover:bg-[#1F1F33] transition-colors"
+                      >
+                        <div className="flex items-center gap-3">
+                          <TaskIcon className="h-5 w-5 text-[#FF389A]" />
+                          <div>
+                            <h4 className="font-medium text-white">{task.name}</h4>
+                            <p className="text-sm text-gray-400">{task.description}</p>
+                            <div className="flex items-center gap-4 mt-1">
+                              <span className="text-xs text-gray-500 flex items-center gap-1">
+                                <Clock className="h-3 w-3" />
+                                {task.estimatedTime}
                               </span>
-                            )}
+                              {assignedMember && (
+                                <span className="text-xs text-blue-400">
+                                  Assigned to {assignedMember.name}
+                                </span>
+                              )}
+                            </div>
                           </div>
                         </div>
-                      </div>
-                      
-                      <div className="flex items-center gap-3">
-                        <Select
-                          value={task.assignedTo || "unassigned"}
-                          onValueChange={(value) => handleTaskAssignment(task.id, value === "unassigned" ? "" : value)}
-                        >
-                          <SelectTrigger className="w-32 bg-[#0D0D24] border-gray-700 text-white">
-                            <SelectValue placeholder="Assign" />
-                          </SelectTrigger>
-                          <SelectContent className="bg-[#0D0D24] border-gray-700">
-                            <SelectItem value="unassigned">Unassigned</SelectItem>
-                            {teamMembers.map(member => (
-                              <SelectItem key={member.id} value={member.id}>
-                                {member.name}
-                              </SelectItem>
-                            ))}
-                          </SelectContent>
-                        </Select>
                         
-                        <Select
-                          value={task.status}
-                          onValueChange={(value) => handleTaskStatusUpdate(task.id, value as OnboardingTask['status'])}
-                        >
-                          <SelectTrigger className="w-36 bg-[#0D0D24] border-gray-700 text-white">
-                            <SelectValue />
-                          </SelectTrigger>
-                          <SelectContent className="bg-[#0D0D24] border-gray-700">
-                            <SelectItem value="not-started">Not Started</SelectItem>
-                            <SelectItem value="in-progress">In Progress</SelectItem>
-                            <SelectItem value="completed">Completed</SelectItem>
-                          </SelectContent>
-                        </Select>
-                        
-                        <Badge 
-                          variant={
-                            task.status === 'completed' ? 'default' : 
-                            task.status === 'in-progress' ? 'secondary' : 
-                            'outline'
-                          }
-                        >
-                          {task.status === 'completed' && <Check className="h-3 w-3 mr-1" />}
-                          {task.status.replace('-', ' ')}
-                        </Badge>
+                        <div className="flex items-center gap-3">
+                          <Select
+                            value={task.assignedTo || "unassigned"}
+                            onValueChange={(value) => handleTaskAssignment(task.id, value === "unassigned" ? "" : value)}
+                          >
+                            <SelectTrigger className="w-32 bg-[#0D0D24] border-gray-700 text-white">
+                              <SelectValue placeholder="Assign" />
+                            </SelectTrigger>
+                            <SelectContent className="bg-[#0D0D24] border-gray-700">
+                              <SelectItem value="unassigned">Unassigned</SelectItem>
+                              {teamMembers.map(member => (
+                                <SelectItem key={member.id} value={member.id}>
+                                  {member.name}
+                                </SelectItem>
+                              ))}
+                            </SelectContent>
+                          </Select>
+                          
+                          <Select
+                            value={task.status}
+                            onValueChange={(value) => handleTaskStatusUpdate(task.id, value as OnboardingTask['status'])}
+                          >
+                            <SelectTrigger className="w-36 bg-[#0D0D24] border-gray-700 text-white">
+                              <SelectValue />
+                            </SelectTrigger>
+                            <SelectContent className="bg-[#0D0D24] border-gray-700">
+                              <SelectItem value="not-started">Not Started</SelectItem>
+                              <SelectItem value="in-progress">In Progress</SelectItem>
+                              <SelectItem value="completed">Completed</SelectItem>
+                            </SelectContent>
+                          </Select>
+                          
+                          <Badge 
+                            variant={
+                              task.status === 'completed' ? 'default' : 
+                              task.status === 'in-progress' ? 'secondary' : 
+                              'outline'
+                            }
+                          >
+                            {task.status === 'completed' && <Check className="h-3 w-3 mr-1" />}
+                            {task.status.replace('-', ' ')}
+                          </Badge>
+                        </div>
                       </div>
-                    </div>
-                  );
-                })}
-              </div>
-            </CardContent>
-          </Card>
+                    );
+                  })}
+                </div>
+              </CardContent>
+            </Card>
+          </TabsContent>
         ))}
-      </div>
+      </Tabs>
     </div>
   );
 }
