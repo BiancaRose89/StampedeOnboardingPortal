@@ -586,6 +586,19 @@ export default function MasterPlatformSection() {
     }
   };
 
+  if (showLearningPortal) {
+    return (
+      <div className="min-h-screen bg-black py-8">
+        <div className="max-w-7xl mx-auto px-4">
+          <LearningPortal 
+            onBack={handleBackToMaster} 
+            topic={selectedTopic}
+          />
+        </div>
+      </div>
+    );
+  }
+
   return (
     <section className="py-16 bg-black">
       <div className="max-w-7xl mx-auto px-4">
@@ -641,7 +654,7 @@ export default function MasterPlatformSection() {
                 </Card>
               </DialogTrigger>
               
-              <PlatformModal feature={feature} />
+              <PlatformModal feature={feature} onStartLearning={handleStartLearning} />
             </Dialog>
           ))}
         </div>
@@ -688,7 +701,7 @@ export default function MasterPlatformSection() {
                 </Card>
               </DialogTrigger>
               
-              <PlatformModal feature={feature} />
+              <PlatformModal feature={feature} onStartLearning={handleStartLearning} />
             </Dialog>
           ))}
         </div>
