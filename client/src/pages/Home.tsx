@@ -120,7 +120,6 @@ export default function Home() {
               </div>
             </div>
             <div className="flex items-center space-x-4">
-              <ThemeToggle />
               {!firebaseUser ? (
                 <Button
                   variant="ghost"
@@ -151,16 +150,6 @@ export default function Home() {
 
       {/* Hero Section - Classic Stampede Style */}
       <section className="relative bg-background text-foreground py-20 overflow-hidden">
-        {/* WiFi Background with Pink Gradient */}
-        <div className="absolute inset-0 opacity-30">
-          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px]">
-            <img 
-              src="/attached_assets/Group 1000003713.png" 
-              alt="Stampede WiFi Network" 
-              className="w-full h-full object-contain opacity-50"
-            />
-          </div>
-        </div>
         
         {/* Background pattern with pink accents */}
         <div className="absolute inset-0 opacity-20">

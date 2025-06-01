@@ -4,6 +4,7 @@ import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Progress } from '@/components/ui/progress';
 import { Dialog, DialogContent, DialogTrigger, DialogTitle, DialogHeader, DialogDescription } from '@/components/ui/dialog';
+import LearningPortal from './LearningPortal';
 import { 
   CreditCard, 
   Users, 
@@ -41,9 +42,10 @@ interface PlatformFeature {
 
 interface PlatformModalProps {
   feature: PlatformFeature;
+  onStartLearning: (topic: string) => void;
 }
 
-function PlatformModal({ feature }: PlatformModalProps) {
+function PlatformModal({ feature, onStartLearning }: PlatformModalProps) {
   const getDifficultyColor = (difficulty: string) => {
     switch (difficulty) {
       case 'Easy':
@@ -165,7 +167,10 @@ function PlatformModal({ feature }: PlatformModalProps) {
           >
             Close
           </Button>
-          <Button className="bg-[#FF389A] hover:bg-[#E6329C] text-white">
+          <Button 
+            className="bg-[#FF389A] hover:bg-[#E6329C] text-white"
+            onClick={() => onStartLearning(feature.title)}
+          >
             Start Learning
           </Button>
         </div>
@@ -291,6 +296,19 @@ const getPlatformCustomerExamples = (featureId: string) => {
 };
 
 export default function MasterPlatformSection() {
+  const [showLearningPortal, setShowLearningPortal] = useState(false);
+  const [selectedTopic, setSelectedTopic] = useState('');
+
+  const handleStartLearning = (topic: string) => {
+    setSelectedTopic(topic);
+    setShowLearningPortal(true);
+  };
+
+  const handleBackToMaster = () => {
+    setShowLearningPortal(false);
+    setSelectedTopic('');
+  };
+
   const platformFeatures: PlatformFeature[] = [
     {
       id: 'analytics',
