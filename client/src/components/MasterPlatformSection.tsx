@@ -174,9 +174,7 @@ function PlatformModal({ feature, onStartLearning, onClose }: PlatformModalProps
             onClick={(e) => {
               e.preventDefault();
               e.stopPropagation();
-              console.log('Start Learning clicked for:', feature.title);
               onStartLearning(feature.title);
-              onClose?.();
             }}
           >
             Start Learning
@@ -310,11 +308,11 @@ export default function MasterPlatformSection() {
   const [openDialog, setOpenDialog] = useState<string | null>(null);
 
   const handleStartLearning = (topic: string) => {
-    console.log('handleStartLearning called with topic:', topic);
-    setSelectedTopic(topic);
-    setShowCourseArea(true);
-    setOpenDialog(null); // Close dialog
-    console.log('State updated - showCourseArea: true');
+    setOpenDialog(null); // Close dialog first
+    setTimeout(() => {
+      setSelectedTopic(topic);
+      setShowCourseArea(true);
+    }, 100); // Small delay to ensure dialog closes
   };
 
   const handleBackToMaster = () => {
