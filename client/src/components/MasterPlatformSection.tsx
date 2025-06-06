@@ -5,6 +5,7 @@ import { Button } from '@/components/ui/button';
 import { Progress } from '@/components/ui/progress';
 import { Dialog, DialogContent, DialogTrigger, DialogTitle, DialogHeader, DialogDescription } from '@/components/ui/dialog';
 import LearningPortal from './LearningPortal';
+import CourseArea from './CourseArea';
 import { 
   CreditCard, 
   Users, 
@@ -297,15 +298,17 @@ const getPlatformCustomerExamples = (featureId: string) => {
 
 export default function MasterPlatformSection() {
   const [showLearningPortal, setShowLearningPortal] = useState(false);
+  const [showCourseArea, setShowCourseArea] = useState(false);
   const [selectedTopic, setSelectedTopic] = useState('');
 
   const handleStartLearning = (topic: string) => {
     setSelectedTopic(topic);
-    setShowLearningPortal(true);
+    setShowCourseArea(true);
   };
 
   const handleBackToMaster = () => {
     setShowLearningPortal(false);
+    setShowCourseArea(false);
     setSelectedTopic('');
   };
 
@@ -585,6 +588,15 @@ export default function MasterPlatformSection() {
         return <ArrowRight className="h-5 w-5 text-gray-400" />;
     }
   };
+
+  if (showCourseArea) {
+    return (
+      <CourseArea 
+        onBack={handleBackToMaster} 
+        courseTopic={selectedTopic}
+      />
+    );
+  }
 
   if (showLearningPortal) {
     return (
