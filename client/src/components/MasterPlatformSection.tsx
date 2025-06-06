@@ -44,9 +44,10 @@ interface PlatformFeature {
 interface PlatformModalProps {
   feature: PlatformFeature;
   onStartLearning: (topic: string) => void;
+  onClose?: () => void;
 }
 
-function PlatformModal({ feature, onStartLearning }: PlatformModalProps) {
+function PlatformModal({ feature, onStartLearning, onClose }: PlatformModalProps) {
   const getDifficultyColor = (difficulty: string) => {
     switch (difficulty) {
       case 'Easy':
@@ -170,7 +171,10 @@ function PlatformModal({ feature, onStartLearning }: PlatformModalProps) {
           </Button>
           <Button 
             className="bg-[#FF389A] hover:bg-[#E6329C] text-white"
-            onClick={() => onStartLearning(feature.title)}
+            onClick={() => {
+              onStartLearning(feature.title);
+              onClose?.();
+            }}
           >
             Start Learning
           </Button>
@@ -300,16 +304,19 @@ export default function MasterPlatformSection() {
   const [showLearningPortal, setShowLearningPortal] = useState(false);
   const [showCourseArea, setShowCourseArea] = useState(false);
   const [selectedTopic, setSelectedTopic] = useState('');
+  const [openDialog, setOpenDialog] = useState<string | null>(null);
 
   const handleStartLearning = (topic: string) => {
     setSelectedTopic(topic);
     setShowCourseArea(true);
+    setOpenDialog(null); // Close dialog
   };
 
   const handleBackToMaster = () => {
     setShowLearningPortal(false);
     setShowCourseArea(false);
     setSelectedTopic('');
+    setOpenDialog(null);
   };
 
   const platformFeatures: PlatformFeature[] = [
@@ -626,7 +633,7 @@ export default function MasterPlatformSection() {
         {/* Analytics - Full Width Row */}
         <div className="mb-8">
           {platformFeatures.filter(feature => feature.id === 'analytics').map((feature) => (
-            <Dialog key={feature.id}>
+            <Dialog key={feature.id} open={openDialog === feature.id} onOpenChange={(open) => setOpenDialog(open ? feature.id : null)}>
               <DialogTrigger asChild>
                 <Card className="bg-gradient-to-br from-[#0D0D24] to-black border-[#FF389A]/30 hover:border-[#FF389A]/50 transition-all duration-300 cursor-pointer group">
                   <CardContent className="p-8">
@@ -666,7 +673,7 @@ export default function MasterPlatformSection() {
                 </Card>
               </DialogTrigger>
               
-              <PlatformModal feature={feature} onStartLearning={handleStartLearning} />
+              <PlatformModal feature={feature} onStartLearning={handleStartLearning} onClose={() => setOpenDialog(null)} />
             </Dialog>
           ))}
         </div>
@@ -674,7 +681,7 @@ export default function MasterPlatformSection() {
         {/* Other Platform Features */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {platformFeatures.filter(feature => feature.id !== 'analytics').map((feature) => (
-            <Dialog key={feature.id}>
+            <Dialog key={feature.id} open={openDialog === feature.id} onOpenChange={(open) => setOpenDialog(open ? feature.id : null)}>
               <DialogTrigger asChild>
                 <Card className="bg-gradient-to-br from-[#0D0D24] to-black border-[#FF389A]/30 hover:border-[#FF389A]/50 transition-all duration-300 cursor-pointer group">
                   <CardContent className="p-6">
@@ -713,7 +720,7 @@ export default function MasterPlatformSection() {
                 </Card>
               </DialogTrigger>
               
-              <PlatformModal feature={feature} onStartLearning={handleStartLearning} />
+              <PlatformModal feature={feature} onStartLearning={handleStartLearning} onClose={() => setOpenDialog(null)} />
             </Dialog>
           ))}
         </div>
