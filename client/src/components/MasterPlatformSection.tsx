@@ -171,7 +171,10 @@ function PlatformModal({ feature, onStartLearning, onClose }: PlatformModalProps
           </Button>
           <Button 
             className="bg-[#FF389A] hover:bg-[#E6329C] text-white"
-            onClick={() => {
+            onClick={(e) => {
+              e.preventDefault();
+              e.stopPropagation();
+              console.log('Start Learning clicked for:', feature.title);
               onStartLearning(feature.title);
               onClose?.();
             }}
@@ -307,9 +310,11 @@ export default function MasterPlatformSection() {
   const [openDialog, setOpenDialog] = useState<string | null>(null);
 
   const handleStartLearning = (topic: string) => {
+    console.log('handleStartLearning called with topic:', topic);
     setSelectedTopic(topic);
     setShowCourseArea(true);
     setOpenDialog(null); // Close dialog
+    console.log('State updated - showCourseArea: true');
   };
 
   const handleBackToMaster = () => {
