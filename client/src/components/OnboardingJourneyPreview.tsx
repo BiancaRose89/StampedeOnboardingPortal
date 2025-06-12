@@ -201,10 +201,10 @@ export default function OnboardingJourneyPreview({ className }: OnboardingJourne
       {/* Main Onboarding Journey */}
       <div className="text-center mb-12">
         <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
-          Your Onboarding Journey
+          Kickstart Your Success with Stampede
         </h2>
         <p className="text-xl text-gray-200 font-medium max-w-3xl mx-auto mb-8">
-          Your all-in-one hospitality partner helping you manage guest WiFi, bookings, marketing, loyalty, reviews and more. This onboarding guide is built to help you launch successfully and with confidence, fully supported at each step.
+          Welcome to your all-in-one hub for hospitality success, designed to help you seamlessly manage guest WiFi, bookings, marketing, loyalty, reviews, and more. This guided onboarding experience ensures you're supported at every step, making setup smooth and success inevitable.
         </p>
         
         {/* Platform Animation */}

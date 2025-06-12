@@ -202,13 +202,13 @@ export default function Home() {
                 <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
                   <Button
                     onClick={() => {
-                      const element = document.getElementById('onboarding-progress');
+                      const element = document.getElementById('choose-your-path');
                       element?.scrollIntoView({ behavior: 'smooth' });
                     }}
                     className="bg-[#FF389A] hover:bg-[#E6329C] text-white px-8 py-4 text-lg font-semibold rounded-full transition-all duration-200 shadow-lg shadow-[#FF389A]/25"
                   >
                     <Rocket className="mr-2 h-5 w-5" />
-                    Start Your Journey
+                    Get Started Now
                   </Button>
                   
 
@@ -296,7 +296,7 @@ export default function Home() {
 
           {/* Call to Action Section - Only for logged out users */}
           {!firebaseUser && (
-            <section className="bg-background py-16">
+            <section id="choose-your-path" className="bg-background py-16">
               <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div className="text-left space-y-8">
                   <div className="space-y-4">
