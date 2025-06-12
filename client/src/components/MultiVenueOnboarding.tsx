@@ -7,6 +7,7 @@ import { Badge } from '@/components/ui/badge';
 import { Progress } from '@/components/ui/progress';
 import { Textarea } from '@/components/ui/textarea';
 import { useAuth } from '@/components/AuthProvider';
+import BookingTaskList from './BookingTaskList';
 import { 
   User, 
   Building2, 
@@ -143,6 +144,8 @@ export default function MultiVenueOnboarding() {
   const [goLiveDate, setGoLiveDate] = useState('');
   const [newTeamMemberName, setNewTeamMemberName] = useState('');
   const [newTeamMemberEmail, setNewTeamMemberEmail] = useState('');
+  const [showBookingTaskList, setShowBookingTaskList] = useState(false);
+  const [selectedVenueForBooking, setSelectedVenueForBooking] = useState('');
 
   // Hide the entire form for logged-out users
   if (!firebaseUser) {
@@ -248,6 +251,19 @@ export default function MultiVenueOnboarding() {
       ).length
     }));
   };
+
+  // Show booking task list if selected
+  if (showBookingTaskList && selectedVenueForBooking) {
+    return (
+      <BookingTaskList 
+        venueName={selectedVenueForBooking}
+        onBack={() => {
+          setShowBookingTaskList(false);
+          setSelectedVenueForBooking('');
+        }}
+      />
+    );
+  }
 
   if (!isSetupComplete) {
     return (
@@ -514,10 +530,23 @@ export default function MultiVenueOnboarding() {
                         key={task.id} 
                         className="flex items-center justify-between p-4 bg-[#1A1A2E] rounded-lg hover:bg-[#1F1F33] transition-colors"
                       >
-                        <div className="flex items-center gap-3">
+                        <div 
+                          className={`flex items-center gap-3 ${task.name === 'Booking System' ? 'cursor-pointer' : ''}`}
+                          onClick={() => {
+                            if (task.name === 'Booking System') {
+                              setSelectedVenueForBooking(venue.name);
+                              setShowBookingTaskList(true);
+                            }
+                          }}
+                        >
                           <TaskIcon className="h-5 w-5 text-[#FF389A]" />
                           <div>
-                            <h4 className="font-medium text-white">{task.name}</h4>
+                            <h4 className="font-medium text-white">
+                              {task.name}
+                              {task.name === 'Booking System' && (
+                                <span className="text-xs text-[#FF389A] ml-2">(Click for detailed checklist)</span>
+                              )}
+                            </h4>
                             <p className="text-sm text-gray-400">{task.description}</p>
                             <div className="flex items-center gap-4 mt-1">
                               <span className="text-xs text-gray-500 flex items-center gap-1">
