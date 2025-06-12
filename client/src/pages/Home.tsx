@@ -282,6 +282,15 @@ export default function Home() {
             )}
           </section>
 
+          {/* Testimonials for non-logged-in users */}
+          {!firebaseUser && (
+            <>
+              <Separator className="my-16" />
+              <TestimonialCarousel />
+              <ClientLogosSection />
+            </>
+          )}
+
           <Separator className="my-16" />
 
 
