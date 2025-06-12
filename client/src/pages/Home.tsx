@@ -182,7 +182,7 @@ export default function Home() {
                     </span>
                   </h1>
                   
-                  <p className="text-xl md:text-2xl text-gray-200 font-medium max-w-4xl mx-auto leading-relaxed">
+                  <p className="text-2xl md:text-3xl text-gray-200 font-medium max-w-4xl mx-auto leading-relaxed">
                     Driving new and repeat customers for hospitality. Your complete ecosystem online and in-person, 
                     connecting marketing and operations with expert guidance every step of the way.
                   </p>
@@ -223,7 +223,7 @@ export default function Home() {
                     </span>
                   </h1>
                   
-                  <p className="text-xl md:text-2xl text-gray-200 font-medium max-w-4xl mx-auto leading-relaxed">
+                  <p className="text-2xl md:text-3xl text-gray-200 font-medium max-w-4xl mx-auto leading-relaxed">
                     We're thrilled to partner with you. Let's get everything set up so you can hit the ground running and unlock the full power of the Stampede platform.
                   </p>
                 </div>
@@ -306,10 +306,10 @@ export default function Home() {
                       choose your path
                     </h2>
                     <div className="space-y-2 max-w-4xl">
-                      <p className="text-gray-200 font-medium text-lg">
+                      <p className="text-gray-200 font-medium text-xl">
                         We're constantly reviewing our pricing to remain competitive and fair for business of all sizes.
                       </p>
-                      <p className="text-gray-200 font-medium text-lg">
+                      <p className="text-gray-200 font-medium text-xl">
                         Prices start from £89 per month, per venue. This allows you to design and send unlimited emails to your customers.
                       </p>
                     </div>
@@ -318,8 +318,8 @@ export default function Home() {
                   <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
                     {/* Left side - Live Demo */}
                     <div className="space-y-6">
-                      <h3 className="text-2xl font-bold text-white">Book a live demo</h3>
-                      <p className="text-gray-200 font-medium">
+                      <h3 className="text-3xl font-bold text-white">Book a live demo</h3>
+                      <p className="text-gray-200 font-medium text-lg">
                         Book a screen-share demo at a time to suit you with one of our specialists to learn more about Stampede and see how it works in real-time.
                       </p>
                       <Button 

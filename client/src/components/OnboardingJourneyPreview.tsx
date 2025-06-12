@@ -203,7 +203,7 @@ export default function OnboardingJourneyPreview({ className }: OnboardingJourne
         <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
           Kickstart Your Success with Stampede
         </h2>
-        <p className="text-xl text-gray-200 font-medium max-w-3xl mx-auto mb-8">
+        <p className="text-2xl text-gray-200 font-medium max-w-3xl mx-auto mb-8 leading-relaxed">
           Welcome to your all-in-one hub for hospitality success, designed to help you seamlessly manage guest WiFi, bookings, marketing, loyalty, reviews, and more. This guided onboarding experience ensures you're supported at every step, making setup smooth and success inevitable.
         </p>
         
@@ -248,11 +248,11 @@ export default function OnboardingJourneyPreview({ className }: OnboardingJourne
                       </Badge>
                     )}
                   </div>
-                  <p className="text-gray-200 text-lg font-medium leading-relaxed mb-3">
+                  <p className="text-gray-200 text-xl font-medium leading-relaxed mb-3">
                     {step.description}
                   </p>
                   {step.detailedContent.subtitle && (
-                    <p className="text-gray-300 text-base font-medium italic">
+                    <p className="text-gray-300 text-lg font-medium italic">
                       {step.detailedContent.subtitle}
                     </p>
                   )}
@@ -281,7 +281,7 @@ export default function OnboardingJourneyPreview({ className }: OnboardingJourne
                       </h4>
                       <ul className="space-y-2">
                         {step.detailedContent.stampedeActions.map((action, actionIndex) => (
-                          <li key={actionIndex} className="text-gray-200 text-sm font-medium flex items-start gap-2">
+                          <li key={actionIndex} className="text-gray-200 text-base font-medium flex items-start gap-2">
                             <div className="w-1.5 h-1.5 bg-[#FF389A] rounded-full mt-2 flex-shrink-0" />
                             {action}
                           </li>
@@ -297,7 +297,7 @@ export default function OnboardingJourneyPreview({ className }: OnboardingJourne
                       </h4>
                       <ul className="space-y-2">
                         {step.detailedContent.userActions.map((action, actionIndex) => (
-                          <li key={actionIndex} className="text-gray-200 text-sm font-medium flex items-start gap-2">
+                          <li key={actionIndex} className="text-gray-200 text-base font-medium flex items-start gap-2">
                             <div className="w-1.5 h-1.5 bg-[#FF389A] rounded-full mt-2 flex-shrink-0" />
                             {action}
                           </li>
@@ -310,7 +310,7 @@ export default function OnboardingJourneyPreview({ className }: OnboardingJourne
                       <div className="bg-[#FF389A]/10 border border-[#FF389A]/20 rounded-lg p-4">
                         <h4 className="text-white font-semibold mb-2">Key Information:</h4>
                         {step.detailedContent.additionalInfo.map((info, infoIndex) => (
-                          <p key={infoIndex} className="text-gray-200 text-sm font-medium mb-2 last:mb-0">{info}</p>
+                          <p key={infoIndex} className="text-gray-200 text-base font-medium mb-2 last:mb-0">{info}</p>
                         ))}
                       </div>
                     )}
