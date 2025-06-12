@@ -128,7 +128,7 @@ export default function TestimonialCarousel() {
                       </div>
                     )}
                     {currentTestimonial.details && (
-                      <div className="text-sm text-gray-300 max-w-2xl mx-auto leading-relaxed border-t border-[#FF389A]/20 pt-3">
+                      <div className="text-sm text-gray-200 font-medium max-w-2xl mx-auto leading-relaxed border-t border-[#FF389A]/20 pt-3">
                         {currentTestimonial.details}
                       </div>
                     )}
