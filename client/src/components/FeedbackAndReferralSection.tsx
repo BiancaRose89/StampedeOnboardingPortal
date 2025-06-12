@@ -77,79 +77,24 @@ export default function FeedbackAndReferralSection() {
           </Card>
         </div>
 
-        {/* Blog Categories and Social Links */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
-          {/* Blog Categories */}
-          <div className="space-y-6">
-            <div className="flex items-center gap-3 mb-6">
-              <BookOpen className="h-6 w-6 text-[#FF389A]" />
-              <h3 className="text-2xl font-bold text-white">Explore Our Blog</h3>
-            </div>
-            <div className="grid grid-cols-2 gap-3">
-              {blogLinks.map((link, index) => (
-                <Button
-                  key={index}
-                  variant="outline"
-                  className="border-gray-700 text-gray-300 hover:border-[#FF389A]/50 hover:text-white hover:bg-[#FF389A]/10 text-left justify-start h-auto p-4"
-                  onClick={() => window.open(link.href, '_blank')}
-                >
-                  <div className="text-left">
-                    <div className="font-medium">{link.title}</div>
-                  </div>
-                  <ExternalLink className="ml-auto h-4 w-4 flex-shrink-0" />
-                </Button>
-              ))}
-            </div>
+        {/* Blog Categories - Full Width */}
+        <div className="space-y-8">
+          <div className="flex items-center gap-3 justify-center">
+            <BookOpen className="h-6 w-6 text-[#FF389A]" />
+            <h3 className="text-3xl font-bold text-white">Explore Our Blog</h3>
           </div>
-
-          {/* Connect Section */}
-          <div className="space-y-6">
-            <div className="flex items-center gap-3 mb-6">
-              <Users className="h-6 w-6 text-[#FF389A]" />
-              <h3 className="text-2xl font-bold text-white">Stay Connected</h3>
-            </div>
-            
-            {/* Social Media Links */}
-            <div className="space-y-4">
-              <p className="text-gray-300">Follow us for the latest updates, industry insights, and success stories:</p>
-              <div className="flex gap-4">
-                {socialLinks.map((social, index) => (
-                  <Button
-                    key={index}
-                    variant="outline"
-                    size="sm"
-                    className="border-gray-700 text-gray-300 hover:border-[#FF389A]/50 hover:text-white hover:bg-[#FF389A]/10"
-                    onClick={() => window.open(social.href, '_blank')}
-                  >
-                    <social.icon className="h-4 w-4 mr-2" />
-                    {social.label}
-                  </Button>
-                ))}
-              </div>
-            </div>
-
-            {/* Quick Links */}
-            <div className="space-y-3">
-              <h4 className="text-lg font-semibold text-white">Quick Links</h4>
-              <div className="space-y-2">
-                {[
-                  { name: "Help Center", href: "https://help.stampede.ai" },
-                  { name: "API Documentation", href: "https://docs.stampede.ai" },
-                  { name: "Contact Support", href: "https://stampede.ai/contact" },
-                  { name: "Feature Requests", href: "https://features.stampede.ai" }
-                ].map((link, index) => (
-                  <Button
-                    key={index}
-                    variant="ghost"
-                    className="text-gray-400 hover:text-white hover:bg-gray-800 w-full justify-start p-2"
-                    onClick={() => window.open(link.href, '_blank')}
-                  >
-                    <ArrowRight className="h-4 w-4 mr-2" />
-                    {link.name}
-                  </Button>
-                ))}
-              </div>
-            </div>
+          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
+            {blogLinks.map((link, index) => (
+              <Button
+                key={index}
+                variant="outline"
+                className="border-gray-700 text-gray-300 hover:border-[#FF389A]/50 hover:text-white hover:bg-[#FF389A]/10 text-center justify-center h-auto p-6 flex-col space-y-2"
+                onClick={() => window.open(link.href, '_blank')}
+              >
+                <div className="font-medium text-sm">{link.title}</div>
+                <ExternalLink className="h-4 w-4" />
+              </Button>
+            ))}
           </div>
         </div>
 
