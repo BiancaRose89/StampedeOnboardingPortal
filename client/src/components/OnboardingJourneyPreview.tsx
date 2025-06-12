@@ -165,15 +165,7 @@ export default function OnboardingJourneyPreview({ className }: OnboardingJourne
     }
   ];
 
-  const quickSteps = [
-    { id: 'marketing', title: 'Marketing', icon: <BarChart3 className="h-5 w-5" /> },
-    { id: 'wifi', title: 'Wi-Fi', icon: <Wifi className="h-5 w-5" /> },
-    { id: 'booking', title: 'Booking', icon: <Calendar className="h-5 w-5" /> },
-    { id: 'reviews', title: 'Reviews', icon: <MessageSquare className="h-5 w-5" /> },
-    { id: 'loyalty', title: 'Loyalty', icon: <Star className="h-5 w-5" /> },
-    { id: 'gift-cards', title: 'Gift Cards', icon: <Gift className="h-5 w-5" /> },
-    { id: 'analytics', title: 'Analytics', icon: <TrendingUp className="h-5 w-5" /> }
-  ];
+
 
   return (
     <div className={className}>
@@ -302,28 +294,7 @@ export default function OnboardingJourneyPreview({ className }: OnboardingJourne
         ))}
       </div>
 
-      {/* Quick Steps Overview */}
-      <div className="text-center mb-8">
-        <h3 className="text-xl font-bold text-white mb-4">
-          Follow these essential steps to get your platform ready for customers:
-        </h3>
-        <div className="flex flex-wrap justify-center gap-4">
-          {quickSteps.map((step, index) => (
-            <div key={step.id} className="flex items-center gap-2">
-              <div className="w-8 h-8 rounded-full bg-[#FF389A]/20 border border-[#FF389A]/30 flex items-center justify-center text-[#FF389A] text-sm font-bold">
-                {index + 3}
-              </div>
-              <div className="flex items-center gap-2">
-                {step.icon}
-                <span className="text-white text-sm">{step.title}</span>
-              </div>
-              {index < quickSteps.length - 1 && (
-                <ArrowRight className="h-4 w-4 text-gray-400 ml-2" />
-              )}
-            </div>
-          ))}
-        </div>
-      </div>
+
 
       {/* Support Link */}
       <div className="text-center">
