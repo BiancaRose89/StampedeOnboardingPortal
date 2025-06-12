@@ -388,14 +388,14 @@ export default function MultiVenueOnboarding() {
       <Card className="bg-[#0D0D24] border-gray-800">
         <CardContent className="pt-6">
           <div className="text-center space-y-4">
-            <p className="text-gray-300">
-              Complete the onboarding for each of your {venues.length} venues.
+            <p className="text-lg font-medium text-white">
+              Complete the onboarding for each of your {venues.length} {venues.length === 1 ? 'venue' : 'venues'}.
             </p>
-            <div className="text-2xl font-bold text-white">
+            <div className="text-3xl font-bold text-white">
               {getCompletedTasks()}/{getTotalTasks()} Total Tasks Complete
             </div>
-            <Progress value={getProgressPercentage()} className="h-3" />
-            <p className="text-sm text-gray-400">
+            <Progress value={getProgressPercentage()} className="h-4" />
+            <p className="text-lg font-medium text-gray-200">
               {getProgressPercentage()}% Complete
             </p>
           </div>
