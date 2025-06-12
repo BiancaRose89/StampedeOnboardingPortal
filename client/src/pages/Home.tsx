@@ -211,17 +211,7 @@ export default function Home() {
                     Start Your Journey
                   </Button>
                   
-                  <Button
-                    variant="outline"
-                    onClick={() => {
-                      const element = document.getElementById('master-platform');
-                      element?.scrollIntoView({ behavior: 'smooth' });
-                    }}
-                    className="border-[#FF389A] text-[#FF389A] hover:bg-[#FF389A] hover:text-white px-8 py-4 text-lg font-semibold rounded-full transition-all duration-200"
-                  >
-                    <BookOpen className="mr-2 h-5 w-5" />
-                    Explore Features
-                  </Button>
+
                 </div>
               </>
             ) : (
@@ -294,28 +284,7 @@ export default function Home() {
 
           <Separator className="my-16" />
 
-          {/* Section 2: Master Your Platform */}
-          <section id="master-platform" className="space-y-8">
-            <div className="text-center space-y-4">
-              <h2 className="text-4xl md:text-5xl font-bold text-white">Master Your Platform</h2>
-              <p className="text-xl text-gray-300 max-w-3xl mx-auto">
-                Now that you have run through the setup and features, let's master the platform
-              </p>
-            </div>
-            <PlatformTipsSection />
-            
-            {/* Advanced Topics & Troubleshooting Dropdowns */}
-            <HelpResourcesSection />
-            
-            {/* Client Success Highlights at bottom of Master Platform section */}
-            <TestimonialCarousel />
-            
-            {/* Client Logos Section */}
-            <ClientLogosSection />
-            
-            {/* Feedback and Referral Section */}
-            <FeedbackAndReferralSection />
-          </section>
+
 
           {/* Call to Action Section - Only for logged out users */}
           {!firebaseUser && (
