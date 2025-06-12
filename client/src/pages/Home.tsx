@@ -219,12 +219,12 @@ export default function Home() {
                 <div className="space-y-6">
                   <h1 className="text-5xl md:text-6xl font-bold tracking-tight leading-tight">
                     <span className="bg-gradient-to-r from-[#FF389A] to-pink-400 bg-clip-text text-transparent">
-                      You are in! Welcome to
+                      You're In – Welcome Aboard 👋!
                     </span>
                   </h1>
                   
-                  <p className="text-xl md:text-2xl text-muted-foreground max-w-4xl mx-auto leading-relaxed">
-                    Super excited to get this over the line for you!
+                  <p className="text-xl md:text-2xl text-gray-200 font-medium max-w-4xl mx-auto leading-relaxed">
+                    We're thrilled to partner with you. Let's get everything set up so you can hit the ground running and unlock the full power of the Stampede platform.
                   </p>
                 </div>
 
