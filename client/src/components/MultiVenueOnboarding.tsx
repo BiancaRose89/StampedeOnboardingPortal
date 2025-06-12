@@ -8,6 +8,7 @@ import { Progress } from '@/components/ui/progress';
 import { Textarea } from '@/components/ui/textarea';
 import { useAuth } from '@/components/AuthProvider';
 import BookingTaskList from './BookingTaskList';
+import LoyaltyTaskList from './LoyaltyTaskList';
 import { 
   User, 
   Building2, 
@@ -146,6 +147,8 @@ export default function MultiVenueOnboarding() {
   const [newTeamMemberEmail, setNewTeamMemberEmail] = useState('');
   const [showBookingTaskList, setShowBookingTaskList] = useState(false);
   const [selectedVenueForBooking, setSelectedVenueForBooking] = useState('');
+  const [showLoyaltyTaskList, setShowLoyaltyTaskList] = useState(false);
+  const [selectedVenueForLoyalty, setSelectedVenueForLoyalty] = useState('');
 
   // Hide the entire form for logged-out users
   if (!firebaseUser) {
@@ -260,6 +263,19 @@ export default function MultiVenueOnboarding() {
         onBack={() => {
           setShowBookingTaskList(false);
           setSelectedVenueForBooking('');
+        }}
+      />
+    );
+  }
+
+  // Show loyalty task list if selected
+  if (showLoyaltyTaskList && selectedVenueForLoyalty) {
+    return (
+      <LoyaltyTaskList 
+        venueName={selectedVenueForLoyalty}
+        onBack={() => {
+          setShowLoyaltyTaskList(false);
+          setSelectedVenueForLoyalty('');
         }}
       />
     );
@@ -531,11 +547,14 @@ export default function MultiVenueOnboarding() {
                         className="flex items-center justify-between p-4 bg-[#1A1A2E] rounded-lg hover:bg-[#1F1F33] transition-colors"
                       >
                         <div 
-                          className={`flex items-center gap-3 ${task.name === 'Booking System' ? 'cursor-pointer' : ''}`}
+                          className={`flex items-center gap-3 ${(task.name === 'Booking System' || task.name === 'Loyalty Program') ? 'cursor-pointer' : ''}`}
                           onClick={() => {
                             if (task.name === 'Booking System') {
                               setSelectedVenueForBooking(venue.name);
                               setShowBookingTaskList(true);
+                            } else if (task.name === 'Loyalty Program') {
+                              setSelectedVenueForLoyalty(venue.name);
+                              setShowLoyaltyTaskList(true);
                             }
                           }}
                         >
@@ -543,7 +562,7 @@ export default function MultiVenueOnboarding() {
                           <div>
                             <h4 className="font-medium text-white">
                               {task.name}
-                              {task.name === 'Booking System' && (
+                              {(task.name === 'Booking System' || task.name === 'Loyalty Program') && (
                                 <span className="text-xs text-[#FF389A] ml-2">(Click for detailed checklist)</span>
                               )}
                             </h4>
