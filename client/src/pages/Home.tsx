@@ -114,10 +114,11 @@ export default function Home() {
           <div className="flex justify-between items-center h-16">
             <div className="flex items-center space-x-4">
               <div className="flex items-center space-x-2">
-                <div className="w-8 h-8 bg-[#FF389A] rounded-lg flex items-center justify-center">
-                  <ChartLine className="text-white text-sm" />
-                </div>
-                <span className="text-xl font-bold text-foreground">Stampede</span>
+                <img 
+                  src="https://framerusercontent.com/images/ZZntqZax5FlcmEK7nCkBRu6g.png" 
+                  alt="Stampede"
+                  className="h-8 w-auto"
+                />
               </div>
             </div>
             <div className="flex items-center space-x-4">
@@ -163,7 +164,11 @@ export default function Home() {
           <div className="text-center space-y-8">
             {/* Authentic Stampede logo */}
             <div className="flex items-center justify-center mb-2">
-              <span className="text-4xl md:text-5xl font-bold text-[#FF389A]">Stampede</span>
+              <img 
+                src="https://framerusercontent.com/images/ZZntqZax5FlcmEK7nCkBRu6g.png" 
+                alt="Stampede"
+                className="h-16 md:h-20 w-auto"
+              />
             </div>
             
             {!firebaseUser ? (
@@ -173,7 +178,7 @@ export default function Home() {
                     Welcome to the
                     <br />
                     <span className="bg-gradient-to-r from-[#FF389A] to-pink-400 bg-clip-text text-transparent">
-                      Stampede Onboarding Journey
+                      Onboarding Journey
                     </span>
                   </h1>
                   
@@ -224,7 +229,7 @@ export default function Home() {
                 <div className="space-y-6">
                   <h1 className="text-5xl md:text-6xl font-bold tracking-tight leading-tight">
                     <span className="bg-gradient-to-r from-[#FF389A] to-pink-400 bg-clip-text text-transparent">
-                      You are in! Welcome to Stampede
+                      You are in! Welcome to
                     </span>
                   </h1>
                   
