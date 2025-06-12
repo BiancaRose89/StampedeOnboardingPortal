@@ -77,38 +77,142 @@ export default function FeedbackAndReferralSection() {
           </Card>
         </div>
 
-        {/* Blog Categories - Full Width */}
-        <div className="space-y-8">
-          <div className="flex items-center gap-3 justify-center">
-            <BookOpen className="h-6 w-6 text-[#FF389A]" />
-            <h3 className="text-3xl font-bold text-white">Explore Our Blog</h3>
+        {/* Stampede Footer - Full Width */}
+        <div className="space-y-12">
+          {/* Header with Logo and Social Icons */}
+          <div className="flex justify-between items-start">
+            <div className="space-y-4">
+              <h2 className="text-4xl font-bold text-[#FF389A]">Stampede</h2>
+              <p className="text-gray-300 text-lg">Bring more customers back.</p>
+            </div>
+            <div className="flex gap-4">
+              {socialLinks.map((social, index) => (
+                <Button
+                  key={index}
+                  variant="ghost"
+                  size="sm"
+                  className="text-gray-400 hover:text-white p-2"
+                  onClick={() => window.open(social.href, '_blank')}
+                >
+                  <social.icon className="h-5 w-5" />
+                </Button>
+              ))}
+            </div>
           </div>
-          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
-            {blogLinks.map((link, index) => (
-              <Button
-                key={index}
-                variant="outline"
-                className="border-gray-700 text-gray-300 hover:border-[#FF389A]/50 hover:text-white hover:bg-[#FF389A]/10 text-center justify-center h-auto p-6 flex-col space-y-2"
-                onClick={() => window.open(link.href, '_blank')}
-              >
-                <div className="font-medium text-sm">{link.title}</div>
-                <ExternalLink className="h-4 w-4" />
-              </Button>
-            ))}
-          </div>
-        </div>
 
-        {/* Bottom Footer */}
-        <div className="mt-12 pt-8 border-t border-gray-800 text-center">
-          <p className="text-gray-400">
-            © 2025 Stampede AI. All rights reserved. • 
-            <Button variant="link" className="text-gray-400 hover:text-white p-1 h-auto" onClick={() => window.open('https://stampede.ai/privacy', '_blank')}>
-              Privacy Policy
-            </Button> • 
-            <Button variant="link" className="text-gray-400 hover:text-white p-1 h-auto" onClick={() => window.open('https://stampede.ai/terms', '_blank')}>
-              Terms of Service
-            </Button>
-          </p>
+          {/* Four Column Footer Links */}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12">
+            {/* Contact Us */}
+            <div className="space-y-6">
+              <h3 className="text-lg font-semibold text-gray-300">Contact us</h3>
+              <div className="space-y-3 text-gray-400">
+                <p>0131 510 7008</p>
+                <p>Find Us - hello@stampede.ai</p>
+                <div className="space-y-1">
+                  <p>4F The Loft</p>
+                  <p>29-30 Maritime Street</p>
+                  <p>Edinburgh</p>
+                  <p>EH6 6SE</p>
+                </div>
+              </div>
+            </div>
+
+            {/* Product */}
+            <div className="space-y-6">
+              <h3 className="text-lg font-semibold text-gray-300">Product</h3>
+              <div className="space-y-3">
+                {[
+                  { name: "Table Management", href: "https://stampede.ai/table-management" },
+                  { name: "Marketing & CRM", href: "https://stampede.ai/marketing-crm" },
+                  { name: "Guest Wi-Fi", href: "https://stampede.ai/guest-wifi" },
+                  { name: "Gift Cards", href: "https://stampede.ai/gift-cards" },
+                  { name: "Reviews", href: "https://stampede.ai/reviews" },
+                  { name: "Analytics", href: "https://stampede.ai/analytics" },
+                  { name: "Loyalty & Rewards", href: "https://stampede.ai/loyalty-rewards" }
+                ].map((link, index) => (
+                  <Button
+                    key={index}
+                    variant="link"
+                    className="text-gray-400 hover:text-white p-0 h-auto justify-start"
+                    onClick={() => window.open(link.href, '_blank')}
+                  >
+                    {link.name}
+                  </Button>
+                ))}
+              </div>
+            </div>
+
+            {/* Resources */}
+            <div className="space-y-6">
+              <h3 className="text-lg font-semibold text-gray-300">Resources</h3>
+              <div className="space-y-3">
+                {[
+                  { name: "Free Downloads", href: "https://stampede.ai/resources/downloads" },
+                  { name: "Success Stories", href: "https://stampede.ai/success-stories" },
+                  { name: "Article and Guides", href: "https://stampede.ai/blog" },
+                  { name: "Supported Hardware", href: "https://stampede.ai/hardware" },
+                  { name: "Knowledge Base", href: "https://help.stampede.ai" },
+                  { name: "Developers", href: "https://developers.stampede.ai" }
+                ].map((link, index) => (
+                  <Button
+                    key={index}
+                    variant="link"
+                    className="text-gray-400 hover:text-white p-0 h-auto justify-start"
+                    onClick={() => window.open(link.href, '_blank')}
+                  >
+                    {link.name}
+                  </Button>
+                ))}
+              </div>
+            </div>
+
+            {/* Company */}
+            <div className="space-y-6">
+              <h3 className="text-lg font-semibold text-gray-300">Company</h3>
+              <div className="space-y-3">
+                {[
+                  { name: "About Us", href: "https://stampede.ai/about" },
+                  { name: "Partnerships", href: "https://stampede.ai/partnerships" },
+                  { name: "Careers - We're Hiring!", href: "https://stampede.ai/careers" },
+                  { name: "Cookie Policy", href: "https://stampede.ai/cookies" },
+                  { name: "Press", href: "https://stampede.ai/press" },
+                  { name: "Sitemap", href: "https://stampede.ai/sitemap" }
+                ].map((link, index) => (
+                  <Button
+                    key={index}
+                    variant="link"
+                    className="text-gray-400 hover:text-white p-0 h-auto justify-start"
+                    onClick={() => window.open(link.href, '_blank')}
+                  >
+                    {link.name}
+                  </Button>
+                ))}
+              </div>
+            </div>
+          </div>
+
+          {/* Bottom Copyright and Legal Links */}
+          <div className="pt-8 border-t border-gray-800 flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
+            <p className="text-gray-400 text-sm">
+              © 2025 Stampede AI Ltd. All rights reserved.
+            </p>
+            <div className="flex gap-6">
+              <Button 
+                variant="link" 
+                className="text-gray-400 hover:text-white p-0 h-auto text-sm" 
+                onClick={() => window.open('https://stampede.ai/privacy', '_blank')}
+              >
+                Privacy Policy
+              </Button>
+              <Button 
+                variant="link" 
+                className="text-gray-400 hover:text-white p-0 h-auto text-sm" 
+                onClick={() => window.open('https://stampede.ai/saas-agreement', '_blank')}
+              >
+                SaaS Agreement
+              </Button>
+            </div>
+          </div>
         </div>
       </div>
     </section>
