@@ -120,24 +120,19 @@ export default function FeedbackAndReferralSection() {
             {/* Product */}
             <div className="space-y-6">
               <h3 className="text-lg font-semibold text-gray-300">Product</h3>
-              <div className="space-y-3">
+              <div className="space-y-2">
                 {[
-                  { name: "Table Management", href: "https://stampede.ai/table-management" },
-                  { name: "Marketing & CRM", href: "https://stampede.ai/marketing-crm" },
-                  { name: "Guest Wi-Fi", href: "https://stampede.ai/guest-wifi" },
-                  { name: "Gift Cards", href: "https://stampede.ai/gift-cards" },
-                  { name: "Reviews", href: "https://stampede.ai/reviews" },
-                  { name: "Analytics", href: "https://stampede.ai/analytics" },
-                  { name: "Loyalty & Rewards", href: "https://stampede.ai/loyalty-rewards" }
-                ].map((link, index) => (
-                  <Button
-                    key={index}
-                    variant="link"
-                    className="text-gray-400 hover:text-white p-0 h-auto justify-start"
-                    onClick={() => window.open(link.href, '_blank')}
-                  >
-                    {link.name}
-                  </Button>
+                  "Table Management",
+                  "Marketing & CRM",
+                  "Guest Wi-Fi",
+                  "Gift Cards",
+                  "Reviews",
+                  "Analytics",
+                  "Loyalty & Rewards"
+                ].map((item, index) => (
+                  <p key={index} className="text-gray-400 text-sm">
+                    {item}
+                  </p>
                 ))}
               </div>
             </div>
@@ -145,23 +140,18 @@ export default function FeedbackAndReferralSection() {
             {/* Resources */}
             <div className="space-y-6">
               <h3 className="text-lg font-semibold text-gray-300">Resources</h3>
-              <div className="space-y-3">
+              <div className="space-y-2">
                 {[
-                  { name: "Free Downloads", href: "https://stampede.ai/resources/downloads" },
-                  { name: "Success Stories", href: "https://stampede.ai/success-stories" },
-                  { name: "Article and Guides", href: "https://stampede.ai/blog" },
-                  { name: "Supported Hardware", href: "https://stampede.ai/hardware" },
-                  { name: "Knowledge Base", href: "https://help.stampede.ai" },
-                  { name: "Developers", href: "https://developers.stampede.ai" }
-                ].map((link, index) => (
-                  <Button
-                    key={index}
-                    variant="link"
-                    className="text-gray-400 hover:text-white p-0 h-auto justify-start"
-                    onClick={() => window.open(link.href, '_blank')}
-                  >
-                    {link.name}
-                  </Button>
+                  "Free Downloads",
+                  "Success Stories",
+                  "Article and Guides",
+                  "Supported Hardware",
+                  "Knowledge Base",
+                  "Developers"
+                ].map((item, index) => (
+                  <p key={index} className="text-gray-400 text-sm">
+                    {item}
+                  </p>
                 ))}
               </div>
             </div>
@@ -169,23 +159,18 @@ export default function FeedbackAndReferralSection() {
             {/* Company */}
             <div className="space-y-6">
               <h3 className="text-lg font-semibold text-gray-300">Company</h3>
-              <div className="space-y-3">
+              <div className="space-y-2">
                 {[
-                  { name: "About Us", href: "https://stampede.ai/about" },
-                  { name: "Partnerships", href: "https://stampede.ai/partnerships" },
-                  { name: "Careers - We're Hiring!", href: "https://stampede.ai/careers" },
-                  { name: "Cookie Policy", href: "https://stampede.ai/cookies" },
-                  { name: "Press", href: "https://stampede.ai/press" },
-                  { name: "Sitemap", href: "https://stampede.ai/sitemap" }
-                ].map((link, index) => (
-                  <Button
-                    key={index}
-                    variant="link"
-                    className="text-gray-400 hover:text-white p-0 h-auto justify-start"
-                    onClick={() => window.open(link.href, '_blank')}
-                  >
-                    {link.name}
-                  </Button>
+                  "About Us",
+                  "Partnerships",
+                  "Careers - We're Hiring!",
+                  "Cookie Policy",
+                  "Press",
+                  "Sitemap"
+                ].map((item, index) => (
+                  <p key={index} className="text-gray-400 text-sm">
+                    {item}
+                  </p>
                 ))}
               </div>
             </div>
