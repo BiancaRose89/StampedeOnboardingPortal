@@ -40,7 +40,7 @@ export default function OnboardingJourneyPreview({ className }: OnboardingJourne
       title: 'Account Setup',
       icon: <User className="h-6 w-6" />,
       description: 'We set up your branded platform behind the scenes',
-      image: 'https://h.stampede.ai/hs-fs/hubfs/Screenshot%202025-03-18%20at%2017.16.22.png?width=5072&height=3352&name=Screenshot%202025-03-18%20at%2017.16.22.png',
+      image: 'https://h.stampede.ai/hs-fs/hubfs/booking%20lp%20dark-1.png?width=1440&height=1440&name=booking%20lp%20dark-1.png',
       detailedContent: {
         subtitle: 'Your dedicated Customer Success Manager handles the technical setup while you focus on your business.',
         stampedeActions: [
@@ -70,7 +70,7 @@ export default function OnboardingJourneyPreview({ className }: OnboardingJourne
       icon: <Calendar className="h-6 w-6" />,
       description: 'Meet your Customer Success Manager and plan your journey',
       duration: '20 mins',
-      image: 'https://h.stampede.ai/hs-fs/hubfs/Screenshot%202025-03-18%20at%2017.16.37.png?width=5072&height=3352&name=Screenshot%202025-03-18%20at%2017.16.37.png',
+      image: 'https://h.stampede.ai/hs-fs/hubfs/WiFi%20lp%20dark.png?width=1440&height=1440&name=WiFi%20lp%20dark.png',
       detailedContent: {
         subtitle: 'A personal introduction to establish your goals and create a customized implementation plan.',
         stampedeActions: [
@@ -101,7 +101,7 @@ export default function OnboardingJourneyPreview({ className }: OnboardingJourne
       icon: <Settings className="h-6 w-6" />,
       description: 'Tailor your system to your venue\'s specific needs',
       duration: '45 mins',
-      image: 'https://h.stampede.ai/hs-fs/hubfs/Screenshot%202025-03-18%20at%2017.16.52.png?width=5072&height=3352&name=Screenshot%202025-03-18%20at%2017.16.52.png',
+      image: 'https://h.stampede.ai/hs-fs/hubfs/admin%20lp%20dark.png?width=1440&height=1440&name=admin%20lp%20dark.png',
       detailedContent: {
         subtitle: 'Deep-dive configuration session to customize every aspect of your platform for optimal performance.',
         stampedeActions: [
@@ -134,7 +134,7 @@ export default function OnboardingJourneyPreview({ className }: OnboardingJourne
       title: 'Feature Training',
       icon: <BookOpen className="h-6 w-6" />,
       description: 'Focused training sessions to master your platform',
-      image: 'https://h.stampede.ai/hs-fs/hubfs/Screenshot%202025-03-18%20at%2017.17.07.png?width=5072&height=3352&name=Screenshot%202025-03-18%20at%2017.17.07.png',
+      image: 'https://h.stampede.ai/hs-fs/hubfs/Wifi%20training%20dark.png?width=1440&height=1440&name=Wifi%20training%20dark.png',
       detailedContent: {
         subtitle: 'Comprehensive training to ensure you and your team are confident using every feature.',
         stampedeActions: [
@@ -167,7 +167,7 @@ export default function OnboardingJourneyPreview({ className }: OnboardingJourne
       title: 'Go-Live & Handover',
       icon: <CheckCircle className="h-6 w-6" />,
       description: 'Launch your system and complete the handover process',
-      image: 'https://h.stampede.ai/hs-fs/hubfs/Screenshot%202025-03-18%20at%2017.17.22.png?width=5072&height=3352&name=Screenshot%202025-03-18%20at%2017.17.22.png',
+      image: 'https://h.stampede.ai/hs-fs/hubfs/admin%20lp%20dark.png?width=1440&height=1440&name=admin%20lp%20dark.png',
       detailedContent: {
         subtitle: 'The exciting moment when your platform goes live and you take full control of your customer experience.',
         stampedeActions: [
