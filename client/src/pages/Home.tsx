@@ -21,6 +21,7 @@ import TestimonialCarousel from "@/components/TestimonialCarousel";
 import ClientLogosSection from "@/components/ClientLogosSection";
 import FeedbackAndReferralSection from "@/components/FeedbackAndReferralSection";
 import HelpResourcesSection from "@/components/HelpResourcesSection";
+import OnboardingJourneyPreview from "@/components/OnboardingJourneyPreview";
 import { APP_CONFIG } from "@/lib/config";
 
 export default function Home() {
@@ -279,7 +280,11 @@ export default function Home() {
         <div className="space-y-16">
           {/* Section 1: Your Onboarding Progress */}
           <section id="onboarding-progress">
-            <LockedStateDemo />
+            {firebaseUser ? (
+              <LockedStateDemo />
+            ) : (
+              <OnboardingJourneyPreview />
+            )}
           </section>
 
           <Separator className="my-16" />
