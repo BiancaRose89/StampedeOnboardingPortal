@@ -1,0 +1,107 @@
+# Marketing Go-Live Readiness Guide
+
+Here’s everything you need to action before going live with Stampede Marketing. This checklist ensures your campaigns are targeted, tested, and ready to engage your customers.
+
+![image 10](https://h.stampede.ai/hs-fs/hubfs/image%2010.png?width=2448&name=image%2010.png)
+
+### **Step 1: Create Customer Segments**
+
+Build relevant audiences based on your customer data.
+
+Go to: **Marketing > Audiences > Segments**
+
+- Click **Create New Segment**
+
+- Examples:
+  - _Newsletter Subscribers_: Filter by tag: `newsletter`
+
+  - _Frequent Visitors_: Filter by visit count or loyalty tier
+
+  - _WiFi Signups This Month_: Filter by signup date or campaign source
+- Clearly name each segment
+
+- Check contact counts to confirm data is pulling correctly
+
+
+* * *
+
+![image 11](https://h.stampede.ai/hs-fs/hubfs/image%2011.png?width=2448&name=image%2011.png)
+
+### **Step 2: Build Email Campaigns**
+
+Set up and customise your email communications.
+
+Go to: **Marketing > Campaigns > Create New Campaign**
+
+- Choose your campaign type (standard or promotional)
+
+- Add subject line, preview text, and branded email content
+
+- Include call-to-action buttons, links, and images
+
+- Choose your target segment and send schedule
+
+- Review for typos, mobile responsiveness, and spam triggers
+
+
+* * *
+
+![image 13](https://h.stampede.ai/hs-fs/hubfs/image%2013.png?width=2448&height=1710&name=image%2013.png)
+
+### **Step 3: Send a Test Campaign**
+
+Always test before launching.
+
+- Duplicate a campaign and create a small test segment (your email + team)
+
+- Send and verify:
+  - It lands in inbox (not spam)
+
+  - Branding and formatting look correct
+
+  - All links work
+
+  - Reporting shows opens and clicks
+
+* * *
+
+![image 14](https://h.stampede.ai/hs-fs/hubfs/image%2014.png?width=2448&height=1710&name=image%2014.png)
+
+### **Step 4: Set Up One Automated Campaign**
+
+Start with a basic automation to maximise reach.
+
+Go to: **Marketing > Automation > Create Automation**
+
+- Choose a trigger (e.g. joins WiFi list, birthday, hasn’t visited)
+
+- Build the email content and set a delay
+
+- Apply to a specific segment
+
+- Activate and test the workflow
+
+
+* * *
+
+![image 15](https://h.stampede.ai/hs-fs/hubfs/image%2015.png?width=2448&height=1710&name=image%2015.png)
+
+### **Final Marketing Checks**
+
+Before you go live:
+
+✔ Tracking is enabled for opens and clicks
+
+✔ All links lead to the correct destination
+
+✔ Reply-to emails are monitored by your team
+
+✔ Campaigns are reviewed and scheduled properly
+
+#### **You’re Ready to Launch Marketing**
+
+Email domain is verified and campaigns are branded Segments are set up and clean
+
+Campaigns are tested, scheduled, or automated Your marketing system is live and ready to drive engagement!
+
+💡 **Bonus Tip**: Check the [Marketing Section within our Stampede Knowledge Base](https://help.stampede.ai/hc/en-gb/categories/25679085633298-Marketing) for setup help and troubleshooting.

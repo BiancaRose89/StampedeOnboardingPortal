@@ -9,6 +9,7 @@ import { Textarea } from '@/components/ui/textarea';
 import { useAuth } from '@/components/AuthProvider';
 import BookingTaskList from './BookingTaskList';
 import LoyaltyTaskList from './LoyaltyTaskList';
+import MarketingTaskList from './MarketingTaskList';
 import { 
   User, 
   Building2, 
@@ -149,6 +150,8 @@ export default function MultiVenueOnboarding() {
   const [selectedVenueForBooking, setSelectedVenueForBooking] = useState('');
   const [showLoyaltyTaskList, setShowLoyaltyTaskList] = useState(false);
   const [selectedVenueForLoyalty, setSelectedVenueForLoyalty] = useState('');
+  const [showMarketingTaskList, setShowMarketingTaskList] = useState(false);
+  const [selectedVenueForMarketing, setSelectedVenueForMarketing] = useState('');
 
   // Hide the entire form for logged-out users
   if (!firebaseUser) {
@@ -276,6 +279,19 @@ export default function MultiVenueOnboarding() {
         onBack={() => {
           setShowLoyaltyTaskList(false);
           setSelectedVenueForLoyalty('');
+        }}
+      />
+    );
+  }
+
+  // Show marketing task list if selected
+  if (showMarketingTaskList && selectedVenueForMarketing) {
+    return (
+      <MarketingTaskList 
+        venueName={selectedVenueForMarketing}
+        onBack={() => {
+          setShowMarketingTaskList(false);
+          setSelectedVenueForMarketing('');
         }}
       />
     );
@@ -547,7 +563,7 @@ export default function MultiVenueOnboarding() {
                         className="flex items-center justify-between p-4 bg-[#1A1A2E] rounded-lg hover:bg-[#1F1F33] transition-colors"
                       >
                         <div 
-                          className={`flex items-center gap-3 ${(task.name === 'Booking System' || task.name === 'Loyalty Program') ? 'cursor-pointer' : ''}`}
+                          className={`flex items-center gap-3 ${(task.name === 'Booking System' || task.name === 'Loyalty Program' || task.name === 'Marketing Setup') ? 'cursor-pointer' : ''}`}
                           onClick={() => {
                             if (task.name === 'Booking System') {
                               setSelectedVenueForBooking(venue.name);
@@ -555,6 +571,9 @@ export default function MultiVenueOnboarding() {
                             } else if (task.name === 'Loyalty Program') {
                               setSelectedVenueForLoyalty(venue.name);
                               setShowLoyaltyTaskList(true);
+                            } else if (task.name === 'Marketing Setup') {
+                              setSelectedVenueForMarketing(venue.name);
+                              setShowMarketingTaskList(true);
                             }
                           }}
                         >
@@ -562,7 +581,7 @@ export default function MultiVenueOnboarding() {
                           <div>
                             <h4 className="font-medium text-white">
                               {task.name}
-                              {(task.name === 'Booking System' || task.name === 'Loyalty Program') && (
+                              {(task.name === 'Booking System' || task.name === 'Loyalty Program' || task.name === 'Marketing Setup') && (
                                 <span className="text-xs text-[#FF389A] ml-2">(Click for detailed checklist)</span>
                               )}
                             </h4>
