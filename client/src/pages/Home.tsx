@@ -287,7 +287,6 @@ export default function Home() {
             <>
               <Separator className="my-16" />
               <TestimonialCarousel />
-              <ClientLogosSection />
             </>
           )}
 

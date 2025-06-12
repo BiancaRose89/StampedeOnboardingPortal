@@ -203,7 +203,7 @@ export default function OnboardingJourneyPreview({ className }: OnboardingJourne
         <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
           Your Onboarding Journey
         </h2>
-        <p className="text-lg text-gray-300 max-w-3xl mx-auto mb-8">
+        <p className="text-xl text-gray-200 font-medium max-w-3xl mx-auto mb-8">
           Your all-in-one hospitality partner helping you manage guest WiFi, bookings, marketing, loyalty, reviews and more. This onboarding guide is built to help you launch successfully and with confidence, fully supported at each step.
         </p>
         
@@ -248,11 +248,11 @@ export default function OnboardingJourneyPreview({ className }: OnboardingJourne
                       </Badge>
                     )}
                   </div>
-                  <p className="text-gray-300 text-lg leading-relaxed mb-3">
+                  <p className="text-gray-200 text-lg font-medium leading-relaxed mb-3">
                     {step.description}
                   </p>
                   {step.detailedContent.subtitle && (
-                    <p className="text-gray-400 text-base italic">
+                    <p className="text-gray-300 text-base font-medium italic">
                       {step.detailedContent.subtitle}
                     </p>
                   )}
@@ -281,7 +281,7 @@ export default function OnboardingJourneyPreview({ className }: OnboardingJourne
                       </h4>
                       <ul className="space-y-2">
                         {step.detailedContent.stampedeActions.map((action, actionIndex) => (
-                          <li key={actionIndex} className="text-gray-300 text-sm flex items-start gap-2">
+                          <li key={actionIndex} className="text-gray-200 text-sm font-medium flex items-start gap-2">
                             <div className="w-1.5 h-1.5 bg-[#FF389A] rounded-full mt-2 flex-shrink-0" />
                             {action}
                           </li>
@@ -297,7 +297,7 @@ export default function OnboardingJourneyPreview({ className }: OnboardingJourne
                       </h4>
                       <ul className="space-y-2">
                         {step.detailedContent.userActions.map((action, actionIndex) => (
-                          <li key={actionIndex} className="text-gray-300 text-sm flex items-start gap-2">
+                          <li key={actionIndex} className="text-gray-200 text-sm font-medium flex items-start gap-2">
                             <div className="w-1.5 h-1.5 bg-[#FF389A] rounded-full mt-2 flex-shrink-0" />
                             {action}
                           </li>
@@ -310,7 +310,7 @@ export default function OnboardingJourneyPreview({ className }: OnboardingJourne
                       <div className="bg-[#FF389A]/10 border border-[#FF389A]/20 rounded-lg p-4">
                         <h4 className="text-white font-semibold mb-2">Key Information:</h4>
                         {step.detailedContent.additionalInfo.map((info, infoIndex) => (
-                          <p key={infoIndex} className="text-gray-300 text-sm mb-2 last:mb-0">{info}</p>
+                          <p key={infoIndex} className="text-gray-200 text-sm font-medium mb-2 last:mb-0">{info}</p>
                         ))}
                       </div>
                     )}
@@ -331,12 +331,12 @@ export default function OnboardingJourneyPreview({ className }: OnboardingJourne
 
       {/* Support Link */}
       <div className="text-center">
-        <p className="text-gray-300 mb-4">
+        <p className="text-lg text-gray-200 font-medium mb-4">
           Need help or want to dive deeper? 
         </p>
         <Button 
           variant="outline" 
-          className="border-[#FF389A]/30 text-[#FF389A] hover:bg-[#FF389A]/10"
+          className="border-[#FF389A]/50 text-[#FF389A] hover:bg-[#FF389A]/10 text-base font-semibold"
           onClick={() => window.open('https://help.stampede.ai/hc/en-gb', '_blank')}
         >
           <ExternalLink className="h-4 w-4 mr-2" />
