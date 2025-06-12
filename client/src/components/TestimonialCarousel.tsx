@@ -119,16 +119,16 @@ export default function TestimonialCarousel() {
 
                   {/* Attribution */}
                   <div className="space-y-3">
-                    <div className="text-lg font-bold text-white">
+                    <div className="text-xl font-bold text-white">
                       — {currentTestimonial.company}
                     </div>
                     {currentTestimonial.tagline && (
-                      <div className="text-sm text-[#FF389A] font-medium">
+                      <div className="text-base text-[#FF389A] font-medium">
                         {currentTestimonial.tagline}
                       </div>
                     )}
                     {currentTestimonial.details && (
-                      <div className="text-sm text-gray-200 font-medium max-w-2xl mx-auto leading-relaxed border-t border-[#FF389A]/20 pt-3">
+                      <div className="text-base text-gray-200 font-medium max-w-2xl mx-auto leading-relaxed border-t border-[#FF389A]/20 pt-3">
                         {currentTestimonial.details}
                       </div>
                     )}
