@@ -35,96 +35,94 @@ interface OnboardingJourneyPreviewProps {
 export default function OnboardingJourneyPreview({ className }: OnboardingJourneyPreviewProps) {
   const onboardingSteps: OnboardingStep[] = [
     {
-      id: 'account-setup',
+      id: 'platform-setup',
       number: 1,
-      title: 'Account Setup',
+      title: 'Platform Setup & Configuration',
       icon: <User className="h-6 w-6" />,
-      description: 'We set up your branded platform behind the scenes',
+      description: 'We build your branded platform while you prepare for launch',
       image: 'https://h.stampede.ai/hs-fs/hubfs/booking%20lp%20dark-1.png?width=1440&height=1440&name=booking%20lp%20dark-1.png',
       detailedContent: {
-        subtitle: 'Your dedicated Customer Success Manager handles the technical setup while you focus on your business.',
+        subtitle: 'Your Customer Success Manager configures everything behind the scenes - no technical work required from you.',
         stampedeActions: [
-          'Create your branded platform with custom colors and logo',
-          'Configure your account settings and permissions',
-          'Set up your venue profiles and basic information',
-          'Prepare your dashboard with essential widgets',
-          'Configure security settings and access controls'
+          'Build your fully branded platform with custom colors and logo',
+          'Configure all purchased features and integrations',
+          'Set up user accounts and permissions for your team',
+          'Prepare your dashboard with relevant widgets and analytics',
+          'Test all systems to ensure everything works perfectly'
         ],
         userActions: [
-          'Provide your branding assets (logo, colors, etc.)',
-          'Share basic venue information and contact details',
-          'Review and approve the initial setup',
-          'Prepare any specific requirements or preferences'
+          'Provide branding assets (logo, color preferences, imagery)',
+          'Share venue details and operational preferences',
+          'Prepare team member information for account access',
+          'Gather any existing customer data for import'
         ],
         additionalInfo: [
-          'This step typically takes 24-48 hours to complete',
-          'You\'ll receive email updates on progress',
-          'No technical knowledge required on your part'
+          'Completed within 24-48 hours of receiving your assets',
+          'You\'ll receive progress updates via email',
+          'Platform ready for training by step 2'
         ]
       }
     },
     {
-      id: 'kickoff-call',
+      id: 'welcome-orientation',
       number: 2,
-      title: 'Kick-Off Call',
+      title: 'Welcome & Platform Orientation',
       icon: <Calendar className="h-6 w-6" />,
-      description: 'Meet your Customer Success Manager and plan your journey',
-      duration: '20 mins',
+      description: 'Meet your team and get your first look at your branded platform',
+      duration: '30 mins',
       image: 'https://h.stampede.ai/hs-fs/hubfs/WiFi%20lp%20dark.png?width=1440&height=1440&name=WiFi%20lp%20dark.png',
       detailedContent: {
-        subtitle: 'A personal introduction to establish your goals and create a customized implementation plan.',
+        subtitle: 'Quick platform tour and strategic scheduling of your modular feature training sessions.',
         stampedeActions: [
-          'Introduction to your dedicated Customer Success Manager',
-          'Review your business goals and objectives',
-          'Explain the Stampede platform capabilities',
-          'Create a personalized timeline for your implementation',
-          'Schedule upcoming calls and milestones'
+          'Introduce your dedicated Customer Success Manager',
+          'Tour your fully branded platform and dashboard',
+          'Review all purchased features and capabilities',
+          'Schedule personalized 1-hour training sessions for each feature',
+          'Set up communication channels and support access'
         ],
         userActions: [
-          'Share your business goals and current challenges',
-          'Discuss your customer demographics and venue type',
-          'Outline your team structure and technical capabilities',
-          'Ask questions about the platform features',
-          'Confirm availability for upcoming training sessions'
+          'Attend with key team members who will use the platform',
+          'Ask questions about your specific features and setup',
+          'Choose convenient times for upcoming training sessions',
+          'Confirm your target go-live date',
+          'Provide any additional requirements or preferences'
         ],
         additionalInfo: [
-          'This call sets the foundation for your entire onboarding experience',
-          'Bring any specific questions or concerns you have',
-          'We\'ll record action items and next steps'
+          'Scheduled within 24 hours of platform setup completion',
+          'All feature training sessions booked during this call',
+          'Recording provided for team members who cannot attend'
         ]
       }
     },
     {
-      id: 'configuration-call',
+      id: 'feature-training',
       number: 3,
-      title: 'Configuration Call',
-      icon: <Settings className="h-6 w-6" />,
-      description: 'Tailor your system to your venue\'s specific needs',
-      duration: '45 mins',
+      title: 'Feature Training Sessions',
+      icon: <BookOpen className="h-6 w-6" />,
+      description: 'Master each feature you\'ve purchased with dedicated 1-hour training sessions',
+      duration: '1 hour per feature',
       image: 'https://h.stampede.ai/hs-fs/hubfs/admin%20lp%20dark.png?width=1440&height=1440&name=admin%20lp%20dark.png',
       detailedContent: {
-        subtitle: 'Deep-dive configuration session to customize every aspect of your platform for optimal performance.',
+        subtitle: 'Master each feature you\'ve purchased with dedicated 1-hour training sessions focused on your specific needs.',
         stampedeActions: [
-          'Configure WiFi portal with your branding and messaging',
-          'Set up booking system with your availability and pricing',
-          'Customize marketing campaigns and customer journeys',
-          'Configure loyalty program rules and rewards',
-          'Set up reporting dashboards and key metrics',
-          'Integrate with your existing systems (POS, email, etc.)'
+          'Deliver hands-on training for each purchased feature',
+          'Configure settings based on your business requirements',
+          'Provide templates, scripts, and ready-to-use content',
+          'Share best practices from successful venues',
+          'Record all sessions for team reference',
+          'Offer follow-up support for complex features'
         ],
         userActions: [
-          'Provide detailed business rules and preferences',
-          'Share existing customer data for import (if applicable)',
-          'Define your marketing goals and target audiences',
-          'Specify reward structures for loyalty program',
-          'Test configurations and provide feedback',
-          'Approve final settings before going live'
+          'Attend training sessions for features relevant to your role',
+          'Practice using features during hands-on portions',
+          'Ask venue-specific questions and scenarios',
+          'Take notes and save provided templates',
+          'Schedule follow-up sessions if needed'
         ],
         additionalInfo: [
-          'This is the most technical part of the setup process',
-          'We handle all the complex configuration work',
-          'You\'ll see your platform come to life during this call',
-          'Multiple revisions are included until you\'re satisfied'
+          'Only train on features you\'ve purchased - no wasted time',
+          'Each session is recorded for absent team members',
+          'Training can be split across multiple days to fit your schedule'
         ]
       }
     },
@@ -201,10 +199,10 @@ export default function OnboardingJourneyPreview({ className }: OnboardingJourne
       {/* Main Onboarding Journey */}
       <div className="text-center mb-12">
         <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
-          Kickstart Your Success with Stampede
+          Your Journey to Hospitality Success Starts Here
         </h2>
         <p className="text-2xl text-gray-200 font-medium max-w-3xl mx-auto mb-8 leading-relaxed">
-          Welcome to your all-in-one hub for hospitality success, designed to help you seamlessly manage guest WiFi, bookings, marketing, loyalty, reviews, and more. This guided onboarding experience ensures you're supported at every step, making setup smooth and success inevitable.
+          Welcome to Stampede! In just 5 focused steps, you'll unlock the full power of your all-in-one hospitality platform. Our streamlined onboarding gets you live faster, with dedicated training for each feature you've purchased and expert support every step of the way.
         </p>
         
         {/* Platform Animation */}
