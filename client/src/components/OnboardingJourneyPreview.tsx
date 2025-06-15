@@ -9,7 +9,8 @@ import {
   CheckCircle,
   Clock,
   ArrowRight,
-  ExternalLink
+  ExternalLink,
+  Rocket
 } from 'lucide-react';
 
 interface OnboardingStep {
@@ -127,68 +128,68 @@ export default function OnboardingJourneyPreview({ className }: OnboardingJourne
       }
     },
     {
-      id: 'feature-training',
+      id: 'testing-preparation',
       number: 4,
-      title: 'Feature Training',
-      icon: <BookOpen className="h-6 w-6" />,
-      description: 'Focused training sessions to master your platform',
+      title: 'Testing & Go-Live Preparation',
+      icon: <CheckCircle className="h-6 w-6" />,
+      description: 'Test your platform and prepare for a smooth launch',
+      duration: '30 mins',
       image: 'https://h.stampede.ai/hs-fs/hubfs/Wifi%20training%20dark.png?width=1440&height=1440&name=Wifi%20training%20dark.png',
       detailedContent: {
-        subtitle: 'Comprehensive training to ensure you and your team are confident using every feature.',
+        subtitle: 'Final testing and preparation to ensure everything works perfectly before you go live.',
         stampedeActions: [
-          'Provide detailed walkthroughs of each platform feature',
-          'Demonstrate best practices and pro tips',
-          'Share real-world examples from similar venues',
-          'Provide training materials and quick reference guides',
-          'Record training sessions for future reference',
-          'Offer ongoing support and additional training as needed'
+          'Conduct comprehensive platform testing with your team',
+          'Review all feature configurations and settings',
+          'Test customer journeys from start to finish',
+          'Provide go-live checklist and support materials',
+          'Schedule go-live support and monitoring',
+          'Confirm backup and support procedures'
         ],
         userActions: [
-          'Attend all scheduled training sessions',
-          'Practice using the platform during training',
-          'Ask questions and request clarification',
-          'Train additional team members',
-          'Test real scenarios with sample data',
-          'Provide feedback on user experience'
+          'Test all features with real-world scenarios',
+          'Train any remaining team members',
+          'Confirm your go-live date and timing',
+          'Prepare customer communications about new features',
+          'Review all settings and make final adjustments',
+          'Ask any last-minute questions'
         ],
         additionalInfo: [
-          'Training is tailored to your specific use cases',
-          'We can provide separate sessions for different team roles',
-          'All training materials are yours to keep',
-          'Unlimited follow-up questions during this phase'
+          'Final opportunity to make changes before launch',
+          'We provide dedicated support during your first week live',
+          'Testing can be done at your own pace'
         ]
       }
     },
     {
-      id: 'go-live-handover',
+      id: 'go-live-success',
       number: 5,
-      title: 'Go-Live & Handover',
-      icon: <CheckCircle className="h-6 w-6" />,
-      description: 'Launch your system and complete the handover process',
+      title: 'Go-Live & Ongoing Success',
+      icon: <Rocket className="h-6 w-6" />,
+      description: 'Launch your platform and transition to ongoing support',
+      duration: 'Launch day',
       image: 'https://h.stampede.ai/hs-fs/hubfs/admin%20lp%20dark.png?width=1440&height=1440&name=admin%20lp%20dark.png',
       detailedContent: {
-        subtitle: 'The exciting moment when your platform goes live and you take full control of your customer experience.',
+        subtitle: 'Launch day support and seamless transition to your ongoing Customer Success Manager relationship.',
         stampedeActions: [
-          'Perform final system checks and testing',
-          'Activate all platform features for live use',
-          'Monitor initial performance and resolve any issues',
-          'Provide immediate support during launch period',
-          'Transfer full admin access to your team',
-          'Schedule regular check-ins for ongoing success'
+          'Provide dedicated launch day support and monitoring',
+          'Activate all platform features for live customer use',
+          'Monitor performance and resolve any launch issues',
+          'Transfer full platform ownership to your team',
+          'Schedule ongoing check-ins and success reviews',
+          'Provide access to knowledge base and support resources'
         ],
         userActions: [
-          'Announce the launch to your customers',
-          'Start promoting your new digital features',
-          'Monitor customer feedback and engagement',
-          'Use the platform for real customer interactions',
-          'Report any issues or questions immediately',
-          'Begin building your customer database'
+          'Confirm your go-live date and launch timing',
+          'Announce new features to your customers',
+          'Start engaging customers with your new platform',
+          'Monitor customer response and platform performance',
+          'Schedule regular success check-ins with your CSM',
+          'Take ownership of day-to-day platform management'
         ],
         additionalInfo: [
-          'We stay closely involved for the first week after launch',
-          'Emergency support is available during business hours',
-          'Regular health checks ensure optimal performance',
-          'Success metrics tracking begins immediately'
+          'Dedicated support available on launch day',
+          'Ongoing Customer Success Manager relationship continues',
+          'Additional training available whenever you need it'
         ]
       }
     }
