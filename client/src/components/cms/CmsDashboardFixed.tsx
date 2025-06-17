@@ -32,7 +32,12 @@ import {
   Crown,
   Map,
   AlertCircle,
-  Calendar
+  Calendar,
+  Upload,
+  Trash2,
+  Plus,
+  MessageSquare,
+  ArrowRight
 } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 import { useQuery } from '@tanstack/react-query';
@@ -586,56 +591,933 @@ export default function CmsDashboard({ admin, onLogout }: CmsDashboardProps) {
 
               {/* Content Management Sub-tab */}
               <TabsContent value="content-management">
-                <Card className="bg-[#0D0D24] border-gray-800">
-                  <CardHeader>
-                    <CardTitle className="text-white">Content Management</CardTitle>
-                    <p className="text-gray-400">Manage website content and messaging</p>
-                  </CardHeader>
-                  <CardContent>
-                    {!Array.isArray(contentItems) || contentItems.length === 0 ? (
-                      <div className="text-center py-8 text-gray-400">
-                        No content items found
-                      </div>
-                    ) : (
-                      <div className="space-y-3">
-                        {contentItems.map((item: any) => (
-                          <div key={item.id} className="flex items-center justify-between p-3 rounded-lg bg-[#1A1A2E]">
-                            <div>
-                              <p className="text-white font-medium">{item.title || item.key}</p>
-                              <p className="text-gray-400 text-sm">
-                                {item.isPublished ? 'Published' : 'Draft'}
-                              </p>
-                            </div>
-                            <Button variant="outline" size="sm">
-                              Edit
-                            </Button>
+                <div className="space-y-6">
+                  {/* Platform Setup & Configuration Block */}
+                  <Card className="bg-[#0D0D24] border-gray-800">
+                    <CardHeader>
+                      <CardTitle className="text-white flex items-center">
+                        <div className="w-8 h-8 bg-[#FF389A] rounded-full flex items-center justify-center text-white font-bold text-sm mr-3">
+                          1
+                        </div>
+                        Platform Setup & Configuration
+                      </CardTitle>
+                      <p className="text-gray-400">Edit the main platform setup section content and imagery</p>
+                    </CardHeader>
+                    <CardContent className="space-y-4">
+                      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                        <div className="space-y-4">
+                          <div>
+                            <label className="text-white text-sm font-medium block mb-2">Main Title</label>
+                            <input 
+                              type="text" 
+                              defaultValue="Platform Setup & Configuration"
+                              className="w-full bg-[#1A1A2E] border border-gray-700 rounded-lg px-3 py-2 text-white"
+                            />
                           </div>
-                        ))}
+                          <div>
+                            <label className="text-white text-sm font-medium block mb-2">Subtitle</label>
+                            <input 
+                              type="text" 
+                              defaultValue="We build your branded platform while you prepare for launch"
+                              className="w-full bg-[#1A1A2E] border border-gray-700 rounded-lg px-3 py-2 text-white"
+                            />
+                          </div>
+                          <div>
+                            <label className="text-white text-sm font-medium block mb-2">Description</label>
+                            <textarea 
+                              defaultValue="Your Customer Success Manager configures everything behind the scenes - no technical work required from you."
+                              className="w-full bg-[#1A1A2E] border border-gray-700 rounded-lg px-3 py-2 text-white h-20"
+                            />
+                          </div>
+                        </div>
+                        <div className="space-y-4">
+                          <div>
+                            <label className="text-white text-sm font-medium block mb-2">Phone Mockup Image</label>
+                            <div className="border-2 border-dashed border-gray-700 rounded-lg p-4 text-center">
+                              <div className="text-gray-400">
+                                <Upload className="h-8 w-8 mx-auto mb-2" />
+                                <p>Upload new phone mockup image</p>
+                                <p className="text-sm">Current: mangia! booking interface</p>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
                       </div>
-                    )}
-                  </CardContent>
-                </Card>
+                      
+                      {/* What We Handle Section */}
+                      <div className="border-t border-gray-700 pt-4">
+                        <h4 className="text-white font-medium mb-3">What We Handle Section</h4>
+                        <div className="space-y-2">
+                          {[
+                            "Build your fully branded platform with custom colors and logo",
+                            "Configure all purchased features and integrations",
+                            "Set up user accounts and permissions for your team",
+                            "Prepare your dashboard with relevant widgets and analytics",
+                            "Test all systems to ensure everything works perfectly"
+                          ].map((item, index) => (
+                            <div key={index} className="flex items-center space-x-2">
+                              <input 
+                                type="text" 
+                                defaultValue={item}
+                                className="flex-1 bg-[#1A1A2E] border border-gray-700 rounded px-3 py-1 text-white text-sm"
+                              />
+                              <Button variant="destructive" size="sm">
+                                <Trash2 className="h-4 w-4" />
+                              </Button>
+                            </div>
+                          ))}
+                          <Button variant="outline" size="sm" className="mt-2">
+                            <Plus className="h-4 w-4 mr-1" />
+                            Add Item
+                          </Button>
+                        </div>
+                      </div>
+
+                      {/* What You'll Do Section */}
+                      <div className="border-t border-gray-700 pt-4">
+                        <h4 className="text-white font-medium mb-3">What You'll Do Section</h4>
+                        <div className="space-y-2">
+                          {[
+                            "Provide branding assets (logo, color preferences, imagery)",
+                            "Share venue details and operational preferences",
+                            "Prepare team member information for account access",
+                            "Gather any existing customer data for import"
+                          ].map((item, index) => (
+                            <div key={index} className="flex items-center space-x-2">
+                              <input 
+                                type="text" 
+                                defaultValue={item}
+                                className="flex-1 bg-[#1A1A2E] border border-gray-700 rounded px-3 py-1 text-white text-sm"
+                              />
+                              <Button variant="destructive" size="sm">
+                                <Trash2 className="h-4 w-4" />
+                              </Button>
+                            </div>
+                          ))}
+                          <Button variant="outline" size="sm" className="mt-2">
+                            <Plus className="h-4 w-4 mr-1" />
+                            Add Item
+                          </Button>
+                        </div>
+                      </div>
+
+                      <div className="flex justify-end space-x-2 pt-4">
+                        <Button variant="outline">Preview</Button>
+                        <Button className="bg-[#FF389A] hover:bg-[#FF389A]/80">Save Changes</Button>
+                      </div>
+                    </CardContent>
+                  </Card>
+
+                  {/* Welcome & Platform Orientation Block */}
+                  <Card className="bg-[#0D0D24] border-gray-800">
+                    <CardHeader>
+                      <CardTitle className="text-white flex items-center">
+                        <div className="w-8 h-8 bg-[#FF389A] rounded-full flex items-center justify-center text-white font-bold text-sm mr-3">
+                          2
+                        </div>
+                        Welcome & Platform Orientation
+                      </CardTitle>
+                      <p className="text-gray-400">Edit the platform orientation section with team meeting visuals</p>
+                    </CardHeader>
+                    <CardContent className="space-y-4">
+                      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                        <div className="space-y-4">
+                          <div>
+                            <label className="text-white text-sm font-medium block mb-2">Main Title</label>
+                            <input 
+                              type="text" 
+                              defaultValue="Welcome & Platform Orientation"
+                              className="w-full bg-[#1A1A2E] border border-gray-700 rounded-lg px-3 py-2 text-white"
+                            />
+                          </div>
+                          <div>
+                            <label className="text-white text-sm font-medium block mb-2">Time Badge</label>
+                            <input 
+                              type="text" 
+                              defaultValue="30 mins"
+                              className="w-full bg-[#1A1A2E] border border-gray-700 rounded-lg px-3 py-2 text-white"
+                            />
+                          </div>
+                          <div>
+                            <label className="text-white text-sm font-medium block mb-2">Subtitle</label>
+                            <input 
+                              type="text" 
+                              defaultValue="Meet your team and get your first look at your branded platform"
+                              className="w-full bg-[#1A1A2E] border border-gray-700 rounded-lg px-3 py-2 text-white"
+                            />
+                          </div>
+                          <div>
+                            <label className="text-white text-sm font-medium block mb-2">Description</label>
+                            <textarea 
+                              defaultValue="Quick platform tour and strategic scheduling of your modular feature training sessions."
+                              className="w-full bg-[#1A1A2E] border border-gray-700 rounded-lg px-3 py-2 text-white h-20"
+                            />
+                          </div>
+                        </div>
+                        <div className="space-y-4">
+                          <div>
+                            <label className="text-white text-sm font-medium block mb-2">Background Visual</label>
+                            <div className="border-2 border-dashed border-gray-700 rounded-lg p-4 text-center">
+                              <div className="text-gray-400">
+                                <Upload className="h-8 w-8 mx-auto mb-2" />
+                                <p>Upload team meeting background</p>
+                                <p className="text-sm">Current: Circular team avatars with visit counts</p>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      
+                      <div className="flex justify-end space-x-2 pt-4">
+                        <Button variant="outline">Preview</Button>
+                        <Button className="bg-[#FF389A] hover:bg-[#FF389A]/80">Save Changes</Button>
+                      </div>
+                    </CardContent>
+                  </Card>
+
+                  {/* Feature Training Sessions Block */}
+                  <Card className="bg-[#0D0D24] border-gray-800">
+                    <CardHeader>
+                      <CardTitle className="text-white flex items-center">
+                        <div className="w-8 h-8 bg-[#FF389A] rounded-full flex items-center justify-center text-white font-bold text-sm mr-3">
+                          3
+                        </div>
+                        Feature Training Sessions
+                      </CardTitle>
+                      <p className="text-gray-400">Edit the feature training section with analytics dashboards</p>
+                    </CardHeader>
+                    <CardContent className="space-y-4">
+                      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                        <div className="space-y-4">
+                          <div>
+                            <label className="text-white text-sm font-medium block mb-2">Main Title</label>
+                            <input 
+                              type="text" 
+                              defaultValue="Feature Training Sessions"
+                              className="w-full bg-[#1A1A2E] border border-gray-700 rounded-lg px-3 py-2 text-white"
+                            />
+                          </div>
+                          <div>
+                            <label className="text-white text-sm font-medium block mb-2">Time Badge</label>
+                            <input 
+                              type="text" 
+                              defaultValue="1 hour per feature"
+                              className="w-full bg-[#1A1A2E] border border-gray-700 rounded-lg px-3 py-2 text-white"
+                            />
+                          </div>
+                          <div>
+                            <label className="text-white text-sm font-medium block mb-2">Subtitle</label>
+                            <input 
+                              type="text" 
+                              defaultValue="Master each feature you've purchased with dedicated 1-hour training sessions"
+                              className="w-full bg-[#1A1A2E] border border-gray-700 rounded-lg px-3 py-2 text-white"
+                            />
+                          </div>
+                          <div>
+                            <label className="text-white text-sm font-medium block mb-2">Description</label>
+                            <textarea 
+                              defaultValue="Master each feature you've purchased with dedicated 1-hour training sessions focused on your specific needs."
+                              className="w-full bg-[#1A1A2E] border border-gray-700 rounded-lg px-3 py-2 text-white h-20"
+                            />
+                          </div>
+                        </div>
+                        <div className="space-y-4">
+                          <div>
+                            <label className="text-white text-sm font-medium block mb-2">Analytics Dashboard Images</label>
+                            <div className="border-2 border-dashed border-gray-700 rounded-lg p-4 text-center">
+                              <div className="text-gray-400">
+                                <Upload className="h-8 w-8 mx-auto mb-2" />
+                                <p>Upload dashboard screenshots</p>
+                                <p className="text-sm">Current: Pink analytics charts and venue dashboard</p>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      
+                      <div className="flex justify-end space-x-2 pt-4">
+                        <Button variant="outline">Preview</Button>
+                        <Button className="bg-[#FF389A] hover:bg-[#FF389A]/80">Save Changes</Button>
+                      </div>
+                    </CardContent>
+                  </Card>
+
+                  {/* Testing & Go-Live Preparation Block */}
+                  <Card className="bg-[#0D0D24] border-gray-800">
+                    <CardHeader>
+                      <CardTitle className="text-white flex items-center">
+                        <div className="w-8 h-8 bg-[#FF389A] rounded-full flex items-center justify-center text-white font-bold text-sm mr-3">
+                          4
+                        </div>
+                        Testing & Go-Live Preparation
+                      </CardTitle>
+                      <p className="text-gray-400">Edit the testing phase section with mobile mockups</p>
+                    </CardHeader>
+                    <CardContent className="space-y-4">
+                      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                        <div className="space-y-4">
+                          <div>
+                            <label className="text-white text-sm font-medium block mb-2">Main Title</label>
+                            <input 
+                              type="text" 
+                              defaultValue="Testing & Go-Live Preparation"
+                              className="w-full bg-[#1A1A2E] border border-gray-700 rounded-lg px-3 py-2 text-white"
+                            />
+                          </div>
+                          <div>
+                            <label className="text-white text-sm font-medium block mb-2">Time Badge</label>
+                            <input 
+                              type="text" 
+                              defaultValue="30 mins"
+                              className="w-full bg-[#1A1A2E] border border-gray-700 rounded-lg px-3 py-2 text-white"
+                            />
+                          </div>
+                          <div>
+                            <label className="text-white text-sm font-medium block mb-2">Subtitle</label>
+                            <input 
+                              type="text" 
+                              defaultValue="Test your platform and prepare for a smooth launch"
+                              className="w-full bg-[#1A1A2E] border border-gray-700 rounded-lg px-3 py-2 text-white"
+                            />
+                          </div>
+                          <div>
+                            <label className="text-white text-sm font-medium block mb-2">Description</label>
+                            <textarea 
+                              defaultValue="Final testing and preparation to ensure everything works perfectly before you go live."
+                              className="w-full bg-[#1A1A2E] border border-gray-700 rounded-lg px-3 py-2 text-white h-20"
+                            />
+                          </div>
+                        </div>
+                        <div className="space-y-4">
+                          <div>
+                            <label className="text-white text-sm font-medium block mb-2">Mobile App Mockups</label>
+                            <div className="border-2 border-dashed border-gray-700 rounded-lg p-4 text-center">
+                              <div className="text-gray-400">
+                                <Upload className="h-8 w-8 mx-auto mb-2" />
+                                <p>Upload mobile mockup images</p>
+                                <p className="text-sm">Current: Three phone mockups with food/beverage apps</p>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      
+                      <div className="flex justify-end space-x-2 pt-4">
+                        <Button variant="outline">Preview</Button>
+                        <Button className="bg-[#FF389A] hover:bg-[#FF389A]/80">Save Changes</Button>
+                      </div>
+                    </CardContent>
+                  </Card>
+
+                  {/* Go-Live & Ongoing Success Block */}
+                  <Card className="bg-[#0D0D24] border-gray-800">
+                    <CardHeader>
+                      <CardTitle className="text-white flex items-center">
+                        <div className="w-8 h-8 bg-[#FF389A] rounded-full flex items-center justify-center text-white font-bold text-sm mr-3">
+                          5
+                        </div>
+                        Go-Live & Ongoing Success
+                      </CardTitle>
+                      <p className="text-gray-400">Edit the launch and ongoing support section</p>
+                    </CardHeader>
+                    <CardContent className="space-y-4">
+                      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                        <div className="space-y-4">
+                          <div>
+                            <label className="text-white text-sm font-medium block mb-2">Main Title</label>
+                            <input 
+                              type="text" 
+                              defaultValue="Go-Live & Ongoing Success"
+                              className="w-full bg-[#1A1A2E] border border-gray-700 rounded-lg px-3 py-2 text-white"
+                            />
+                          </div>
+                          <div>
+                            <label className="text-white text-sm font-medium block mb-2">Time Badge</label>
+                            <input 
+                              type="text" 
+                              defaultValue="Launch day"
+                              className="w-full bg-[#1A1A2E] border border-gray-700 rounded-lg px-3 py-2 text-white"
+                            />
+                          </div>
+                          <div>
+                            <label className="text-white text-sm font-medium block mb-2">Subtitle</label>
+                            <input 
+                              type="text" 
+                              defaultValue="Launch your platform and transition to ongoing support"
+                              className="w-full bg-[#1A1A2E] border border-gray-700 rounded-lg px-3 py-2 text-white"
+                            />
+                          </div>
+                          <div>
+                            <label className="text-white text-sm font-medium block mb-2">Description</label>
+                            <textarea 
+                              defaultValue="Launch day support and seamless transition to your ongoing Customer Success Manager relationship."
+                              className="w-full bg-[#1A1A2E] border border-gray-700 rounded-lg px-3 py-2 text-white h-20"
+                            />
+                          </div>
+                        </div>
+                        <div className="space-y-4">
+                          <div>
+                            <label className="text-white text-sm font-medium block mb-2">Success Dashboard Images</label>
+                            <div className="border-2 border-dashed border-gray-700 rounded-lg p-4 text-center">
+                              <div className="text-gray-400">
+                                <Upload className="h-8 w-8 mx-auto mb-2" />
+                                <p>Upload success dashboard screenshots</p>
+                                <p className="text-sm">Current: Analytics dashboard with performance metrics</p>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      
+                      <div className="flex justify-end space-x-2 pt-4">
+                        <Button variant="outline">Preview</Button>
+                        <Button className="bg-[#FF389A] hover:bg-[#FF389A]/80">Save Changes</Button>
+                      </div>
+                    </CardContent>
+                  </Card>
+
+                  {/* Testimonials Section */}
+                  <Card className="bg-[#0D0D24] border-gray-800">
+                    <CardHeader>
+                      <CardTitle className="text-white flex items-center">
+                        <MessageSquare className="h-5 w-5 mr-3 text-[#FF389A]" />
+                        Client Success Highlights (Testimonials)
+                      </CardTitle>
+                      <p className="text-gray-400">Manage customer testimonials and success stories</p>
+                    </CardHeader>
+                    <CardContent className="space-y-4">
+                      <div className="space-y-4">
+                        <div>
+                          <label className="text-white text-sm font-medium block mb-2">Section Title</label>
+                          <input 
+                            type="text" 
+                            defaultValue="Client Success Highlights"
+                            className="w-full bg-[#1A1A2E] border border-gray-700 rounded-lg px-3 py-2 text-white"
+                          />
+                        </div>
+                        <div>
+                          <label className="text-white text-sm font-medium block mb-2">Section Subtitle</label>
+                          <input 
+                            type="text" 
+                            defaultValue="Real Results, Real Voices"
+                            className="w-full bg-[#1A1A2E] border border-gray-700 rounded-lg px-3 py-2 text-white"
+                          />
+                        </div>
+                      </div>
+
+                      {/* Current Testimonial */}
+                      <div className="border border-gray-700 rounded-lg p-4 bg-[#1A1A2E]">
+                        <h4 className="text-white font-medium mb-3">Current Testimonial</h4>
+                        <div className="space-y-3">
+                          <div>
+                            <label className="text-white text-sm font-medium block mb-2">Quote</label>
+                            <textarea 
+                              defaultValue="You're awesome and have done such a great job with our onboarding. The support throughout the process has been exceptional and the results speak for themselves."
+                              className="w-full bg-[#0D0D24] border border-gray-600 rounded-lg px-3 py-2 text-white h-24"
+                            />
+                          </div>
+                          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <div>
+                              <label className="text-white text-sm font-medium block mb-2">Client Name</label>
+                              <input 
+                                type="text" 
+                                defaultValue="Vino Vita"
+                                className="w-full bg-[#0D0D24] border border-gray-600 rounded-lg px-3 py-2 text-white"
+                              />
+                            </div>
+                            <div>
+                              <label className="text-white text-sm font-medium block mb-2">Onboarded By</label>
+                              <input 
+                                type="text" 
+                                defaultValue="Bianca (CSM)"
+                                className="w-full bg-[#0D0D24] border border-gray-600 rounded-lg px-3 py-2 text-white"
+                              />
+                            </div>
+                          </div>
+                          <div>
+                            <label className="text-white text-sm font-medium block mb-2">Success Details</label>
+                            <input 
+                              type="text" 
+                              defaultValue="Launched comprehensive digital ecosystem including guest WiFi, marketing automation, and review management"
+                              className="w-full bg-[#0D0D24] border border-gray-600 rounded-lg px-3 py-2 text-white"
+                            />
+                          </div>
+                        </div>
+                      </div>
+
+                      <div className="flex justify-between items-center">
+                        <Button variant="outline" size="sm">
+                          <Plus className="h-4 w-4 mr-1" />
+                          Add Testimonial
+                        </Button>
+                        <div className="flex space-x-2">
+                          <Button variant="outline">Preview</Button>
+                          <Button className="bg-[#FF389A] hover:bg-[#FF389A]/80">Save Changes</Button>
+                        </div>
+                      </div>
+                    </CardContent>
+                  </Card>
+
+                  {/* Footer CTA Section */}
+                  <Card className="bg-[#0D0D24] border-gray-800">
+                    <CardHeader>
+                      <CardTitle className="text-white flex items-center">
+                        <ArrowRight className="h-5 w-5 mr-3 text-[#FF389A]" />
+                        Footer Call-to-Action
+                      </CardTitle>
+                      <p className="text-gray-400">Edit the bottom CTA section with pricing and contact options</p>
+                    </CardHeader>
+                    <CardContent className="space-y-4">
+                      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                        {/* Left side - Pricing CTA */}
+                        <div className="space-y-4">
+                          <h4 className="text-white font-medium">Pricing Section</h4>
+                          <div>
+                            <label className="text-white text-sm font-medium block mb-2">Price Badge</label>
+                            <input 
+                              type="text" 
+                              defaultValue="From £89 per venue monthly"
+                              className="w-full bg-[#1A1A2E] border border-gray-700 rounded-lg px-3 py-2 text-white"
+                            />
+                          </div>
+                          <div>
+                            <label className="text-white text-sm font-medium block mb-2">Main Heading</label>
+                            <textarea 
+                              defaultValue="Let's do this, choose your path"
+                              className="w-full bg-[#1A1A2E] border border-gray-700 rounded-lg px-3 py-2 text-white h-16"
+                            />
+                          </div>
+                          <div>
+                            <label className="text-white text-sm font-medium block mb-2">Pricing Description</label>
+                            <textarea 
+                              defaultValue="We're constantly reviewing our pricing to remain competitive and fair for business of all sizes. Prices start from £89 per month, per venue. This allows you to design and send unlimited emails to your customers."
+                              className="w-full bg-[#1A1A2E] border border-gray-700 rounded-lg px-3 py-2 text-white h-24"
+                            />
+                          </div>
+                          <div>
+                            <label className="text-white text-sm font-medium block mb-2">Demo Section Title</label>
+                            <input 
+                              type="text" 
+                              defaultValue="Book a live demo"
+                              className="w-full bg-[#1A1A2E] border border-gray-700 rounded-lg px-3 py-2 text-white"
+                            />
+                          </div>
+                          <div>
+                            <label className="text-white text-sm font-medium block mb-2">Demo Description</label>
+                            <textarea 
+                              defaultValue="Book a screen-share demo at a time to suit you with one of our specialists to learn more about Stampede and see how it works in real-time."
+                              className="w-full bg-[#1A1A2E] border border-gray-700 rounded-lg px-3 py-2 text-white h-20"
+                            />
+                          </div>
+                          <div>
+                            <label className="text-white text-sm font-medium block mb-2">Demo Button Text</label>
+                            <input 
+                              type="text" 
+                              defaultValue="Show me"
+                              className="w-full bg-[#1A1A2E] border border-gray-700 rounded-lg px-3 py-2 text-white"
+                            />
+                          </div>
+                        </div>
+
+                        {/* Right side - Contact Form */}
+                        <div className="space-y-4">
+                          <h4 className="text-white font-medium">Contact Form Section</h4>
+                          <div>
+                            <label className="text-white text-sm font-medium block mb-2">Form Title</label>
+                            <input 
+                              type="text" 
+                              defaultValue="REQUEST A QUOTE"
+                              className="w-full bg-[#1A1A2E] border border-gray-700 rounded-lg px-3 py-2 text-white"
+                            />
+                          </div>
+                          <div>
+                            <label className="text-white text-sm font-medium block mb-2">Email Field Label</label>
+                            <input 
+                              type="text" 
+                              defaultValue="Business Email"
+                              className="w-full bg-[#1A1A2E] border border-gray-700 rounded-lg px-3 py-2 text-white"
+                            />
+                          </div>
+                          <div>
+                            <label className="text-white text-sm font-medium block mb-2">Email Placeholder</label>
+                            <input 
+                              type="text" 
+                              defaultValue="you@company.com"
+                              className="w-full bg-[#1A1A2E] border border-gray-700 rounded-lg px-3 py-2 text-white"
+                            />
+                          </div>
+                          <div>
+                            <label className="text-white text-sm font-medium block mb-2">Submit Button Text</label>
+                            <input 
+                              type="text" 
+                              defaultValue="Get Started"
+                              className="w-full bg-[#1A1A2E] border border-gray-700 rounded-lg px-3 py-2 text-white"
+                            />
+                          </div>
+                          <div>
+                            <label className="text-white text-sm font-medium block mb-2">Form Background Color</label>
+                            <div className="flex space-x-2">
+                              <input 
+                                type="color" 
+                                defaultValue="#FF389A"
+                                className="w-12 h-10 bg-[#1A1A2E] border border-gray-700 rounded"
+                              />
+                              <input 
+                                type="text" 
+                                defaultValue="#FF389A"
+                                className="flex-1 bg-[#1A1A2E] border border-gray-700 rounded-lg px-3 py-2 text-white"
+                              />
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      
+                      <div className="flex justify-end space-x-2 pt-4">
+                        <Button variant="outline">Preview</Button>
+                        <Button className="bg-[#FF389A] hover:bg-[#FF389A]/80">Save Changes</Button>
+                      </div>
+                    </CardContent>
+                  </Card>
+                </div>
               </TabsContent>
 
               {/* Master Platform Sub-tab */}
               <TabsContent value="master-platform">
-                {/* Platform Setup & Configuration Module */}
+                {/* Platform Overview */}
+                <div className="grid grid-cols-1 lg:grid-cols-4 gap-6 mb-8">
+                  <Card className="bg-gradient-to-br from-indigo-600 to-indigo-800 border-0">
+                    <CardContent className="p-6">
+                      <div className="flex items-center justify-between">
+                        <div>
+                          <p className="text-indigo-100 text-sm">Training Modules</p>
+                          <p className="text-3xl font-bold text-white">24</p>
+                          <p className="text-indigo-200 text-xs">Interactive guides</p>
+                        </div>
+                        <BookOpen className="h-12 w-12 text-indigo-200" />
+                      </div>
+                    </CardContent>
+                  </Card>
+
+                  <Card className="bg-gradient-to-br from-emerald-600 to-emerald-800 border-0">
+                    <CardContent className="p-6">
+                      <div className="flex items-center justify-between">
+                        <div>
+                          <p className="text-emerald-100 text-sm">Completion Rate</p>
+                          <p className="text-3xl font-bold text-white">91%</p>
+                          <p className="text-emerald-200 text-xs">Above average</p>
+                        </div>
+                        <Users className="h-12 w-12 text-emerald-200" />
+                      </div>
+                    </CardContent>
+                  </Card>
+
+                  <Card className="bg-gradient-to-br from-amber-600 to-amber-800 border-0">
+                    <CardContent className="p-6">
+                      <div className="flex items-center justify-between">
+                        <div>
+                          <p className="text-amber-100 text-sm">Avg. Time</p>
+                          <p className="text-3xl font-bold text-white">18min</p>
+                          <p className="text-amber-200 text-xs">Per module</p>
+                        </div>
+                        <Clock className="h-12 w-12 text-amber-200" />
+                      </div>
+                    </CardContent>
+                  </Card>
+
+                  <Card className="bg-gradient-to-br from-rose-600 to-rose-800 border-0">
+                    <CardContent className="p-6">
+                      <div className="flex items-center justify-between">
+                        <div>
+                          <p className="text-rose-100 text-sm">Satisfaction</p>
+                          <p className="text-3xl font-bold text-white">4.8/5</p>
+                          <p className="text-rose-200 text-xs">User rating</p>
+                        </div>
+                        <Star className="h-12 w-12 text-rose-200" />
+                      </div>
+                    </CardContent>
+                  </Card>
+                </div>
+
+                {/* Feature Categories */}
+                <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-8">
+                  {/* Core Features */}
+                  <Card className="bg-[#0D0D24] border-gray-800">
+                    <CardHeader>
+                      <CardTitle className="text-white flex items-center">
+                        <Zap className="h-5 w-5 mr-2 text-blue-400" />
+                        Core Platform Features
+                      </CardTitle>
+                      <p className="text-gray-400">Essential functionality for all venues</p>
+                    </CardHeader>
+                    <CardContent className="space-y-4">
+                      {[
+                        { name: 'Account Setup', progress: 100, users: 847, icon: '🏢' },
+                        { name: 'Booking System', progress: 95, users: 823, icon: '📅' },
+                        { name: 'Payment Processing', progress: 92, users: 798, icon: '💳' },
+                        { name: 'Staff Management', progress: 88, users: 756, icon: '👥' },
+                        { name: 'Basic Reports', progress: 85, users: 731, icon: '📊' }
+                      ].map((feature, index) => (
+                        <div key={index} className="p-4 bg-[#1A1A2E] rounded-lg hover:bg-[#252545] transition-colors cursor-pointer">
+                          <div className="flex items-center justify-between mb-3">
+                            <div className="flex items-center">
+                              <span className="text-xl mr-3">{feature.icon}</span>
+                              <div>
+                                <h4 className="text-white font-medium">{feature.name}</h4>
+                                <p className="text-gray-400 text-sm">{feature.users} users completed</p>
+                              </div>
+                            </div>
+                            <span className="text-blue-400 font-medium">{feature.progress}%</span>
+                          </div>
+                          <div className="w-full bg-gray-700 rounded-full h-2">
+                            <div 
+                              className="h-2 rounded-full bg-blue-500"
+                              style={{ width: `${feature.progress}%` }}
+                            ></div>
+                          </div>
+                        </div>
+                      ))}
+                    </CardContent>
+                  </Card>
+
+                  {/* Advanced Features */}
+                  <Card className="bg-[#0D0D24] border-gray-800">
+                    <CardHeader>
+                      <CardTitle className="text-white flex items-center">
+                        <Star className="h-5 w-5 mr-2 text-purple-400" />
+                        Advanced Features
+                      </CardTitle>
+                      <p className="text-gray-400">Enhanced capabilities for growth</p>
+                    </CardHeader>
+                    <CardContent className="space-y-4">
+                      {[
+                        { name: 'Loyalty Program', progress: 78, users: 672, icon: '🎯' },
+                        { name: 'Marketing Automation', progress: 65, users: 561, icon: '🚀' },
+                        { name: 'Advanced Analytics', progress: 71, users: 612, icon: '📈' },
+                        { name: 'Multi-Location Mgmt', progress: 54, users: 465, icon: '🏬' },
+                        { name: 'API Integration', progress: 42, users: 362, icon: '🔗' }
+                      ].map((feature, index) => (
+                        <div key={index} className="p-4 bg-[#1A1A2E] rounded-lg hover:bg-[#252545] transition-colors cursor-pointer">
+                          <div className="flex items-center justify-between mb-3">
+                            <div className="flex items-center">
+                              <span className="text-xl mr-3">{feature.icon}</span>
+                              <div>
+                                <h4 className="text-white font-medium">{feature.name}</h4>
+                                <p className="text-gray-400 text-sm">{feature.users} users completed</p>
+                              </div>
+                            </div>
+                            <span className="text-purple-400 font-medium">{feature.progress}%</span>
+                          </div>
+                          <div className="w-full bg-gray-700 rounded-full h-2">
+                            <div 
+                              className="h-2 rounded-full bg-purple-500"
+                              style={{ width: `${feature.progress}%` }}
+                            ></div>
+                          </div>
+                        </div>
+                      ))}
+                    </CardContent>
+                  </Card>
+
+                  {/* Premium Features */}
+                  <Card className="bg-[#0D0D24] border-gray-800">
+                    <CardHeader>
+                      <CardTitle className="text-white flex items-center">
+                        <Crown className="h-5 w-5 mr-2 text-yellow-400" />
+                        Premium Features
+                      </CardTitle>
+                      <p className="text-gray-400">Enterprise-level functionality</p>
+                    </CardHeader>
+                    <CardContent className="space-y-4">
+                      {[
+                        { name: 'WiFi Marketing', progress: 68, users: 587, icon: '📶' },
+                        { name: 'Review Management', progress: 71, users: 612, icon: '⭐' },
+                        { name: 'Custom Branding', progress: 45, users: 388, icon: '🎨' },
+                        { name: 'White Label', progress: 32, users: 276, icon: '🏷️' },
+                        { name: 'Enterprise Support', progress: 89, users: 768, icon: '🆘' }
+                      ].map((feature, index) => (
+                        <div key={index} className="p-4 bg-[#1A1A2E] rounded-lg hover:bg-[#252545] transition-colors cursor-pointer">
+                          <div className="flex items-center justify-between mb-3">
+                            <div className="flex items-center">
+                              <span className="text-xl mr-3">{feature.icon}</span>
+                              <div>
+                                <h4 className="text-white font-medium">{feature.name}</h4>
+                                <p className="text-gray-400 text-sm">{feature.users} users completed</p>
+                              </div>
+                            </div>
+                            <span className="text-yellow-400 font-medium">{feature.progress}%</span>
+                          </div>
+                          <div className="w-full bg-gray-700 rounded-full h-2">
+                            <div 
+                              className="h-2 rounded-full bg-yellow-500"
+                              style={{ width: `${feature.progress}%` }}
+                            ></div>
+                          </div>
+                        </div>
+                      ))}
+                    </CardContent>
+                  </Card>
+                </div>
+
+                {/* Training Modules Grid */}
                 <Card className="bg-[#0D0D24] border-gray-800 mb-8">
                   <CardHeader>
                     <CardTitle className="text-white flex items-center">
-                      <div className="w-12 h-12 bg-[#FF389A] rounded-full flex items-center justify-center text-white font-bold text-xl mr-4">
-                        1
-                      </div>
-                      <div>
-                        <div className="flex items-center">
-                          <Users className="h-5 w-5 mr-2 text-[#FF389A]" />
-                          <span className="text-white text-xl font-bold">Platform Setup & Configuration</span>
-                        </div>
-                        <p className="text-gray-400 mt-1">We build your branded platform while you prepare for launch</p>
-                        <p className="text-gray-500 text-sm italic mt-1">Your Customer Success Manager configures everything behind the scenes - no technical work required from you.</p>
-                      </div>
+                      <BookOpen className="h-5 w-5 mr-2 text-[#FF389A]" />
+                      Interactive Training Modules
                     </CardTitle>
+                    <p className="text-gray-400">Comprehensive platform mastery guides</p>
                   </CardHeader>
+                  <CardContent>
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
+                      {[
+                        { title: 'Platform Overview', duration: '15 min', completed: 847, difficulty: 'Beginner', category: 'Core' },
+                        { title: 'Account Configuration', duration: '22 min', completed: 823, difficulty: 'Beginner', category: 'Core' },
+                        { title: 'Booking System Setup', duration: '35 min', completed: 798, difficulty: 'Intermediate', category: 'Core' },
+                        { title: 'Payment Gateway Integration', duration: '28 min', completed: 756, difficulty: 'Intermediate', category: 'Core' },
+                        { title: 'Staff & Permissions', duration: '18 min', completed: 731, difficulty: 'Beginner', category: 'Core' },
+                        { title: 'Loyalty Program Design', duration: '45 min', completed: 672, difficulty: 'Advanced', category: 'Advanced' },
+                        { title: 'Marketing Campaigns', duration: '38 min', completed: 561, difficulty: 'Advanced', category: 'Advanced' },
+                        { title: 'Analytics Dashboard', duration: '25 min', completed: 612, difficulty: 'Intermediate', category: 'Advanced' },
+                        { title: 'WiFi Marketing Setup', duration: '32 min', completed: 587, difficulty: 'Advanced', category: 'Premium' },
+                        { title: 'Review Collection', duration: '20 min', completed: 612, difficulty: 'Intermediate', category: 'Premium' },
+                        { title: 'Custom Branding', duration: '40 min', completed: 388, difficulty: 'Advanced', category: 'Premium' },
+                        { title: 'API Documentation', duration: '60 min', completed: 276, difficulty: 'Expert', category: 'Premium' }
+                      ].map((module, index) => (
+                        <Card key={index} className="bg-[#1A1A2E] border-gray-700 hover:border-[#FF389A] transition-colors cursor-pointer">
+                          <CardContent className="p-4">
+                            <div className="flex items-start justify-between mb-3">
+                              <span className={`px-2 py-1 rounded text-xs font-medium ${
+                                module.category === 'Core' ? 'bg-blue-900 text-blue-200' :
+                                module.category === 'Advanced' ? 'bg-purple-900 text-purple-200' :
+                                'bg-yellow-900 text-yellow-200'
+                              }`}>
+                                {module.category}
+                              </span>
+                              <PlayCircle className="h-5 w-5 text-[#FF389A]" />
+                            </div>
+                            
+                            <h4 className="text-white font-medium mb-2">{module.title}</h4>
+                            
+                            <div className="space-y-2 text-sm text-gray-400">
+                              <div className="flex items-center justify-between">
+                                <span>Duration:</span>
+                                <span className="text-white">{module.duration}</span>
+                              </div>
+                              <div className="flex items-center justify-between">
+                                <span>Completed:</span>
+                                <span className="text-green-400">{module.completed} users</span>
+                              </div>
+                              <div className="flex items-center justify-between">
+                                <span>Difficulty:</span>
+                                <span className={`${
+                                  module.difficulty === 'Beginner' ? 'text-green-400' :
+                                  module.difficulty === 'Intermediate' ? 'text-yellow-400' :
+                                  module.difficulty === 'Advanced' ? 'text-orange-400' : 'text-red-400'
+                                }`}>
+                                  {module.difficulty}
+                                </span>
+                              </div>
+                            </div>
+                            
+                            <Button className="w-full mt-4 bg-[#FF389A] hover:bg-[#FF389A]/80" size="sm">
+                              Start Module
+                            </Button>
+                          </CardContent>
+                        </Card>
+                      ))}
+                    </div>
+                  </CardContent>
+                </Card>
+
+                {/* Learning Paths */}
+                <Card className="bg-[#0D0D24] border-gray-800">
+                  <CardHeader>
+                    <CardTitle className="text-white flex items-center">
+                      <Map className="h-5 w-5 mr-2 text-[#FF389A]" />
+                      Recommended Learning Paths
+                    </CardTitle>
+                    <p className="text-gray-400">Curated sequences for different roles and goals</p>
+                  </CardHeader>
+                  <CardContent>
+                    <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                      {[
+                        {
+                          title: 'Restaurant Owner',
+                          description: 'Complete platform setup and management',
+                          modules: 8,
+                          duration: '4.5 hours',
+                          users: 234,
+                          path: ['Platform Overview', 'Account Setup', 'Booking System', 'Payment Processing', 'Staff Management', 'Analytics', 'Marketing', 'Go-Live']
+                        },
+                        {
+                          title: 'Marketing Manager',
+                          description: 'Master customer engagement features',
+                          modules: 6,
+                          duration: '3.2 hours',
+                          users: 187,
+                          path: ['Platform Overview', 'Loyalty Program', 'Marketing Automation', 'WiFi Marketing', 'Review Management', 'Analytics']
+                        },
+                        {
+                          title: 'Technical Administrator',
+                          description: 'Advanced configuration and integrations',
+                          modules: 10,
+                          duration: '6.8 hours',
+                          users: 92,
+                          path: ['Platform Overview', 'Advanced Settings', 'API Integration', 'Custom Branding', 'Multi-Location', 'Security', 'Backup', 'Troubleshooting', 'Performance', 'Enterprise']
+                        }
+                      ].map((path, index) => (
+                        <Card key={index} className="bg-[#1A1A2E] border-gray-700">
+                          <CardContent className="p-6">
+                            <div className="flex items-center justify-between mb-4">
+                              <h4 className="text-white font-bold text-lg">{path.title}</h4>
+                              <Users className="h-6 w-6 text-[#FF389A]" />
+                            </div>
+                            
+                            <p className="text-gray-400 mb-4">{path.description}</p>
+                            
+                            <div className="space-y-2 mb-4">
+                              <div className="flex justify-between text-sm">
+                                <span className="text-gray-400">Modules:</span>
+                                <span className="text-white">{path.modules}</span>
+                              </div>
+                              <div className="flex justify-between text-sm">
+                                <span className="text-gray-400">Duration:</span>
+                                <span className="text-white">{path.duration}</span>
+                              </div>
+                              <div className="flex justify-between text-sm">
+                                <span className="text-gray-400">Completed by:</span>
+                                <span className="text-green-400">{path.users} users</span>
+                              </div>
+                            </div>
+                            
+                            <div className="mb-4">
+                              <p className="text-gray-400 text-sm mb-2">Learning Path:</p>
+                              <div className="space-y-1">
+                                {path.path.slice(0, 4).map((step, stepIndex) => (
+                                  <div key={stepIndex} className="flex items-center text-sm">
+                                    <div className="w-2 h-2 rounded-full bg-[#FF389A] mr-2"></div>
+                                    <span className="text-gray-300">{step}</span>
+                                  </div>
+                                ))}
+                                {path.path.length > 4 && (
+                                  <div className="flex items-center text-sm">
+                                    <div className="w-2 h-2 rounded-full bg-gray-600 mr-2"></div>
+                                    <span className="text-gray-500">+{path.path.length - 4} more...</span>
+                                  </div>
+                                )}
+                              </div>
+                            </div>
+                            
+                            <Button className="w-full bg-[#FF389A] hover:bg-[#FF389A]/80">
+                              Start Learning Path
+                            </Button>
+                          </CardContent>
+                        </Card>
+                      ))}
+                    </div>
+                  </CardContent>
+                </Card>
+              </TabsContent>
                   
                   <CardContent>
                     <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
@@ -808,57 +1690,21 @@ export default function CmsDashboard({ admin, onLogout }: CmsDashboardProps) {
                   </CardContent>
                 </Card>
 
-                {/* Additional Platform Modules */}
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                  {[
-                    {
-                      step: 2,
-                      title: "Team Training & Setup",
-                      description: "Master your platform with guided training sessions",
-                      timeframe: "2-3 days",
-                      icon: Users,
-                      color: "from-blue-600 to-blue-800"
-                    },
-                    {
-                      step: 3,
-                      title: "Data Migration & Integration",
-                      description: "Import existing data and connect your systems",
-                      timeframe: "1-2 days",
-                      icon: Settings,
-                      color: "from-green-600 to-green-800"
-                    },
-                    {
-                      step: 4,
-                      title: "Testing & Quality Assurance",
-                      description: "Comprehensive testing to ensure everything works perfectly",
-                      timeframe: "1 day",
-                      icon: CheckCircle,
-                      color: "from-purple-600 to-purple-800"
-                    },
-                    {
-                      step: 5,
-                      title: "Go-Live Preparation",
-                      description: "Final checks and preparation for your official launch",
-                      timeframe: "1 day",
-                      icon: Star,
-                      color: "from-orange-600 to-orange-800"
-                    },
-                    {
-                      step: 6,
-                      title: "Launch & Support",
-                      description: "Official platform launch with ongoing support",
-                      timeframe: "Ongoing",
-                      icon: Target,
-                      color: "from-pink-600 to-pink-800"
-                    }
-                  ].map((module, index) => (
-                    <Card key={index} className="bg-[#0D0D24] border-gray-800 hover:border-[#FF389A] transition-colors cursor-pointer">
-                      <CardContent className="p-6">
-                        <div className="flex items-start justify-between mb-4">
-                          <div className={`w-10 h-10 bg-gradient-to-r ${module.color} rounded-full flex items-center justify-center text-white font-bold`}>
-                            {module.step}
-                          </div>
-                          <module.icon className="h-6 w-6 text-[#FF389A]" />
+              </TabsContent>
+
+              {/* Onboarding Setup Tasks Sub-tab */}
+              <TabsContent value="onboarding-setup">
+                <VenueManager />
+              </TabsContent>
+            </Tabs>
+          </TabsContent>
+        </Tabs>
+      </div>
+    </div>
+  );
+}
+
+export default CmsDashboardFixed;
                         </div>
                         
                         <h3 className="text-white font-bold text-lg mb-2">{module.title}</h3>
