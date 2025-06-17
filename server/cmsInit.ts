@@ -81,6 +81,45 @@ export async function initializeCms() {
         }
       },
       {
+        name: 'venue_onboarding',
+        displayName: 'Venue Onboarding Tasks',
+        description: 'Complete venue onboarding task management with progress tracking and team assignments',
+        schema: {
+          type: 'object',
+          properties: {
+            venueNumber: { type: 'number', title: 'Venue Number' },
+            totalTasks: { type: 'number', title: 'Total Tasks' },
+            completedTasks: { type: 'number', title: 'Completed Tasks' },
+            progressPercentage: { type: 'number', title: 'Progress Percentage' },
+            goLiveDate: { type: 'string', title: 'Go-Live Date (YYYY-MM-DD)' },
+            pageTitle: { type: 'string', title: 'Page Title' },
+            tasksOutstandingText: { type: 'string', title: 'Tasks Outstanding Text' },
+            goLiveDateText: { type: 'string', title: 'Go-Live Date Text' },
+            venueProgressTitle: { type: 'string', title: 'Venue Progress Title' },
+            tasks: {
+              type: 'array',
+              title: 'Task List',
+              items: {
+                type: 'object',
+                properties: {
+                  id: { type: 'number', title: 'Task ID' },
+                  name: { type: 'string', title: 'Task Name' },
+                  description: { type: 'string', title: 'Task Description' },
+                  timeEstimate: { type: 'string', title: 'Time Estimate' },
+                  status: { type: 'string', title: 'Status (pending/in-progress/completed)' },
+                  assignedTo: { type: 'string', title: 'Assigned Team Member' },
+                  icon: { type: 'string', title: 'Icon Name' },
+                  category: { type: 'string', title: 'Task Category' },
+                  priority: { type: 'string', title: 'Priority Level' },
+                  dueDate: { type: 'string', title: 'Due Date' },
+                  notes: { type: 'string', title: 'Additional Notes' }
+                }
+              }
+            }
+          }
+        }
+      },
+      {
         name: 'navigation',
         displayName: 'Navigation',
         description: 'Navigation menus, links, and routing configuration',
@@ -362,6 +401,141 @@ export async function initializeCms() {
             }
           }
           console.log('Created live examples content');
+        }
+
+        // Create venue onboarding content
+        const venueOnboardingContentType = await cmsStorage.getContentTypeByName('venue_onboarding');
+        if (venueOnboardingContentType) {
+          const existing = await cmsStorage.getContentItemByKey('venue_1_onboarding');
+          if (!existing) {
+            const venueOnboardingItem = await cmsStorage.createContentItem({
+              key: 'venue_1_onboarding',
+              contentTypeId: venueOnboardingContentType.id,
+              title: 'Complete the onboarding for each of your 1 venue',
+              content: {
+                venueNumber: 1,
+                totalTasks: 8,
+                completedTasks: 0,
+                progressPercentage: 0,
+                goLiveDate: '2025-01-07',
+                pageTitle: 'Complete the onboarding for each of your 1 venue',
+                tasksOutstandingText: 'Tasks Outstanding: 8 tasks across all venues',
+                goLiveDateText: 'Go-Live Date (Target launch: 07/01/2025)',
+                venueProgressTitle: 'Venue 1 Onboarding Progress',
+                tasks: [
+                  {
+                    id: 1,
+                    name: 'Account Setup',
+                    description: 'Complete basic account configuration and admin setup',
+                    timeEstimate: '15 minutes',
+                    status: 'pending',
+                    assignedTo: 'Admin Team',
+                    icon: 'Settings',
+                    category: 'Setup',
+                    priority: 'High',
+                    dueDate: '2024-12-20',
+                    notes: 'Must be completed first before other tasks'
+                  },
+                  {
+                    id: 2,
+                    name: 'Booking System Configuration',
+                    description: 'Set up table management, reservation settings, and availability',
+                    timeEstimate: '45 minutes',
+                    status: 'pending',
+                    assignedTo: 'Operations Manager',
+                    icon: 'Calendar',
+                    category: 'Bookings',
+                    priority: 'High',
+                    dueDate: '2024-12-22',
+                    notes: 'Include table layout and capacity settings'
+                  },
+                  {
+                    id: 3,
+                    name: 'Loyalty Program Setup',
+                    description: 'Configure rewards structure, point values, and customer tiers',
+                    timeEstimate: '30 minutes',
+                    status: 'pending',
+                    assignedTo: 'Marketing Team',
+                    icon: 'Star',
+                    category: 'Marketing',
+                    priority: 'Medium',
+                    dueDate: '2024-12-25',
+                    notes: 'Define reward categories and redemption rules'
+                  },
+                  {
+                    id: 4,
+                    name: 'Payment Processing',
+                    description: 'Connect payment gateways and configure billing settings',
+                    timeEstimate: '20 minutes',
+                    status: 'pending',
+                    assignedTo: 'Finance Team',
+                    icon: 'CreditCard',
+                    category: 'Finance',
+                    priority: 'High',
+                    dueDate: '2024-12-24',
+                    notes: 'Test all payment methods before go-live'
+                  },
+                  {
+                    id: 5,
+                    name: 'Staff Training',
+                    description: 'Train team members on system usage and best practices',
+                    timeEstimate: '2 hours',
+                    status: 'pending',
+                    assignedTo: 'Training Coordinator',
+                    icon: 'Users',
+                    category: 'Training',
+                    priority: 'Medium',
+                    dueDate: '2025-01-02',
+                    notes: 'Schedule multiple training sessions for different shifts'
+                  },
+                  {
+                    id: 6,
+                    name: 'Menu Integration',
+                    description: 'Upload menu items, pricing, and dietary information',
+                    timeEstimate: '60 minutes',
+                    status: 'pending',
+                    assignedTo: 'Operations Manager',
+                    icon: 'Book',
+                    category: 'Content',
+                    priority: 'Medium',
+                    dueDate: '2024-12-28',
+                    notes: 'Include high-quality images for each item'
+                  },
+                  {
+                    id: 7,
+                    name: 'Testing & Quality Assurance',
+                    description: 'Comprehensive testing of all system features and workflows',
+                    timeEstimate: '90 minutes',
+                    status: 'pending',
+                    assignedTo: 'QA Team',
+                    icon: 'CheckCircle',
+                    category: 'Testing',
+                    priority: 'High',
+                    dueDate: '2025-01-05',
+                    notes: 'Test with real-world scenarios and edge cases'
+                  },
+                  {
+                    id: 8,
+                    name: 'Go-Live Preparation',
+                    description: 'Final checks, backup procedures, and launch coordination',
+                    timeEstimate: '30 minutes',
+                    status: 'pending',
+                    assignedTo: 'Project Manager',
+                    icon: 'Rocket',
+                    category: 'Launch',
+                    priority: 'Critical',
+                    dueDate: '2025-01-07',
+                    notes: 'Ensure all stakeholders are ready for launch'
+                  }
+                ]
+              },
+              isPublished: false,
+              createdBy: adminUser.id,
+              updatedBy: adminUser.id
+            });
+            await cmsStorage.publishContentItem(venueOnboardingItem.id, adminUser.id);
+            console.log('Created venue onboarding content');
+          }
         }
       }
     }

@@ -285,7 +285,7 @@ export default function CmsDashboard({ admin, onLogout }: CmsDashboardProps) {
             </TabsTrigger>
             <TabsTrigger value="onboarding" className="data-[state=active]:bg-[#FF389A]">
               <Zap className="h-4 w-4 mr-2" />
-              Onboarding
+              Master the Platform
             </TabsTrigger>
             <TabsTrigger value="activity" className="data-[state=active]:bg-[#FF389A]">
               <Activity className="h-4 w-4 mr-2" />
@@ -317,7 +317,7 @@ export default function CmsDashboard({ admin, onLogout }: CmsDashboardProps) {
               <Card className="bg-[#0D0D24] border-gray-800">
                 <CardHeader>
                   <CardTitle className="text-white flex items-center justify-between">
-                    Content Items
+                    Front Page – Website
                     <Button size="sm" className="bg-[#FF389A] hover:bg-[#E6329C]">
                       <Plus className="h-4 w-4 mr-2" />
                       New Content
@@ -466,8 +466,8 @@ export default function CmsDashboard({ admin, onLogout }: CmsDashboardProps) {
           <TabsContent value="onboarding" className="space-y-6">
             <Card className="bg-[#0D0D24] border-gray-800">
               <CardHeader>
-                <CardTitle className="text-white">Onboarding Content Management</CardTitle>
-                <p className="text-gray-400">Manage training modules, platform features, and live examples for customer onboarding.</p>
+                <CardTitle className="text-white">Master the Platform</CardTitle>
+                <p className="text-gray-400">Manage all customer-facing content, venue onboarding tasks, and platform training modules.</p>
               </CardHeader>
               <CardContent>
                 <ContentEditor 
