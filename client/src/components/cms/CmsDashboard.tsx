@@ -994,10 +994,23 @@ export default function CmsDashboard({ admin, onLogout }: CmsDashboardProps) {
                         statusColor = 'text-yellow-400';
                       }
                       
+                      const isExpanded = expandedContent === item.id;
+                      const isEditing = editingContent?.id === item.id;
+
                       return (
-                        <Card key={item.id} className="bg-[#1A1A2E] border-gray-700 hover:border-[#FF389A]/50 transition-colors cursor-pointer">
+                        <Card 
+                          key={item.id} 
+                          className={`bg-[#1A1A2E] border-gray-700 transition-all duration-200 ${
+                            isInteractiveMode ? 'hover:bg-[#1F1F3A] hover:border-[#FF389A]/50 cursor-pointer' : ''
+                          } ${isExpanded ? 'ring-1 ring-[#FF389A]/50' : ''}`}
+                          onMouseEnter={() => setHoveredItem(`venue-${item.id}`)}
+                          onMouseLeave={() => setHoveredItem(null)}
+                        >
                           <CardContent className="p-6">
-                            <div className="grid grid-cols-1 lg:grid-cols-6 gap-4 items-center">
+                            <div 
+                              className="grid grid-cols-1 lg:grid-cols-6 gap-4 items-center"
+                              onClick={() => isInteractiveMode && !isEditing && toggleContentExpansion(item.id)}
+                            >
                               {/* Venue Info */}
                               <div className="lg:col-span-2">
                                 <div className="flex items-center space-x-3">
@@ -1005,7 +1018,21 @@ export default function CmsDashboard({ admin, onLogout }: CmsDashboardProps) {
                                     <Calendar className="h-6 w-6 text-[#FF389A]" />
                                   </div>
                                   <div>
-                                    <h4 className="font-semibold text-white">{item.content.pageTitle}</h4>
+                                    <div className="flex items-center space-x-2">
+                                      <h4 className="font-semibold text-white">{item.content.pageTitle}</h4>
+                                      {isInteractiveMode && !isEditing && (
+                                        <div className="flex items-center space-x-1 opacity-70">
+                                          {isExpanded ? (
+                                            <ChevronDown className="h-4 w-4 text-gray-400" />
+                                          ) : (
+                                            <ChevronRight className="h-4 w-4 text-gray-400" />
+                                          )}
+                                          {hoveredItem === `venue-${item.id}` && (
+                                            <Edit className="h-3 w-3 text-[#FF389A]" />
+                                          )}
+                                        </div>
+                                      )}
+                                    </div>
                                     <p className="text-sm text-gray-400">ID: {item.id}</p>
                                     <div className="flex items-center space-x-2 mt-1">
                                       <Badge variant="outline" className="text-xs">Premium Package</Badge>
@@ -1078,18 +1105,169 @@ export default function CmsDashboard({ admin, onLogout }: CmsDashboardProps) {
                                     {item.isPublished ? "Published" : "Draft"}
                                   </Badge>
                                 </div>
-                                <div className="flex items-center space-x-2">
-                                  <Button size="sm" variant="outline" className="text-xs">
+                                <div className="flex items-center space-x-2" onClick={(e) => e.stopPropagation()}>
+                                  <Button 
+                                    size="sm" 
+                                    variant="ghost" 
+                                    className="text-xs text-blue-400 hover:text-blue-300"
+                                    onClick={() => setSelectedContent(item)}
+                                  >
                                     <Eye className="h-3 w-3 mr-1" />
-                                    View
+                                    Preview
                                   </Button>
-                                  <Button size="sm" variant="outline" className="text-xs">
+                                  <Button 
+                                    size="sm" 
+                                    variant="ghost" 
+                                    className="text-xs text-gray-400 hover:text-white"
+                                    onClick={() => setEditingContent(isEditing ? null : item)}
+                                  >
                                     <Edit3 className="h-3 w-3 mr-1" />
-                                    Edit
+                                    {isEditing ? 'Cancel' : 'Edit'}
                                   </Button>
                                 </div>
                               </div>
                             </div>
+
+                            {/* Expanded Inline Editor Section */}
+                            {isExpanded && (
+                              <div className="mt-6 pt-6 border-t border-gray-600">
+                                {isEditing ? (
+                                  <div className="space-y-4">
+                                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                      <div className="space-y-2">
+                                        <label className="text-xs text-gray-400">Page Title</label>
+                                        <Input
+                                          value={editingContent.content?.pageTitle || ''}
+                                          onChange={(e) => setEditingContent({
+                                            ...editingContent,
+                                            content: {...editingContent.content, pageTitle: e.target.value}
+                                          })}
+                                          className="bg-[#0D0D24] border-gray-600 text-white"
+                                        />
+                                      </div>
+                                      <div className="space-y-2">
+                                        <label className="text-xs text-gray-400">Go-Live Date</label>
+                                        <Input
+                                          type="date"
+                                          value={editingContent.content?.goLiveDate?.split('T')[0] || ''}
+                                          onChange={(e) => setEditingContent({
+                                            ...editingContent,
+                                            content: {...editingContent.content, goLiveDate: e.target.value}
+                                          })}
+                                          className="bg-[#0D0D24] border-gray-600 text-white"
+                                        />
+                                      </div>
+                                    </div>
+                                    
+                                    <div className="space-y-2">
+                                      <label className="text-xs text-gray-400">Description</label>
+                                      <Textarea
+                                        value={editingContent.content?.description || ''}
+                                        onChange={(e) => setEditingContent({
+                                          ...editingContent,
+                                          content: {...editingContent.content, description: e.target.value}
+                                        })}
+                                        className="bg-[#0D0D24] border-gray-600 text-white"
+                                        rows={3}
+                                      />
+                                    </div>
+
+                                    <div className="grid grid-cols-2 gap-4">
+                                      <div className="space-y-2">
+                                        <label className="text-xs text-gray-400">Completed Tasks</label>
+                                        <Input
+                                          type="number"
+                                          value={editingContent.content?.completedTasks || 0}
+                                          onChange={(e) => setEditingContent({
+                                            ...editingContent,
+                                            content: {...editingContent.content, completedTasks: parseInt(e.target.value) || 0}
+                                          })}
+                                          className="bg-[#0D0D24] border-gray-600 text-white"
+                                        />
+                                      </div>
+                                      <div className="space-y-2">
+                                        <label className="text-xs text-gray-400">Total Tasks</label>
+                                        <Input
+                                          type="number"
+                                          value={editingContent.content?.totalTasks || 0}
+                                          onChange={(e) => setEditingContent({
+                                            ...editingContent,
+                                            content: {...editingContent.content, totalTasks: parseInt(e.target.value) || 0}
+                                          })}
+                                          className="bg-[#0D0D24] border-gray-600 text-white"
+                                        />
+                                      </div>
+                                    </div>
+
+                                    <div className="flex items-center space-x-3 pt-2">
+                                      <Button
+                                        size="sm"
+                                        className="bg-[#FF389A] hover:bg-[#E6329C]"
+                                        onClick={async () => {
+                                          try {
+                                            await updateContentMutation.mutateAsync({
+                                              id: editingContent.id,
+                                              updates: {
+                                                content: editingContent.content,
+                                                title: editingContent.content.pageTitle
+                                              }
+                                            });
+                                            setEditingContent(null);
+                                            toast({ title: "Venue updated", description: "Onboarding details saved successfully" });
+                                          } catch (error) {
+                                            toast({ title: "Error", description: "Failed to update venue", variant: "destructive" });
+                                          }
+                                        }}
+                                      >
+                                        <Save className="h-3 w-3 mr-1" />
+                                        Save Changes
+                                      </Button>
+                                      <Button
+                                        size="sm"
+                                        variant="outline"
+                                        onClick={() => setEditingContent(null)}
+                                      >
+                                        <X className="h-3 w-3 mr-1" />
+                                        Cancel
+                                      </Button>
+                                    </div>
+                                  </div>
+                                ) : (
+                                  <div className="space-y-4">
+                                    <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                                      <div className="bg-[#0D0D24] rounded-lg p-3">
+                                        <div className="text-xs text-gray-400 mb-1">Progress</div>
+                                        <div className="text-lg font-semibold text-white">
+                                          {item.content.completedTasks}/{item.content.totalTasks} Tasks
+                                        </div>
+                                      </div>
+                                      <div className="bg-[#0D0D24] rounded-lg p-3">
+                                        <div className="text-xs text-gray-400 mb-1">Days Elapsed</div>
+                                        <div className="text-lg font-semibold text-white">{daysElapsed} days</div>
+                                      </div>
+                                      <div className="bg-[#0D0D24] rounded-lg p-3">
+                                        <div className="text-xs text-gray-400 mb-1">Go-Live Date</div>
+                                        <div className="text-lg font-semibold text-white">
+                                          {new Date(item.content.goLiveDate).toLocaleDateString()}
+                                        </div>
+                                      </div>
+                                    </div>
+                                    
+                                    <div className="flex items-center justify-between">
+                                      <span className="text-sm text-gray-400">Click to edit venue details</span>
+                                      <Button
+                                        size="sm"
+                                        variant="outline"
+                                        onClick={() => setEditingContent(item)}
+                                      >
+                                        <Edit3 className="h-3 w-3 mr-1" />
+                                        Edit Details
+                                      </Button>
+                                    </div>
+                                  </div>
+                                )}
+                              </div>
+                            )}
                           </CardContent>
                         </Card>
                       );
