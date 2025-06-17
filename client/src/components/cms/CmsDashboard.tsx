@@ -37,7 +37,8 @@ import {
   ChevronDown,
   ChevronRight,
   Edit,
-  MousePointer
+  MousePointer,
+  Building2
 } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
