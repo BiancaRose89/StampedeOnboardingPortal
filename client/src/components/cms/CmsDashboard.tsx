@@ -23,6 +23,7 @@ import {
 import { useToast } from '@/hooks/use-toast';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { apiRequest } from '@/lib/queryClient';
+import ContentEditor from './ContentEditor';
 
 interface CmsAdmin {
   id: number;
@@ -67,8 +68,14 @@ export default function CmsDashboard({ admin, onLogout }: CmsDashboardProps) {
   const queryClient = useQueryClient();
 
   // Fetch content items
-  const { data: contentItems = [], isLoading: contentLoading } = useQuery({
+  const { data: contentItems = [], isLoading: contentLoading, refetch: refetchContent } = useQuery({
     queryKey: ['/api/cms/content'],
+    retry: false,
+  });
+
+  // Fetch content types
+  const { data: contentTypes = [] } = useQuery({
+    queryKey: ['/api/cms/content-types'],
     retry: false,
   });
 
@@ -275,6 +282,10 @@ export default function CmsDashboard({ admin, onLogout }: CmsDashboardProps) {
               <FileText className="h-4 w-4 mr-2" />
               Content
             </TabsTrigger>
+            <TabsTrigger value="onboarding" className="data-[state=active]:bg-[#FF389A]">
+              <Zap className="h-4 w-4 mr-2" />
+              Onboarding
+            </TabsTrigger>
             <TabsTrigger value="activity" className="data-[state=active]:bg-[#FF389A]">
               <Activity className="h-4 w-4 mr-2" />
               Activity
@@ -448,6 +459,23 @@ export default function CmsDashboard({ admin, onLogout }: CmsDashboardProps) {
                 </CardContent>
               </Card>
             </div>
+          </TabsContent>
+
+          {/* Onboarding Content Tab */}
+          <TabsContent value="onboarding" className="space-y-6">
+            <Card className="bg-[#0D0D24] border-gray-800">
+              <CardHeader>
+                <CardTitle className="text-white">Onboarding Content Management</CardTitle>
+                <p className="text-gray-400">Manage training modules, platform features, and live examples for customer onboarding.</p>
+              </CardHeader>
+              <CardContent>
+                <ContentEditor 
+                  contentItems={contentItems} 
+                  contentTypes={contentTypes} 
+                  onRefresh={refetchContent}
+                />
+              </CardContent>
+            </Card>
           </TabsContent>
 
           {/* Activity Tab */}
