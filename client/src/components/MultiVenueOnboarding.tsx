@@ -501,9 +501,21 @@ export default function MultiVenueOnboarding() {
               className="bg-[#1A1A2E] border-gray-700 text-white"
             />
             {goLiveDate && (
-              <p className="text-sm text-gray-400">
-                Target launch: {new Date(goLiveDate).toLocaleDateString()}
-              </p>
+              <div className="space-y-2">
+                <p className="text-sm text-gray-400">
+                  Target launch: {new Date(goLiveDate).toLocaleDateString()}
+                </p>
+                <div className="bg-[#FF389A]/10 border border-[#FF389A]/30 rounded-lg p-3">
+                  <div className="text-center">
+                    <div className="text-2xl font-bold text-[#FF389A]">
+                      {getDaysUntilGoLive()}
+                    </div>
+                    <p className="text-sm text-gray-300">
+                      {formatCountdownText(getDaysUntilGoLive())}
+                    </p>
+                  </div>
+                </div>
+              </div>
             )}
           </CardContent>
         </Card>
