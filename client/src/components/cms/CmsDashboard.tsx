@@ -33,7 +33,11 @@ import {
   GripVertical,
   Play,
   ExternalLink,
-  FileText as FileTextIcon
+  FileText as FileTextIcon,
+  ChevronDown,
+  ChevronRight,
+  Edit,
+  MousePointer
 } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
@@ -131,6 +135,27 @@ export default function CmsDashboard({ admin, onLogout }: CmsDashboardProps) {
   const [showAddDialog, setShowAddDialog] = useState<string | null>(null);
   const [draggedItem, setDraggedItem] = useState<any>(null);
   const [previewFeature, setPreviewFeature] = useState<any>(null);
+  
+  // Interactive UI states
+  const [expandedContent, setExpandedContent] = useState<number | null>(null);
+  const [expandedFeatures, setExpandedFeatures] = useState<string[]>([]);
+  const [isInteractiveMode, setIsInteractiveMode] = useState(true);
+  const [hoveredItem, setHoveredItem] = useState<string | null>(null);
+
+  // Helper functions for interactive features
+  const toggleContentExpansion = (contentId: number) => {
+    setExpandedContent(expandedContent === contentId ? null : contentId);
+  };
+
+  const toggleFeatureExpansion = (featureId: string) => {
+    setExpandedFeatures(prev => 
+      prev.includes(featureId) 
+        ? prev.filter(id => id !== featureId)
+        : [...prev, featureId]
+    );
+  };
+
+  const isFeatureExpanded = (featureId: string) => expandedFeatures.includes(featureId);
   
   // Configuration states
   const [dashboardConfig, setDashboardConfig] = useState({
@@ -446,6 +471,17 @@ export default function CmsDashboard({ admin, onLogout }: CmsDashboardProps) {
             </div>
           </div>
           <div className="flex items-center space-x-4">
+            <Button
+              onClick={() => setIsInteractiveMode(!isInteractiveMode)}
+              variant="outline"
+              size="sm"
+              className={`border-gray-700 hover:bg-gray-800 ${
+                isInteractiveMode ? 'border-[#FF389A] text-[#FF389A] bg-[#FF389A]/10' : 'text-gray-300'
+              }`}
+            >
+              <MousePointer className="h-4 w-4 mr-2" />
+              {isInteractiveMode ? 'Interactive: ON' : 'Interactive: OFF'}
+            </Button>
             <div className="text-right">
               <p className="text-sm font-medium text-white">{admin.name}</p>
               <div className="flex items-center space-x-2">
