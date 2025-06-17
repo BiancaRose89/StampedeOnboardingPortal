@@ -509,38 +509,44 @@ export default function CmsDashboard({ admin, onLogout }: CmsDashboardProps) {
       </div>
 
       <div className="max-w-7xl mx-auto p-6">
-        <Tabs defaultValue="dashboard" className="space-y-6">
+        <Tabs defaultValue="admin" className="space-y-6">
           <TabsList className="bg-[#1A1A2E] border-gray-700">
-            <TabsTrigger value="dashboard" className="data-[state=active]:bg-[#FF389A]">
-              <BarChart3 className="h-4 w-4 mr-2" />
-              Dashboard
+            <TabsTrigger value="admin" className="data-[state=active]:bg-[#FF389A]">
+              <Settings className="h-4 w-4 mr-2" />
+              Admin
             </TabsTrigger>
             <TabsTrigger value="content" className="data-[state=active]:bg-[#FF389A]">
               <FileText className="h-4 w-4 mr-2" />
               Content
             </TabsTrigger>
-            <TabsTrigger value="venues-onboarded" className="data-[state=active]:bg-[#FF389A]">
-              <Building2 className="h-4 w-4 mr-2" />
-              Venues Onboarded
-            </TabsTrigger>
-            <TabsTrigger value="onboarding" className="data-[state=active]:bg-[#FF389A]">
-              <Zap className="h-4 w-4 mr-2" />
-              Master the Platform
-            </TabsTrigger>
-            <TabsTrigger value="activity" className="data-[state=active]:bg-[#FF389A]">
-              <Activity className="h-4 w-4 mr-2" />
-              Activity
-            </TabsTrigger>
-            {(admin.role === 'super_admin' || admin.role === 'admin') && (
-              <TabsTrigger value="users" className="data-[state=active]:bg-[#FF389A]">
-                <Users className="h-4 w-4 mr-2" />
-                Users
-              </TabsTrigger>
-            )}
           </TabsList>
 
-          {/* Dashboard Tab - Analytics and Insights */}
-          <TabsContent value="dashboard" className="space-y-6">
+          {/* Admin Tab with Sub-navigation */}
+          <TabsContent value="admin" className="space-y-6">
+            <Tabs defaultValue="dashboard" className="space-y-4">
+              <TabsList className="bg-[#0D0D24] border-gray-800">
+                <TabsTrigger value="dashboard" className="data-[state=active]:bg-[#FF389A]">
+                  <BarChart3 className="h-4 w-4 mr-2" />
+                  Dashboard
+                </TabsTrigger>
+                <TabsTrigger value="venues-onboarded" className="data-[state=active]:bg-[#FF389A]">
+                  <Building2 className="h-4 w-4 mr-2" />
+                  Venues Onboarded
+                </TabsTrigger>
+                <TabsTrigger value="activity" className="data-[state=active]:bg-[#FF389A]">
+                  <Activity className="h-4 w-4 mr-2" />
+                  Activity
+                </TabsTrigger>
+                {(admin.role === 'super_admin' || admin.role === 'admin') && (
+                  <TabsTrigger value="users" className="data-[state=active]:bg-[#FF389A]">
+                    <Users className="h-4 w-4 mr-2" />
+                    Users
+                  </TabsTrigger>
+                )}
+              </TabsList>
+
+              {/* Dashboard Sub-tab */}
+              <TabsContent value="dashboard">
             <Card className="bg-[#0D0D24] border-gray-800">
               <CardHeader>
                 <div className="flex items-center justify-between">
@@ -2010,9 +2016,59 @@ export default function CmsDashboard({ admin, onLogout }: CmsDashboardProps) {
             </Card>
           </TabsContent>
 
-          {/* Venues Onboarded Tab */}
-          <TabsContent value="venues-onboarded">
-            <OrganizationManager />
+              {/* Venues Onboarded Sub-tab */}
+              <TabsContent value="venues-onboarded">
+                <OrganizationManager />
+              </TabsContent>
+
+              {/* Activity Sub-tab */}
+              <TabsContent value="activity">
+                <Card className="bg-[#0D0D24] border-gray-800">
+                  <CardHeader>
+                    <CardTitle className="text-white">Activity Log</CardTitle>
+                    <p className="text-gray-400">Recent admin activities and system events</p>
+                  </CardHeader>
+                  <CardContent>
+                    {activities.length === 0 ? (
+                      <div className="text-center py-8 text-gray-400">
+                        No recent activity
+                      </div>
+                    ) : (
+                      <div className="space-y-3">
+                        {activities.map((activity: any) => (
+                          <div key={activity.id} className="flex items-center justify-between p-3 rounded-lg bg-[#1A1A2E]">
+                            <div>
+                              <p className="text-white">{activity.action}</p>
+                              <p className="text-gray-400 text-sm">{activity.resourceType}</p>
+                            </div>
+                            <span className="text-gray-400 text-sm">
+                              {new Date(activity.createdAt).toLocaleDateString()}
+                            </span>
+                          </div>
+                        ))}
+                      </div>
+                    )}
+                  </CardContent>
+                </Card>
+              </TabsContent>
+
+              {/* Users Sub-tab */}
+              {(admin.role === 'super_admin' || admin.role === 'admin') && (
+                <TabsContent value="users">
+                  <Card className="bg-[#0D0D24] border-gray-800">
+                    <CardHeader>
+                      <CardTitle className="text-white">User Management</CardTitle>
+                      <p className="text-gray-400">Manage admin users and permissions</p>
+                    </CardHeader>
+                    <CardContent>
+                      <div className="text-center py-8 text-gray-400">
+                        User management features coming soon
+                      </div>
+                    </CardContent>
+                  </Card>
+                </TabsContent>
+              )}
+            </Tabs>
           </TabsContent>
 
           {/* Venue Management Tab */}
