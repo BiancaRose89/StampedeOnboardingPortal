@@ -283,6 +283,10 @@ export default function CmsDashboard({ admin, onLogout }: CmsDashboardProps) {
               <FileText className="h-4 w-4 mr-2" />
               Content
             </TabsTrigger>
+            <TabsTrigger value="venues" className="data-[state=active]:bg-[#FF389A]">
+              <Calendar className="h-4 w-4 mr-2" />
+              Venue Onboarding
+            </TabsTrigger>
             <TabsTrigger value="onboarding" className="data-[state=active]:bg-[#FF389A]">
               <Zap className="h-4 w-4 mr-2" />
               Master the Platform
@@ -462,19 +466,245 @@ export default function CmsDashboard({ admin, onLogout }: CmsDashboardProps) {
             </div>
           </TabsContent>
 
-          {/* Onboarding Content Tab */}
+          {/* Venue Onboarding Tab */}
+          <TabsContent value="venues" className="space-y-6">
+            <Card className="bg-[#0D0D24] border-gray-800">
+              <CardHeader>
+                <CardTitle className="text-white">Venue Onboarding Management</CardTitle>
+                <p className="text-gray-400">Manage venue-specific onboarding progress, tasks, and go-live schedules for each location.</p>
+              </CardHeader>
+              <CardContent>
+                <div className="space-y-4">
+                  <div className="flex items-center justify-between">
+                    <div>
+                      <h3 className="text-lg font-semibold text-white">Complete the onboarding for each of your venues</h3>
+                      <p className="text-sm text-gray-400">Manage venue-specific onboarding progress and tasks</p>
+                    </div>
+                    <Button
+                      size="sm"
+                      onClick={() => {
+                        // Handle add venue functionality
+                      }}
+                      className="bg-[#FF389A] hover:bg-[#E6329C]"
+                    >
+                      <Plus className="h-4 w-4 mr-2" />
+                      Add Venue
+                    </Button>
+                  </div>
+                  
+                  <div className="grid gap-3">
+                    {contentItems.filter((item: any) => 
+                      contentTypes.find((type: any) => type.id === item.contentTypeId)?.name === 'venue_onboarding'
+                    ).map((item: any) => {
+                      const progressPercentage = Math.round((item.content.completedTasks / item.content.totalTasks) * 100);
+                      
+                      return (
+                        <Card key={item.id} className="bg-[#1A1A2E] border-gray-700">
+                          <CardContent className="p-4">
+                            <div className="flex items-center justify-between">
+                              <div className="flex items-center space-x-3">
+                                <div className="w-10 h-10 bg-[#FF389A]/20 rounded-full flex items-center justify-center">
+                                  <Calendar className="h-5 w-5 text-[#FF389A]" />
+                                </div>
+                                <div>
+                                  <h4 className="font-medium text-white">{item.content.pageTitle}</h4>
+                                  <p className="text-sm text-gray-400">
+                                    {item.content.completedTasks}/{item.content.totalTasks} Total Tasks Complete • {progressPercentage}% Complete
+                                  </p>
+                                  <div className="flex items-center space-x-2 mt-1">
+                                    <span className="text-xs text-gray-500">⏱ Go-live: {new Date(item.content.goLiveDate).toLocaleDateString()}</span>
+                                    <Badge variant={progressPercentage === 100 ? "default" : "secondary"} className="text-xs">
+                                      {progressPercentage === 100 ? "Complete" : "In Progress"}
+                                    </Badge>
+                                  </div>
+                                </div>
+                              </div>
+                              <div className="flex items-center space-x-2">
+                                <Badge variant={item.isPublished ? "default" : "secondary"}>
+                                  {item.isPublished ? "Published" : "Draft"}
+                                </Badge>
+                                <Button size="sm" variant="outline">
+                                  <Edit3 className="h-3 w-3" />
+                                </Button>
+                              </div>
+                            </div>
+                          </CardContent>
+                        </Card>
+                      );
+                    })}
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+          </TabsContent>
+
+          {/* Master the Platform Tab */}
           <TabsContent value="onboarding" className="space-y-6">
             <Card className="bg-[#0D0D24] border-gray-800">
               <CardHeader>
                 <CardTitle className="text-white">Master the Platform</CardTitle>
-                <p className="text-gray-400">Manage all customer-facing content, venue onboarding tasks, and platform training modules.</p>
+                <p className="text-gray-400">Manage training modules, platform features, and live examples for customer education.</p>
               </CardHeader>
               <CardContent>
-                <ContentEditor 
-                  contentItems={contentItems} 
-                  contentTypes={contentTypes} 
-                  onRefresh={refetchContent}
-                />
+                <div className="space-y-8">
+                  {/* Training Modules */}
+                  <div className="space-y-4">
+                    <div className="flex items-center justify-between">
+                      <div>
+                        <h3 className="text-lg font-semibold text-white">Training Modules</h3>
+                        <p className="text-sm text-gray-400">Interactive training modules for platform mastery</p>
+                      </div>
+                      <Button
+                        size="sm"
+                        className="bg-[#FF389A] hover:bg-[#E6329C]"
+                      >
+                        <Plus className="h-4 w-4 mr-2" />
+                        Add Module
+                      </Button>
+                    </div>
+                    
+                    <div className="grid gap-3">
+                      {contentItems.filter((item: any) => 
+                        contentTypes.find((type: any) => type.id === item.contentTypeId)?.name === 'training_modules'
+                      ).map((item: any) => (
+                        <Card key={item.id} className="bg-[#1A1A2E] border-gray-700">
+                          <CardContent className="p-4">
+                            <div className="flex items-center justify-between">
+                              <div className="flex items-center space-x-3">
+                                <div className="w-10 h-10 bg-[#FF389A]/20 rounded-full flex items-center justify-center">
+                                  <Zap className="h-5 w-5 text-[#FF389A]" />
+                                </div>
+                                <div>
+                                  <h4 className="font-medium text-white">{item.content.title}</h4>
+                                  <p className="text-sm text-gray-400">{item.content.description}</p>
+                                  <div className="flex items-center space-x-2 mt-1">
+                                    <span className="text-xs text-gray-500">⏱ {item.content.estimatedTime}</span>
+                                    <Badge variant={item.content.completed ? "default" : "secondary"} className="text-xs">
+                                      {item.content.completed ? "Completed" : "Pending"}
+                                    </Badge>
+                                  </div>
+                                </div>
+                              </div>
+                              <div className="flex items-center space-x-2">
+                                <Badge variant={item.isPublished ? "default" : "secondary"}>
+                                  {item.isPublished ? "Published" : "Draft"}
+                                </Badge>
+                                <Button size="sm" variant="outline">
+                                  <Edit3 className="h-3 w-3" />
+                                </Button>
+                              </div>
+                            </div>
+                          </CardContent>
+                        </Card>
+                      ))}
+                    </div>
+                  </div>
+
+                  {/* Platform Features */}
+                  <div className="space-y-4">
+                    <div className="flex items-center justify-between">
+                      <div>
+                        <h3 className="text-lg font-semibold text-white">Platform Features</h3>
+                        <p className="text-sm text-gray-400">Platform features and capabilities overview</p>
+                      </div>
+                      <Button
+                        size="sm"
+                        className="bg-[#FF389A] hover:bg-[#E6329C]"
+                      >
+                        <Plus className="h-4 w-4 mr-2" />
+                        Add Feature
+                      </Button>
+                    </div>
+                    
+                    <div className="grid gap-3">
+                      {contentItems.filter((item: any) => 
+                        contentTypes.find((type: any) => type.id === item.contentTypeId)?.name === 'platform_features'
+                      ).map((item: any) => (
+                        <Card key={item.id} className="bg-[#1A1A2E] border-gray-700">
+                          <CardContent className="p-4">
+                            <div className="flex items-center justify-between">
+                              <div className="flex items-center space-x-3">
+                                <div className="w-10 h-10 bg-blue-500/20 rounded-lg flex items-center justify-center">
+                                  <Settings className="h-5 w-5 text-blue-400" />
+                                </div>
+                                <div>
+                                  <h4 className="font-medium text-white">{item.content.title}</h4>
+                                  <p className="text-sm text-gray-400">{item.content.description}</p>
+                                  <div className="flex items-center space-x-2 mt-1">
+                                    <Badge variant="outline" className="text-xs">{item.content.category}</Badge>
+                                    <Badge variant="outline" className="text-xs">{item.content.difficulty}</Badge>
+                                    <span className="text-xs text-gray-500">{item.content.estimatedTime}</span>
+                                  </div>
+                                </div>
+                              </div>
+                              <div className="flex items-center space-x-2">
+                                <Badge variant={item.isPublished ? "default" : "secondary"}>
+                                  {item.isPublished ? "Published" : "Draft"}
+                                </Badge>
+                                <Button size="sm" variant="outline">
+                                  <Edit3 className="h-3 w-3" />
+                                </Button>
+                              </div>
+                            </div>
+                          </CardContent>
+                        </Card>
+                      ))}
+                    </div>
+                  </div>
+
+                  {/* Live Examples */}
+                  <div className="space-y-4">
+                    <div className="flex items-center justify-between">
+                      <div>
+                        <h3 className="text-lg font-semibold text-white">Live Feature Examples</h3>
+                        <p className="text-sm text-gray-400">Interactive demos and live examples</p>
+                      </div>
+                      <Button
+                        size="sm"
+                        className="bg-[#FF389A] hover:bg-[#E6329C]"
+                      >
+                        <Plus className="h-4 w-4 mr-2" />
+                        Add Example
+                      </Button>
+                    </div>
+                    
+                    <div className="grid gap-3">
+                      {contentItems.filter((item: any) => 
+                        contentTypes.find((type: any) => type.id === item.contentTypeId)?.name === 'live_examples'
+                      ).map((item: any) => (
+                        <Card key={item.id} className="bg-[#1A1A2E] border-gray-700">
+                          <CardContent className="p-4">
+                            <div className="flex items-center justify-between">
+                              <div className="flex items-center space-x-3">
+                                <div className="w-10 h-10 bg-green-500/20 rounded-lg flex items-center justify-center">
+                                  <Zap className="h-5 w-5 text-green-400" />
+                                </div>
+                                <div>
+                                  <h4 className="font-medium text-white">{item.content.title}</h4>
+                                  <p className="text-sm text-gray-400">{item.content.description}</p>
+                                  <div className="flex items-center space-x-2 mt-1">
+                                    <Badge variant="outline" className="text-xs">{item.content.category}</Badge>
+                                    {item.content.tags?.map((tag: string, index: number) => (
+                                      <Badge key={index} variant="outline" className="text-xs">{tag}</Badge>
+                                    ))}
+                                  </div>
+                                </div>
+                              </div>
+                              <div className="flex items-center space-x-2">
+                                <Badge variant={item.isPublished ? "default" : "secondary"}>
+                                  {item.isPublished ? "Published" : "Draft"}
+                                </Badge>
+                                <Button size="sm" variant="outline">
+                                  <Edit3 className="h-3 w-3" />
+                                </Button>
+                              </div>
+                            </div>
+                          </CardContent>
+                        </Card>
+                      ))}
+                    </div>
+                  </div>
+                </div>
               </CardContent>
             </Card>
           </TabsContent>
