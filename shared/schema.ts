@@ -1,6 +1,7 @@
-import { pgTable, text, serial, integer, boolean, timestamp, jsonb, varchar } from "drizzle-orm/pg-core";
+import { pgTable, text, serial, integer, boolean, timestamp, jsonb, varchar, uuid } from "drizzle-orm/pg-core";
 import { createInsertSchema } from "drizzle-zod";
 import { z } from "zod";
+import { relations } from "drizzle-orm";
 
 export const users = pgTable("users", {
   id: serial("id").primaryKey(),
@@ -167,3 +168,155 @@ export type InsertOnboardingTask = z.infer<typeof insertOnboardingTaskSchema>;
 export type OnboardingTask = typeof onboardingTasks.$inferSelect;
 export type InsertUserSettings = z.infer<typeof insertUserSettingsSchema>;
 export type UserSettings = typeof userSettings.$inferSelect;
+
+// CMS Admin Users
+export const cmsAdmins = pgTable("cms_admins", {
+  id: serial("id").primaryKey(),
+  email: text("email").notNull().unique(),
+  passwordHash: text("password_hash").notNull(),
+  name: text("name").notNull(),
+  role: text("role").notNull().default("editor"), // "super_admin", "admin", "editor"
+  isActive: boolean("is_active").notNull().default(true),
+  lastLogin: timestamp("last_login"),
+  createdAt: timestamp("created_at").notNull().defaultNow(),
+  updatedAt: timestamp("updated_at").notNull().defaultNow(),
+});
+
+// Content Types (flexible schema for different content types)
+export const contentTypes = pgTable("content_types", {
+  id: serial("id").primaryKey(),
+  name: text("name").notNull().unique(), // "page_content", "navigation", "settings", etc.
+  displayName: text("display_name").notNull(),
+  description: text("description"),
+  schema: jsonb("schema").notNull(), // JSON schema defining fields for this content type
+  isActive: boolean("is_active").notNull().default(true),
+  createdAt: timestamp("created_at").notNull().defaultNow(),
+  updatedAt: timestamp("updated_at").notNull().defaultNow(),
+});
+
+// Content Items
+export const contentItems = pgTable("content_items", {
+  id: serial("id").primaryKey(),
+  key: text("key").notNull().unique(), // unique identifier like "home_hero_title"
+  contentTypeId: integer("content_type_id").notNull().references(() => contentTypes.id),
+  title: text("title").notNull(),
+  content: jsonb("content").notNull(), // actual content data
+  isPublished: boolean("is_published").notNull().default(false),
+  publishedAt: timestamp("published_at"),
+  createdBy: integer("created_by").notNull().references(() => cmsAdmins.id),
+  updatedBy: integer("updated_by").notNull().references(() => cmsAdmins.id),
+  createdAt: timestamp("created_at").notNull().defaultNow(),
+  updatedAt: timestamp("updated_at").notNull().defaultNow(),
+});
+
+// Content Versions (for version control)
+export const contentVersions = pgTable("content_versions", {
+  id: serial("id").primaryKey(),
+  contentItemId: integer("content_item_id").notNull().references(() => contentItems.id),
+  versionNumber: integer("version_number").notNull(),
+  content: jsonb("content").notNull(),
+  changeDescription: text("change_description"),
+  createdBy: integer("created_by").notNull().references(() => cmsAdmins.id),
+  createdAt: timestamp("created_at").notNull().defaultNow(),
+});
+
+// Content Locks (for collaborative editing)
+export const contentLocks = pgTable("content_locks", {
+  id: serial("id").primaryKey(),
+  contentItemId: integer("content_item_id").notNull().references(() => contentItems.id),
+  lockedBy: integer("locked_by").notNull().references(() => cmsAdmins.id),
+  lockToken: text("lock_token").notNull().unique(),
+  expiresAt: timestamp("expires_at").notNull(),
+  createdAt: timestamp("created_at").notNull().defaultNow(),
+});
+
+// Activity Log
+export const cmsActivityLog = pgTable("cms_activity_log", {
+  id: serial("id").primaryKey(),
+  adminId: integer("admin_id").notNull().references(() => cmsAdmins.id),
+  action: text("action").notNull(), // "create", "update", "delete", "publish", "unpublish"
+  resourceType: text("resource_type").notNull(), // "content_item", "content_type", etc.
+  resourceId: integer("resource_id").notNull(),
+  details: jsonb("details"), // additional action details
+  ipAddress: text("ip_address"),
+  userAgent: text("user_agent"),
+  createdAt: timestamp("created_at").notNull().defaultNow(),
+});
+
+// CMS Relations
+export const cmsAdminsRelations = relations(cmsAdmins, ({ many }) => ({
+  contentItems: many(contentItems),
+  contentVersions: many(contentVersions),
+  contentLocks: many(contentLocks),
+  activityLogs: many(cmsActivityLog),
+}));
+
+export const contentTypesRelations = relations(contentTypes, ({ many }) => ({
+  contentItems: many(contentItems),
+}));
+
+export const contentItemsRelations = relations(contentItems, ({ one, many }) => ({
+  contentType: one(contentTypes, {
+    fields: [contentItems.contentTypeId],
+    references: [contentTypes.id],
+  }),
+  createdByAdmin: one(cmsAdmins, {
+    fields: [contentItems.createdBy],
+    references: [cmsAdmins.id],
+  }),
+  updatedByAdmin: one(cmsAdmins, {
+    fields: [contentItems.updatedBy],
+    references: [cmsAdmins.id],
+  }),
+  versions: many(contentVersions),
+  locks: many(contentLocks),
+}));
+
+// CMS Schema definitions
+export const insertCmsAdminSchema = createInsertSchema(cmsAdmins).omit({
+  id: true,
+  createdAt: true,
+  updatedAt: true,
+});
+
+export const insertContentTypeSchema = createInsertSchema(contentTypes).omit({
+  id: true,
+  createdAt: true,
+  updatedAt: true,
+});
+
+export const insertContentItemSchema = createInsertSchema(contentItems).omit({
+  id: true,
+  createdAt: true,
+  updatedAt: true,
+  publishedAt: true,
+});
+
+export const insertContentVersionSchema = createInsertSchema(contentVersions).omit({
+  id: true,
+  createdAt: true,
+});
+
+export const insertContentLockSchema = createInsertSchema(contentLocks).omit({
+  id: true,
+  createdAt: true,
+});
+
+export const insertCmsActivityLogSchema = createInsertSchema(cmsActivityLog).omit({
+  id: true,
+  createdAt: true,
+});
+
+// CMS Types
+export type CmsAdmin = typeof cmsAdmins.$inferSelect;
+export type InsertCmsAdmin = z.infer<typeof insertCmsAdminSchema>;
+export type ContentType = typeof contentTypes.$inferSelect;
+export type InsertContentType = z.infer<typeof insertContentTypeSchema>;
+export type ContentItem = typeof contentItems.$inferSelect;
+export type InsertContentItem = z.infer<typeof insertContentItemSchema>;
+export type ContentVersion = typeof contentVersions.$inferSelect;
+export type InsertContentVersion = z.infer<typeof insertContentVersionSchema>;
+export type ContentLock = typeof contentLocks.$inferSelect;
+export type InsertContentLock = z.infer<typeof insertContentLockSchema>;
+export type CmsActivityLog = typeof cmsActivityLog.$inferSelect;
+export type InsertCmsActivityLog = z.infer<typeof insertCmsActivityLogSchema>;
