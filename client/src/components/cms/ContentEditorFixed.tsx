@@ -247,51 +247,46 @@ export default function ContentEditor({ contentItems, contentTypes, onRefresh }:
           return (
             <Card key={item.id} className="bg-[#1A1A2E] border-gray-700">
               <CardContent className="p-4">
-                <div className="space-y-4">
-                  <div className="flex items-center justify-between">
+                <div className="flex items-center justify-between">
+                  <div className="flex items-center space-x-3">
+                    <div className="w-10 h-10 bg-[#FF389A]/20 rounded-full flex items-center justify-center">
+                      <Calendar className="h-5 w-5 text-[#FF389A]" />
+                    </div>
                     <div>
                       <h4 className="font-medium text-white">{item.content.pageTitle}</h4>
                       <p className="text-sm text-gray-400">
                         {item.content.completedTasks}/{item.content.totalTasks} Total Tasks Complete • {progressPercentage}% Complete
                       </p>
-                    </div>
-                    <div className="flex items-center space-x-2">
-                      <Badge variant={item.isPublished ? "default" : "secondary"}>
-                        {item.isPublished ? "Published" : "Draft"}
-                      </Badge>
-                      <Button size="sm" variant="outline" onClick={() => handleEdit(item)}>
-                        <Edit3 className="h-3 w-3" />
-                      </Button>
-                      <Button
-                        size="sm"
-                        variant="outline"
-                        onClick={() => item.isPublished ? unpublishMutation.mutate(item.id) : publishMutation.mutate(item.id)}
-                      >
-                        {item.isPublished ? <EyeOff className="h-3 w-3" /> : <Eye className="h-3 w-3" />}
-                      </Button>
-                      <Button
-                        size="sm"
-                        variant="outline"
-                        onClick={() => deleteContentMutation.mutate(item.id)}
-                        className="text-red-400 hover:text-red-300"
-                      >
-                        <Trash2 className="h-3 w-3" />
-                      </Button>
+                      <div className="flex items-center space-x-2 mt-1">
+                        <span className="text-xs text-gray-500">⏱ Go-live: {new Date(item.content.goLiveDate).toLocaleDateString()}</span>
+                        <Badge variant={progressPercentage === 100 ? "default" : "secondary"} className="text-xs">
+                          {progressPercentage === 100 ? "Complete" : "In Progress"}
+                        </Badge>
+                      </div>
                     </div>
                   </div>
-
-                  <div className="w-full bg-gray-700 rounded-full h-2">
-                    <div 
-                      className="bg-[#FF389A] h-2 rounded-full" 
-                      style={{ width: `${progressPercentage}%` }}
-                    ></div>
-                  </div>
-
-                  <div className="flex items-center justify-between text-sm">
-                    <span className="text-gray-400">{item.content.tasksOutstandingText}</span>
-                    <span className="text-[#FF389A] font-medium">
-                      {daysToGoLive > 0 ? `${daysToGoLive} days to go-live` : 'Go-Live Date Reached'}
-                    </span>
+                  <div className="flex items-center space-x-2">
+                    <Badge variant={item.isPublished ? "default" : "secondary"}>
+                      {item.isPublished ? "Published" : "Draft"}
+                    </Badge>
+                    <Button size="sm" variant="outline" onClick={() => handleEdit(item)}>
+                      <Edit3 className="h-3 w-3" />
+                    </Button>
+                    <Button
+                      size="sm"
+                      variant="outline"
+                      onClick={() => item.isPublished ? unpublishMutation.mutate(item.id) : publishMutation.mutate(item.id)}
+                    >
+                      {item.isPublished ? <EyeOff className="h-3 w-3" /> : <Eye className="h-3 w-3" />}
+                    </Button>
+                    <Button
+                      size="sm"
+                      variant="outline"
+                      onClick={() => deleteContentMutation.mutate(item.id)}
+                      className="text-red-400 hover:text-red-300"
+                    >
+                      <Trash2 className="h-3 w-3" />
+                    </Button>
                   </div>
                 </div>
               </CardContent>
