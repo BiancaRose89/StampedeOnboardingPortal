@@ -412,6 +412,83 @@ export function registerCmsRoutes(app: Express) {
     }
   });
 
+  // Venue management routes
+  app.get('/api/cms/venues', authenticateCmsAdmin, async (req, res) => {
+    try {
+      const venues = await cmsStorage.getAllVenues();
+      res.json(venues);
+    } catch (error) {
+      console.error('Error fetching venues:', error);
+      res.status(500).json({ message: 'Failed to fetch venues' });
+    }
+  });
+
+  app.post('/api/cms/venues', authenticateCmsAdmin, async (req, res) => {
+    try {
+      const venue = await cmsStorage.createVenue(req.body);
+      await cmsStorage.logActivity({
+        adminId: req.cmsAdmin!.id,
+        action: 'create',
+        resourceType: 'venue',
+        resourceId: venue.id,
+        details: { venueName: venue.name }
+      });
+      res.json(venue);
+    } catch (error) {
+      console.error('Error creating venue:', error);
+      res.status(500).json({ message: 'Failed to create venue' });
+    }
+  });
+
+  app.put('/api/cms/venues/:id', authenticateCmsAdmin, async (req, res) => {
+    try {
+      const id = parseInt(req.params.id);
+      const venue = await cmsStorage.updateVenue(id, req.body);
+      if (!venue) {
+        return res.status(404).json({ message: 'Venue not found' });
+      }
+      await cmsStorage.logActivity({
+        adminId: req.cmsAdmin!.id,
+        action: 'update',
+        resourceType: 'venue',
+        resourceId: venue.id,
+        details: { venueName: venue.name }
+      });
+      res.json(venue);
+    } catch (error) {
+      console.error('Error updating venue:', error);
+      res.status(500).json({ message: 'Failed to update venue' });
+    }
+  });
+
+  // Onboarding features routes
+  app.get('/api/cms/features', authenticateCmsAdmin, async (req, res) => {
+    try {
+      const features = await cmsStorage.getAllOnboardingFeatures();
+      res.json(features);
+    } catch (error) {
+      console.error('Error fetching features:', error);
+      res.status(500).json({ message: 'Failed to fetch features' });
+    }
+  });
+
+  app.post('/api/cms/features', authenticateCmsAdmin, async (req, res) => {
+    try {
+      const feature = await cmsStorage.createOnboardingFeature(req.body);
+      await cmsStorage.logActivity({
+        adminId: req.cmsAdmin!.id,
+        action: 'create',
+        resourceType: 'feature',
+        resourceId: feature.id,
+        details: { featureName: feature.name }
+      });
+      res.json(feature);
+    } catch (error) {
+      console.error('Error creating feature:', error);
+      res.status(500).json({ message: 'Failed to create feature' });
+    }
+  });
+
   // Public content API (for fetching published content in the main app)
   app.get('/api/content/:key', async (req, res) => {
     try {

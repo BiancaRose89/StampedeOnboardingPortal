@@ -43,6 +43,7 @@ import { useToast } from '@/hooks/use-toast';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { apiRequest } from '@/lib/queryClient';
 import { ContentEditorFixed } from './ContentEditorFixed';
+import { VenueManager } from './VenueManager';
 
 interface CmsAdmin {
   id: number;
@@ -514,7 +515,7 @@ export default function CmsDashboard({ admin, onLogout }: CmsDashboardProps) {
             </TabsTrigger>
             <TabsTrigger value="venues" className="data-[state=active]:bg-[#FF389A]">
               <Calendar className="h-4 w-4 mr-2" />
-              Venue Onboarding
+              Venue Management
             </TabsTrigger>
             <TabsTrigger value="onboarding" className="data-[state=active]:bg-[#FF389A]">
               <Zap className="h-4 w-4 mr-2" />
