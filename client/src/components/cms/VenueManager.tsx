@@ -48,179 +48,31 @@ interface VenueFormData {
   userId: number;
 }
 
-export function VenueManager() {
-  const [isAddVenueOpen, setIsAddVenueOpen] = useState(false);
-  const [editingVenue, setEditingVenue] = useState<Venue | null>(null);
-  const { toast } = useToast();
-  const queryClient = useQueryClient();
-
-  const { data: venues = [], isLoading: venuesLoading } = useQuery({
-    queryKey: ['/api/cms/venues'],
-  });
-
-  const { data: features = [] } = useQuery({
-    queryKey: ['/api/cms/features'],
-  });
-
-  const createVenueMutation = useMutation({
-    mutationFn: async (venueData: VenueFormData) => {
-      return apiRequest('/api/cms/venues', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(venueData),
-      });
-    },
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['/api/cms/venues'] });
-      setIsAddVenueOpen(false);
-      toast({ title: "Venue created", description: "New venue added successfully with selected features" });
-    },
-    onError: () => {
-      toast({ title: "Error", description: "Failed to create venue", variant: "destructive" });
-    },
-  });
-
-  const updateVenueMutation = useMutation({
-    mutationFn: async ({ id, updates }: { id: number; updates: Partial<Venue> }) => {
-      return apiRequest(`/api/cms/venues/${id}`, {
-        method: 'PUT',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(updates),
-      });
-    },
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['/api/cms/venues'] });
-      setEditingVenue(null);
-      toast({ title: "Venue updated", description: "Feature selection and details updated successfully" });
-    },
-    onError: () => {
-      toast({ title: "Error", description: "Failed to update venue", variant: "destructive" });
-    },
-  });
-
-  const getCategoryColor = (category: string) => {
-    switch (category) {
-      case 'core': return 'bg-blue-500/20 text-blue-300 border-blue-400';
-      case 'advanced': return 'bg-purple-500/20 text-purple-300 border-purple-400';
-      case 'premium': return 'bg-yellow-500/20 text-yellow-300 border-yellow-400';
-      default: return 'bg-gray-500/20 text-gray-300 border-gray-400';
-    }
-  };
-
-  const getStatusColor = (status: string) => {
-    switch (status) {
-      case 'setup': return 'bg-orange-500/20 text-orange-300 border-orange-400';
-      case 'in-progress': return 'bg-blue-500/20 text-blue-300 border-blue-400';
-      case 'completed': return 'bg-green-500/20 text-green-300 border-green-400';
-      case 'live': return 'bg-emerald-500/20 text-emerald-300 border-emerald-400';
-      default: return 'bg-gray-500/20 text-gray-300 border-gray-400';
-    }
-  };
-
-  return (
-    <div className="space-y-6">
-      {/* Header with Add Venue Button */}
-      <div className="flex items-center justify-between">
-        <div>
-          <h2 className="text-2xl font-bold text-white">Venue Management</h2>
-          <p className="text-gray-400">Manage venues and customize onboarding features</p>
-        </div>
-        
-        <Dialog open={isAddVenueOpen} onOpenChange={setIsAddVenueOpen}>
-          <DialogTrigger asChild>
-            <Button className="bg-[#FF389A] hover:bg-[#E6329C]">
-              <Plus className="h-4 w-4 mr-2" />
-              Add Venue
-            </Button>
-          </DialogTrigger>
-          <VenueFormDialog 
-            features={features}
-            onSubmit={(data) => createVenueMutation.mutate(data)}
-            isLoading={createVenueMutation.isPending}
-          />
-        </Dialog>
-      </div>
-
-      {/* Venues List */}
-      {venuesLoading ? (
-        <div className="space-y-4">
-          {[1, 2, 3].map((i) => (
-            <Card key={i} className="bg-[#1A1A2E] border-gray-600 animate-pulse">
-              <CardContent className="p-6">
-                <div className="h-6 bg-gray-600 rounded mb-4"></div>
-                <div className="h-4 bg-gray-700 rounded mb-2"></div>
-                <div className="h-4 bg-gray-700 rounded w-3/4"></div>
-              </CardContent>
-            </Card>
-          ))}
-        </div>
-      ) : venues.length === 0 ? (
-        <Card className="bg-[#1A1A2E] border-gray-600">
-          <CardContent className="p-12 text-center">
-            <Building2 className="h-12 w-12 text-gray-400 mx-auto mb-4" />
-            <h3 className="text-lg font-semibold text-white mb-2">No venues yet</h3>
-            <p className="text-gray-400 mb-4">Create your first venue to start managing onboarding flows</p>
-            <Button 
-              onClick={() => setIsAddVenueOpen(true)}
-              className="bg-[#FF389A] hover:bg-[#E6329C]"
-            >
-              <Plus className="h-4 w-4 mr-2" />
-              Add First Venue
-            </Button>
-          </CardContent>
-        </Card>
-      ) : (
-        <div className="grid gap-6">
-          {venues.map((venue: Venue) => (
-            <VenueCard 
-              key={venue.id}
-              venue={venue}
-              features={features}
-              onEdit={setEditingVenue}
-              getCategoryColor={getCategoryColor}
-              getStatusColor={getStatusColor}
-            />
-          ))}
-        </div>
-      )}
-
-      {/* Edit Venue Dialog */}
-      {editingVenue && (
-        <Dialog open={!!editingVenue} onOpenChange={() => setEditingVenue(null)}>
-          <VenueFormDialog 
-            venue={editingVenue}
-            features={features}
-            onSubmit={(data) => updateVenueMutation.mutate({ id: editingVenue.id, updates: data })}
-            isLoading={updateVenueMutation.isPending}
-          />
-        </Dialog>
-      )}
-    </div>
-  );
-}
-
 interface VenueCardProps {
   venue: Venue;
   features: OnboardingFeature[];
-  onEdit: (venue: Venue) => void;
-  getCategoryColor: (category: string) => string;
-  getStatusColor: (status: string) => string;
 }
 
-function VenueCard({ venue, features, onEdit, getCategoryColor, getStatusColor }: VenueCardProps) {
-  const selectedFeatures = features.filter(f => venue.selectedFeatures.includes(f.featureKey));
-  const totalTasks = selectedFeatures.reduce((sum, f) => sum + f.taskCount, 0);
-  const daysToGoLive = Math.ceil((new Date(venue.goLiveDate).getTime() - new Date().getTime()) / (1000 * 60 * 60 * 24));
+function VenueCard({ venue, features }: VenueCardProps) {
+  const selectedFeaturesList = features.filter(f => venue.selectedFeatures.includes(f.featureKey));
+  const totalTasks = selectedFeaturesList.reduce((sum, f) => sum + f.taskCount, 0);
+  const completedTasks = Math.floor(totalTasks * 0.65); // Mock completion percentage
+
+  const getStatusColor = (status: string) => {
+    switch (status.toLowerCase()) {
+      case 'active': return 'bg-green-500/20 text-green-300 border-green-400';
+      case 'pending': return 'bg-yellow-500/20 text-yellow-300 border-yellow-400';
+      case 'completed': return 'bg-blue-500/20 text-blue-300 border-blue-400';
+      default: return 'bg-gray-500/20 text-gray-300 border-gray-400';
+    }
+  };
 
   return (
-    <Card className="bg-[#1A1A2E] border-gray-600 hover:border-[#FF389A]/50 transition-colors">
-      <CardHeader className="pb-4">
+    <Card className="bg-[#0D0D24] border-gray-800 hover:border-[#FF389A] transition-colors">
+      <CardHeader className="pb-3">
         <div className="flex items-start justify-between">
           <div>
-            <CardTitle className="text-white flex items-center gap-2">
-              <Building2 className="h-5 w-5 text-[#FF389A]" />
-              {venue.name}
-            </CardTitle>
+            <CardTitle className="text-white text-lg">{venue.name}</CardTitle>
             <p className="text-gray-400 text-sm mt-1">ID: {venue.venueId}</p>
           </div>
           <Badge variant="outline" className={getStatusColor(venue.status)}>
@@ -228,75 +80,54 @@ function VenueCard({ venue, features, onEdit, getCategoryColor, getStatusColor }
           </Badge>
         </div>
       </CardHeader>
-      
       <CardContent className="space-y-4">
-        {/* Key Metrics */}
-        <div className="grid grid-cols-3 gap-4">
-          <div className="bg-[#0D0D24] rounded-lg p-3">
-            <div className="flex items-center gap-2 mb-1">
-              <Package className="h-4 w-4 text-[#FF389A]" />
-              <span className="text-xs text-gray-400">Package</span>
-            </div>
-            <div className="text-sm font-semibold text-white capitalize">{venue.packageType}</div>
+        <div className="grid grid-cols-2 gap-4 text-sm">
+          <div>
+            <span className="text-gray-400">Go-Live:</span>
+            <p className="text-white">{new Date(venue.goLiveDate).toLocaleDateString()}</p>
           </div>
-          
-          <div className="bg-[#0D0D24] rounded-lg p-3">
-            <div className="flex items-center gap-2 mb-1">
-              <Calendar className="h-4 w-4 text-[#FF389A]" />
-              <span className="text-xs text-gray-400">Go-Live</span>
-            </div>
-            <div className="text-sm font-semibold text-white">
-              {daysToGoLive > 0 ? `${daysToGoLive} days` : 'Overdue'}
-            </div>
-          </div>
-          
-          <div className="bg-[#0D0D24] rounded-lg p-3">
-            <div className="flex items-center gap-2 mb-1">
-              <Settings className="h-4 w-4 text-[#FF389A]" />
-              <span className="text-xs text-gray-400">Tasks</span>
-            </div>
-            <div className="text-sm font-semibold text-white">{totalTasks} total</div>
+          <div>
+            <span className="text-gray-400">Package:</span>
+            <p className="text-white capitalize">{venue.packageType}</p>
           </div>
         </div>
 
-        {/* Selected Features */}
-        <div>
-          <h4 className="text-sm font-medium text-gray-300 mb-2">Selected Features ({selectedFeatures.length})</h4>
-          <div className="flex flex-wrap gap-2">
-            {selectedFeatures.map((feature) => (
-              <Badge 
-                key={feature.featureKey} 
-                variant="outline" 
-                className={`${getCategoryColor(feature.category)} text-xs`}
-              >
+        <div className="space-y-2">
+          <div className="flex justify-between text-sm">
+            <span className="text-gray-400">Progress</span>
+            <span className="text-white">{completedTasks}/{totalTasks} tasks</span>
+          </div>
+          <div className="w-full bg-gray-700 rounded-full h-2">
+            <div 
+              className="bg-[#FF389A] h-2 rounded-full transition-all"
+              style={{ width: `${(completedTasks / totalTasks) * 100}%` }}
+            />
+          </div>
+          <p className="text-xs text-gray-500">{Math.round((completedTasks / totalTasks) * 100)}% complete</p>
+        </div>
+
+        <div className="space-y-2">
+          <span className="text-gray-400 text-sm">Selected Features ({selectedFeaturesList.length})</span>
+          <div className="flex flex-wrap gap-1">
+            {selectedFeaturesList.slice(0, 3).map((feature) => (
+              <Badge key={feature.featureKey} variant="secondary" className="text-xs">
                 {feature.name}
               </Badge>
             ))}
+            {selectedFeaturesList.length > 3 && (
+              <Badge variant="secondary" className="text-xs">
+                +{selectedFeaturesList.length - 3} more
+              </Badge>
+            )}
           </div>
         </div>
 
-        {/* Team Members */}
-        {venue.teamMembers && venue.teamMembers.length > 0 && (
-          <div>
-            <h4 className="text-sm font-medium text-gray-300 mb-2">Team Members</h4>
-            <div className="flex items-center gap-1">
-              <Users className="h-4 w-4 text-gray-400" />
-              <span className="text-sm text-gray-400">{venue.teamMembers.length} members</span>
-            </div>
-          </div>
-        )}
-
-        {/* Actions */}
-        <div className="flex items-center justify-between pt-2 border-t border-gray-600">
-          <span className="text-xs text-gray-400">
-            Created {new Date(venue.createdAt).toLocaleDateString()}
-          </span>
-          <Button
-            size="sm"
-            variant="outline"
-            onClick={() => onEdit(venue)}
-            className="text-[#FF389A] border-[#FF389A]/30 hover:bg-[#FF389A]/10"
-          >
+        <div className="flex items-center justify-between pt-2">
+          <Button variant="outline" size="sm" className="border-gray-600 text-gray-300">
+            <Users className="h-3 w-3 mr-1" />
+            View Team
+          </Button>
+          <Button variant="outline" size="sm" className="border-[#FF389A] text-[#FF389A] hover:bg-[#FF389A] hover:text-white">
             <Settings className="h-3 w-3 mr-1" />
             Manage Features
           </Button>
@@ -518,5 +349,107 @@ function VenueFormDialog({ venue, features, onSubmit, isLoading }: VenueFormDial
         </div>
       </form>
     </DialogContent>
+  );
+}
+
+export default function VenueManager() {
+  const { toast } = useToast();
+  const queryClient = useQueryClient();
+
+  // Fetch onboarding features
+  const { data: features = [] } = useQuery({
+    queryKey: ['/api/cms/onboarding-features'],
+    queryFn: () => fetch('/api/cms/onboarding-features').then(res => res.json()),
+  }) as { data: OnboardingFeature[] };
+
+  // Fetch venues
+  const { data: venues = [] } = useQuery({
+    queryKey: ['/api/cms/venues'],
+    queryFn: () => fetch('/api/cms/venues').then(res => res.json()),
+  }) as { data: Venue[] };
+
+  // Create venue mutation
+  const createVenueMutation = useMutation({
+    mutationFn: (data: VenueFormData) => 
+      fetch('/api/cms/venues', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data),
+      }).then(res => res.json()),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['/api/cms/venues'] });
+      toast({
+        title: "Success",
+        description: "Venue created successfully",
+      });
+    },
+    onError: (error: any) => {
+      toast({
+        title: "Error",
+        description: error.message || "Failed to create venue",
+        variant: "destructive",
+      });
+    },
+  });
+
+  const handleCreateVenue = (data: VenueFormData) => {
+    createVenueMutation.mutate(data);
+  };
+
+  return (
+    <div className="space-y-6">
+      {/* Header */}
+      <div className="flex items-center justify-between">
+        <div>
+          <h2 className="text-2xl font-bold text-white">Venue Onboarding Management</h2>
+          <p className="text-gray-400">Manage venue onboarding tasks and feature assignments</p>
+        </div>
+        <Dialog>
+          <DialogTrigger asChild>
+            <Button className="bg-[#FF389A] hover:bg-[#E6329C]">
+              <Plus className="h-4 w-4 mr-2" />
+              Add Venue
+            </Button>
+          </DialogTrigger>
+          <VenueFormDialog
+            features={features}
+            onSubmit={handleCreateVenue}
+            isLoading={createVenueMutation.isPending}
+          />
+        </Dialog>
+      </div>
+
+      {/* Venues Grid */}
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        {venues.map((venue) => (
+          <VenueCard 
+            key={venue.id} 
+            venue={venue} 
+            features={features}
+          />
+        ))}
+      </div>
+
+      {venues.length === 0 && (
+        <div className="text-center py-12">
+          <Building2 className="h-12 w-12 text-gray-600 mx-auto mb-4" />
+          <h3 className="text-lg font-medium text-gray-400 mb-2">No venues yet</h3>
+          <p className="text-gray-500 mb-6">Create your first venue to start managing onboarding tasks</p>
+          <Dialog>
+            <DialogTrigger asChild>
+              <Button className="bg-[#FF389A] hover:bg-[#E6329C]">
+                <Plus className="h-4 w-4 mr-2" />
+                Add First Venue
+              </Button>
+            </DialogTrigger>
+            <VenueFormDialog
+              features={features}
+              onSubmit={handleCreateVenue}
+              isLoading={createVenueMutation.isPending}
+            />
+          </Dialog>
+        </div>
+      )}
+    </div>
   );
 }
