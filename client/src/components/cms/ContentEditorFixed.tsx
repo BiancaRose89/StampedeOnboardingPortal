@@ -110,11 +110,13 @@ export default function ContentEditor({ contentItems, contentTypes, onRefresh }:
   // Create content mutation
   const createContentMutation = useMutation({
     mutationFn: async (data: any) => {
-      return await apiRequest('/api/cms/content', {
+      const response = await fetch('/api/cms/content', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(data)
       });
+      if (!response.ok) throw new Error('Create failed');
+      return response.json();
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['/api/cms/content'] });
@@ -131,9 +133,11 @@ export default function ContentEditor({ contentItems, contentTypes, onRefresh }:
   // Delete content mutation
   const deleteContentMutation = useMutation({
     mutationFn: async (id: number) => {
-      return await apiRequest(`/api/cms/content/${id}`, {
+      const response = await fetch(`/api/cms/content/${id}`, {
         method: 'DELETE'
       });
+      if (!response.ok) throw new Error('Delete failed');
+      return response.json();
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['/api/cms/content'] });
@@ -148,9 +152,11 @@ export default function ContentEditor({ contentItems, contentTypes, onRefresh }:
   // Publish/unpublish mutations
   const publishMutation = useMutation({
     mutationFn: async (id: number) => {
-      return await apiRequest(`/api/cms/content/${id}/publish`, {
+      const response = await fetch(`/api/cms/content/${id}/publish`, {
         method: 'POST'
       });
+      if (!response.ok) throw new Error('Publish failed');
+      return response.json();
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['/api/cms/content'] });
@@ -161,9 +167,11 @@ export default function ContentEditor({ contentItems, contentTypes, onRefresh }:
 
   const unpublishMutation = useMutation({
     mutationFn: async (id: number) => {
-      return await apiRequest(`/api/cms/content/${id}/unpublish`, {
+      const response = await fetch(`/api/cms/content/${id}/unpublish`, {
         method: 'POST'
       });
+      if (!response.ok) throw new Error('Unpublish failed');
+      return response.json();
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['/api/cms/content'] });
