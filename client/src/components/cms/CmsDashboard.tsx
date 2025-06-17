@@ -21,7 +21,6 @@ import {
   Trash2, 
   Plus,
   Clock,
-  CheckCircle,
   AlertCircle,
   LogOut,
   Zap,
@@ -39,7 +38,10 @@ import {
   Edit,
   MousePointer,
   Building2,
-  BarChart3
+  BarChart3,
+  TrendingUp,
+  TrendingDown,
+  MapPin
 } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
