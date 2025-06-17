@@ -18,7 +18,8 @@ import {
   Clock,
   CheckCircle,
   AlertCircle,
-  LogOut
+  LogOut,
+  Zap
 } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
