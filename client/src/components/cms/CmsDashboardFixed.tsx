@@ -31,7 +31,6 @@ import {
 import { useToast } from '@/hooks/use-toast';
 import { useQuery } from '@tanstack/react-query';
 import OrganizationManager from './OrganizationManager';
-import { VenueManager } from './VenueManager';
 
 interface CmsAdmin {
   id: number;
@@ -437,7 +436,47 @@ export default function CmsDashboard({ admin, onLogout }: CmsDashboardProps) {
 
               {/* Master Platform Sub-tab */}
               <TabsContent value="master-platform">
-                <VenueManager />
+                <Card className="bg-[#0D0D24] border-gray-800">
+                  <CardHeader>
+                    <CardTitle className="text-white">Master the Platform</CardTitle>
+                    <p className="text-gray-400">Platform training modules and feature guides</p>
+                  </CardHeader>
+                  <CardContent>
+                    {!Array.isArray(features) || features.length === 0 ? (
+                      <div className="text-center py-8 text-gray-400">
+                        No platform features configured
+                      </div>
+                    ) : (
+                      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                        {features.map((feature: any) => (
+                          <Card key={feature.id} className="bg-[#1A1A2E] border-gray-700">
+                            <CardContent className="p-4">
+                              <div className="flex items-center justify-between mb-3">
+                                <h3 className="text-white font-medium">{feature.name}</h3>
+                                <span className={`px-2 py-1 rounded text-xs ${
+                                  feature.category === 'core' ? 'bg-blue-900 text-blue-200' :
+                                  feature.category === 'advanced' ? 'bg-purple-900 text-purple-200' :
+                                  'bg-orange-900 text-orange-200'
+                                }`}>
+                                  {feature.category}
+                                </span>
+                              </div>
+                              <p className="text-gray-400 text-sm mb-3">{feature.description}</p>
+                              <div className="flex items-center justify-between">
+                                <span className="text-gray-500 text-xs">
+                                  {feature.estimatedTime || '15 min'}
+                                </span>
+                                <Button variant="outline" size="sm">
+                                  View Guide
+                                </Button>
+                              </div>
+                            </CardContent>
+                          </Card>
+                        ))}
+                      </div>
+                    )}
+                  </CardContent>
+                </Card>
               </TabsContent>
 
               {/* Onboarding Setup Tasks Sub-tab */}
