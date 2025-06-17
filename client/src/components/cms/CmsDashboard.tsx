@@ -1398,64 +1398,82 @@ export default function CmsDashboard({ admin, onLogout }: CmsDashboardProps) {
                                         </div>
                                         <div className="flex-1">
                                           {editingItem?.id === feature.id ? (
-                                            <div className="space-y-3">
-                                              <div className="grid grid-cols-2 gap-2">
-                                                <Input
-                                                  value={editingItem.name}
-                                                  onChange={(e) => setEditingItem({...editingItem, name: e.target.value})}
-                                                  className="bg-[#1A1A2E] border-gray-600 text-white text-sm"
-                                                  placeholder="Feature name"
-                                                />
-                                                <Input
-                                                  value={editingItem.content?.articleTitle || ''}
-                                                  onChange={(e) => setEditingItem({
-                                                    ...editingItem, 
-                                                    content: {...editingItem.content, articleTitle: e.target.value}
-                                                  })}
-                                                  className="bg-[#1A1A2E] border-gray-600 text-white text-sm"
-                                                  placeholder="Article title"
+                                            <div className="space-y-4 w-full">
+                                              <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+                                                <div className="space-y-1">
+                                                  <label className="text-xs text-gray-400">Feature Name</label>
+                                                  <Input
+                                                    value={editingItem.name}
+                                                    onChange={(e) => setEditingItem({...editingItem, name: e.target.value})}
+                                                    className="bg-[#1A1A2E] border-gray-600 text-white text-sm"
+                                                    placeholder="Feature name"
+                                                  />
+                                                </div>
+                                                <div className="space-y-1">
+                                                  <label className="text-xs text-gray-400">Article Title</label>
+                                                  <Input
+                                                    value={editingItem.content?.articleTitle || ''}
+                                                    onChange={(e) => setEditingItem({
+                                                      ...editingItem, 
+                                                      content: {...editingItem.content, articleTitle: e.target.value}
+                                                    })}
+                                                    className="bg-[#1A1A2E] border-gray-600 text-white text-sm"
+                                                    placeholder="Article title"
+                                                  />
+                                                </div>
+                                              </div>
+                                              
+                                              <div className="space-y-1">
+                                                <label className="text-xs text-gray-400">Short Description</label>
+                                                <Textarea
+                                                  value={editingItem.description}
+                                                  onChange={(e) => setEditingItem({...editingItem, description: e.target.value})}
+                                                  className="bg-[#1A1A2E] border-gray-600 text-white text-sm resize-none"
+                                                  rows={3}
+                                                  placeholder="Brief overview for this feature"
                                                 />
                                               </div>
                                               
-                                              <Textarea
-                                                value={editingItem.description}
-                                                onChange={(e) => setEditingItem({...editingItem, description: e.target.value})}
-                                                className="bg-[#1A1A2E] border-gray-600 text-white text-xs resize-none"
-                                                rows={2}
-                                                placeholder="Short description"
-                                              />
-                                              
-                                              <div className="grid grid-cols-2 gap-2">
-                                                <Input
-                                                  value={editingItem.content?.videoUrl || ''}
-                                                  onChange={(e) => setEditingItem({
-                                                    ...editingItem, 
-                                                    content: {...editingItem.content, videoUrl: e.target.value}
-                                                  })}
-                                                  className="bg-[#1A1A2E] border-gray-600 text-white text-xs"
-                                                  placeholder="Video URL (YouTube/Vimeo)"
-                                                />
-                                                <Input
-                                                  value={editingItem.content?.articleLink || ''}
-                                                  onChange={(e) => setEditingItem({
-                                                    ...editingItem, 
-                                                    content: {...editingItem.content, articleLink: e.target.value}
-                                                  })}
-                                                  className="bg-[#1A1A2E] border-gray-600 text-white text-xs"
-                                                  placeholder="Article link"
-                                                />
+                                              <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+                                                <div className="space-y-1">
+                                                  <label className="text-xs text-gray-400">Video URL (YouTube/Vimeo)</label>
+                                                  <Input
+                                                    value={editingItem.content?.videoUrl || ''}
+                                                    onChange={(e) => setEditingItem({
+                                                      ...editingItem, 
+                                                      content: {...editingItem.content, videoUrl: e.target.value}
+                                                    })}
+                                                    className="bg-[#1A1A2E] border-gray-600 text-white text-sm"
+                                                    placeholder="https://www.youtube.com/watch?v=..."
+                                                  />
+                                                </div>
+                                                <div className="space-y-1">
+                                                  <label className="text-xs text-gray-400">Article Link</label>
+                                                  <Input
+                                                    value={editingItem.content?.articleLink || ''}
+                                                    onChange={(e) => setEditingItem({
+                                                      ...editingItem, 
+                                                      content: {...editingItem.content, articleLink: e.target.value}
+                                                    })}
+                                                    className="bg-[#1A1A2E] border-gray-600 text-white text-sm"
+                                                    placeholder="/docs/guide or https://..."
+                                                  />
+                                                </div>
                                               </div>
                                               
-                                              <Textarea
-                                                value={editingItem.content?.markdownDescription || ''}
-                                                onChange={(e) => setEditingItem({
-                                                  ...editingItem, 
-                                                  content: {...editingItem.content, markdownDescription: e.target.value}
-                                                })}
-                                                className="bg-[#1A1A2E] border-gray-600 text-white text-xs resize-none font-mono"
-                                                rows={4}
-                                                placeholder="Detailed description (Markdown supported)&#10;**Bold**, *italic*, • bullets, etc."
-                                              />
+                                              <div className="space-y-1">
+                                                <label className="text-xs text-gray-400">Rich Description (Markdown)</label>
+                                                <Textarea
+                                                  value={editingItem.content?.markdownDescription || ''}
+                                                  onChange={(e) => setEditingItem({
+                                                    ...editingItem, 
+                                                    content: {...editingItem.content, markdownDescription: e.target.value}
+                                                  })}
+                                                  className="bg-[#1A1A2E] border-gray-600 text-white text-sm resize-none font-mono"
+                                                  rows={6}
+                                                  placeholder="Detailed instructions with **bold**, *italic*, • bullets, etc.&#10;&#10;Use **bold** for emphasis&#10;• Bullet points for lists&#10;→ Arrow points for steps&#10;🎯 **Goal**: Add emojis for impact"
+                                                />
+                                              </div>
                                             </div>
                                           ) : (
                                             <div>
@@ -1827,6 +1845,142 @@ export default function CmsDashboard({ admin, onLogout }: CmsDashboardProps) {
           )}
         </Tabs>
       </div>
+
+      {/* Rich Content Preview Dialog */}
+      {previewFeature && (
+        <Dialog open={!!previewFeature} onOpenChange={() => setPreviewFeature(null)}>
+          <DialogContent className="bg-[#0D0D24] border-gray-800 max-w-4xl max-h-[90vh] overflow-y-auto">
+            <DialogHeader>
+              <DialogTitle className="text-white flex items-center space-x-2">
+                <div className={`w-8 h-8 rounded-lg flex items-center justify-center ${
+                  previewFeature.color === 'blue' ? 'bg-blue-500/20 text-blue-400' :
+                  previewFeature.color === 'pink' ? 'bg-pink-500/20 text-pink-400' :
+                  previewFeature.color === 'yellow' ? 'bg-yellow-500/20 text-yellow-400' :
+                  previewFeature.color === 'green' ? 'bg-green-500/20 text-green-400' :
+                  previewFeature.color === 'purple' ? 'bg-purple-500/20 text-purple-400' :
+                  previewFeature.color === 'orange' ? 'bg-orange-500/20 text-orange-400' :
+                  previewFeature.color === 'cyan' ? 'bg-cyan-500/20 text-cyan-400' :
+                  'bg-red-500/20 text-red-400'
+                }`}>
+                  {(() => {
+                    const iconMap: any = {
+                      Settings, Calendar, Zap, Activity, CheckCircle, Users, AlertCircle
+                    };
+                    const IconComponent = iconMap[previewFeature.icon] || Settings;
+                    return <IconComponent className="h-4 w-4" />;
+                  })()}
+                </div>
+                <span>Preview: {previewFeature.name}</span>
+              </DialogTitle>
+            </DialogHeader>
+            
+            <div className="space-y-6">
+              {/* Basic Info Section */}
+              <div className="bg-[#1A1A2E] rounded-lg p-4">
+                <h3 className="text-lg font-semibold text-white mb-2">{previewFeature.name}</h3>
+                <p className="text-gray-400 text-sm mb-3">{previewFeature.description}</p>
+                
+                {previewFeature.content && (
+                  <div className="flex items-center space-x-3">
+                    {previewFeature.content.videoUrl && (
+                      <Badge variant="outline" className="text-blue-400 border-blue-400">
+                        <Play className="h-3 w-3 mr-1" />
+                        Video Available
+                      </Badge>
+                    )}
+                    {previewFeature.content.articleLink && (
+                      <Badge variant="outline" className="text-green-400 border-green-400">
+                        <FileTextIcon className="h-3 w-3 mr-1" />
+                        Documentation
+                      </Badge>
+                    )}
+                    {previewFeature.content.markdownDescription && (
+                      <Badge variant="outline" className="text-purple-400 border-purple-400">
+                        Rich Content
+                      </Badge>
+                    )}
+                  </div>
+                )}
+              </div>
+
+              {/* Video Embed Section */}
+              {previewFeature.content?.videoUrl && (
+                <div className="space-y-3">
+                  <h4 className="text-md font-medium text-white flex items-center">
+                    <Play className="h-4 w-4 mr-2 text-blue-400" />
+                    Training Video
+                  </h4>
+                  <div className="bg-[#1A1A2E] rounded-lg p-4">
+                    {getVideoEmbed(previewFeature.content.videoUrl) ? (
+                      <div className="aspect-video w-full">
+                        <iframe
+                          src={getVideoEmbed(previewFeature.content.videoUrl)}
+                          className="w-full h-full rounded-lg"
+                          frameBorder="0"
+                          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                          allowFullScreen
+                        />
+                      </div>
+                    ) : (
+                      <div className="aspect-video w-full bg-gray-800 rounded-lg flex items-center justify-center">
+                        <div className="text-center">
+                          <Play className="h-12 w-12 text-gray-500 mx-auto mb-2" />
+                          <p className="text-gray-400">Video preview not available</p>
+                          <p className="text-xs text-gray-500 mt-1">{previewFeature.content.videoUrl}</p>
+                        </div>
+                      </div>
+                    )}
+                  </div>
+                </div>
+              )}
+
+              {/* Rich Description Section */}
+              {previewFeature.content?.markdownDescription && (
+                <div className="space-y-3">
+                  <h4 className="text-md font-medium text-white">Detailed Instructions</h4>
+                  <div className="bg-white rounded-lg p-6">
+                    <div 
+                      className="prose prose-sm max-w-none text-gray-900"
+                      dangerouslySetInnerHTML={{ 
+                        __html: `<p>${renderMarkdown(previewFeature.content.markdownDescription)}</p>`
+                      }}
+                    />
+                  </div>
+                </div>
+              )}
+
+              {/* Article Link Section */}
+              {previewFeature.content?.articleLink && (
+                <div className="space-y-3">
+                  <h4 className="text-md font-medium text-white flex items-center">
+                    <FileTextIcon className="h-4 w-4 mr-2 text-green-400" />
+                    Additional Resources
+                  </h4>
+                  <div className="bg-[#1A1A2E] rounded-lg p-4">
+                    <Button 
+                      variant="outline" 
+                      className="w-full justify-start"
+                      onClick={() => window.open(previewFeature.content.articleLink, '_blank')}
+                    >
+                      <ExternalLink className="h-4 w-4 mr-2" />
+                      {previewFeature.content.articleTitle || 'Read Documentation'}
+                    </Button>
+                  </div>
+                </div>
+              )}
+            </div>
+
+            <div className="flex justify-end pt-4 border-t border-gray-700">
+              <Button 
+                onClick={() => setPreviewFeature(null)}
+                variant="outline"
+              >
+                Close Preview
+              </Button>
+            </div>
+          </DialogContent>
+        </Dialog>
+      )}
     </div>
   );
 }
