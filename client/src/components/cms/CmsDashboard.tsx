@@ -82,6 +82,49 @@ export default function CmsDashboard({ admin, onLogout }: CmsDashboardProps) {
   const { toast } = useToast();
   const queryClient = useQueryClient();
 
+  // Helper function to extract video ID from YouTube/Vimeo URLs
+  const getVideoEmbed = (url: string) => {
+    if (!url) return null;
+    
+    // YouTube
+    const youtubeMatch = url.match(/(?:youtube\.com\/watch\?v=|youtu\.be\/)([^&\n?#]+)/);
+    if (youtubeMatch) {
+      return `https://www.youtube.com/embed/${youtubeMatch[1]}`;
+    }
+    
+    // Vimeo
+    const vimeoMatch = url.match(/vimeo\.com\/(\d+)/);
+    if (vimeoMatch) {
+      return `https://player.vimeo.com/video/${vimeoMatch[1]}`;
+    }
+    
+    return null;
+  };
+
+  // Helper function to render markdown content
+  const renderMarkdown = (text: string) => {
+    if (!text) return text;
+    
+    return text
+      .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
+      .replace(/\*(.*?)\*/g, '<em>$1</em>')
+      .replace(/^• (.*$)/gim, '<li>$1</li>')
+      .replace(/^→ (.*$)/gim, '<li class="arrow-item">→ $1</li>')
+      .replace(/^★ (.*$)/gim, '<li class="star-item">★ $1</li>')
+      .replace(/^✅ (.*$)/gim, '<li class="check-item">✅ $1</li>')
+      .replace(/^📚 (.*$)/gim, '<li class="book-item">📚 $1</li>')
+      .replace(/^🎯 (.*$)/gim, '<div class="goal-item">🎯 $1</div>')
+      .replace(/^⚡ (.*$)/gim, '<div class="tip-item">⚡ $1</div>')
+      .replace(/^📊 (.*$)/gim, '<div class="stat-item">📊 $1</div>')
+      .replace(/^📈 (.*$)/gim, '<div class="impact-item">📈 $1</div>')
+      .replace(/^🔒 (.*$)/gim, '<div class="security-item">🔒 $1</div>')
+      .replace(/^⏱️ (.*$)/gim, '<div class="time-item">⏱️ $1</div>')
+      .replace(/^🚀 (.*$)/gim, '<div class="launch-item">🚀 $1</div>')
+      .replace(/^> (.*$)/gim, '<blockquote>$1</blockquote>')
+      .replace(/\n\n/g, '</p><p>')
+      .replace(/\n/g, '<br/>');
+  };
+
   // Editing states for making everything configurable
   const [editMode, setEditMode] = useState<string | null>(null);
   const [editingItem, setEditingItem] = useState<any>(null);
