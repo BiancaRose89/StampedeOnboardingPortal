@@ -71,18 +71,40 @@ export const onboardingFeatures = pgTable("onboarding_features", {
   updatedAt: timestamp("updated_at").notNull().defaultNow(),
 });
 
-// Venues table for multi-venue management with feature selection
+// Organizations table for multi-venue management
+export const organizations = pgTable("organizations", {
+  id: serial("id").primaryKey(),
+  name: text("name").notNull(),
+  description: text("description"),
+  contactEmail: text("contact_email"),
+  contactPhone: text("contact_phone"),
+  address: text("address"),
+  organizationId: text("organization_id").unique(), // Custom organization identifier
+  packageType: text("package_type").default("standard"), // "basic", "standard", "premium"
+  status: text("status").notNull().default("setup"), // "setup", "active", "completed", "inactive"
+  totalVenues: integer("total_venues").notNull().default(0),
+  liveVenues: integer("live_venues").notNull().default(0),
+  isActive: boolean("is_active").notNull().default(true),
+  createdAt: timestamp("created_at").notNull().defaultNow(),
+  updatedAt: timestamp("updated_at").notNull().defaultNow(),
+});
+
+// Venues table for multi-venue management with organization relationship
 export const venues = pgTable("venues", {
   id: serial("id").primaryKey(),
-  userId: integer("user_id").notNull().references(() => users.id),
+  organizationId: integer("organization_id").notNull().references(() => organizations.id),
   name: text("name").notNull(),
   venueId: text("venue_id").unique(), // Custom venue identifier
+  description: text("description"),
+  address: text("address"),
   goLiveDate: timestamp("go_live_date"),
   selectedFeatures: jsonb("selected_features").notNull().default('[]'), // Array of feature keys
   teamMembers: jsonb("team_members").default('[]'), // Array of team member objects
-  packageType: text("package_type").default("standard"), // "basic", "standard", "premium"
   status: text("status").notNull().default("setup"), // "setup", "in-progress", "completed", "live"
   progressData: jsonb("progress_data").default('{}'), // Progress tracking data
+  completedTasks: integer("completed_tasks").notNull().default(0),
+  totalTasks: integer("total_tasks").notNull().default(0),
+  progressPercentage: integer("progress_percentage").notNull().default(0),
   isActive: boolean("is_active").notNull().default(true),
   createdAt: timestamp("created_at").notNull().defaultNow(),
   updatedAt: timestamp("updated_at").notNull().defaultNow(),
@@ -159,6 +181,12 @@ export const insertOnboardingFeatureSchema = createInsertSchema(onboardingFeatur
   updatedAt: true,
 });
 
+export const insertOrganizationSchema = createInsertSchema(organizations).omit({
+  id: true,
+  createdAt: true,
+  updatedAt: true,
+});
+
 export const insertVenueSchema = createInsertSchema(venues).omit({
   id: true,
   createdAt: true,
@@ -193,6 +221,8 @@ export type InsertSession = z.infer<typeof insertSessionSchema>;
 export type UserSession = typeof userSessions.$inferSelect;
 export type InsertOnboardingFeature = z.infer<typeof insertOnboardingFeatureSchema>;
 export type OnboardingFeature = typeof onboardingFeatures.$inferSelect;
+export type InsertOrganization = z.infer<typeof insertOrganizationSchema>;
+export type Organization = typeof organizations.$inferSelect;
 export type InsertVenue = z.infer<typeof insertVenueSchema>;
 export type Venue = typeof venues.$inferSelect;
 export type InsertTeamMember = z.infer<typeof insertTeamMemberSchema>;

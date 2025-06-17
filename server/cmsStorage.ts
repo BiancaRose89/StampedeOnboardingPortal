@@ -5,6 +5,7 @@ import {
   contentVersions,
   contentLocks,
   cmsActivityLog,
+  organizations,
   venues,
   onboardingFeatures,
   type CmsAdmin,
@@ -19,6 +20,8 @@ import {
   type InsertContentLock,
   type CmsActivityLog,
   type InsertCmsActivityLog,
+  type Organization,
+  type InsertOrganization,
   type Venue,
   type InsertVenue,
   type OnboardingFeature,
@@ -73,10 +76,18 @@ export interface ICmsStorage {
   getActivityLog(limit?: number): Promise<CmsActivityLog[]>;
   getAdminActivity(adminId: number, limit?: number): Promise<CmsActivityLog[]>;
 
+  // Organization management
+  createOrganization(organization: InsertOrganization): Promise<Organization>;
+  getAllOrganizations(): Promise<Organization[]>;
+  getOrganizationById(id: number): Promise<Organization | undefined>;
+  updateOrganization(id: number, updates: Partial<Organization>): Promise<Organization | undefined>;
+  deleteOrganization(id: number): Promise<boolean>;
+
   // Venue management
   createVenue(venue: InsertVenue): Promise<Venue>;
   getAllVenues(): Promise<Venue[]>;
   getVenueById(id: number): Promise<Venue | undefined>;
+  getVenuesByOrganization(organizationId: number): Promise<Venue[]>;
   updateVenue(id: number, updates: Partial<Venue>): Promise<Venue | undefined>;
   deleteVenue(id: number): Promise<boolean>;
 
@@ -454,7 +465,56 @@ export class DatabaseCmsStorage implements ICmsStorage {
       .update(venues)
       .set({ isActive: false, updatedAt: new Date() })
       .where(eq(venues.id, id));
-    return result.rowCount > 0;
+    return (result.rowCount ?? 0) > 0;
+  }
+
+  // Organization management
+  async createOrganization(organization: InsertOrganization): Promise<Organization> {
+    const [newOrganization] = await db
+      .insert(organizations)
+      .values(organization)
+      .returning();
+    return newOrganization;
+  }
+
+  async getAllOrganizations(): Promise<Organization[]> {
+    return await db
+      .select()
+      .from(organizations)
+      .where(eq(organizations.isActive, true))
+      .orderBy(organizations.createdAt);
+  }
+
+  async getOrganizationById(id: number): Promise<Organization | undefined> {
+    const [organization] = await db
+      .select()
+      .from(organizations)
+      .where(eq(organizations.id, id));
+    return organization;
+  }
+
+  async updateOrganization(id: number, updates: Partial<Organization>): Promise<Organization | undefined> {
+    const [updatedOrganization] = await db
+      .update(organizations)
+      .set({ ...updates, updatedAt: new Date() })
+      .where(eq(organizations.id, id))
+      .returning();
+    return updatedOrganization;
+  }
+
+  async deleteOrganization(id: number): Promise<boolean> {
+    const result = await db
+      .update(organizations)
+      .set({ isActive: false, updatedAt: new Date() })
+      .where(eq(organizations.id, id));
+    return (result.rowCount ?? 0) > 0;
+  }
+
+  async getVenuesByOrganization(organizationId: number): Promise<Venue[]> {
+    return await db
+      .select()
+      .from(venues)
+      .where(eq(venues.organizationId, organizationId));
   }
 
   // Feature management
