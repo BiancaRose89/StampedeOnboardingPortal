@@ -12,6 +12,7 @@ import {
   Lock, 
   Unlock, 
   Eye, 
+  EyeOff,
   Edit3, 
   Trash2, 
   Plus,
@@ -493,7 +494,7 @@ export default function CmsDashboard({ admin, onLogout }: CmsDashboardProps) {
                     </Button>
                   </div>
                   
-                  <div className="grid gap-3">
+                  <div className="space-y-6">
                     {contentItems.filter((item: any) => 
                       contentTypes.find((type: any) => type.id === item.contentTypeId)?.name === 'venue_onboarding'
                     ).map((item: any) => {
@@ -501,14 +502,15 @@ export default function CmsDashboard({ admin, onLogout }: CmsDashboardProps) {
                       
                       return (
                         <Card key={item.id} className="bg-[#1A1A2E] border-gray-700">
-                          <CardContent className="p-4">
-                            <div className="flex items-center justify-between">
+                          <CardContent className="p-6">
+                            {/* Venue Header */}
+                            <div className="flex items-center justify-between mb-6">
                               <div className="flex items-center space-x-3">
-                                <div className="w-10 h-10 bg-[#FF389A]/20 rounded-full flex items-center justify-center">
-                                  <Calendar className="h-5 w-5 text-[#FF389A]" />
+                                <div className="w-12 h-12 bg-[#FF389A]/20 rounded-full flex items-center justify-center">
+                                  <Calendar className="h-6 w-6 text-[#FF389A]" />
                                 </div>
                                 <div>
-                                  <h4 className="font-medium text-white">{item.content.pageTitle}</h4>
+                                  <h4 className="text-lg font-semibold text-white">{item.content.pageTitle}</h4>
                                   <p className="text-sm text-gray-400">
                                     {item.content.completedTasks}/{item.content.totalTasks} Total Tasks Complete • {progressPercentage}% Complete
                                   </p>
@@ -527,6 +529,223 @@ export default function CmsDashboard({ admin, onLogout }: CmsDashboardProps) {
                                 <Button size="sm" variant="outline">
                                   <Edit3 className="h-3 w-3" />
                                 </Button>
+                              </div>
+                            </div>
+
+                            {/* Progress Bar */}
+                            <div className="mb-6">
+                              <div className="w-full bg-gray-700 rounded-full h-2">
+                                <div 
+                                  className="bg-[#FF389A] h-2 rounded-full transition-all duration-300" 
+                                  style={{ width: `${progressPercentage}%` }}
+                                ></div>
+                              </div>
+                            </div>
+
+                            {/* Onboarding Features Grid */}
+                            <div className="space-y-4">
+                              <h5 className="text-md font-medium text-white mb-4">Onboarding Features & Tasks</h5>
+                              
+                              <div className="grid gap-3">
+                                {/* Account Setup */}
+                                <div className="flex items-center justify-between p-3 bg-[#0D0D24] rounded-lg border border-gray-700">
+                                  <div className="flex items-center space-x-3">
+                                    <div className="w-8 h-8 bg-blue-500/20 rounded-lg flex items-center justify-center">
+                                      <Settings className="h-4 w-4 text-blue-400" />
+                                    </div>
+                                    <div>
+                                      <h6 className="font-medium text-white">Account Setup</h6>
+                                      <p className="text-xs text-gray-400">Platform configuration and initial setup</p>
+                                    </div>
+                                  </div>
+                                  <div className="flex items-center space-x-2">
+                                    <Button size="sm" variant="ghost" className="text-gray-400 hover:text-white">
+                                      <Eye className="h-3 w-3 mr-1" />
+                                      Show
+                                    </Button>
+                                    <Button size="sm" variant="ghost" className="text-gray-400 hover:text-white">
+                                      <Edit3 className="h-3 w-3" />
+                                    </Button>
+                                  </div>
+                                </div>
+
+                                {/* Bookings Setup */}
+                                <div className="flex items-center justify-between p-3 bg-[#0D0D24] rounded-lg border border-gray-700">
+                                  <div className="flex items-center space-x-3">
+                                    <div className="w-8 h-8 bg-[#FF389A]/20 rounded-lg flex items-center justify-center">
+                                      <Calendar className="h-4 w-4 text-[#FF389A]" />
+                                    </div>
+                                    <div>
+                                      <h6 className="font-medium text-white">Bookings Go-Live Guide</h6>
+                                      <p className="text-xs text-gray-400">Table management and reservation system</p>
+                                    </div>
+                                  </div>
+                                  <div className="flex items-center space-x-2">
+                                    <Button size="sm" variant="ghost" className="text-gray-400 hover:text-white">
+                                      <Eye className="h-3 w-3 mr-1" />
+                                      Show
+                                    </Button>
+                                    <Button size="sm" variant="ghost" className="text-gray-400 hover:text-white">
+                                      <Edit3 className="h-3 w-3" />
+                                    </Button>
+                                  </div>
+                                </div>
+
+                                {/* Loyalty Program */}
+                                <div className="flex items-center justify-between p-3 bg-[#0D0D24] rounded-lg border border-gray-700">
+                                  <div className="flex items-center space-x-3">
+                                    <div className="w-8 h-8 bg-yellow-500/20 rounded-lg flex items-center justify-center">
+                                      <Zap className="h-4 w-4 text-yellow-400" />
+                                    </div>
+                                    <div>
+                                      <h6 className="font-medium text-white">Loyalty Go-Live Guide</h6>
+                                      <p className="text-xs text-gray-400">Customer rewards and loyalty program setup</p>
+                                    </div>
+                                  </div>
+                                  <div className="flex items-center space-x-2">
+                                    <Button size="sm" variant="ghost" className="text-gray-400 hover:text-white">
+                                      <Eye className="h-3 w-3 mr-1" />
+                                      Show
+                                    </Button>
+                                    <Button size="sm" variant="ghost" className="text-gray-400 hover:text-white">
+                                      <Edit3 className="h-3 w-3" />
+                                    </Button>
+                                  </div>
+                                </div>
+
+                                {/* Marketing Setup */}
+                                <div className="flex items-center justify-between p-3 bg-[#0D0D24] rounded-lg border border-gray-700">
+                                  <div className="flex items-center space-x-3">
+                                    <div className="w-8 h-8 bg-green-500/20 rounded-lg flex items-center justify-center">
+                                      <Activity className="h-4 w-4 text-green-400" />
+                                    </div>
+                                    <div>
+                                      <h6 className="font-medium text-white">Marketing Go-Live Guide</h6>
+                                      <p className="text-xs text-gray-400">Email campaigns and marketing automation</p>
+                                    </div>
+                                  </div>
+                                  <div className="flex items-center space-x-2">
+                                    <Button size="sm" variant="ghost" className="text-gray-400 hover:text-white">
+                                      <Eye className="h-3 w-3 mr-1" />
+                                      Show
+                                    </Button>
+                                    <Button size="sm" variant="ghost" className="text-gray-400 hover:text-white">
+                                      <Edit3 className="h-3 w-3" />
+                                    </Button>
+                                  </div>
+                                </div>
+
+                                {/* WiFi & Guest Capture */}
+                                <div className="flex items-center justify-between p-3 bg-[#0D0D24] rounded-lg border border-gray-700">
+                                  <div className="flex items-center space-x-3">
+                                    <div className="w-8 h-8 bg-purple-500/20 rounded-lg flex items-center justify-center">
+                                      <Settings className="h-4 w-4 text-purple-400" />
+                                    </div>
+                                    <div>
+                                      <h6 className="font-medium text-white">WiFi & Guest Capture</h6>
+                                      <p className="text-xs text-gray-400">Guest network setup and data collection</p>
+                                    </div>
+                                  </div>
+                                  <div className="flex items-center space-x-2">
+                                    <Button size="sm" variant="ghost" className="text-gray-400 hover:text-white">
+                                      <Eye className="h-3 w-3 mr-1" />
+                                      Show
+                                    </Button>
+                                    <Button size="sm" variant="ghost" className="text-gray-400 hover:text-white">
+                                      <Edit3 className="h-3 w-3" />
+                                    </Button>
+                                  </div>
+                                </div>
+
+                                {/* Reviews Management */}
+                                <div className="flex items-center justify-between p-3 bg-[#0D0D24] rounded-lg border border-gray-700">
+                                  <div className="flex items-center space-x-3">
+                                    <div className="w-8 h-8 bg-orange-500/20 rounded-lg flex items-center justify-center">
+                                      <CheckCircle className="h-4 w-4 text-orange-400" />
+                                    </div>
+                                    <div>
+                                      <h6 className="font-medium text-white">Reviews Management</h6>
+                                      <p className="text-xs text-gray-400">Online review collection and management</p>
+                                    </div>
+                                  </div>
+                                  <div className="flex items-center space-x-2">
+                                    <Button size="sm" variant="ghost" className="text-gray-400 hover:text-white">
+                                      <Eye className="h-3 w-3 mr-1" />
+                                      Show
+                                    </Button>
+                                    <Button size="sm" variant="ghost" className="text-gray-400 hover:text-white">
+                                      <Edit3 className="h-3 w-3" />
+                                    </Button>
+                                  </div>
+                                </div>
+
+                                {/* Staff Training */}
+                                <div className="flex items-center justify-between p-3 bg-[#0D0D24] rounded-lg border border-gray-700">
+                                  <div className="flex items-center space-x-3">
+                                    <div className="w-8 h-8 bg-cyan-500/20 rounded-lg flex items-center justify-center">
+                                      <Users className="h-4 w-4 text-cyan-400" />
+                                    </div>
+                                    <div>
+                                      <h6 className="font-medium text-white">Staff Training</h6>
+                                      <p className="text-xs text-gray-400">Team onboarding and system training</p>
+                                    </div>
+                                  </div>
+                                  <div className="flex items-center space-x-2">
+                                    <Button size="sm" variant="ghost" className="text-gray-400 hover:text-white">
+                                      <Eye className="h-3 w-3 mr-1" />
+                                      Show
+                                    </Button>
+                                    <Button size="sm" variant="ghost" className="text-gray-400 hover:text-white">
+                                      <Edit3 className="h-3 w-3" />
+                                    </Button>
+                                  </div>
+                                </div>
+
+                                {/* Go-Live Checklist */}
+                                <div className="flex items-center justify-between p-3 bg-[#0D0D24] rounded-lg border border-gray-700">
+                                  <div className="flex items-center space-x-3">
+                                    <div className="w-8 h-8 bg-red-500/20 rounded-lg flex items-center justify-center">
+                                      <AlertCircle className="h-4 w-4 text-red-400" />
+                                    </div>
+                                    <div>
+                                      <h6 className="font-medium text-white">Go-Live Checklist</h6>
+                                      <p className="text-xs text-gray-400">Final launch preparation and validation</p>
+                                    </div>
+                                  </div>
+                                  <div className="flex items-center space-x-2">
+                                    <Button size="sm" variant="ghost" className="text-gray-400 hover:text-white">
+                                      <Eye className="h-3 w-3 mr-1" />
+                                      Show
+                                    </Button>
+                                    <Button size="sm" variant="ghost" className="text-gray-400 hover:text-white">
+                                      <Edit3 className="h-3 w-3" />
+                                    </Button>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+
+                            {/* Quick Actions */}
+                            <div className="mt-6 pt-4 border-t border-gray-700">
+                              <div className="flex items-center justify-between">
+                                <div className="flex items-center space-x-2">
+                                  <Button size="sm" className="bg-[#FF389A] hover:bg-[#E6329C]">
+                                    Save Changes
+                                  </Button>
+                                  <Button size="sm" variant="outline">
+                                    Preview Changes
+                                  </Button>
+                                </div>
+                                <div className="flex items-center space-x-2">
+                                  <Button size="sm" variant="ghost" className="text-gray-400 hover:text-white">
+                                    <Eye className="h-3 w-3 mr-1" />
+                                    Show All
+                                  </Button>
+                                  <Button size="sm" variant="ghost" className="text-gray-400 hover:text-white">
+                                    <EyeOff className="h-3 w-3 mr-1" />
+                                    Hide All
+                                  </Button>
+                                </div>
                               </div>
                             </div>
                           </CardContent>
