@@ -116,12 +116,7 @@ const TASK_TEMPLATES = [
     estimatedTime: '10 min',
     icon: Gift
   },
-  { 
-    name: 'Analytics Configuration', 
-    description: 'Set up reporting dashboards and key metrics tracking',
-    estimatedTime: '15 min',
-    icon: BarChart3
-  },
+
   { 
     name: 'Launch Preparation', 
     description: 'Final review and go-live checklist completion',
@@ -143,7 +138,7 @@ export default function MultiVenueOnboarding() {
   const [activeVenue, setActiveVenue] = useState<string>('');
   const [isSetupComplete, setIsSetupComplete] = useState(false);
   const [showOnboardingOverview, setShowOnboardingOverview] = useState(true);
-  const [goLiveDate, setGoLiveDate] = useState('');
+  const [goLiveDate, setGoLiveDate] = useState('2025-01-07');
   const [newTeamMemberName, setNewTeamMemberName] = useState('');
   const [newTeamMemberEmail, setNewTeamMemberEmail] = useState('');
   const [showBookingTaskList, setShowBookingTaskList] = useState(false);
@@ -246,6 +241,30 @@ export default function MultiVenueOnboarding() {
     const venueTasks = getVenueTasks(venueId);
     const completed = venueTasks.filter(task => task.status === 'completed').length;
     return venueTasks.length > 0 ? Math.round((completed / venueTasks.length) * 100) : 0;
+  };
+
+  // Calculate days remaining until go-live date
+  const getDaysUntilGoLive = () => {
+    if (!goLiveDate) return null;
+    
+    const today = new Date();
+    const targetDate = new Date(goLiveDate);
+    const timeDiff = targetDate.getTime() - today.getTime();
+    const daysDiff = Math.ceil(timeDiff / (1000 * 3600 * 24));
+    
+    return daysDiff;
+  };
+
+  const formatCountdownText = (days: number | null) => {
+    if (days === null) return '';
+    
+    if (days > 0) {
+      return `${days} day${days === 1 ? '' : 's'} until launch`;
+    } else if (days === 0) {
+      return 'Launch day is today!';
+    } else {
+      return `${Math.abs(days)} day${Math.abs(days) === 1 ? '' : 's'} since launch`;
+    }
   };
 
   // Update team member task counts

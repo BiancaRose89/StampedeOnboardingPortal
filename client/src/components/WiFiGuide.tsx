@@ -85,7 +85,7 @@ export default function WiFiGuide() {
       title: "Analytics & Optimization",
       description: "Monitor WiFi usage and optimize for customer engagement",
       tasks: [
-        "Set up WiFi usage analytics and reporting dashboards",
+
         "Track customer return rates and engagement patterns",
         "Monitor peak usage times and adjust bandwidth accordingly",
         "Analyze signup conversion rates and optimize portal design",
