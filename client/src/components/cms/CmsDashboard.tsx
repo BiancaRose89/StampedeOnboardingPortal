@@ -41,7 +41,8 @@ import {
   BarChart3,
   TrendingUp,
   TrendingDown,
-  MapPin
+  MapPin,
+  CheckCircle
 } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
