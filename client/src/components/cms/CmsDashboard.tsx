@@ -279,8 +279,12 @@ export default function CmsDashboard({ admin, onLogout }: CmsDashboardProps) {
       </div>
 
       <div className="max-w-7xl mx-auto p-6">
-        <Tabs defaultValue="content" className="space-y-6">
+        <Tabs defaultValue="overview" className="space-y-6">
           <TabsList className="bg-[#1A1A2E] border-gray-700">
+            <TabsTrigger value="overview" className="data-[state=active]:bg-[#FF389A]">
+              <Settings className="h-4 w-4 mr-2" />
+              Admin Overview
+            </TabsTrigger>
             <TabsTrigger value="content" className="data-[state=active]:bg-[#FF389A]">
               <FileText className="h-4 w-4 mr-2" />
               Content
@@ -304,6 +308,291 @@ export default function CmsDashboard({ admin, onLogout }: CmsDashboardProps) {
               </TabsTrigger>
             )}
           </TabsList>
+
+          {/* Admin Overview Tab */}
+          <TabsContent value="overview" className="space-y-6">
+            <Card className="bg-[#0D0D24] border-gray-800">
+              <CardHeader>
+                <div className="flex items-center justify-between">
+                  <div>
+                    <CardTitle className="text-white text-2xl">Admin Overview Dashboard</CardTitle>
+                    <p className="text-gray-400">Complete visibility into all venue onboarding progress and performance</p>
+                  </div>
+                  <div className="flex items-center space-x-3">
+                    <Badge variant="outline" className="text-green-400 border-green-400">
+                      {contentItems.filter((item: any) => 
+                        contentTypes.find((type: any) => type.id === item.contentTypeId)?.name === 'venue_onboarding'
+                      ).length} Active Venues
+                    </Badge>
+                    <Button className="bg-[#FF389A] hover:bg-[#E6329C]">
+                      <Plus className="h-4 w-4 mr-2" />
+                      Add New Venue
+                    </Button>
+                  </div>
+                </div>
+              </CardHeader>
+              <CardContent>
+                {/* Search and Filter Controls */}
+                <div className="mb-6 space-y-4">
+                  <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4">
+                    <div className="flex flex-col sm:flex-row gap-3">
+                      <div className="relative">
+                        <input
+                          type="text"
+                          placeholder="Search venues..."
+                          className="w-full sm:w-64 px-4 py-2 bg-[#1A1A2E] border border-gray-700 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:border-[#FF389A]"
+                        />
+                      </div>
+                      <select className="px-4 py-2 bg-[#1A1A2E] border border-gray-700 rounded-lg text-white focus:outline-none focus:border-[#FF389A]">
+                        <option value="">All Statuses</option>
+                        <option value="on-track">On Track</option>
+                        <option value="delayed">Delayed</option>
+                        <option value="not-started">Not Started</option>
+                        <option value="completed">Completed</option>
+                      </select>
+                      <select className="px-4 py-2 bg-[#1A1A2E] border border-gray-700 rounded-lg text-white focus:outline-none focus:border-[#FF389A]">
+                        <option value="">Sort by</option>
+                        <option value="name">Venue Name</option>
+                        <option value="progress">Completion %</option>
+                        <option value="start-date">Start Date</option>
+                        <option value="go-live">Go-Live Date</option>
+                      </select>
+                    </div>
+                    <div className="flex items-center space-x-2">
+                      <span className="text-sm text-gray-400">Auto-refresh:</span>
+                      <div className="w-2 h-2 bg-green-400 rounded-full animate-pulse"></div>
+                      <span className="text-sm text-green-400">Live</span>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Summary Cards */}
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
+                  <Card className="bg-[#1A1A2E] border-gray-700">
+                    <CardContent className="p-4">
+                      <div className="flex items-center justify-between">
+                        <div>
+                          <p className="text-sm text-gray-400">Total Venues</p>
+                          <p className="text-2xl font-bold text-white">
+                            {contentItems.filter((item: any) => 
+                              contentTypes.find((type: any) => type.id === item.contentTypeId)?.name === 'venue_onboarding'
+                            ).length}
+                          </p>
+                        </div>
+                        <Calendar className="h-8 w-8 text-[#FF389A]" />
+                      </div>
+                    </CardContent>
+                  </Card>
+                  
+                  <Card className="bg-[#1A1A2E] border-gray-700">
+                    <CardContent className="p-4">
+                      <div className="flex items-center justify-between">
+                        <div>
+                          <p className="text-sm text-gray-400">On Track</p>
+                          <p className="text-2xl font-bold text-green-400">
+                            {contentItems.filter((item: any) => {
+                              const isVenue = contentTypes.find((type: any) => type.id === item.contentTypeId)?.name === 'venue_onboarding';
+                              if (!isVenue) return false;
+                              const progress = Math.round((item.content.completedTasks / item.content.totalTasks) * 100);
+                              return progress >= 75;
+                            }).length}
+                          </p>
+                        </div>
+                        <CheckCircle className="h-8 w-8 text-green-400" />
+                      </div>
+                    </CardContent>
+                  </Card>
+                  
+                  <Card className="bg-[#1A1A2E] border-gray-700">
+                    <CardContent className="p-4">
+                      <div className="flex items-center justify-between">
+                        <div>
+                          <p className="text-sm text-gray-400">At Risk</p>
+                          <p className="text-2xl font-bold text-yellow-400">
+                            {contentItems.filter((item: any) => {
+                              const isVenue = contentTypes.find((type: any) => type.id === item.contentTypeId)?.name === 'venue_onboarding';
+                              if (!isVenue) return false;
+                              const progress = Math.round((item.content.completedTasks / item.content.totalTasks) * 100);
+                              return progress < 75 && progress > 25;
+                            }).length}
+                          </p>
+                        </div>
+                        <AlertCircle className="h-8 w-8 text-yellow-400" />
+                      </div>
+                    </CardContent>
+                  </Card>
+                  
+                  <Card className="bg-[#1A1A2E] border-gray-700">
+                    <CardContent className="p-4">
+                      <div className="flex items-center justify-between">
+                        <div>
+                          <p className="text-sm text-gray-400">Avg Progress</p>
+                          <p className="text-2xl font-bold text-[#FF389A]">
+                            {contentItems.filter((item: any) => 
+                              contentTypes.find((type: any) => type.id === item.contentTypeId)?.name === 'venue_onboarding'
+                            ).length > 0 ? Math.round(
+                              contentItems.filter((item: any) => 
+                                contentTypes.find((type: any) => type.id === item.contentTypeId)?.name === 'venue_onboarding'
+                              ).reduce((sum: number, item: any) => sum + Math.round((item.content.completedTasks / item.content.totalTasks) * 100), 0) /
+                              contentItems.filter((item: any) => 
+                                contentTypes.find((type: any) => type.id === item.contentTypeId)?.name === 'venue_onboarding'
+                              ).length
+                            ) : 0}%
+                          </p>
+                        </div>
+                        <Zap className="h-8 w-8 text-[#FF389A]" />
+                      </div>
+                    </CardContent>
+                  </Card>
+                </div>
+
+                {/* Venues Table */}
+                <div className="space-y-4">
+                  <h3 className="text-lg font-semibold text-white">Active Venue Onboarding</h3>
+                  
+                  <div className="space-y-3">
+                    {contentItems.filter((item: any) => 
+                      contentTypes.find((type: any) => type.id === item.contentTypeId)?.name === 'venue_onboarding'
+                    ).map((item: any) => {
+                      const progressPercentage = Math.round((item.content.completedTasks / item.content.totalTasks) * 100);
+                      const startDate = new Date(item.createdAt);
+                      const goLiveDate = new Date(item.content.goLiveDate);
+                      const today = new Date();
+                      const daysElapsed = Math.floor((today.getTime() - startDate.getTime()) / (1000 * 60 * 60 * 24));
+                      const daysToGoLive = Math.floor((goLiveDate.getTime() - today.getTime()) / (1000 * 60 * 60 * 24));
+                      
+                      let status = 'On Track';
+                      let statusColor = 'text-green-400';
+                      if (progressPercentage < 25) {
+                        status = 'Not Started';
+                        statusColor = 'text-gray-400';
+                      } else if (daysToGoLive < 7 && progressPercentage < 90) {
+                        status = 'Delayed';
+                        statusColor = 'text-red-400';
+                      } else if (progressPercentage < 50 && daysToGoLive < 14) {
+                        status = 'At Risk';
+                        statusColor = 'text-yellow-400';
+                      }
+                      
+                      return (
+                        <Card key={item.id} className="bg-[#1A1A2E] border-gray-700 hover:border-[#FF389A]/50 transition-colors cursor-pointer">
+                          <CardContent className="p-6">
+                            <div className="grid grid-cols-1 lg:grid-cols-6 gap-4 items-center">
+                              {/* Venue Info */}
+                              <div className="lg:col-span-2">
+                                <div className="flex items-center space-x-3">
+                                  <div className="w-12 h-12 bg-[#FF389A]/20 rounded-lg flex items-center justify-center">
+                                    <Calendar className="h-6 w-6 text-[#FF389A]" />
+                                  </div>
+                                  <div>
+                                    <h4 className="font-semibold text-white">{item.content.pageTitle}</h4>
+                                    <p className="text-sm text-gray-400">ID: {item.id}</p>
+                                    <div className="flex items-center space-x-2 mt-1">
+                                      <Badge variant="outline" className="text-xs">Premium Package</Badge>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                              
+                              {/* Progress */}
+                              <div>
+                                <div className="space-y-2">
+                                  <div className="flex items-center justify-between">
+                                    <span className="text-sm text-gray-400">Progress</span>
+                                    <span className="text-sm font-medium text-white">{progressPercentage}%</span>
+                                  </div>
+                                  <div className="w-full bg-gray-700 rounded-full h-2">
+                                    <div 
+                                      className="bg-[#FF389A] h-2 rounded-full transition-all duration-300" 
+                                      style={{ width: `${progressPercentage}%` }}
+                                    ></div>
+                                  </div>
+                                  <p className="text-xs text-gray-400">
+                                    {item.content.completedTasks}/{item.content.totalTasks} tasks
+                                  </p>
+                                </div>
+                              </div>
+                              
+                              {/* Team & Timing */}
+                              <div>
+                                <div className="space-y-1">
+                                  <div className="flex items-center space-x-1">
+                                    <Users className="h-3 w-3 text-gray-400" />
+                                    <span className="text-xs text-gray-400">Team:</span>
+                                  </div>
+                                  <div className="flex -space-x-1">
+                                    <div className="w-6 h-6 bg-blue-500 rounded-full flex items-center justify-center text-xs text-white">
+                                      J
+                                    </div>
+                                    <div className="w-6 h-6 bg-green-500 rounded-full flex items-center justify-center text-xs text-white">
+                                      M
+                                    </div>
+                                    <div className="w-6 h-6 bg-purple-500 rounded-full flex items-center justify-center text-xs text-white">
+                                      S
+                                    </div>
+                                  </div>
+                                  <p className="text-xs text-gray-400">{daysElapsed} days elapsed</p>
+                                </div>
+                              </div>
+                              
+                              {/* Dates */}
+                              <div>
+                                <div className="space-y-1">
+                                  <p className="text-xs text-gray-400">Started:</p>
+                                  <p className="text-sm text-white">{startDate.toLocaleDateString()}</p>
+                                  <p className="text-xs text-gray-400">Go-Live:</p>
+                                  <p className="text-sm text-white">{goLiveDate.toLocaleDateString()}</p>
+                                  <p className={`text-xs ${daysToGoLive > 0 ? 'text-gray-400' : 'text-red-400'}`}>
+                                    {daysToGoLive > 0 ? `${daysToGoLive} days left` : `${Math.abs(daysToGoLive)} days overdue`}
+                                  </p>
+                                </div>
+                              </div>
+                              
+                              {/* Status & Actions */}
+                              <div className="flex items-center justify-between">
+                                <div className="space-y-2">
+                                  <Badge variant="outline" className={`${statusColor} border-current`}>
+                                    {status}
+                                  </Badge>
+                                  <Badge variant={item.isPublished ? "default" : "secondary"} className="block text-xs">
+                                    {item.isPublished ? "Published" : "Draft"}
+                                  </Badge>
+                                </div>
+                                <div className="flex items-center space-x-2">
+                                  <Button size="sm" variant="outline" className="text-xs">
+                                    <Eye className="h-3 w-3 mr-1" />
+                                    View
+                                  </Button>
+                                  <Button size="sm" variant="outline" className="text-xs">
+                                    <Edit3 className="h-3 w-3 mr-1" />
+                                    Edit
+                                  </Button>
+                                </div>
+                              </div>
+                            </div>
+                          </CardContent>
+                        </Card>
+                      );
+                    })}
+                  </div>
+                  
+                  {contentItems.filter((item: any) => 
+                    contentTypes.find((type: any) => type.id === item.contentTypeId)?.name === 'venue_onboarding'
+                  ).length === 0 && (
+                    <div className="text-center py-12">
+                      <Calendar className="h-12 w-12 text-gray-600 mx-auto mb-4" />
+                      <h3 className="text-lg font-medium text-gray-400 mb-2">No Active Venues</h3>
+                      <p className="text-gray-500 mb-4">Start by adding your first venue to begin the onboarding process.</p>
+                      <Button className="bg-[#FF389A] hover:bg-[#E6329C]">
+                        <Plus className="h-4 w-4 mr-2" />
+                        Add Your First Venue
+                      </Button>
+                    </div>
+                  )}
+                </div>
+              </CardContent>
+            </Card>
+          </TabsContent>
 
           {/* Content Management Tab */}
           <TabsContent value="content" className="space-y-6">
