@@ -38,7 +38,8 @@ import {
   ChevronRight,
   Edit,
   MousePointer,
-  Building2
+  Building2,
+  BarChart3
 } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
@@ -505,23 +506,19 @@ export default function CmsDashboard({ admin, onLogout }: CmsDashboardProps) {
       </div>
 
       <div className="max-w-7xl mx-auto p-6">
-        <Tabs defaultValue="overview" className="space-y-6">
+        <Tabs defaultValue="dashboard" className="space-y-6">
           <TabsList className="bg-[#1A1A2E] border-gray-700">
-            <TabsTrigger value="overview" className="data-[state=active]:bg-[#FF389A]">
-              <Settings className="h-4 w-4 mr-2" />
-              Admin Overview
+            <TabsTrigger value="dashboard" className="data-[state=active]:bg-[#FF389A]">
+              <BarChart3 className="h-4 w-4 mr-2" />
+              Dashboard
             </TabsTrigger>
             <TabsTrigger value="content" className="data-[state=active]:bg-[#FF389A]">
               <FileText className="h-4 w-4 mr-2" />
               Content
             </TabsTrigger>
-            <TabsTrigger value="organizations" className="data-[state=active]:bg-[#FF389A]">
+            <TabsTrigger value="venues-onboarded" className="data-[state=active]:bg-[#FF389A]">
               <Building2 className="h-4 w-4 mr-2" />
-              Organizations
-            </TabsTrigger>
-            <TabsTrigger value="venues" className="data-[state=active]:bg-[#FF389A]">
-              <Calendar className="h-4 w-4 mr-2" />
-              Venue Management
+              Venues Onboarded
             </TabsTrigger>
             <TabsTrigger value="onboarding" className="data-[state=active]:bg-[#FF389A]">
               <Zap className="h-4 w-4 mr-2" />
@@ -539,14 +536,14 @@ export default function CmsDashboard({ admin, onLogout }: CmsDashboardProps) {
             )}
           </TabsList>
 
-          {/* Admin Overview Tab */}
-          <TabsContent value="overview" className="space-y-6">
+          {/* Dashboard Tab - Analytics and Insights */}
+          <TabsContent value="dashboard" className="space-y-6">
             <Card className="bg-[#0D0D24] border-gray-800">
               <CardHeader>
                 <div className="flex items-center justify-between">
                   <div>
-                    <CardTitle className="text-white text-2xl">Admin Overview Dashboard</CardTitle>
-                    <p className="text-gray-400">Complete visibility into all venue onboarding progress and performance</p>
+                    <CardTitle className="text-white text-2xl">Onboarding Analytics Dashboard</CardTitle>
+                    <p className="text-gray-400">Data insights, performance metrics, and optimization analytics for venue onboarding</p>
                   </div>
                   <div className="flex items-center space-x-3">
                     <Badge variant="outline" className="text-green-400 border-green-400">
@@ -2010,8 +2007,8 @@ export default function CmsDashboard({ admin, onLogout }: CmsDashboardProps) {
             </Card>
           </TabsContent>
 
-          {/* Organization Management Tab */}
-          <TabsContent value="organizations">
+          {/* Venues Onboarded Tab */}
+          <TabsContent value="venues-onboarded">
             <OrganizationManager />
           </TabsContent>
 
