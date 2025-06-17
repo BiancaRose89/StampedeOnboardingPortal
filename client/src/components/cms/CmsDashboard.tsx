@@ -2004,6 +2004,11 @@ export default function CmsDashboard({ admin, onLogout }: CmsDashboardProps) {
             </Card>
           </TabsContent>
 
+          {/* Venue Management Tab */}
+          <TabsContent value="venues">
+            <VenueManager />
+          </TabsContent>
+
           {/* Activity Tab */}
           <TabsContent value="activity">
             <Card className="bg-[#0D0D24] border-gray-800">
