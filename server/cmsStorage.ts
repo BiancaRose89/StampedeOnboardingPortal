@@ -5,6 +5,8 @@ import {
   contentVersions,
   contentLocks,
   cmsActivityLog,
+  venues,
+  onboardingFeatures,
   type CmsAdmin,
   type InsertCmsAdmin,
   type ContentType,
@@ -17,6 +19,10 @@ import {
   type InsertContentLock,
   type CmsActivityLog,
   type InsertCmsActivityLog,
+  type Venue,
+  type InsertVenue,
+  type OnboardingFeature,
+  type InsertOnboardingFeature,
 } from "@shared/schema";
 import { db } from "./db";
 import { eq, and, desc, lt, gte } from "drizzle-orm";
@@ -66,6 +72,19 @@ export interface ICmsStorage {
   logActivity(activity: InsertCmsActivityLog): Promise<CmsActivityLog>;
   getActivityLog(limit?: number): Promise<CmsActivityLog[]>;
   getAdminActivity(adminId: number, limit?: number): Promise<CmsActivityLog[]>;
+
+  // Venue management
+  createVenue(venue: InsertVenue): Promise<Venue>;
+  getAllVenues(): Promise<Venue[]>;
+  getVenueById(id: number): Promise<Venue | undefined>;
+  updateVenue(id: number, updates: Partial<Venue>): Promise<Venue | undefined>;
+  deleteVenue(id: number): Promise<boolean>;
+
+  // Feature management
+  createOnboardingFeature(feature: InsertOnboardingFeature): Promise<OnboardingFeature>;
+  getAllOnboardingFeatures(): Promise<OnboardingFeature[]>;
+  getOnboardingFeatureByKey(key: string): Promise<OnboardingFeature | undefined>;
+  updateOnboardingFeature(id: number, updates: Partial<OnboardingFeature>): Promise<OnboardingFeature | undefined>;
 }
 
 export class DatabaseCmsStorage implements ICmsStorage {
@@ -394,6 +413,82 @@ export class DatabaseCmsStorage implements ICmsStorage {
       .where(eq(cmsActivityLog.adminId, adminId))
       .orderBy(desc(cmsActivityLog.createdAt))
       .limit(limit);
+  }
+
+  // Venue management
+  async createVenue(venue: InsertVenue): Promise<Venue> {
+    const [newVenue] = await db
+      .insert(venues)
+      .values(venue)
+      .returning();
+    return newVenue;
+  }
+
+  async getAllVenues(): Promise<Venue[]> {
+    return await db
+      .select()
+      .from(venues)
+      .where(eq(venues.isActive, true))
+      .orderBy(desc(venues.createdAt));
+  }
+
+  async getVenueById(id: number): Promise<Venue | undefined> {
+    const [venue] = await db
+      .select()
+      .from(venues)
+      .where(eq(venues.id, id));
+    return venue;
+  }
+
+  async updateVenue(id: number, updates: Partial<Venue>): Promise<Venue | undefined> {
+    const [updatedVenue] = await db
+      .update(venues)
+      .set({ ...updates, updatedAt: new Date() })
+      .where(eq(venues.id, id))
+      .returning();
+    return updatedVenue;
+  }
+
+  async deleteVenue(id: number): Promise<boolean> {
+    const result = await db
+      .update(venues)
+      .set({ isActive: false, updatedAt: new Date() })
+      .where(eq(venues.id, id));
+    return result.rowCount > 0;
+  }
+
+  // Feature management
+  async createOnboardingFeature(feature: InsertOnboardingFeature): Promise<OnboardingFeature> {
+    const [newFeature] = await db
+      .insert(onboardingFeatures)
+      .values(feature)
+      .returning();
+    return newFeature;
+  }
+
+  async getAllOnboardingFeatures(): Promise<OnboardingFeature[]> {
+    return await db
+      .select()
+      .from(onboardingFeatures)
+      .where(eq(onboardingFeatures.isActive, true))
+      .orderBy(onboardingFeatures.sortOrder);
+  }
+
+  async getOnboardingFeatureByKey(key: string): Promise<OnboardingFeature | undefined> {
+    const [feature] = await db
+      .select()
+      .from(onboardingFeatures)
+      .where(eq(onboardingFeatures.featureKey, key));
+    return feature;
+  }
+
+  async updateOnboardingFeature(id: number, updates: Partial<OnboardingFeature>): Promise<OnboardingFeature | undefined> {
+    const [updatedFeature] = await db
+      .update(onboardingFeatures)
+      .set({ ...updates, updatedAt: new Date() })
+      .where(eq(onboardingFeatures.id, id))
+      .returning();
+    return updatedFeature;
   }
 }
 

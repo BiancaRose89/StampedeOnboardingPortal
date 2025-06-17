@@ -55,13 +55,37 @@ export const userSessions = pgTable("user_sessions", {
   isActive: boolean("is_active").notNull().default(true),
 });
 
-// Venues table for multi-venue management
+// Available onboarding features definition
+export const onboardingFeatures = pgTable("onboarding_features", {
+  id: serial("id").primaryKey(),
+  featureKey: text("feature_key").notNull().unique(), // "account_setup", "booking_system", "loyalty", etc.
+  name: text("name").notNull(),
+  description: text("description"),
+  category: text("category").notNull(), // "core", "advanced", "premium"
+  estimatedTime: text("estimated_time"), // "10 minutes", "2 hours", etc.
+  dependencies: jsonb("dependencies").default('[]'), // Array of feature keys that must be completed first
+  taskCount: integer("task_count").notNull().default(1),
+  isActive: boolean("is_active").notNull().default(true),
+  sortOrder: integer("sort_order").notNull().default(0),
+  createdAt: timestamp("created_at").notNull().defaultNow(),
+  updatedAt: timestamp("updated_at").notNull().defaultNow(),
+});
+
+// Venues table for multi-venue management with feature selection
 export const venues = pgTable("venues", {
   id: serial("id").primaryKey(),
   userId: integer("user_id").notNull().references(() => users.id),
   name: text("name").notNull(),
+  venueId: text("venue_id").unique(), // Custom venue identifier
+  goLiveDate: timestamp("go_live_date"),
+  selectedFeatures: jsonb("selected_features").notNull().default('[]'), // Array of feature keys
+  teamMembers: jsonb("team_members").default('[]'), // Array of team member objects
+  packageType: text("package_type").default("standard"), // "basic", "standard", "premium"
+  status: text("status").notNull().default("setup"), // "setup", "in-progress", "completed", "live"
+  progressData: jsonb("progress_data").default('{}'), // Progress tracking data
   isActive: boolean("is_active").notNull().default(true),
   createdAt: timestamp("created_at").notNull().defaultNow(),
+  updatedAt: timestamp("updated_at").notNull().defaultNow(),
 });
 
 // Team members table
@@ -129,9 +153,16 @@ export const insertSessionSchema = createInsertSchema(userSessions).omit({
   lastActivity: true,
 });
 
+export const insertOnboardingFeatureSchema = createInsertSchema(onboardingFeatures).omit({
+  id: true,
+  createdAt: true,
+  updatedAt: true,
+});
+
 export const insertVenueSchema = createInsertSchema(venues).omit({
   id: true,
   createdAt: true,
+  updatedAt: true,
 });
 
 export const insertTeamMemberSchema = createInsertSchema(teamMembers).omit({
@@ -160,6 +191,8 @@ export type InsertActivity = z.infer<typeof insertActivitySchema>;
 export type UserActivity = typeof userActivities.$inferSelect;
 export type InsertSession = z.infer<typeof insertSessionSchema>;
 export type UserSession = typeof userSessions.$inferSelect;
+export type InsertOnboardingFeature = z.infer<typeof insertOnboardingFeatureSchema>;
+export type OnboardingFeature = typeof onboardingFeatures.$inferSelect;
 export type InsertVenue = z.infer<typeof insertVenueSchema>;
 export type Venue = typeof venues.$inferSelect;
 export type InsertTeamMember = z.infer<typeof insertTeamMemberSchema>;
