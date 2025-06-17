@@ -7,6 +7,7 @@ import { ThemeProvider } from "@/components/ThemeProvider";
 import AuthProvider from "@/components/AuthProvider";
 import Home from "@/pages/Home";
 import Admin from "@/pages/Admin";
+import CmsAdmin from "@/pages/CmsAdmin";
 import NotFound from "@/pages/not-found";
 
 function Router() {
@@ -14,6 +15,7 @@ function Router() {
     <Switch>
       <Route path="/" component={Home} />
       <Route path="/admin" component={Admin} />
+      <Route path="/cms" component={CmsAdmin} />
       <Route component={NotFound} />
     </Switch>
   );
