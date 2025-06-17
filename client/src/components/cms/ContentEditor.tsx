@@ -28,6 +28,7 @@ import {
 import { useToast } from '@/hooks/use-toast';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { apiRequest } from '@/lib/queryClient';
+import ContentPreview from './ContentPreview';
 
 interface ContentItem {
   id: number;
@@ -554,18 +555,150 @@ export default function ContentEditor({ contentItems, contentTypes, onRefresh }:
     const type = contentTypes.find(t => t.id === editingItem.contentTypeId);
     if (!type) return null;
 
+    // Create a preview item with current form data
+    const previewItem = {
+      ...editingItem,
+      content: formData
+    };
+
     return (
-      <Card className="bg-[#0D0D24] border-gray-800">
-        <CardHeader>
-          <CardTitle className="text-white flex items-center justify-between">
-            Edit {type.displayName}
+      <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
+        <div className="bg-[#0D0D24] border border-gray-800 rounded-lg w-full max-w-7xl h-[90vh] flex flex-col">
+          <div className="flex items-center justify-between p-4 border-b border-gray-800">
+            <h2 className="text-xl font-semibold text-white">Edit {type.displayName}</h2>
             <Button variant="outline" size="sm" onClick={() => setEditingItem(null)}>
               <X className="h-4 w-4" />
             </Button>
-          </CardTitle>
-        </CardHeader>
-        <CardContent className="space-y-4">
-          {type.name === 'training_modules' && (
+          </div>
+          
+          <div className="flex-1 flex overflow-hidden">
+            {/* Edit Form - Left Side */}
+            <div className="w-1/2 border-r border-gray-800 overflow-auto">
+              <div className="p-4 space-y-4">
+                {type.name === 'training_modules' && (
+                  <>
+                    <div>
+                      <Label className="text-gray-200">Title</Label>
+                      <Input
+                        value={formData.title || ''}
+                        onChange={(e) => setFormData({ ...formData, title: e.target.value })}
+                        className="bg-[#1A1A2E] border-gray-700 text-white"
+                      />
+                    </div>
+                    <div>
+                      <Label className="text-gray-200">Description</Label>
+                      <Textarea
+                        value={formData.description || ''}
+                        onChange={(e) => setFormData({ ...formData, description: e.target.value })}
+                        className="bg-[#1A1A2E] border-gray-700 text-white"
+                      />
+                    </div>
+                    <div>
+                      <Label className="text-gray-200">Estimated Time</Label>
+                      <Input
+                        value={formData.estimatedTime || ''}
+                        onChange={(e) => setFormData({ ...formData, estimatedTime: e.target.value })}
+                        className="bg-[#1A1A2E] border-gray-700 text-white"
+                      />
+                    </div>
+                    <div>
+                      <Label className="text-gray-200">Icon</Label>
+                      <Select value={formData.icon || 'Calendar'} onValueChange={(value) => setFormData({ ...formData, icon: value })}>
+                        <SelectTrigger className="bg-[#1A1A2E] border-gray-700 text-white">
+                          <SelectValue />
+                        </SelectTrigger>
+                        <SelectContent>
+                          {Object.keys(iconMap).map((icon) => (
+                            <SelectItem key={icon} value={icon}>{icon}</SelectItem>
+                          ))}
+                        </SelectContent>
+                      </Select>
+                    </div>
+                  </>
+                )}
+
+                {type.name === 'platform_features' && (
+                  <>
+                    <div>
+                      <Label className="text-gray-200">Title</Label>
+                      <Input
+                        value={formData.title || ''}
+                        onChange={(e) => setFormData({ ...formData, title: e.target.value })}
+                        className="bg-[#1A1A2E] border-gray-700 text-white"
+                      />
+                    </div>
+                    <div>
+                      <Label className="text-gray-200">Description</Label>
+                      <Textarea
+                        value={formData.description || ''}
+                        onChange={(e) => setFormData({ ...formData, description: e.target.value })}
+                        className="bg-[#1A1A2E] border-gray-700 text-white"
+                      />
+                    </div>
+                    <div className="grid grid-cols-2 gap-4">
+                      <div>
+                        <Label className="text-gray-200">Category</Label>
+                        <Input
+                          value={formData.category || ''}
+                          onChange={(e) => setFormData({ ...formData, category: e.target.value })}
+                          className="bg-[#1A1A2E] border-gray-700 text-white"
+                        />
+                      </div>
+                      <div>
+                        <Label className="text-gray-200">Difficulty</Label>
+                        <Select value={formData.difficulty || 'Beginner'} onValueChange={(value) => setFormData({ ...formData, difficulty: value })}>
+                          <SelectTrigger className="bg-[#1A1A2E] border-gray-700 text-white">
+                            <SelectValue />
+                          </SelectTrigger>
+                          <SelectContent>
+                            <SelectItem value="Beginner">Beginner</SelectItem>
+                            <SelectItem value="Intermediate">Intermediate</SelectItem>
+                            <SelectItem value="Advanced">Advanced</SelectItem>
+                          </SelectContent>
+                        </Select>
+                      </div>
+                    </div>
+                  </>
+                )}
+
+                {type.name === 'live_examples' && (
+                  <>
+                    <div>
+                      <Label className="text-gray-200">Title</Label>
+                      <Input
+                        value={formData.title || ''}
+                        onChange={(e) => setFormData({ ...formData, title: e.target.value })}
+                        className="bg-[#1A1A2E] border-gray-700 text-white"
+                      />
+                    </div>
+                    <div>
+                      <Label className="text-gray-200">Description</Label>
+                      <Textarea
+                        value={formData.description || ''}
+                        onChange={(e) => setFormData({ ...formData, description: e.target.value })}
+                        className="bg-[#1A1A2E] border-gray-700 text-white"
+                      />
+                    </div>
+                    <div>
+                      <Label className="text-gray-200">Demo URL</Label>
+                      <Input
+                        value={formData.demoUrl || ''}
+                        onChange={(e) => setFormData({ ...formData, demoUrl: e.target.value })}
+                        className="bg-[#1A1A2E] border-gray-700 text-white"
+                      />
+                    </div>
+                    <div>
+                      <Label className="text-gray-200">Category</Label>
+                      <Input
+                        value={formData.category || ''}
+                        onChange={(e) => setFormData({ ...formData, category: e.target.value })}
+                        className="bg-[#1A1A2E] border-gray-700 text-white"
+                      />
+                    </div>
+                  </>
+                )}
+
+                {type.name === 'venue_onboarding' && (
             <>
               <div>
                 <Label className="text-gray-200">Title</Label>

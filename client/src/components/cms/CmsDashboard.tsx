@@ -24,7 +24,7 @@ import {
 import { useToast } from '@/hooks/use-toast';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { apiRequest } from '@/lib/queryClient';
-import ContentEditor from './ContentEditor';
+import ContentEditor from './ContentEditorFixed';
 
 interface CmsAdmin {
   id: number;
