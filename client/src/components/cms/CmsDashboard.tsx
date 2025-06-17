@@ -19,7 +19,8 @@ import {
   CheckCircle,
   AlertCircle,
   LogOut,
-  Zap
+  Zap,
+  Calendar
 } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
