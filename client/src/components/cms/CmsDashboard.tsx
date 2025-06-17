@@ -30,7 +30,10 @@ import {
   X,
   Move,
   Copy,
-  GripVertical
+  GripVertical,
+  Play,
+  ExternalLink,
+  FileText as FileTextIcon
 } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
@@ -84,6 +87,7 @@ export default function CmsDashboard({ admin, onLogout }: CmsDashboardProps) {
   const [editingItem, setEditingItem] = useState<any>(null);
   const [showAddDialog, setShowAddDialog] = useState<string | null>(null);
   const [draggedItem, setDraggedItem] = useState<any>(null);
+  const [previewFeature, setPreviewFeature] = useState<any>(null);
   
   // Configuration states
   const [dashboardConfig, setDashboardConfig] = useState({
@@ -94,16 +98,120 @@ export default function CmsDashboard({ admin, onLogout }: CmsDashboardProps) {
     venueDisplayMode: 'cards',
   });
 
-  // Venue onboarding feature configuration
+  // Venue onboarding feature configuration with rich content structure
   const [venueFeatures, setVenueFeatures] = useState([
-    { id: 'account', name: 'Account Setup', description: 'Platform configuration and initial setup', icon: 'Settings', color: 'blue', visible: true },
-    { id: 'bookings', name: 'Bookings Go-Live Guide', description: 'Table management and reservation system', icon: 'Calendar', color: 'pink', visible: true },
-    { id: 'loyalty', name: 'Loyalty Go-Live Guide', description: 'Customer rewards and loyalty program setup', icon: 'Zap', color: 'yellow', visible: true },
-    { id: 'marketing', name: 'Marketing Go-Live Guide', description: 'Email campaigns and marketing automation', icon: 'Activity', color: 'green', visible: true },
-    { id: 'wifi', name: 'WiFi & Guest Capture', description: 'Guest network setup and data collection', icon: 'Settings', color: 'purple', visible: true },
-    { id: 'reviews', name: 'Reviews Management', description: 'Online review collection and management', icon: 'CheckCircle', color: 'orange', visible: true },
-    { id: 'staff', name: 'Staff Training', description: 'Team onboarding and system training', icon: 'Users', color: 'cyan', visible: true },
-    { id: 'golive', name: 'Go-Live Checklist', description: 'Final launch preparation and validation', icon: 'AlertCircle', color: 'red', visible: true },
+    { 
+      id: 'account', 
+      name: 'Account Setup', 
+      description: 'Platform configuration and initial setup', 
+      icon: 'Settings', 
+      color: 'blue', 
+      visible: true,
+      content: {
+        videoUrl: 'https://www.youtube.com/watch?v=dQw4w9WgXcQ',
+        articleLink: '/docs/account-setup',
+        articleTitle: 'Complete Account Setup Guide',
+        markdownDescription: 'Follow these **essential steps** to configure your account:\n\n1. **Verify your email** and complete profile\n2. **Set up venue details** and operating hours\n3. **Configure payment settings** and integrations\n4. **Customize branding** and preferences\n\n> 💡 **Tip**: Complete all steps for full platform access'
+      }
+    },
+    { 
+      id: 'bookings', 
+      name: 'Bookings Go-Live Guide', 
+      description: 'Table management and reservation system', 
+      icon: 'Calendar', 
+      color: 'pink', 
+      visible: true,
+      content: {
+        videoUrl: 'https://vimeo.com/123456789',
+        articleLink: '/docs/bookings-setup',
+        articleTitle: 'Bookings System Configuration',
+        markdownDescription: 'Configure your **booking system** for seamless reservations:\n\n• **Table layouts** and capacity management\n• **Availability rules** and booking windows\n• **Customer notifications** and confirmations\n• **Waitlist management** and overflow handling\n\n⚡ **Quick Start**: Use our pre-built templates for faster setup'
+      }
+    },
+    { 
+      id: 'loyalty', 
+      name: 'Loyalty Go-Live Guide', 
+      description: 'Customer rewards and loyalty program setup', 
+      icon: 'Zap', 
+      color: 'yellow', 
+      visible: true,
+      content: {
+        videoUrl: '',
+        articleLink: '/docs/loyalty-program',
+        articleTitle: 'Loyalty Program Setup & Best Practices',
+        markdownDescription: 'Create engaging **loyalty programs** that drive repeat business:\n\n- **Point-based rewards** with flexible redemption\n- **Tier-based benefits** for VIP customers\n- **Special promotions** and birthday offers\n- **Referral bonuses** to grow your base\n\n🎯 **Goal**: Increase customer lifetime value by 40%'
+      }
+    },
+    { 
+      id: 'marketing', 
+      name: 'Marketing Go-Live Guide', 
+      description: 'Email campaigns and marketing automation', 
+      icon: 'Activity', 
+      color: 'green', 
+      visible: true,
+      content: {
+        videoUrl: 'https://www.youtube.com/watch?v=abc123def',
+        articleLink: '/docs/marketing-automation',
+        articleTitle: 'Marketing Automation Playbook',
+        markdownDescription: 'Launch **automated marketing campaigns** that convert:\n\n→ **Welcome sequences** for new customers\n→ **Birthday campaigns** with special offers\n→ **Re-engagement flows** for inactive guests\n→ **Event promotions** and seasonal campaigns\n\n📊 **Results**: Customers see 3x higher engagement rates'
+      }
+    },
+    { 
+      id: 'wifi', 
+      name: 'WiFi & Guest Capture', 
+      description: 'Guest network setup and data collection', 
+      icon: 'Settings', 
+      color: 'purple', 
+      visible: true,
+      content: {
+        videoUrl: '',
+        articleLink: '/docs/wifi-setup',
+        articleTitle: 'WiFi Configuration & Data Capture',
+        markdownDescription: 'Transform WiFi access into **valuable customer data**:\n\n• **WiFi portal setup** with custom branding\n• **Data collection forms** (email, phone, demographics)\n• **Privacy compliance** and GDPR considerations\n• **Analytics dashboard** for guest insights\n\n🔒 **Security**: Enterprise-grade encryption included'
+      }
+    },
+    { 
+      id: 'reviews', 
+      name: 'Reviews Management', 
+      description: 'Online review collection and management', 
+      icon: 'CheckCircle', 
+      color: 'orange', 
+      visible: true,
+      content: {
+        videoUrl: 'https://vimeo.com/987654321',
+        articleLink: '/docs/reviews-management',
+        articleTitle: 'Reviews Management System',
+        markdownDescription: 'Build and protect your **online reputation**:\n\n★ **Automated review requests** via SMS/email\n★ **Response templates** for quick replies\n★ **Sentiment analysis** and performance tracking\n★ **Crisis management** for negative reviews\n\n📈 **Impact**: Average 4.2-star rating improvement in 60 days'
+      }
+    },
+    { 
+      id: 'staff', 
+      name: 'Staff Training', 
+      description: 'Team onboarding and system training', 
+      icon: 'Users', 
+      color: 'cyan', 
+      visible: true,
+      content: {
+        videoUrl: 'https://www.youtube.com/watch?v=training123',
+        articleLink: '/docs/staff-training',
+        articleTitle: 'Complete Staff Training Resources',
+        markdownDescription: 'Comprehensive **team training** for platform mastery:\n\n📚 **Interactive modules** with progress tracking\n📚 **Quick reference guides** for daily operations\n📚 **Best practices** from top-performing venues\n📚 **Certification program** with digital badges\n\n⏱️ **Time Investment**: 2 hours for full certification'
+      }
+    },
+    { 
+      id: 'golive', 
+      name: 'Go-Live Checklist', 
+      description: 'Final launch preparation and validation', 
+      icon: 'AlertCircle', 
+      color: 'red', 
+      visible: true,
+      content: {
+        videoUrl: '',
+        articleLink: '/docs/go-live-checklist',
+        articleTitle: 'Go-Live Preparation Checklist',
+        markdownDescription: 'Complete your **launch checklist** for success:\n\n✅ **System testing** - All integrations working\n✅ **Staff readiness** - Team trained and confident\n✅ **Customer communication** - Launch announcement ready\n✅ **Backup plans** - Support contacts and procedures\n\n🚀 **Launch Day**: We provide dedicated support during your go-live'
+      }
+    }
   ]);
 
   // Fetch content items
@@ -1247,25 +1355,88 @@ export default function CmsDashboard({ admin, onLogout }: CmsDashboardProps) {
                                         </div>
                                         <div className="flex-1">
                                           {editingItem?.id === feature.id ? (
-                                            <div className="space-y-1">
-                                              <Input
-                                                value={editingItem.name}
-                                                onChange={(e) => setEditingItem({...editingItem, name: e.target.value})}
-                                                className="bg-[#1A1A2E] border-gray-600 text-white text-sm"
-                                                placeholder="Feature name"
-                                              />
+                                            <div className="space-y-3">
+                                              <div className="grid grid-cols-2 gap-2">
+                                                <Input
+                                                  value={editingItem.name}
+                                                  onChange={(e) => setEditingItem({...editingItem, name: e.target.value})}
+                                                  className="bg-[#1A1A2E] border-gray-600 text-white text-sm"
+                                                  placeholder="Feature name"
+                                                />
+                                                <Input
+                                                  value={editingItem.content?.articleTitle || ''}
+                                                  onChange={(e) => setEditingItem({
+                                                    ...editingItem, 
+                                                    content: {...editingItem.content, articleTitle: e.target.value}
+                                                  })}
+                                                  className="bg-[#1A1A2E] border-gray-600 text-white text-sm"
+                                                  placeholder="Article title"
+                                                />
+                                              </div>
+                                              
                                               <Textarea
                                                 value={editingItem.description}
                                                 onChange={(e) => setEditingItem({...editingItem, description: e.target.value})}
                                                 className="bg-[#1A1A2E] border-gray-600 text-white text-xs resize-none"
                                                 rows={2}
-                                                placeholder="Description"
+                                                placeholder="Short description"
+                                              />
+                                              
+                                              <div className="grid grid-cols-2 gap-2">
+                                                <Input
+                                                  value={editingItem.content?.videoUrl || ''}
+                                                  onChange={(e) => setEditingItem({
+                                                    ...editingItem, 
+                                                    content: {...editingItem.content, videoUrl: e.target.value}
+                                                  })}
+                                                  className="bg-[#1A1A2E] border-gray-600 text-white text-xs"
+                                                  placeholder="Video URL (YouTube/Vimeo)"
+                                                />
+                                                <Input
+                                                  value={editingItem.content?.articleLink || ''}
+                                                  onChange={(e) => setEditingItem({
+                                                    ...editingItem, 
+                                                    content: {...editingItem.content, articleLink: e.target.value}
+                                                  })}
+                                                  className="bg-[#1A1A2E] border-gray-600 text-white text-xs"
+                                                  placeholder="Article link"
+                                                />
+                                              </div>
+                                              
+                                              <Textarea
+                                                value={editingItem.content?.markdownDescription || ''}
+                                                onChange={(e) => setEditingItem({
+                                                  ...editingItem, 
+                                                  content: {...editingItem.content, markdownDescription: e.target.value}
+                                                })}
+                                                className="bg-[#1A1A2E] border-gray-600 text-white text-xs resize-none font-mono"
+                                                rows={4}
+                                                placeholder="Detailed description (Markdown supported)&#10;**Bold**, *italic*, • bullets, etc."
                                               />
                                             </div>
                                           ) : (
                                             <div>
                                               <h6 className="font-medium text-white">{feature.name}</h6>
                                               <p className="text-xs text-gray-400">{feature.description}</p>
+                                              {feature.content && (
+                                                <div className="flex items-center space-x-2 mt-1">
+                                                  {feature.content.videoUrl && (
+                                                    <Badge variant="outline" className="text-xs text-blue-400 border-blue-400">
+                                                      📹 Video
+                                                    </Badge>
+                                                  )}
+                                                  {feature.content.articleLink && (
+                                                    <Badge variant="outline" className="text-xs text-green-400 border-green-400">
+                                                      📄 Article
+                                                    </Badge>
+                                                  )}
+                                                  {feature.content.markdownDescription && (
+                                                    <Badge variant="outline" className="text-xs text-purple-400 border-purple-400">
+                                                      ✨ Rich Content
+                                                    </Badge>
+                                                  )}
+                                                </div>
+                                              )}
                                             </div>
                                           )}
                                         </div>
@@ -1299,6 +1470,15 @@ export default function CmsDashboard({ admin, onLogout }: CmsDashboardProps) {
                                           </div>
                                         ) : (
                                           <>
+                                            <Button 
+                                              size="sm" 
+                                              variant="ghost" 
+                                              className="text-blue-400 hover:text-blue-300"
+                                              onClick={() => setPreviewFeature(feature)}
+                                              title="Preview rich content"
+                                            >
+                                              <Play className="h-3 w-3" />
+                                            </Button>
                                             <Button 
                                               size="sm" 
                                               variant="ghost" 
