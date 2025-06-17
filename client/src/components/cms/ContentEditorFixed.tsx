@@ -210,7 +210,10 @@ export default function ContentEditor({ contentItems, contentTypes, onRefresh }:
   const renderVenueOnboardingEditor = (items: ContentItem[]) => (
     <div className="space-y-4">
       <div className="flex items-center justify-between">
-        <h3 className="text-lg font-semibold text-white">Venue Onboarding Tasks</h3>
+        <div>
+          <h3 className="text-lg font-semibold text-white">Complete the onboarding for each of your venues</h3>
+          <p className="text-sm text-gray-400">Manage venue-specific onboarding progress and tasks</p>
+        </div>
         <Button
           size="sm"
           onClick={() => {
@@ -299,6 +302,249 @@ export default function ContentEditor({ contentItems, contentTypes, onRefresh }:
     </div>
   );
 
+  const renderTrainingModuleEditor = (items: ContentItem[]) => (
+    <div className="space-y-4">
+      <div className="flex items-center justify-between">
+        <div>
+          <h3 className="text-lg font-semibold text-white">Master Your Platform - Training Modules</h3>
+          <p className="text-sm text-gray-400">Interactive training modules for platform mastery</p>
+        </div>
+        <Button
+          size="sm"
+          onClick={() => {
+            setSelectedType('training_modules');
+            setShowCreateForm(true);
+            setFormData({ 
+              title: 'New Training Module',
+              description: 'Module description',
+              estimatedTime: '15 minutes',
+              icon: 'Calendar',
+              completed: false,
+              order: items.length + 1
+            });
+          }}
+          className="bg-[#FF389A] hover:bg-[#E6329C]"
+        >
+          <Plus className="h-4 w-4 mr-2" />
+          Add Module
+        </Button>
+      </div>
+      
+      <div className="grid gap-3">
+        {items.map((item) => (
+          <Card key={item.id} className="bg-[#1A1A2E] border-gray-700">
+            <CardContent className="p-4">
+              <div className="flex items-center justify-between">
+                <div className="flex items-center space-x-3">
+                  <div className="w-10 h-10 bg-[#FF389A]/20 rounded-full flex items-center justify-center">
+                    {(() => {
+                      const IconComponent = iconMap[item.content.icon as keyof typeof iconMap] || Calendar;
+                      return <IconComponent className="h-5 w-5 text-[#FF389A]" />;
+                    })()}
+                  </div>
+                  <div>
+                    <h4 className="font-medium text-white">{item.content.title}</h4>
+                    <p className="text-sm text-gray-400">{item.content.description}</p>
+                    <div className="flex items-center space-x-2 mt-1">
+                      <span className="text-xs text-gray-500">⏱ {item.content.estimatedTime}</span>
+                      <Badge variant={item.content.completed ? "default" : "secondary"} className="text-xs">
+                        {item.content.completed ? "Completed" : "Pending"}
+                      </Badge>
+                    </div>
+                  </div>
+                </div>
+                <div className="flex items-center space-x-2">
+                  <Badge variant={item.isPublished ? "default" : "secondary"}>
+                    {item.isPublished ? "Published" : "Draft"}
+                  </Badge>
+                  <Button size="sm" variant="outline" onClick={() => handleEdit(item)}>
+                    <Edit3 className="h-3 w-3" />
+                  </Button>
+                  <Button
+                    size="sm"
+                    variant="outline"
+                    onClick={() => item.isPublished ? unpublishMutation.mutate(item.id) : publishMutation.mutate(item.id)}
+                  >
+                    {item.isPublished ? <EyeOff className="h-3 w-3" /> : <Eye className="h-3 w-3" />}
+                  </Button>
+                  <Button
+                    size="sm"
+                    variant="outline"
+                    onClick={() => deleteContentMutation.mutate(item.id)}
+                    className="text-red-400 hover:text-red-300"
+                  >
+                    <Trash2 className="h-3 w-3" />
+                  </Button>
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+        ))}
+      </div>
+    </div>
+  );
+
+  const renderPlatformFeaturesEditor = (items: ContentItem[]) => (
+    <div className="space-y-4">
+      <div className="flex items-center justify-between">
+        <div>
+          <h3 className="text-lg font-semibold text-white">Master Your Platform - Features</h3>
+          <p className="text-sm text-gray-400">Platform features and capabilities overview</p>
+        </div>
+        <Button
+          size="sm"
+          onClick={() => {
+            setSelectedType('platform_features');
+            setShowCreateForm(true);
+            setFormData({ 
+              title: 'New Feature',
+              description: 'Feature description',
+              category: 'General',
+              difficulty: 'Beginner',
+              estimatedTime: '10 minutes',
+              icon: 'Settings',
+              order: items.length + 1
+            });
+          }}
+          className="bg-[#FF389A] hover:bg-[#E6329C]"
+        >
+          <Plus className="h-4 w-4 mr-2" />
+          Add Feature
+        </Button>
+      </div>
+      
+      <div className="grid gap-3">
+        {items.map((item) => (
+          <Card key={item.id} className="bg-[#1A1A2E] border-gray-700">
+            <CardContent className="p-4">
+              <div className="flex items-center justify-between">
+                <div className="flex items-center space-x-3">
+                  <div className="w-10 h-10 bg-blue-500/20 rounded-lg flex items-center justify-center">
+                    {(() => {
+                      const IconComponent = iconMap[item.content.icon as keyof typeof iconMap] || Settings;
+                      return <IconComponent className="h-5 w-5 text-blue-400" />;
+                    })()}
+                  </div>
+                  <div>
+                    <h4 className="font-medium text-white">{item.content.title}</h4>
+                    <p className="text-sm text-gray-400">{item.content.description}</p>
+                    <div className="flex items-center space-x-2 mt-1">
+                      <Badge variant="outline" className="text-xs">{item.content.category}</Badge>
+                      <Badge variant="outline" className="text-xs">{item.content.difficulty}</Badge>
+                      <span className="text-xs text-gray-500">{item.content.estimatedTime}</span>
+                    </div>
+                  </div>
+                </div>
+                <div className="flex items-center space-x-2">
+                  <Badge variant={item.isPublished ? "default" : "secondary"}>
+                    {item.isPublished ? "Published" : "Draft"}
+                  </Badge>
+                  <Button size="sm" variant="outline" onClick={() => handleEdit(item)}>
+                    <Edit3 className="h-3 w-3" />
+                  </Button>
+                  <Button
+                    size="sm"
+                    variant="outline"
+                    onClick={() => item.isPublished ? unpublishMutation.mutate(item.id) : publishMutation.mutate(item.id)}
+                  >
+                    {item.isPublished ? <EyeOff className="h-3 w-3" /> : <Eye className="h-3 w-3" />}
+                  </Button>
+                  <Button
+                    size="sm"
+                    variant="outline"
+                    onClick={() => deleteContentMutation.mutate(item.id)}
+                    className="text-red-400 hover:text-red-300"
+                  >
+                    <Trash2 className="h-3 w-3" />
+                  </Button>
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+        ))}
+      </div>
+    </div>
+  );
+
+  const renderLiveExamplesEditor = (items: ContentItem[]) => (
+    <div className="space-y-4">
+      <div className="flex items-center justify-between">
+        <div>
+          <h3 className="text-lg font-semibold text-white">Live Feature Examples</h3>
+          <p className="text-sm text-gray-400">Interactive demos and live examples</p>
+        </div>
+        <Button
+          size="sm"
+          onClick={() => {
+            setSelectedType('live_examples');
+            setShowCreateForm(true);
+            setFormData({ 
+              title: 'New Live Example',
+              description: 'Example description',
+              demoUrl: 'https://example.com',
+              category: 'Demo',
+              tags: [],
+              order: items.length + 1
+            });
+          }}
+          className="bg-[#FF389A] hover:bg-[#E6329C]"
+        >
+          <Plus className="h-4 w-4 mr-2" />
+          Add Example
+        </Button>
+      </div>
+      
+      <div className="grid gap-3">
+        {items.map((item) => (
+          <Card key={item.id} className="bg-[#1A1A2E] border-gray-700">
+            <CardContent className="p-4">
+              <div className="flex items-center justify-between">
+                <div className="flex items-center space-x-3">
+                  <div className="w-10 h-10 bg-green-500/20 rounded-lg flex items-center justify-center">
+                    <Plus className="h-5 w-5 text-green-400" />
+                  </div>
+                  <div>
+                    <h4 className="font-medium text-white">{item.content.title}</h4>
+                    <p className="text-sm text-gray-400">{item.content.description}</p>
+                    <div className="flex items-center space-x-2 mt-1">
+                      <Badge variant="outline" className="text-xs">{item.content.category}</Badge>
+                      {item.content.tags?.map((tag: string, index: number) => (
+                        <Badge key={index} variant="outline" className="text-xs">{tag}</Badge>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+                <div className="flex items-center space-x-2">
+                  <Badge variant={item.isPublished ? "default" : "secondary"}>
+                    {item.isPublished ? "Published" : "Draft"}
+                  </Badge>
+                  <Button size="sm" variant="outline" onClick={() => handleEdit(item)}>
+                    <Edit3 className="h-3 w-3" />
+                  </Button>
+                  <Button
+                    size="sm"
+                    variant="outline"
+                    onClick={() => item.isPublished ? unpublishMutation.mutate(item.id) : publishMutation.mutate(item.id)}
+                  >
+                    {item.isPublished ? <EyeOff className="h-3 w-3" /> : <Eye className="h-3 w-3" />}
+                  </Button>
+                  <Button
+                    size="sm"
+                    variant="outline"
+                    onClick={() => deleteContentMutation.mutate(item.id)}
+                    className="text-red-400 hover:text-red-300"
+                  >
+                    <Trash2 className="h-3 w-3" />
+                  </Button>
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+        ))}
+      </div>
+    </div>
+  );
+
   const renderEditForm = () => {
     if (!editingItem) return null;
 
@@ -324,6 +570,167 @@ export default function ContentEditor({ contentItems, contentTypes, onRefresh }:
             {/* Edit Form - Left Side */}
             <div className="w-1/2 border-r border-gray-800 overflow-auto">
               <div className="p-4 space-y-4">
+                {type.name === 'training_modules' && (
+                  <>
+                    <div>
+                      <Label className="text-gray-200">Title</Label>
+                      <Input
+                        value={formData.title || ''}
+                        onChange={(e) => setFormData({ ...formData, title: e.target.value })}
+                        className="bg-[#1A1A2E] border-gray-700 text-white"
+                      />
+                    </div>
+                    <div>
+                      <Label className="text-gray-200">Description</Label>
+                      <Textarea
+                        value={formData.description || ''}
+                        onChange={(e) => setFormData({ ...formData, description: e.target.value })}
+                        className="bg-[#1A1A2E] border-gray-700 text-white"
+                      />
+                    </div>
+                    <div>
+                      <Label className="text-gray-200">Estimated Time</Label>
+                      <Input
+                        value={formData.estimatedTime || ''}
+                        onChange={(e) => setFormData({ ...formData, estimatedTime: e.target.value })}
+                        className="bg-[#1A1A2E] border-gray-700 text-white"
+                      />
+                    </div>
+                    <div>
+                      <Label className="text-gray-200">Icon</Label>
+                      <Select value={formData.icon || 'Calendar'} onValueChange={(value) => setFormData({ ...formData, icon: value })}>
+                        <SelectTrigger className="bg-[#1A1A2E] border-gray-700 text-white">
+                          <SelectValue />
+                        </SelectTrigger>
+                        <SelectContent>
+                          {Object.keys(iconMap).map((icon) => (
+                            <SelectItem key={icon} value={icon}>{icon}</SelectItem>
+                          ))}
+                        </SelectContent>
+                      </Select>
+                    </div>
+                    <div className="flex items-center space-x-2">
+                      <Checkbox
+                        checked={formData.completed || false}
+                        onCheckedChange={(checked) => setFormData({ ...formData, completed: checked })}
+                        id="completed"
+                      />
+                      <Label htmlFor="completed" className="text-gray-200">Mark as Completed</Label>
+                    </div>
+                  </>
+                )}
+
+                {type.name === 'platform_features' && (
+                  <>
+                    <div>
+                      <Label className="text-gray-200">Title</Label>
+                      <Input
+                        value={formData.title || ''}
+                        onChange={(e) => setFormData({ ...formData, title: e.target.value })}
+                        className="bg-[#1A1A2E] border-gray-700 text-white"
+                      />
+                    </div>
+                    <div>
+                      <Label className="text-gray-200">Description</Label>
+                      <Textarea
+                        value={formData.description || ''}
+                        onChange={(e) => setFormData({ ...formData, description: e.target.value })}
+                        className="bg-[#1A1A2E] border-gray-700 text-white"
+                      />
+                    </div>
+                    <div className="grid grid-cols-2 gap-4">
+                      <div>
+                        <Label className="text-gray-200">Category</Label>
+                        <Input
+                          value={formData.category || ''}
+                          onChange={(e) => setFormData({ ...formData, category: e.target.value })}
+                          className="bg-[#1A1A2E] border-gray-700 text-white"
+                        />
+                      </div>
+                      <div>
+                        <Label className="text-gray-200">Difficulty</Label>
+                        <Select value={formData.difficulty || 'Beginner'} onValueChange={(value) => setFormData({ ...formData, difficulty: value })}>
+                          <SelectTrigger className="bg-[#1A1A2E] border-gray-700 text-white">
+                            <SelectValue />
+                          </SelectTrigger>
+                          <SelectContent>
+                            <SelectItem value="Beginner">Beginner</SelectItem>
+                            <SelectItem value="Intermediate">Intermediate</SelectItem>
+                            <SelectItem value="Advanced">Advanced</SelectItem>
+                          </SelectContent>
+                        </Select>
+                      </div>
+                    </div>
+                    <div>
+                      <Label className="text-gray-200">Estimated Time</Label>
+                      <Input
+                        value={formData.estimatedTime || ''}
+                        onChange={(e) => setFormData({ ...formData, estimatedTime: e.target.value })}
+                        className="bg-[#1A1A2E] border-gray-700 text-white"
+                      />
+                    </div>
+                    <div>
+                      <Label className="text-gray-200">Icon</Label>
+                      <Select value={formData.icon || 'Settings'} onValueChange={(value) => setFormData({ ...formData, icon: value })}>
+                        <SelectTrigger className="bg-[#1A1A2E] border-gray-700 text-white">
+                          <SelectValue />
+                        </SelectTrigger>
+                        <SelectContent>
+                          {Object.keys(iconMap).map((icon) => (
+                            <SelectItem key={icon} value={icon}>{icon}</SelectItem>
+                          ))}
+                        </SelectContent>
+                      </Select>
+                    </div>
+                  </>
+                )}
+
+                {type.name === 'live_examples' && (
+                  <>
+                    <div>
+                      <Label className="text-gray-200">Title</Label>
+                      <Input
+                        value={formData.title || ''}
+                        onChange={(e) => setFormData({ ...formData, title: e.target.value })}
+                        className="bg-[#1A1A2E] border-gray-700 text-white"
+                      />
+                    </div>
+                    <div>
+                      <Label className="text-gray-200">Description</Label>
+                      <Textarea
+                        value={formData.description || ''}
+                        onChange={(e) => setFormData({ ...formData, description: e.target.value })}
+                        className="bg-[#1A1A2E] border-gray-700 text-white"
+                      />
+                    </div>
+                    <div>
+                      <Label className="text-gray-200">Demo URL</Label>
+                      <Input
+                        value={formData.demoUrl || ''}
+                        onChange={(e) => setFormData({ ...formData, demoUrl: e.target.value })}
+                        className="bg-[#1A1A2E] border-gray-700 text-white"
+                      />
+                    </div>
+                    <div>
+                      <Label className="text-gray-200">Category</Label>
+                      <Input
+                        value={formData.category || ''}
+                        onChange={(e) => setFormData({ ...formData, category: e.target.value })}
+                        className="bg-[#1A1A2E] border-gray-700 text-white"
+                      />
+                    </div>
+                    <div>
+                      <Label className="text-gray-200">Tags (comma-separated)</Label>
+                      <Input
+                        value={Array.isArray(formData.tags) ? formData.tags.join(', ') : ''}
+                        onChange={(e) => setFormData({ ...formData, tags: e.target.value.split(',').map(tag => tag.trim()).filter(tag => tag) })}
+                        className="bg-[#1A1A2E] border-gray-700 text-white"
+                        placeholder="tag1, tag2, tag3"
+                      />
+                    </div>
+                  </>
+                )}
+
                 {type.name === 'venue_onboarding' && (
                   <>
                     <div className="grid grid-cols-2 gap-4">
@@ -384,6 +791,15 @@ export default function ContentEditor({ contentItems, contentTypes, onRefresh }:
                         className="bg-[#1A1A2E] border-gray-700 text-white"
                       />
                     </div>
+
+                    <div>
+                      <Label className="text-gray-200">Venue Progress Title</Label>
+                      <Input
+                        value={formData.venueProgressTitle || ''}
+                        onChange={(e) => setFormData({ ...formData, venueProgressTitle: e.target.value })}
+                        className="bg-[#1A1A2E] border-gray-700 text-white"
+                      />
+                    </div>
                   </>
                 )}
 
@@ -416,10 +832,74 @@ export default function ContentEditor({ contentItems, contentTypes, onRefresh }:
     );
   };
 
+  const renderCreateForm = () => {
+    if (!showCreateForm) return null;
+
+    const type = contentTypes.find(t => t.name === selectedType);
+    if (!type) return null;
+
+    return (
+      <Card className="bg-[#0D0D24] border-gray-800 mb-6">
+        <CardHeader>
+          <CardTitle className="text-white flex items-center justify-between">
+            Create New {type.displayName}
+            <Button variant="outline" size="sm" onClick={() => setShowCreateForm(false)}>
+              <X className="h-4 w-4" />
+            </Button>
+          </CardTitle>
+        </CardHeader>
+        <CardContent className="space-y-4">
+          <div>
+            <Label className="text-gray-200">Title</Label>
+            <Input
+              value={formData.title || ''}
+              onChange={(e) => setFormData({ ...formData, title: e.target.value })}
+              className="bg-[#1A1A2E] border-gray-700 text-white"
+            />
+          </div>
+          <div>
+            <Label className="text-gray-200">Description</Label>
+            <Textarea
+              value={formData.description || ''}
+              onChange={(e) => setFormData({ ...formData, description: e.target.value })}
+              className="bg-[#1A1A2E] border-gray-700 text-white"
+            />
+          </div>
+          
+          <div className="flex space-x-3">
+            <Button
+              onClick={handleCreate}
+              className="bg-[#FF389A] hover:bg-[#E6329C]"
+              disabled={createContentMutation.isPending}
+            >
+              <Plus className="h-4 w-4 mr-2" />
+              {createContentMutation.isPending ? 'Creating...' : 'Create'}
+            </Button>
+            <Button variant="outline" onClick={() => setShowCreateForm(false)}>
+              Cancel
+            </Button>
+          </div>
+        </CardContent>
+      </Card>
+    );
+  };
+
   return (
-    <div className="space-y-6">
-      {/* Venue Onboarding Tasks */}
+    <div className="space-y-8">
+      {/* Venue Onboarding - Complete the onboarding for each of your venues */}
       {renderVenueOnboardingEditor(getItemsByType('venue_onboarding'))}
+
+      {/* Training Modules - Master Your Platform */}
+      {renderTrainingModuleEditor(getItemsByType('training_modules'))}
+      
+      {/* Platform Features - Master Your Platform */}
+      {renderPlatformFeaturesEditor(getItemsByType('platform_features'))}
+      
+      {/* Live Examples */}
+      {renderLiveExamplesEditor(getItemsByType('live_examples'))}
+
+      {/* Create Form */}
+      {renderCreateForm()}
 
       {/* Edit Form Modal with Live Preview */}
       {editingItem && renderEditForm()}
