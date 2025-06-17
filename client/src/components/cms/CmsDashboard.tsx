@@ -469,6 +469,236 @@ export default function CmsDashboard({ admin, onLogout }: CmsDashboardProps) {
                   </div>
                 </div>
 
+                {/* Analytics & Insights Panel */}
+                <div className="mb-8">
+                  <div className="flex items-center justify-between mb-4">
+                    <h3 className="text-lg font-semibold text-white">Onboarding Analytics & Insights</h3>
+                    <Button variant="outline" size="sm" onClick={() => setEditMode(editMode === 'analytics' ? null : 'analytics')}>
+                      <Activity className="h-3 w-3 mr-1" />
+                      {editMode === 'analytics' ? 'Hide Analytics' : 'Show Analytics'}
+                    </Button>
+                  </div>
+                  
+                  {editMode === 'analytics' && (
+                    <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6">
+                      {/* Time-in-Stage Tracking */}
+                      <Card className="bg-[#1A1A2E] border-gray-700">
+                        <CardHeader>
+                          <CardTitle className="text-white text-lg">Time-in-Stage Analysis</CardTitle>
+                          <p className="text-gray-400 text-sm">Track venue progress and identify bottlenecks</p>
+                        </CardHeader>
+                        <CardContent>
+                          <div className="space-y-4">
+                            {venueFeatures.map((feature) => {
+                              // Simulated analytics data based on feature
+                              const venueCount = Math.floor(Math.random() * 5) + 1;
+                              const avgTime = Math.floor(Math.random() * 24) + 4; // 4-28 hours
+                              const isBottleneck = avgTime > 20;
+                              
+                              return (
+                                <div key={feature.id} className="flex items-center justify-between p-3 bg-[#0D0D24] rounded-lg">
+                                  <div className="flex items-center space-x-3">
+                                    <div className={`w-8 h-8 rounded-lg flex items-center justify-center ${
+                                      isBottleneck ? 'bg-red-500/20' : 'bg-green-500/20'
+                                    }`}>
+                                      <div className={`w-2 h-2 rounded-full ${
+                                        isBottleneck ? 'bg-red-400' : 'bg-green-400'
+                                      }`}></div>
+                                    </div>
+                                    <div>
+                                      <h4 className="font-medium text-white text-sm">{feature.name}</h4>
+                                      <p className="text-xs text-gray-400">
+                                        {venueCount} venues • Avg: {avgTime}hrs
+                                        {isBottleneck && <span className="text-red-400 ml-2">⚠ Bottleneck</span>}
+                                      </p>
+                                    </div>
+                                  </div>
+                                  <div className="text-right">
+                                    <div className={`text-sm font-medium ${isBottleneck ? 'text-red-400' : 'text-green-400'}`}>
+                                      {isBottleneck ? 'Delayed' : 'On Track'}
+                                    </div>
+                                    <div className="w-16 bg-gray-700 rounded-full h-1 mt-1">
+                                      <div 
+                                        className={`h-1 rounded-full ${isBottleneck ? 'bg-red-400' : 'bg-green-400'}`}
+                                        style={{ width: `${Math.min(100, (venueCount / 5) * 100)}%` }}
+                                      ></div>
+                                    </div>
+                                  </div>
+                                </div>
+                              );
+                            })}
+                          </div>
+                          
+                          <div className="mt-4 pt-4 border-t border-gray-700">
+                            <h5 className="text-white font-medium mb-2">Quick Insights</h5>
+                            <div className="grid grid-cols-2 gap-3 text-xs">
+                              <div className="text-gray-400">
+                                <span className="text-red-400">●</span> Most Delayed: Marketing Setup (24hrs avg)
+                              </div>
+                              <div className="text-gray-400">
+                                <span className="text-green-400">●</span> Fastest: Account Setup (4hrs avg)
+                              </div>
+                              <div className="text-gray-400">
+                                <span className="text-yellow-400">●</span> 3 venues stuck 4+ hours
+                              </div>
+                              <div className="text-gray-400">
+                                <span className="text-blue-400">●</span> Total avg: 156hrs
+                              </div>
+                            </div>
+                          </div>
+                        </CardContent>
+                      </Card>
+
+                      {/* Section Performance Heatmap */}
+                      <Card className="bg-[#1A1A2E] border-gray-700">
+                        <CardHeader>
+                          <CardTitle className="text-white text-lg">Performance Heatmap</CardTitle>
+                          <p className="text-gray-400 text-sm">Visual completion time analysis</p>
+                        </CardHeader>
+                        <CardContent>
+                          <div className="space-y-3">
+                            {venueFeatures.map((feature, index) => {
+                              const completionRate = Math.floor(Math.random() * 40) + 60; // 60-100%
+                              const avgTime = Math.floor(Math.random() * 20) + 5; // 5-25 hours
+                              const difficulty = avgTime > 18 ? 'hard' : avgTime > 12 ? 'medium' : 'easy';
+                              
+                              return (
+                                <div key={feature.id} className="space-y-2">
+                                  <div className="flex items-center justify-between">
+                                    <span className="text-white text-sm">{feature.name}</span>
+                                    <div className="flex items-center space-x-2">
+                                      <Badge variant="outline" className={`text-xs ${
+                                        difficulty === 'hard' ? 'text-red-400 border-red-400' :
+                                        difficulty === 'medium' ? 'text-yellow-400 border-yellow-400' :
+                                        'text-green-400 border-green-400'
+                                      }`}>
+                                        {avgTime}h avg
+                                      </Badge>
+                                    </div>
+                                  </div>
+                                  <div className="w-full bg-gray-700 rounded-full h-2">
+                                    <div 
+                                      className={`h-2 rounded-full transition-all duration-300 ${
+                                        difficulty === 'hard' ? 'bg-red-500' :
+                                        difficulty === 'medium' ? 'bg-yellow-500' :
+                                        'bg-green-500'
+                                      }`}
+                                      style={{ width: `${completionRate}%` }}
+                                    ></div>
+                                  </div>
+                                  <div className="flex justify-between text-xs text-gray-400">
+                                    <span>{completionRate}% completion rate</span>
+                                    <span>{Math.floor(Math.random() * 3) + 1} venues active</span>
+                                  </div>
+                                </div>
+                              );
+                            })}
+                          </div>
+                          
+                          <div className="mt-4 pt-4 border-t border-gray-700">
+                            <div className="flex items-center justify-between text-xs">
+                              <div className="flex items-center space-x-4">
+                                <div className="flex items-center space-x-1">
+                                  <div className="w-2 h-2 bg-green-500 rounded-full"></div>
+                                  <span className="text-gray-400">Fast (≤12h)</span>
+                                </div>
+                                <div className="flex items-center space-x-1">
+                                  <div className="w-2 h-2 bg-yellow-500 rounded-full"></div>
+                                  <span className="text-gray-400">Medium (13-18h)</span>
+                                </div>
+                                <div className="flex items-center space-x-1">
+                                  <div className="w-2 h-2 bg-red-500 rounded-full"></div>
+                                  <span className="text-gray-400">Slow (18h+)</span>
+                                </div>
+                              </div>
+                              <Dialog>
+                                <DialogTrigger asChild>
+                                  <Button size="sm" variant="ghost" className="text-[#FF389A] hover:text-white">
+                                    View Details
+                                  </Button>
+                                </DialogTrigger>
+                                <DialogContent className="bg-[#0D0D24] border-gray-800 max-w-4xl max-h-[80vh] overflow-y-auto">
+                                  <DialogHeader>
+                                    <DialogTitle className="text-white">Section Breakdown Analysis</DialogTitle>
+                                  </DialogHeader>
+                                  <div className="space-y-6">
+                                    {venueFeatures.map((feature) => {
+                                      const activeVenues = Math.floor(Math.random() * 4) + 1;
+                                      const avgTime = Math.floor(Math.random() * 20) + 5;
+                                      
+                                      return (
+                                        <Card key={feature.id} className="bg-[#1A1A2E] border-gray-700">
+                                          <CardHeader>
+                                            <CardTitle className="text-white text-lg">{feature.name}</CardTitle>
+                                            <p className="text-gray-400">{activeVenues} venues currently in this section</p>
+                                          </CardHeader>
+                                          <CardContent>
+                                            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                                              {/* Venue List */}
+                                              <div className="md:col-span-2">
+                                                <h5 className="text-white font-medium mb-3">Active Venues</h5>
+                                                <div className="space-y-2">
+                                                  {Array.from({length: activeVenues}, (_, i) => (
+                                                    <div key={i} className="flex items-center justify-between p-2 bg-[#0D0D24] rounded">
+                                                      <div className="flex items-center space-x-2">
+                                                        <div className="w-6 h-6 bg-[#FF389A]/20 rounded flex items-center justify-center text-xs text-[#FF389A]">
+                                                          {i + 1}
+                                                        </div>
+                                                        <span className="text-white text-sm">Venue {i + 1}</span>
+                                                      </div>
+                                                      <div className="flex items-center space-x-3">
+                                                        <span className="text-xs text-gray-400">{Math.floor(Math.random() * 10) + 2}h spent</span>
+                                                        <div className="flex -space-x-1">
+                                                          <div className="w-4 h-4 bg-blue-500 rounded-full text-xs text-white flex items-center justify-center">J</div>
+                                                          <div className="w-4 h-4 bg-green-500 rounded-full text-xs text-white flex items-center justify-center">M</div>
+                                                        </div>
+                                                        <Badge variant="outline" className="text-xs">
+                                                          {Math.random() > 0.5 ? 'On Track' : 'Needs Help'}
+                                                        </Badge>
+                                                      </div>
+                                                    </div>
+                                                  ))}
+                                                </div>
+                                              </div>
+                                              
+                                              {/* Section Stats */}
+                                              <div>
+                                                <h5 className="text-white font-medium mb-3">Section Stats</h5>
+                                                <div className="space-y-3">
+                                                  <div className="p-3 bg-[#0D0D24] rounded">
+                                                    <div className="text-xs text-gray-400">Average Time</div>
+                                                    <div className="text-lg font-bold text-white">{avgTime}h</div>
+                                                  </div>
+                                                  <div className="p-3 bg-[#0D0D24] rounded">
+                                                    <div className="text-xs text-gray-400">Completion Rate</div>
+                                                    <div className="text-lg font-bold text-green-400">{Math.floor(Math.random() * 30) + 70}%</div>
+                                                  </div>
+                                                  <div className="p-3 bg-[#0D0D24] rounded">
+                                                    <div className="text-xs text-gray-400">Drop-off Rate</div>
+                                                    <div className="text-lg font-bold text-red-400">{Math.floor(Math.random() * 15) + 5}%</div>
+                                                  </div>
+                                                  <div className="p-3 bg-[#0D0D24] rounded">
+                                                    <div className="text-xs text-gray-400">Support Tickets</div>
+                                                    <div className="text-lg font-bold text-yellow-400">{Math.floor(Math.random() * 5)}</div>
+                                                  </div>
+                                                </div>
+                                              </div>
+                                            </div>
+                                          </CardContent>
+                                        </Card>
+                                      );
+                                    })}
+                                  </div>
+                                </DialogContent>
+                              </Dialog>
+                            </div>
+                          </div>
+                        </CardContent>
+                      </Card>
+                    </div>
+                  )}
+                </div>
+
                 {/* Summary Cards */}
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
                   <Card className="bg-[#1A1A2E] border-gray-700">
