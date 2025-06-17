@@ -957,61 +957,392 @@ export default function CmsDashboard({ admin, onLogout }: CmsDashboardProps) {
 
               {/* Onboarding Setup Tasks Sub-tab */}
               <TabsContent value="onboarding-setup">
-                <Card className="bg-[#0D0D24] border-gray-800">
-                  <CardHeader className="flex flex-row items-center justify-between">
-                    <div>
+                {/* Setup Overview */}
+                <div className="grid grid-cols-1 lg:grid-cols-4 gap-6 mb-8">
+                  <Card className="bg-gradient-to-br from-blue-600 to-blue-800 border-0">
+                    <CardContent className="p-6">
+                      <div className="flex items-center justify-between">
+                        <div>
+                          <p className="text-blue-100 text-sm">Setup Modules</p>
+                          <p className="text-3xl font-bold text-white">18</p>
+                          <p className="text-blue-200 text-xs">Available modules</p>
+                        </div>
+                        <Settings className="h-12 w-12 text-blue-200" />
+                      </div>
+                    </CardContent>
+                  </Card>
+
+                  <Card className="bg-gradient-to-br from-green-600 to-green-800 border-0">
+                    <CardContent className="p-6">
+                      <div className="flex items-center justify-between">
+                        <div>
+                          <p className="text-green-100 text-sm">Active Setups</p>
+                          <p className="text-3xl font-bold text-white">142</p>
+                          <p className="text-green-200 text-xs">In progress</p>
+                        </div>
+                        <Activity className="h-12 w-12 text-green-200" />
+                      </div>
+                    </CardContent>
+                  </Card>
+
+                  <Card className="bg-gradient-to-br from-orange-600 to-orange-800 border-0">
+                    <CardContent className="p-6">
+                      <div className="flex items-center justify-between">
+                        <div>
+                          <p className="text-orange-100 text-sm">Avg. Setup Time</p>
+                          <p className="text-3xl font-bold text-white">6.4h</p>
+                          <p className="text-orange-200 text-xs">Per venue</p>
+                        </div>
+                        <Clock className="h-12 w-12 text-orange-200" />
+                      </div>
+                    </CardContent>
+                  </Card>
+
+                  <Card className="bg-gradient-to-br from-purple-600 to-purple-800 border-0">
+                    <CardContent className="p-6">
+                      <div className="flex items-center justify-between">
+                        <div>
+                          <p className="text-purple-100 text-sm">Success Rate</p>
+                          <p className="text-3xl font-bold text-white">92%</p>
+                          <p className="text-purple-200 text-xs">Go-live success</p>
+                        </div>
+                        <CheckCircle className="h-12 w-12 text-purple-200" />
+                      </div>
+                    </CardContent>
+                  </Card>
+                </div>
+
+                {/* Module Categories */}
+                <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-8">
+                  {/* Core Setup Modules */}
+                  <Card className="bg-[#0D0D24] border-gray-800">
+                    <CardHeader>
                       <CardTitle className="text-white flex items-center">
-                        <span className="text-[#FF389A] mr-3">📝</span>
-                        Venue 1 Onboarding Progress
+                        <Zap className="h-5 w-5 mr-2 text-blue-400" />
+                        Core Setup Modules
                       </CardTitle>
-                      <p className="text-gray-400 mt-1">Complete these essential setup tasks for Venue 1</p>
-                    </div>
-                    <div className="text-right">
-                      <p className="text-gray-400 text-sm">Progress</p>
-                      <p className="text-2xl font-bold text-white">0%</p>
-                    </div>
+                      <p className="text-gray-400">Essential onboarding tasks for all venues</p>
+                    </CardHeader>
+                    <CardContent className="space-y-4">
+                      {[
+                        { name: 'Account Setup', active: 847, completion: 98, duration: '45 min', icon: '🏢', enabled: true },
+                        { name: 'Basic Configuration', active: 823, completion: 95, duration: '30 min', icon: '⚙️', enabled: true },
+                        { name: 'Staff Onboarding', active: 798, completion: 89, duration: '60 min', icon: '👥', enabled: true },
+                        { name: 'Payment Processing', active: 756, completion: 92, duration: '40 min', icon: '💳', enabled: true },
+                        { name: 'Go-Live Checklist', active: 731, completion: 87, duration: '25 min', icon: '✅', enabled: true }
+                      ].map((module, index) => (
+                        <div key={index} className="p-4 bg-[#1A1A2E] rounded-lg hover:bg-[#252545] transition-colors">
+                          <div className="flex items-center justify-between mb-3">
+                            <div className="flex items-center">
+                              <span className="text-xl mr-3">{module.icon}</span>
+                              <div>
+                                <h4 className="text-white font-medium">{module.name}</h4>
+                                <p className="text-gray-400 text-sm">{module.active} venues • {module.duration}</p>
+                              </div>
+                            </div>
+                            <div className="flex items-center space-x-3">
+                              <span className="text-blue-400 font-medium">{module.completion}%</span>
+                              <div className={`w-4 h-4 rounded-full ${module.enabled ? 'bg-green-500' : 'bg-gray-600'}`}></div>
+                            </div>
+                          </div>
+                          <div className="w-full bg-gray-700 rounded-full h-2 mb-2">
+                            <div 
+                              className="h-2 rounded-full bg-blue-500"
+                              style={{ width: `${module.completion}%` }}
+                            ></div>
+                          </div>
+                          <div className="flex justify-between items-center">
+                            <span className="text-gray-500 text-xs">Module Status</span>
+                            <Button variant="outline" size="sm" className="h-6 text-xs">
+                              Configure
+                            </Button>
+                          </div>
+                        </div>
+                      ))}
+                    </CardContent>
+                  </Card>
+
+                  {/* Advanced Setup Modules */}
+                  <Card className="bg-[#0D0D24] border-gray-800">
+                    <CardHeader>
+                      <CardTitle className="text-white flex items-center">
+                        <Star className="h-5 w-5 mr-2 text-purple-400" />
+                        Advanced Setup Modules
+                      </CardTitle>
+                      <p className="text-gray-400">Enhanced onboarding for growth-focused venues</p>
+                    </CardHeader>
+                    <CardContent className="space-y-4">
+                      {[
+                        { name: 'Booking System Setup', active: 672, completion: 84, duration: '90 min', icon: '📅', enabled: true },
+                        { name: 'Loyalty Program Config', active: 561, completion: 78, duration: '75 min', icon: '🎯', enabled: true },
+                        { name: 'Marketing Automation', active: 612, completion: 71, duration: '120 min', icon: '🚀', enabled: false },
+                        { name: 'Analytics Dashboard', active: 465, completion: 68, duration: '60 min', icon: '📊', enabled: true },
+                        { name: 'Integration Setup', active: 362, completion: 59, duration: '105 min', icon: '🔗', enabled: false }
+                      ].map((module, index) => (
+                        <div key={index} className="p-4 bg-[#1A1A2E] rounded-lg hover:bg-[#252545] transition-colors">
+                          <div className="flex items-center justify-between mb-3">
+                            <div className="flex items-center">
+                              <span className="text-xl mr-3">{module.icon}</span>
+                              <div>
+                                <h4 className="text-white font-medium">{module.name}</h4>
+                                <p className="text-gray-400 text-sm">{module.active} venues • {module.duration}</p>
+                              </div>
+                            </div>
+                            <div className="flex items-center space-x-3">
+                              <span className="text-purple-400 font-medium">{module.completion}%</span>
+                              <div className={`w-4 h-4 rounded-full ${module.enabled ? 'bg-green-500' : 'bg-gray-600'}`}></div>
+                            </div>
+                          </div>
+                          <div className="w-full bg-gray-700 rounded-full h-2 mb-2">
+                            <div 
+                              className="h-2 rounded-full bg-purple-500"
+                              style={{ width: `${module.completion}%` }}
+                            ></div>
+                          </div>
+                          <div className="flex justify-between items-center">
+                            <span className="text-gray-500 text-xs">{module.enabled ? 'Enabled' : 'Disabled'}</span>
+                            <Button variant="outline" size="sm" className="h-6 text-xs">
+                              Configure
+                            </Button>
+                          </div>
+                        </div>
+                      ))}
+                    </CardContent>
+                  </Card>
+
+                  {/* Premium Setup Modules */}
+                  <Card className="bg-[#0D0D24] border-gray-800">
+                    <CardHeader>
+                      <CardTitle className="text-white flex items-center">
+                        <Crown className="h-5 w-5 mr-2 text-yellow-400" />
+                        Premium Setup Modules
+                      </CardTitle>
+                      <p className="text-gray-400">Enterprise-level onboarding capabilities</p>
+                    </CardHeader>
+                    <CardContent className="space-y-4">
+                      {[
+                        { name: 'WiFi Marketing Setup', active: 587, completion: 76, duration: '85 min', icon: '📶', enabled: true },
+                        { name: 'Review Management', active: 612, completion: 82, duration: '50 min', icon: '⭐', enabled: true },
+                        { name: 'Custom Branding', active: 388, completion: 65, duration: '150 min', icon: '🎨', enabled: false },
+                        { name: 'Multi-Location Mgmt', active: 276, completion: 58, duration: '180 min', icon: '🏬', enabled: false },
+                        { name: 'Enterprise Support', active: 768, completion: 94, duration: '45 min', icon: '🆘', enabled: true }
+                      ].map((module, index) => (
+                        <div key={index} className="p-4 bg-[#1A1A2E] rounded-lg hover:bg-[#252545] transition-colors">
+                          <div className="flex items-center justify-between mb-3">
+                            <div className="flex items-center">
+                              <span className="text-xl mr-3">{module.icon}</span>
+                              <div>
+                                <h4 className="text-white font-medium">{module.name}</h4>
+                                <p className="text-gray-400 text-sm">{module.active} venues • {module.duration}</p>
+                              </div>
+                            </div>
+                            <div className="flex items-center space-x-3">
+                              <span className="text-yellow-400 font-medium">{module.completion}%</span>
+                              <div className={`w-4 h-4 rounded-full ${module.enabled ? 'bg-green-500' : 'bg-gray-600'}`}></div>
+                            </div>
+                          </div>
+                          <div className="w-full bg-gray-700 rounded-full h-2 mb-2">
+                            <div 
+                              className="h-2 rounded-full bg-yellow-500"
+                              style={{ width: `${module.completion}%` }}
+                            ></div>
+                          </div>
+                          <div className="flex justify-between items-center">
+                            <span className="text-gray-500 text-xs">{module.enabled ? 'Enabled' : 'Disabled'}</span>
+                            <Button variant="outline" size="sm" className="h-6 text-xs">
+                              Configure
+                            </Button>
+                          </div>
+                        </div>
+                      ))}
+                    </CardContent>
+                  </Card>
+                </div>
+
+                {/* Setup Tasks Management Grid */}
+                <Card className="bg-[#0D0D24] border-gray-800 mb-8">
+                  <CardHeader>
+                    <CardTitle className="text-white flex items-center">
+                      <Settings className="h-5 w-5 mr-2 text-[#FF389A]" />
+                      Client Setup Task Modules
+                    </CardTitle>
+                    <p className="text-gray-400">Switch modules on/off for different client onboarding experiences</p>
                   </CardHeader>
                   <CardContent>
-                    <div className="space-y-4">
-                      {onboardingTasks.map((task) => (
-                        <div key={task.id} className="flex items-center justify-between p-4 rounded-lg bg-[#1A1A2E] border border-gray-800">
-                          <div className="flex items-center space-x-4">
-                            <div className="text-2xl">{task.icon}</div>
-                            <div className="flex-1">
-                              <h3 className="text-white font-medium">{task.name}</h3>
-                              <p className="text-gray-400 text-sm">{task.description}</p>
-                              <div className="flex items-center space-x-4 mt-2">
-                                <span className="text-gray-500 text-xs flex items-center">
-                                  <Clock className="h-3 w-3 mr-1" />
-                                  {task.estimatedTime}
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
+                      {[
+                        { title: 'Account Setup', duration: '45 min', venues: 847, status: 'enabled', difficulty: 'Beginner', category: 'Core', tasks: 8 },
+                        { title: 'Basic Configuration', duration: '30 min', venues: 823, status: 'enabled', difficulty: 'Beginner', category: 'Core', tasks: 5 },
+                        { title: 'Staff Training Portal', duration: '60 min', venues: 798, status: 'enabled', difficulty: 'Intermediate', category: 'Core', tasks: 12 },
+                        { title: 'Payment Gateway Setup', duration: '40 min', venues: 756, status: 'enabled', difficulty: 'Intermediate', category: 'Core', tasks: 6 },
+                        { title: 'Go-Live Preparation', duration: '25 min', venues: 731, status: 'enabled', difficulty: 'Beginner', category: 'Core', tasks: 4 },
+                        { title: 'Booking System Config', duration: '90 min', venues: 672, status: 'enabled', difficulty: 'Advanced', category: 'Advanced', tasks: 15 },
+                        { title: 'Loyalty Program Setup', duration: '75 min', venues: 561, status: 'enabled', difficulty: 'Advanced', category: 'Advanced', tasks: 11 },
+                        { title: 'Marketing Automation', duration: '120 min', venues: 612, status: 'disabled', difficulty: 'Advanced', category: 'Advanced', tasks: 18 },
+                        { title: 'WiFi Marketing Setup', duration: '85 min', venues: 587, status: 'enabled', difficulty: 'Advanced', category: 'Premium', tasks: 13 },
+                        { title: 'Review Management', duration: '50 min', venues: 612, status: 'enabled', difficulty: 'Intermediate', category: 'Premium', tasks: 9 },
+                        { title: 'Custom Branding', duration: '150 min', venues: 388, status: 'disabled', difficulty: 'Expert', category: 'Premium', tasks: 22 },
+                        { title: 'Multi-Location Setup', duration: '180 min', venues: 276, status: 'disabled', difficulty: 'Expert', category: 'Premium', tasks: 28 }
+                      ].map((module, index) => (
+                        <Card key={index} className={`border transition-colors cursor-pointer ${
+                          module.status === 'enabled' 
+                            ? 'bg-[#1A1A2E] border-[#FF389A] hover:border-[#FF389A]/80' 
+                            : 'bg-[#0D0D14] border-gray-800 hover:border-gray-700'
+                        }`}>
+                          <CardContent className="p-4">
+                            <div className="flex items-start justify-between mb-3">
+                              <span className={`px-2 py-1 rounded text-xs font-medium ${
+                                module.category === 'Core' ? 'bg-blue-900 text-blue-200' :
+                                module.category === 'Advanced' ? 'bg-purple-900 text-purple-200' :
+                                'bg-yellow-900 text-yellow-200'
+                              }`}>
+                                {module.category}
+                              </span>
+                              <div className={`w-3 h-3 rounded-full ${
+                                module.status === 'enabled' ? 'bg-green-500' : 'bg-gray-600'
+                              }`}></div>
+                            </div>
+                            
+                            <h4 className={`font-medium mb-2 ${
+                              module.status === 'enabled' ? 'text-white' : 'text-gray-500'
+                            }`}>
+                              {module.title}
+                            </h4>
+                            
+                            <div className={`space-y-2 text-sm ${
+                              module.status === 'enabled' ? 'text-gray-400' : 'text-gray-600'
+                            }`}>
+                              <div className="flex items-center justify-between">
+                                <span>Duration:</span>
+                                <span className={module.status === 'enabled' ? 'text-white' : 'text-gray-500'}>
+                                  {module.duration}
+                                </span>
+                              </div>
+                              <div className="flex items-center justify-between">
+                                <span>Active:</span>
+                                <span className={module.status === 'enabled' ? 'text-green-400' : 'text-gray-500'}>
+                                  {module.venues} venues
+                                </span>
+                              </div>
+                              <div className="flex items-center justify-between">
+                                <span>Tasks:</span>
+                                <span className={module.status === 'enabled' ? 'text-white' : 'text-gray-500'}>
+                                  {module.tasks}
+                                </span>
+                              </div>
+                              <div className="flex items-center justify-between">
+                                <span>Difficulty:</span>
+                                <span className={`${
+                                  module.difficulty === 'Beginner' ? 'text-green-400' :
+                                  module.difficulty === 'Intermediate' ? 'text-yellow-400' :
+                                  module.difficulty === 'Advanced' ? 'text-orange-400' : 'text-red-400'
+                                }`}>
+                                  {module.difficulty}
                                 </span>
                               </div>
                             </div>
-                          </div>
-                          <div className="flex items-center space-x-4">
-                            <div className="text-center">
-                              <select className="bg-[#0D0D24] border border-gray-700 rounded px-3 py-1 text-white text-sm">
-                                <option value="unassigned">Unassigned</option>
-                                <option value="admin">Admin</option>
-                                <option value="venue-manager">Venue Manager</option>
-                              </select>
-                              <p className="text-gray-500 text-xs mt-1">Assigned to</p>
+                            
+                            <Button 
+                              className={`w-full mt-4 ${
+                                module.status === 'enabled' 
+                                  ? 'bg-[#FF389A] hover:bg-[#FF389A]/80' 
+                                  : 'bg-gray-700 hover:bg-gray-600 text-gray-300'
+                              }`} 
+                              size="sm"
+                            >
+                              {module.status === 'enabled' ? 'Configure Module' : 'Enable Module'}
+                            </Button>
+                          </CardContent>
+                        </Card>
+                      ))}
+                    </div>
+                  </CardContent>
+                </Card>
+
+                {/* Setup Templates */}
+                <Card className="bg-[#0D0D24] border-gray-800">
+                  <CardHeader>
+                    <CardTitle className="text-white flex items-center">
+                      <FileText className="h-5 w-5 mr-2 text-[#FF389A]" />
+                      Setup Templates
+                    </CardTitle>
+                    <p className="text-gray-400">Pre-configured module combinations for different venue types</p>
+                  </CardHeader>
+                  <CardContent>
+                    <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                      {[
+                        {
+                          title: 'Quick Start Package',
+                          description: 'Essential modules for rapid venue onboarding',
+                          modules: 6,
+                          duration: '3.5 hours',
+                          venues: 456,
+                          included: ['Account Setup', 'Basic Configuration', 'Staff Training', 'Payment Setup', 'Go-Live Checklist', 'Support Access']
+                        },
+                        {
+                          title: 'Full-Service Package',
+                          description: 'Comprehensive setup with booking and loyalty features',
+                          modules: 10,
+                          duration: '8.2 hours',
+                          venues: 298,
+                          included: ['All Quick Start', 'Booking System', 'Loyalty Program', 'Analytics Dashboard', 'Review Management']
+                        },
+                        {
+                          title: 'Enterprise Package',
+                          description: 'Complete platform setup with advanced integrations',
+                          modules: 15,
+                          duration: '14.8 hours',
+                          venues: 87,
+                          included: ['All Full-Service', 'Marketing Automation', 'WiFi Marketing', 'Custom Branding', 'Multi-Location', 'Enterprise Support']
+                        }
+                      ].map((template, index) => (
+                        <Card key={index} className="bg-[#1A1A2E] border-gray-700">
+                          <CardContent className="p-6">
+                            <div className="flex items-center justify-between mb-4">
+                              <h4 className="text-white font-bold text-lg">{template.title}</h4>
+                              <Settings className="h-6 w-6 text-[#FF389A]" />
                             </div>
-                            <div className="text-center">
-                              <select className="bg-[#0D0D24] border border-gray-700 rounded px-3 py-1 text-white text-sm">
-                                <option value="not-started">Not Started</option>
-                                <option value="in-progress">In Progress</option>
-                                <option value="completed">Completed</option>
-                              </select>
-                              <p className="text-gray-500 text-xs mt-1">Status</p>
+                            
+                            <p className="text-gray-400 mb-4">{template.description}</p>
+                            
+                            <div className="space-y-2 mb-4">
+                              <div className="flex justify-between text-sm">
+                                <span className="text-gray-400">Modules:</span>
+                                <span className="text-white">{template.modules}</span>
+                              </div>
+                              <div className="flex justify-between text-sm">
+                                <span className="text-gray-400">Total Duration:</span>
+                                <span className="text-white">{template.duration}</span>
+                              </div>
+                              <div className="flex justify-between text-sm">
+                                <span className="text-gray-400">Active Venues:</span>
+                                <span className="text-green-400">{template.venues}</span>
+                              </div>
                             </div>
-                            <div className="text-right">
-                              <span className={`text-sm ${getStatusColor(task.status.toLowerCase())}`}>
-                                not started
-                              </span>
+                            
+                            <div className="mb-4">
+                              <p className="text-gray-400 text-sm mb-2">Included Modules:</p>
+                              <div className="space-y-1">
+                                {template.included.slice(0, 4).map((module, moduleIndex) => (
+                                  <div key={moduleIndex} className="flex items-center text-sm">
+                                    <div className="w-2 h-2 rounded-full bg-[#FF389A] mr-2"></div>
+                                    <span className="text-gray-300">{module}</span>
+                                  </div>
+                                ))}
+                                {template.included.length > 4 && (
+                                  <div className="flex items-center text-sm">
+                                    <div className="w-2 h-2 rounded-full bg-gray-600 mr-2"></div>
+                                    <span className="text-gray-500">+{template.included.length - 4} more modules</span>
+                                  </div>
+                                )}
+                              </div>
                             </div>
-                          </div>
-                        </div>
+                            
+                            <Button className="w-full bg-[#FF389A] hover:bg-[#FF389A]/80">
+                              Apply Template
+                            </Button>
+                          </CardContent>
+                        </Card>
                       ))}
                     </div>
                   </CardContent>
