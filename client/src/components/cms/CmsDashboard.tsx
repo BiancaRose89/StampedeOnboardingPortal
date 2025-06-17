@@ -35,7 +35,7 @@ import {
 import { useToast } from '@/hooks/use-toast';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { apiRequest } from '@/lib/queryClient';
-import ContentEditor from './ContentEditorFixed';
+import { ContentEditorFixed } from './ContentEditorFixed';
 
 interface CmsAdmin {
   id: number;
@@ -1031,54 +1031,65 @@ export default function CmsDashboard({ admin, onLogout }: CmsDashboardProps) {
                 </CardHeader>
                 <CardContent>
                   {selectedContent ? (
-                    <div className="space-y-4">
-                      <div>
-                        <h3 className="text-lg font-medium text-white mb-2">
-                          {selectedContent.title}
-                        </h3>
-                        <p className="text-sm text-gray-400 mb-4">
-                          Key: {selectedContent.key}
-                        </p>
-                      </div>
-
+                    selectedContent.key === 'front_page_website' ? (
+                      <ContentEditorFixed
+                        contentItem={selectedContent}
+                        onSave={(data) => {
+                          setEditingContent(data);
+                          handleSaveContent();
+                        }}
+                        onCancel={handleCancelEdit}
+                      />
+                    ) : (
                       <div className="space-y-4">
                         <div>
-                          <label className="block text-sm font-medium text-gray-200 mb-2">
-                            Content (JSON)
-                          </label>
-                          <textarea
-                            value={JSON.stringify(editingContent, null, 2)}
-                            onChange={(e) => {
-                              try {
-                                setEditingContent(JSON.parse(e.target.value));
-                              } catch {
-                                // Keep the string value for now
-                              }
-                            }}
-                            rows={12}
-                            className="w-full p-3 bg-[#1A1A2E] border border-gray-700 rounded-md text-white font-mono text-sm"
-                            placeholder="Enter content as JSON..."
-                          />
+                          <h3 className="text-lg font-medium text-white mb-2">
+                            {selectedContent.title}
+                          </h3>
+                          <p className="text-sm text-gray-400 mb-4">
+                            Key: {selectedContent.key}
+                          </p>
+                        </div>
+
+                        <div className="space-y-4">
+                          <div>
+                            <label className="block text-sm font-medium text-gray-200 mb-2">
+                              Content (JSON)
+                            </label>
+                            <textarea
+                              value={JSON.stringify(editingContent, null, 2)}
+                              onChange={(e) => {
+                                try {
+                                  setEditingContent(JSON.parse(e.target.value));
+                                } catch {
+                                  // Keep the string value for now
+                                }
+                              }}
+                              rows={12}
+                              className="w-full p-3 bg-[#1A1A2E] border border-gray-700 rounded-md text-white font-mono text-sm"
+                              placeholder="Enter content as JSON..."
+                            />
+                          </div>
+                        </div>
+
+                        <div className="flex space-x-3">
+                          <Button
+                            onClick={handleSaveContent}
+                            className="bg-[#FF389A] hover:bg-[#E6329C]"
+                            disabled={updateContentMutation.isPending || !currentLock}
+                          >
+                            {updateContentMutation.isPending ? 'Saving...' : 'Save Changes'}
+                          </Button>
+                          <Button
+                            variant="outline"
+                            onClick={handleCancelEdit}
+                            className="border-gray-600 text-gray-300 hover:bg-gray-700"
+                          >
+                            Cancel
+                          </Button>
                         </div>
                       </div>
-
-                      <div className="flex space-x-3">
-                        <Button
-                          onClick={handleSaveContent}
-                          className="bg-[#FF389A] hover:bg-[#E6329C]"
-                          disabled={updateContentMutation.isPending || !currentLock}
-                        >
-                          {updateContentMutation.isPending ? 'Saving...' : 'Save Changes'}
-                        </Button>
-                        <Button
-                          variant="outline"
-                          onClick={handleCancelEdit}
-                          className="border-gray-600 text-gray-300 hover:bg-gray-700"
-                        >
-                          Cancel
-                        </Button>
-                      </div>
-                    </div>
+                    )
                   ) : (
                     <div className="text-center py-12 text-gray-400">
                       <Edit3 className="h-12 w-12 mx-auto mb-4 opacity-50" />
