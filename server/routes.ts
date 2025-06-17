@@ -1,10 +1,13 @@
 import type { Express } from "express";
 import { createServer, type Server } from "http";
 import { storage } from "./storage";
+import { registerCmsRoutes } from "./cmsRoutes";
 import { insertUserSchema, insertProgressSchema, insertGuideConfigSchema, updateProgressSchema } from "@shared/schema";
 import { z } from "zod";
 
 export async function registerRoutes(app: Express): Promise<Server> {
+  // Register CMS routes
+  registerCmsRoutes(app);
   // User routes
   app.get("/api/users", async (req, res) => {
     try {

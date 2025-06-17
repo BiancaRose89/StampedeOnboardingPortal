@@ -231,7 +231,7 @@ export class DatabaseCmsStorage implements ICmsStorage {
 
   async deleteContentItem(id: number): Promise<boolean> {
     const result = await db.delete(contentItems).where(eq(contentItems.id, id));
-    return result.rowCount > 0;
+    return (result.rowCount ?? 0) > 0;
   }
 
   async publishContentItem(id: number, adminId: number): Promise<ContentItem | undefined> {
@@ -332,7 +332,7 @@ export class DatabaseCmsStorage implements ICmsStorage {
         eq(contentLocks.lockedBy, adminId)
       ));
     
-    return result.rowCount > 0;
+    return (result.rowCount ?? 0) > 0;
   }
 
   async renewLock(lockToken: string, adminId: number, durationMinutes: number = 30): Promise<ContentLock | null> {
@@ -367,7 +367,7 @@ export class DatabaseCmsStorage implements ICmsStorage {
       .delete(contentLocks)
       .where(lt(contentLocks.expiresAt, new Date()));
     
-    return result.rowCount;
+    return result.rowCount ?? 0;
   }
 
   // Activity logging
