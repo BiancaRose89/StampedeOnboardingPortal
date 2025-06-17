@@ -114,6 +114,7 @@ The application is built with a modern tech stack featuring React frontend, Expr
 ```
 Changelog:
 - June 17, 2025. Initial setup
+- June 17, 2025. Built comprehensive collaborative CMS admin dashboard with multi-user authentication, real-time content locking, version control, and flexible content schema. Default admin: admin@stampede.ai / admin123. Access at /cms route.
 ```
 
 ## User Preferences

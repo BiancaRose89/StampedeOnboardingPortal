@@ -7,6 +7,17 @@ const app = express();
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
+// Initialize CMS on startup
+(async () => {
+  try {
+    await initializeCms();
+    startLockCleanup();
+    console.log('CMS system initialized successfully');
+  } catch (error) {
+    console.error('Failed to initialize CMS:', error);
+  }
+})();
+
 app.use((req, res, next) => {
   const start = Date.now();
   const path = req.path;
