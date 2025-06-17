@@ -461,6 +461,66 @@ export function registerCmsRoutes(app: Express) {
     }
   });
 
+  // Organization management routes
+  app.get('/api/cms/organizations', authenticateCmsAdmin, async (req, res) => {
+    try {
+      const organizations = await cmsStorage.getAllOrganizations();
+      res.json(organizations);
+    } catch (error) {
+      console.error('Error fetching organizations:', error);
+      res.status(500).json({ message: 'Failed to fetch organizations' });
+    }
+  });
+
+  app.post('/api/cms/organizations', authenticateCmsAdmin, async (req, res) => {
+    try {
+      const organization = await cmsStorage.createOrganization(req.body);
+      await cmsStorage.logActivity({
+        adminId: req.cmsAdmin!.id,
+        action: 'create',
+        resourceType: 'organization',
+        resourceId: organization.id,
+        details: { organizationName: organization.name }
+      });
+      res.status(201).json(organization);
+    } catch (error) {
+      console.error('Error creating organization:', error);
+      res.status(500).json({ message: 'Failed to create organization' });
+    }
+  });
+
+  app.get('/api/cms/organizations/:id/venues', authenticateCmsAdmin, async (req, res) => {
+    try {
+      const organizationId = parseInt(req.params.id);
+      const venues = await cmsStorage.getVenuesByOrganization(organizationId);
+      res.json(venues);
+    } catch (error) {
+      console.error('Error fetching organization venues:', error);
+      res.status(500).json({ message: 'Failed to fetch organization venues' });
+    }
+  });
+
+  app.put('/api/cms/organizations/:id', authenticateCmsAdmin, async (req, res) => {
+    try {
+      const id = parseInt(req.params.id);
+      const organization = await cmsStorage.updateOrganization(id, req.body);
+      if (!organization) {
+        return res.status(404).json({ message: 'Organization not found' });
+      }
+      await cmsStorage.logActivity({
+        adminId: req.cmsAdmin!.id,
+        action: 'update',
+        resourceType: 'organization',
+        resourceId: organization.id,
+        details: { organizationName: organization.name }
+      });
+      res.json(organization);
+    } catch (error) {
+      console.error('Error updating organization:', error);
+      res.status(500).json({ message: 'Failed to update organization' });
+    }
+  });
+
   // Onboarding features routes
   app.get('/api/cms/features', authenticateCmsAdmin, async (req, res) => {
     try {

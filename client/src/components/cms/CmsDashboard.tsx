@@ -44,6 +44,7 @@ import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { apiRequest } from '@/lib/queryClient';
 import { ContentEditorFixed } from './ContentEditorFixed';
 import { VenueManager } from './VenueManager';
+import OrganizationManager from './OrganizationManager';
 
 interface CmsAdmin {
   id: number;
