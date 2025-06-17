@@ -4,6 +4,10 @@ import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Alert, AlertDescription } from '@/components/ui/alert';
+import { Input } from '@/components/ui/input';
+import { Textarea } from '@/components/ui/textarea';
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { 
   FileText, 
   Users, 
@@ -21,7 +25,12 @@ import {
   AlertCircle,
   LogOut,
   Zap,
-  Calendar
+  Calendar,
+  Save,
+  X,
+  Move,
+  Copy,
+  GripVertical
 } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
@@ -69,6 +78,33 @@ export default function CmsDashboard({ admin, onLogout }: CmsDashboardProps) {
   const [currentLock, setCurrentLock] = useState<ContentLock | null>(null);
   const { toast } = useToast();
   const queryClient = useQueryClient();
+
+  // Editing states for making everything configurable
+  const [editMode, setEditMode] = useState<string | null>(null);
+  const [editingItem, setEditingItem] = useState<any>(null);
+  const [showAddDialog, setShowAddDialog] = useState<string | null>(null);
+  const [draggedItem, setDraggedItem] = useState<any>(null);
+  
+  // Configuration states
+  const [dashboardConfig, setDashboardConfig] = useState({
+    showSummaryCards: true,
+    showSearchFilters: true,
+    showTeamInfo: true,
+    summaryCardOrder: ['total', 'onTrack', 'atRisk', 'avgProgress'],
+    venueDisplayMode: 'cards',
+  });
+
+  // Venue onboarding feature configuration
+  const [venueFeatures, setVenueFeatures] = useState([
+    { id: 'account', name: 'Account Setup', description: 'Platform configuration and initial setup', icon: 'Settings', color: 'blue', visible: true },
+    { id: 'bookings', name: 'Bookings Go-Live Guide', description: 'Table management and reservation system', icon: 'Calendar', color: 'pink', visible: true },
+    { id: 'loyalty', name: 'Loyalty Go-Live Guide', description: 'Customer rewards and loyalty program setup', icon: 'Zap', color: 'yellow', visible: true },
+    { id: 'marketing', name: 'Marketing Go-Live Guide', description: 'Email campaigns and marketing automation', icon: 'Activity', color: 'green', visible: true },
+    { id: 'wifi', name: 'WiFi & Guest Capture', description: 'Guest network setup and data collection', icon: 'Settings', color: 'purple', visible: true },
+    { id: 'reviews', name: 'Reviews Management', description: 'Online review collection and management', icon: 'CheckCircle', color: 'orange', visible: true },
+    { id: 'staff', name: 'Staff Training', description: 'Team onboarding and system training', icon: 'Users', color: 'cyan', visible: true },
+    { id: 'golive', name: 'Go-Live Checklist', description: 'Final launch preparation and validation', icon: 'AlertCircle', color: 'red', visible: true },
+  ]);
 
   // Fetch content items
   const { data: contentItems = [], isLoading: contentLoading, refetch: refetchContent } = useQuery({
@@ -324,7 +360,74 @@ export default function CmsDashboard({ admin, onLogout }: CmsDashboardProps) {
                         contentTypes.find((type: any) => type.id === item.contentTypeId)?.name === 'venue_onboarding'
                       ).length} Active Venues
                     </Badge>
-                    <Button className="bg-[#FF389A] hover:bg-[#E6329C]">
+                    
+                    {/* Dashboard Configuration Button */}
+                    <Dialog>
+                      <DialogTrigger asChild>
+                        <Button variant="outline" size="sm">
+                          <Settings className="h-4 w-4 mr-2" />
+                          Configure Dashboard
+                        </Button>
+                      </DialogTrigger>
+                      <DialogContent className="bg-[#0D0D24] border-gray-800 max-w-2xl">
+                        <DialogHeader>
+                          <DialogTitle className="text-white">Dashboard Configuration</DialogTitle>
+                        </DialogHeader>
+                        <div className="space-y-6">
+                          <div className="space-y-4">
+                            <h4 className="text-white font-medium">Display Options</h4>
+                            <div className="grid grid-cols-2 gap-4">
+                              <label className="flex items-center space-x-2">
+                                <input 
+                                  type="checkbox" 
+                                  checked={dashboardConfig.showSummaryCards}
+                                  onChange={(e) => setDashboardConfig(prev => ({...prev, showSummaryCards: e.target.checked}))}
+                                  className="rounded"
+                                />
+                                <span className="text-white">Show Summary Cards</span>
+                              </label>
+                              <label className="flex items-center space-x-2">
+                                <input 
+                                  type="checkbox" 
+                                  checked={dashboardConfig.showSearchFilters}
+                                  onChange={(e) => setDashboardConfig(prev => ({...prev, showSearchFilters: e.target.checked}))}
+                                  className="rounded"
+                                />
+                                <span className="text-white">Show Search & Filters</span>
+                              </label>
+                              <label className="flex items-center space-x-2">
+                                <input 
+                                  type="checkbox" 
+                                  checked={dashboardConfig.showTeamInfo}
+                                  onChange={(e) => setDashboardConfig(prev => ({...prev, showTeamInfo: e.target.checked}))}
+                                  className="rounded"
+                                />
+                                <span className="text-white">Show Team Info</span>
+                              </label>
+                            </div>
+                          </div>
+                          
+                          <div className="space-y-4">
+                            <h4 className="text-white font-medium">Layout</h4>
+                            <Select 
+                              value={dashboardConfig.venueDisplayMode} 
+                              onValueChange={(value) => setDashboardConfig(prev => ({...prev, venueDisplayMode: value}))}
+                            >
+                              <SelectTrigger className="bg-[#1A1A2E] border-gray-700 text-white">
+                                <SelectValue />
+                              </SelectTrigger>
+                              <SelectContent className="bg-[#1A1A2E] border-gray-700">
+                                <SelectItem value="cards">Card Layout</SelectItem>
+                                <SelectItem value="table">Table Layout</SelectItem>
+                                <SelectItem value="grid">Grid Layout</SelectItem>
+                              </SelectContent>
+                            </Select>
+                          </div>
+                        </div>
+                      </DialogContent>
+                    </Dialog>
+                    
+                    <Button className="bg-[#FF389A] hover:bg-[#E6329C]" onClick={() => setShowAddDialog('venue')}>
                       <Plus className="h-4 w-4 mr-2" />
                       Add New Venue
                     </Button>
@@ -833,184 +936,170 @@ export default function CmsDashboard({ admin, onLogout }: CmsDashboardProps) {
 
                             {/* Onboarding Features Grid */}
                             <div className="space-y-4">
-                              <h5 className="text-md font-medium text-white mb-4">Onboarding Features & Tasks</h5>
+                              <div className="flex items-center justify-between">
+                                <h5 className="text-md font-medium text-white">Onboarding Features & Tasks</h5>
+                                <div className="flex items-center space-x-2">
+                                  <Button size="sm" variant="outline" onClick={() => setShowAddDialog('feature')}>
+                                    <Plus className="h-3 w-3 mr-1" />
+                                    Add Feature
+                                  </Button>
+                                  <Button size="sm" variant="outline" onClick={() => setEditMode(editMode === 'features' ? null : 'features')}>
+                                    <Edit3 className="h-3 w-3 mr-1" />
+                                    {editMode === 'features' ? 'Done' : 'Edit All'}
+                                  </Button>
+                                </div>
+                              </div>
                               
                               <div className="grid gap-3">
-                                {/* Account Setup */}
-                                <div className="flex items-center justify-between p-3 bg-[#0D0D24] rounded-lg border border-gray-700">
-                                  <div className="flex items-center space-x-3">
-                                    <div className="w-8 h-8 bg-blue-500/20 rounded-lg flex items-center justify-center">
-                                      <Settings className="h-4 w-4 text-blue-400" />
+                                {venueFeatures.filter(feature => feature.visible).map((feature, index) => {
+                                  const getIconComponent = (iconName: string) => {
+                                    const iconMap: any = {
+                                      Settings, Calendar, Zap, Activity, CheckCircle, Users, AlertCircle
+                                    };
+                                    return iconMap[iconName] || Settings;
+                                  };
+                                  
+                                  const getColorClasses = (color: string) => {
+                                    const colorMap: any = {
+                                      blue: 'bg-blue-500/20 text-blue-400',
+                                      pink: 'bg-[#FF389A]/20 text-[#FF389A]',
+                                      yellow: 'bg-yellow-500/20 text-yellow-400',
+                                      green: 'bg-green-500/20 text-green-400',
+                                      purple: 'bg-purple-500/20 text-purple-400',
+                                      orange: 'bg-orange-500/20 text-orange-400',
+                                      cyan: 'bg-cyan-500/20 text-cyan-400',
+                                      red: 'bg-red-500/20 text-red-400',
+                                    };
+                                    return colorMap[color] || 'bg-gray-500/20 text-gray-400';
+                                  };
+                                  
+                                  const IconComponent = getIconComponent(feature.icon);
+                                  
+                                  return (
+                                    <div 
+                                      key={feature.id}
+                                      className={`flex items-center justify-between p-3 bg-[#0D0D24] rounded-lg border border-gray-700 ${
+                                        editMode === 'features' ? 'border-[#FF389A]/50' : ''
+                                      } ${draggedItem?.id === feature.id ? 'opacity-50' : ''}`}
+                                      draggable={editMode === 'features'}
+                                      onDragStart={() => setDraggedItem(feature)}
+                                      onDragEnd={() => setDraggedItem(null)}
+                                      onDragOver={(e) => e.preventDefault()}
+                                      onDrop={(e) => {
+                                        e.preventDefault();
+                                        if (draggedItem && draggedItem.id !== feature.id) {
+                                          const draggedIndex = venueFeatures.findIndex(f => f.id === draggedItem.id);
+                                          const targetIndex = venueFeatures.findIndex(f => f.id === feature.id);
+                                          const newFeatures = [...venueFeatures];
+                                          const [movedItem] = newFeatures.splice(draggedIndex, 1);
+                                          newFeatures.splice(targetIndex, 0, movedItem);
+                                          setVenueFeatures(newFeatures);
+                                        }
+                                      }}
+                                    >
+                                      <div className="flex items-center space-x-3">
+                                        {editMode === 'features' && (
+                                          <GripVertical className="h-4 w-4 text-gray-500 cursor-move" />
+                                        )}
+                                        <div className={`w-8 h-8 rounded-lg flex items-center justify-center ${getColorClasses(feature.color)}`}>
+                                          <IconComponent className="h-4 w-4" />
+                                        </div>
+                                        <div className="flex-1">
+                                          {editingItem?.id === feature.id ? (
+                                            <div className="space-y-1">
+                                              <Input
+                                                value={editingItem.name}
+                                                onChange={(e) => setEditingItem({...editingItem, name: e.target.value})}
+                                                className="bg-[#1A1A2E] border-gray-600 text-white text-sm"
+                                                placeholder="Feature name"
+                                              />
+                                              <Textarea
+                                                value={editingItem.description}
+                                                onChange={(e) => setEditingItem({...editingItem, description: e.target.value})}
+                                                className="bg-[#1A1A2E] border-gray-600 text-white text-xs resize-none"
+                                                rows={2}
+                                                placeholder="Description"
+                                              />
+                                            </div>
+                                          ) : (
+                                            <div>
+                                              <h6 className="font-medium text-white">{feature.name}</h6>
+                                              <p className="text-xs text-gray-400">{feature.description}</p>
+                                            </div>
+                                          )}
+                                        </div>
+                                      </div>
+                                      <div className="flex items-center space-x-2">
+                                        {editingItem?.id === feature.id ? (
+                                          <div className="flex items-center space-x-1">
+                                            <Button 
+                                              size="sm" 
+                                              variant="ghost" 
+                                              className="text-green-400 hover:text-green-300"
+                                              onClick={() => {
+                                                const updatedFeatures = venueFeatures.map(f => 
+                                                  f.id === feature.id ? editingItem : f
+                                                );
+                                                setVenueFeatures(updatedFeatures);
+                                                setEditingItem(null);
+                                                toast({ title: "Feature updated", description: "Changes saved successfully" });
+                                              }}
+                                            >
+                                              <Save className="h-3 w-3" />
+                                            </Button>
+                                            <Button 
+                                              size="sm" 
+                                              variant="ghost" 
+                                              className="text-gray-400 hover:text-white"
+                                              onClick={() => setEditingItem(null)}
+                                            >
+                                              <X className="h-3 w-3" />
+                                            </Button>
+                                          </div>
+                                        ) : (
+                                          <>
+                                            <Button 
+                                              size="sm" 
+                                              variant="ghost" 
+                                              className={`text-gray-400 hover:text-white ${feature.visible ? 'text-green-400' : 'text-gray-500'}`}
+                                              onClick={() => {
+                                                const updatedFeatures = venueFeatures.map(f => 
+                                                  f.id === feature.id ? {...f, visible: !f.visible} : f
+                                                );
+                                                setVenueFeatures(updatedFeatures);
+                                              }}
+                                            >
+                                              {feature.visible ? <Eye className="h-3 w-3 mr-1" /> : <EyeOff className="h-3 w-3 mr-1" />}
+                                              {feature.visible ? 'Visible' : 'Hidden'}
+                                            </Button>
+                                            <Button 
+                                              size="sm" 
+                                              variant="ghost" 
+                                              className="text-gray-400 hover:text-white"
+                                              onClick={() => setEditingItem(feature)}
+                                            >
+                                              <Edit3 className="h-3 w-3" />
+                                            </Button>
+                                            {editMode === 'features' && (
+                                              <Button 
+                                                size="sm" 
+                                                variant="ghost" 
+                                                className="text-red-400 hover:text-red-300"
+                                                onClick={() => {
+                                                  const updatedFeatures = venueFeatures.filter(f => f.id !== feature.id);
+                                                  setVenueFeatures(updatedFeatures);
+                                                  toast({ title: "Feature removed", description: "Feature has been deleted" });
+                                                }}
+                                              >
+                                                <Trash2 className="h-3 w-3" />
+                                              </Button>
+                                            )}
+                                          </>
+                                        )}
+                                      </div>
                                     </div>
-                                    <div>
-                                      <h6 className="font-medium text-white">Account Setup</h6>
-                                      <p className="text-xs text-gray-400">Platform configuration and initial setup</p>
-                                    </div>
-                                  </div>
-                                  <div className="flex items-center space-x-2">
-                                    <Button size="sm" variant="ghost" className="text-gray-400 hover:text-white">
-                                      <Eye className="h-3 w-3 mr-1" />
-                                      Show
-                                    </Button>
-                                    <Button size="sm" variant="ghost" className="text-gray-400 hover:text-white">
-                                      <Edit3 className="h-3 w-3" />
-                                    </Button>
-                                  </div>
-                                </div>
-
-                                {/* Bookings Setup */}
-                                <div className="flex items-center justify-between p-3 bg-[#0D0D24] rounded-lg border border-gray-700">
-                                  <div className="flex items-center space-x-3">
-                                    <div className="w-8 h-8 bg-[#FF389A]/20 rounded-lg flex items-center justify-center">
-                                      <Calendar className="h-4 w-4 text-[#FF389A]" />
-                                    </div>
-                                    <div>
-                                      <h6 className="font-medium text-white">Bookings Go-Live Guide</h6>
-                                      <p className="text-xs text-gray-400">Table management and reservation system</p>
-                                    </div>
-                                  </div>
-                                  <div className="flex items-center space-x-2">
-                                    <Button size="sm" variant="ghost" className="text-gray-400 hover:text-white">
-                                      <Eye className="h-3 w-3 mr-1" />
-                                      Show
-                                    </Button>
-                                    <Button size="sm" variant="ghost" className="text-gray-400 hover:text-white">
-                                      <Edit3 className="h-3 w-3" />
-                                    </Button>
-                                  </div>
-                                </div>
-
-                                {/* Loyalty Program */}
-                                <div className="flex items-center justify-between p-3 bg-[#0D0D24] rounded-lg border border-gray-700">
-                                  <div className="flex items-center space-x-3">
-                                    <div className="w-8 h-8 bg-yellow-500/20 rounded-lg flex items-center justify-center">
-                                      <Zap className="h-4 w-4 text-yellow-400" />
-                                    </div>
-                                    <div>
-                                      <h6 className="font-medium text-white">Loyalty Go-Live Guide</h6>
-                                      <p className="text-xs text-gray-400">Customer rewards and loyalty program setup</p>
-                                    </div>
-                                  </div>
-                                  <div className="flex items-center space-x-2">
-                                    <Button size="sm" variant="ghost" className="text-gray-400 hover:text-white">
-                                      <Eye className="h-3 w-3 mr-1" />
-                                      Show
-                                    </Button>
-                                    <Button size="sm" variant="ghost" className="text-gray-400 hover:text-white">
-                                      <Edit3 className="h-3 w-3" />
-                                    </Button>
-                                  </div>
-                                </div>
-
-                                {/* Marketing Setup */}
-                                <div className="flex items-center justify-between p-3 bg-[#0D0D24] rounded-lg border border-gray-700">
-                                  <div className="flex items-center space-x-3">
-                                    <div className="w-8 h-8 bg-green-500/20 rounded-lg flex items-center justify-center">
-                                      <Activity className="h-4 w-4 text-green-400" />
-                                    </div>
-                                    <div>
-                                      <h6 className="font-medium text-white">Marketing Go-Live Guide</h6>
-                                      <p className="text-xs text-gray-400">Email campaigns and marketing automation</p>
-                                    </div>
-                                  </div>
-                                  <div className="flex items-center space-x-2">
-                                    <Button size="sm" variant="ghost" className="text-gray-400 hover:text-white">
-                                      <Eye className="h-3 w-3 mr-1" />
-                                      Show
-                                    </Button>
-                                    <Button size="sm" variant="ghost" className="text-gray-400 hover:text-white">
-                                      <Edit3 className="h-3 w-3" />
-                                    </Button>
-                                  </div>
-                                </div>
-
-                                {/* WiFi & Guest Capture */}
-                                <div className="flex items-center justify-between p-3 bg-[#0D0D24] rounded-lg border border-gray-700">
-                                  <div className="flex items-center space-x-3">
-                                    <div className="w-8 h-8 bg-purple-500/20 rounded-lg flex items-center justify-center">
-                                      <Settings className="h-4 w-4 text-purple-400" />
-                                    </div>
-                                    <div>
-                                      <h6 className="font-medium text-white">WiFi & Guest Capture</h6>
-                                      <p className="text-xs text-gray-400">Guest network setup and data collection</p>
-                                    </div>
-                                  </div>
-                                  <div className="flex items-center space-x-2">
-                                    <Button size="sm" variant="ghost" className="text-gray-400 hover:text-white">
-                                      <Eye className="h-3 w-3 mr-1" />
-                                      Show
-                                    </Button>
-                                    <Button size="sm" variant="ghost" className="text-gray-400 hover:text-white">
-                                      <Edit3 className="h-3 w-3" />
-                                    </Button>
-                                  </div>
-                                </div>
-
-                                {/* Reviews Management */}
-                                <div className="flex items-center justify-between p-3 bg-[#0D0D24] rounded-lg border border-gray-700">
-                                  <div className="flex items-center space-x-3">
-                                    <div className="w-8 h-8 bg-orange-500/20 rounded-lg flex items-center justify-center">
-                                      <CheckCircle className="h-4 w-4 text-orange-400" />
-                                    </div>
-                                    <div>
-                                      <h6 className="font-medium text-white">Reviews Management</h6>
-                                      <p className="text-xs text-gray-400">Online review collection and management</p>
-                                    </div>
-                                  </div>
-                                  <div className="flex items-center space-x-2">
-                                    <Button size="sm" variant="ghost" className="text-gray-400 hover:text-white">
-                                      <Eye className="h-3 w-3 mr-1" />
-                                      Show
-                                    </Button>
-                                    <Button size="sm" variant="ghost" className="text-gray-400 hover:text-white">
-                                      <Edit3 className="h-3 w-3" />
-                                    </Button>
-                                  </div>
-                                </div>
-
-                                {/* Staff Training */}
-                                <div className="flex items-center justify-between p-3 bg-[#0D0D24] rounded-lg border border-gray-700">
-                                  <div className="flex items-center space-x-3">
-                                    <div className="w-8 h-8 bg-cyan-500/20 rounded-lg flex items-center justify-center">
-                                      <Users className="h-4 w-4 text-cyan-400" />
-                                    </div>
-                                    <div>
-                                      <h6 className="font-medium text-white">Staff Training</h6>
-                                      <p className="text-xs text-gray-400">Team onboarding and system training</p>
-                                    </div>
-                                  </div>
-                                  <div className="flex items-center space-x-2">
-                                    <Button size="sm" variant="ghost" className="text-gray-400 hover:text-white">
-                                      <Eye className="h-3 w-3 mr-1" />
-                                      Show
-                                    </Button>
-                                    <Button size="sm" variant="ghost" className="text-gray-400 hover:text-white">
-                                      <Edit3 className="h-3 w-3" />
-                                    </Button>
-                                  </div>
-                                </div>
-
-                                {/* Go-Live Checklist */}
-                                <div className="flex items-center justify-between p-3 bg-[#0D0D24] rounded-lg border border-gray-700">
-                                  <div className="flex items-center space-x-3">
-                                    <div className="w-8 h-8 bg-red-500/20 rounded-lg flex items-center justify-center">
-                                      <AlertCircle className="h-4 w-4 text-red-400" />
-                                    </div>
-                                    <div>
-                                      <h6 className="font-medium text-white">Go-Live Checklist</h6>
-                                      <p className="text-xs text-gray-400">Final launch preparation and validation</p>
-                                    </div>
-                                  </div>
-                                  <div className="flex items-center space-x-2">
-                                    <Button size="sm" variant="ghost" className="text-gray-400 hover:text-white">
-                                      <Eye className="h-3 w-3 mr-1" />
-                                      Show
-                                    </Button>
-                                    <Button size="sm" variant="ghost" className="text-gray-400 hover:text-white">
-                                      <Edit3 className="h-3 w-3" />
-                                    </Button>
-                                  </div>
-                                </div>
+                                  );
+                                })}
                               </div>
                             </div>
 
