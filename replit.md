@@ -116,6 +116,7 @@ Changelog:
 - June 17, 2025. Initial setup
 - June 17, 2025. Built comprehensive collaborative CMS admin dashboard with multi-user authentication, real-time content locking, version control, and flexible content schema. Default admin: admin@stampede.ai / admin123. Access at /cms route.
 - June 17, 2025. Implemented unified venue management system with custom onboarding feature selection. Admins can create venues and select specific features (Account Setup, Booking System, Loyalty Program, Payment Processing, Marketing Automation, WiFi Marketing, Review Management, Analytics & Reporting) that determine which tasks/modules appear in each venue's onboarding flow. Features are categorized as core, advanced, or premium with dynamic content visibility based on venue configuration.
+- June 17, 2025. Built organization-level onboarding with multi-venue support. Organizations can contain multiple venues with independent feature assignments. CMS now supports hierarchical structure where admins create organizations, then add venues under each org with custom feature selection. Progress tracking rolls up from venue to organization level (e.g., "Org A - 2 of 10 venues live"). Front-end dynamically displays venue data from CMS with smart logic for single/multiple venue organizations.
 ```
 
 ## User Preferences

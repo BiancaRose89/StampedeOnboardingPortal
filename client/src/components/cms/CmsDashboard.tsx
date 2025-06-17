@@ -514,6 +514,10 @@ export default function CmsDashboard({ admin, onLogout }: CmsDashboardProps) {
               <FileText className="h-4 w-4 mr-2" />
               Content
             </TabsTrigger>
+            <TabsTrigger value="organizations" className="data-[state=active]:bg-[#FF389A]">
+              <Building2 className="h-4 w-4 mr-2" />
+              Organizations
+            </TabsTrigger>
             <TabsTrigger value="venues" className="data-[state=active]:bg-[#FF389A]">
               <Calendar className="h-4 w-4 mr-2" />
               Venue Management
@@ -2003,6 +2007,11 @@ export default function CmsDashboard({ admin, onLogout }: CmsDashboardProps) {
                 </div>
               </CardContent>
             </Card>
+          </TabsContent>
+
+          {/* Organization Management Tab */}
+          <TabsContent value="organizations">
+            <OrganizationManager />
           </TabsContent>
 
           {/* Venue Management Tab */}
