@@ -48,9 +48,8 @@ import { useToast } from '@/hooks/use-toast';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { apiRequest } from '@/lib/queryClient';
 import { ContentEditorFixed } from './ContentEditorFixed';
-import VenueManager from './VenueManager';
+import { VenueManager } from './VenueManager';
 import OrganizationManager from './OrganizationManager';
-import ContentBlocksEditor from './ContentBlocksEditor';
 
 interface CmsAdmin {
   id: number;
@@ -510,44 +509,38 @@ export default function CmsDashboard({ admin, onLogout }: CmsDashboardProps) {
       </div>
 
       <div className="max-w-7xl mx-auto p-6">
-        <Tabs defaultValue="admin" className="space-y-6">
+        <Tabs defaultValue="dashboard" className="space-y-6">
           <TabsList className="bg-[#1A1A2E] border-gray-700">
-            <TabsTrigger value="admin" className="data-[state=active]:bg-[#FF389A]">
-              <Settings className="h-4 w-4 mr-2" />
-              Admin
+            <TabsTrigger value="dashboard" className="data-[state=active]:bg-[#FF389A]">
+              <BarChart3 className="h-4 w-4 mr-2" />
+              Dashboard
             </TabsTrigger>
             <TabsTrigger value="content" className="data-[state=active]:bg-[#FF389A]">
               <FileText className="h-4 w-4 mr-2" />
               Content
             </TabsTrigger>
+            <TabsTrigger value="venues-onboarded" className="data-[state=active]:bg-[#FF389A]">
+              <Building2 className="h-4 w-4 mr-2" />
+              Venues Onboarded
+            </TabsTrigger>
+            <TabsTrigger value="onboarding" className="data-[state=active]:bg-[#FF389A]">
+              <Zap className="h-4 w-4 mr-2" />
+              Master the Platform
+            </TabsTrigger>
+            <TabsTrigger value="activity" className="data-[state=active]:bg-[#FF389A]">
+              <Activity className="h-4 w-4 mr-2" />
+              Activity
+            </TabsTrigger>
+            {(admin.role === 'super_admin' || admin.role === 'admin') && (
+              <TabsTrigger value="users" className="data-[state=active]:bg-[#FF389A]">
+                <Users className="h-4 w-4 mr-2" />
+                Users
+              </TabsTrigger>
+            )}
           </TabsList>
 
-          {/* Admin Tab with Sub-navigation */}
-          <TabsContent value="admin" className="space-y-6">
-            <Tabs defaultValue="dashboard" className="space-y-4">
-              <TabsList className="bg-[#0D0D24] border-gray-800">
-                <TabsTrigger value="dashboard" className="data-[state=active]:bg-[#FF389A]">
-                  <BarChart3 className="h-4 w-4 mr-2" />
-                  Dashboard
-                </TabsTrigger>
-                <TabsTrigger value="venues-onboarded" className="data-[state=active]:bg-[#FF389A]">
-                  <Building2 className="h-4 w-4 mr-2" />
-                  Venues Onboarded
-                </TabsTrigger>
-                <TabsTrigger value="activity" className="data-[state=active]:bg-[#FF389A]">
-                  <Activity className="h-4 w-4 mr-2" />
-                  Activity
-                </TabsTrigger>
-                {(admin.role === 'super_admin' || admin.role === 'admin') && (
-                  <TabsTrigger value="users" className="data-[state=active]:bg-[#FF389A]">
-                    <Users className="h-4 w-4 mr-2" />
-                    Users
-                  </TabsTrigger>
-                )}
-              </TabsList>
-
-              {/* Dashboard Sub-tab */}
-              <TabsContent value="dashboard">
+          {/* Dashboard Tab - Analytics and Insights */}
+          <TabsContent value="dashboard" className="space-y-6">
             <Card className="bg-[#0D0D24] border-gray-800">
               <CardHeader>
                 <div className="flex items-center justify-between">
@@ -1308,7 +1301,176 @@ export default function CmsDashboard({ admin, onLogout }: CmsDashboardProps) {
 
           {/* Content Management Tab */}
           <TabsContent value="content" className="space-y-6">
-            <ContentBlocksEditor />
+            {currentLock && (
+              <Alert className="bg-yellow-900/20 border-yellow-500/50 text-yellow-200">
+                <Lock className="h-4 w-4" />
+                <AlertDescription>
+                  You are currently editing content. Lock expires in {
+                    Math.ceil((new Date(currentLock.expiresAt).getTime() - Date.now()) / (1000 * 60))
+                  } minutes.
+                </AlertDescription>
+              </Alert>
+            )}
+
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+              {/* Content List */}
+              <Card className="bg-[#0D0D24] border-gray-800">
+                <CardHeader>
+                  <CardTitle className="text-white flex items-center justify-between">
+                    Front Page – Website
+                    <Button size="sm" className="bg-[#FF389A] hover:bg-[#E6329C]">
+                      <Plus className="h-4 w-4 mr-2" />
+                      New Content
+                    </Button>
+                  </CardTitle>
+                </CardHeader>
+                <CardContent>
+                  {contentLoading ? (
+                    <div className="text-center py-8 text-gray-400">Loading content...</div>
+                  ) : contentItems.length === 0 ? (
+                    <div className="text-center py-8 text-gray-400">No content items found</div>
+                  ) : (
+                    <div className="space-y-3">
+                      {contentItems.map((item: ContentItem) => (
+                        <div
+                          key={item.id}
+                          className="p-4 bg-[#1A1A2E] rounded-lg border border-gray-700 hover:border-gray-600 transition-colors"
+                        >
+                          <div className="flex items-center justify-between mb-2">
+                            <h3 className="font-medium text-white">{item.title}</h3>
+                            {getStatusBadge(item)}
+                          </div>
+                          <p className="text-sm text-gray-400 mb-3">{item.key}</p>
+                          <div className="flex items-center justify-between">
+                            <div className="flex items-center space-x-2">
+                              <Button
+                                size="sm"
+                                variant="outline"
+                                onClick={() => handleEditContent(item)}
+                                className="border-gray-600 text-gray-300 hover:bg-gray-700"
+                                disabled={acquireLockMutation.isPending}
+                              >
+                                <Edit3 className="h-3 w-3 mr-1" />
+                                Edit
+                              </Button>
+                              {item.isPublished ? (
+                                <Button
+                                  size="sm"
+                                  variant="outline"
+                                  onClick={() => unpublishMutation.mutate(item.id)}
+                                  className="border-orange-600 text-orange-400 hover:bg-orange-900/20"
+                                  disabled={unpublishMutation.isPending}
+                                >
+                                  <Eye className="h-3 w-3 mr-1" />
+                                  Unpublish
+                                </Button>
+                              ) : (
+                                <Button
+                                  size="sm"
+                                  variant="outline"
+                                  onClick={() => publishMutation.mutate(item.id)}
+                                  className="border-green-600 text-green-400 hover:bg-green-900/20"
+                                  disabled={publishMutation.isPending}
+                                >
+                                  <CheckCircle className="h-3 w-3 mr-1" />
+                                  Publish
+                                </Button>
+                              )}
+                            </div>
+                            <span className="text-xs text-gray-500">
+                              {new Date(item.updatedAt).toLocaleDateString()}
+                            </span>
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  )}
+                </CardContent>
+              </Card>
+
+              {/* Content Editor */}
+              <Card className="bg-[#0D0D24] border-gray-800">
+                <CardHeader>
+                  <CardTitle className="text-white flex items-center justify-between">
+                    Content Editor
+                    {currentLock && (
+                      <Badge className="bg-yellow-600">
+                        <Lock className="h-3 w-3 mr-1" />
+                        Locked
+                      </Badge>
+                    )}
+                  </CardTitle>
+                </CardHeader>
+                <CardContent>
+                  {selectedContent ? (
+                    selectedContent.key === 'front_page_website' ? (
+                      <ContentEditorFixed
+                        contentItem={selectedContent}
+                        onSave={(data) => {
+                          setEditingContent(data);
+                          handleSaveContent();
+                        }}
+                        onCancel={handleCancelEdit}
+                      />
+                    ) : (
+                      <div className="space-y-4">
+                        <div>
+                          <h3 className="text-lg font-medium text-white mb-2">
+                            {selectedContent.title}
+                          </h3>
+                          <p className="text-sm text-gray-400 mb-4">
+                            Key: {selectedContent.key}
+                          </p>
+                        </div>
+
+                        <div className="space-y-4">
+                          <div>
+                            <label className="block text-sm font-medium text-gray-200 mb-2">
+                              Content (JSON)
+                            </label>
+                            <textarea
+                              value={JSON.stringify(editingContent, null, 2)}
+                              onChange={(e) => {
+                                try {
+                                  setEditingContent(JSON.parse(e.target.value));
+                                } catch {
+                                  // Keep the string value for now
+                                }
+                              }}
+                              rows={12}
+                              className="w-full p-3 bg-[#1A1A2E] border border-gray-700 rounded-md text-white font-mono text-sm"
+                              placeholder="Enter content as JSON..."
+                            />
+                          </div>
+                        </div>
+
+                        <div className="flex space-x-3">
+                          <Button
+                            onClick={handleSaveContent}
+                            className="bg-[#FF389A] hover:bg-[#E6329C]"
+                            disabled={updateContentMutation.isPending || !currentLock}
+                          >
+                            {updateContentMutation.isPending ? 'Saving...' : 'Save Changes'}
+                          </Button>
+                          <Button
+                            variant="outline"
+                            onClick={handleCancelEdit}
+                            className="border-gray-600 text-gray-300 hover:bg-gray-700"
+                          >
+                            Cancel
+                          </Button>
+                        </div>
+                      </div>
+                    )
+                  ) : (
+                    <div className="text-center py-12 text-gray-400">
+                      <Edit3 className="h-12 w-12 mx-auto mb-4 opacity-50" />
+                      <p>Select a content item to edit</p>
+                    </div>
+                  )}
+                </CardContent>
+              </Card>
+            </div>
           </TabsContent>
 
           {/* Venue Onboarding Tab */}
@@ -1848,59 +2010,9 @@ export default function CmsDashboard({ admin, onLogout }: CmsDashboardProps) {
             </Card>
           </TabsContent>
 
-              {/* Venues Onboarded Sub-tab */}
-              <TabsContent value="venues-onboarded">
-                <OrganizationManager />
-              </TabsContent>
-
-              {/* Activity Sub-tab */}
-              <TabsContent value="activity">
-                <Card className="bg-[#0D0D24] border-gray-800">
-                  <CardHeader>
-                    <CardTitle className="text-white">Activity Log</CardTitle>
-                    <p className="text-gray-400">Recent admin activities and system events</p>
-                  </CardHeader>
-                  <CardContent>
-                    {activities.length === 0 ? (
-                      <div className="text-center py-8 text-gray-400">
-                        No recent activity
-                      </div>
-                    ) : (
-                      <div className="space-y-3">
-                        {activities.map((activity: any) => (
-                          <div key={activity.id} className="flex items-center justify-between p-3 rounded-lg bg-[#1A1A2E]">
-                            <div>
-                              <p className="text-white">{activity.action}</p>
-                              <p className="text-gray-400 text-sm">{activity.resourceType}</p>
-                            </div>
-                            <span className="text-gray-400 text-sm">
-                              {new Date(activity.createdAt).toLocaleDateString()}
-                            </span>
-                          </div>
-                        ))}
-                      </div>
-                    )}
-                  </CardContent>
-                </Card>
-              </TabsContent>
-
-              {/* Users Sub-tab */}
-              {(admin.role === 'super_admin' || admin.role === 'admin') && (
-                <TabsContent value="users">
-                  <Card className="bg-[#0D0D24] border-gray-800">
-                    <CardHeader>
-                      <CardTitle className="text-white">User Management</CardTitle>
-                      <p className="text-gray-400">Manage admin users and permissions</p>
-                    </CardHeader>
-                    <CardContent>
-                      <div className="text-center py-8 text-gray-400">
-                        User management features coming soon
-                      </div>
-                    </CardContent>
-                  </Card>
-                </TabsContent>
-              )}
-            </Tabs>
+          {/* Venues Onboarded Tab */}
+          <TabsContent value="venues-onboarded">
+            <OrganizationManager />
           </TabsContent>
 
           {/* Venue Management Tab */}

@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import CmsLogin from './CmsLogin';
-import CmsDashboard from './CmsDashboardFixed';
+import CmsDashboard from './CmsDashboard';
 import { useToast } from '@/hooks/use-toast';
 
 interface CmsAdmin {
