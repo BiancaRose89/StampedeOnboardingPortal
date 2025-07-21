@@ -1,0 +1,122 @@
+# Loyalty Go-Live Readiness Guide
+
+Ensure your Stampede Loyalty program is fully set up and ready to reward your customers. This guide walks you through the essential steps to launch a successful loyalty scheme.
+
+![Screenshot 2025-04-21 at 11.52.57](https://h.stampede.ai/hs-fs/hubfs/Screenshot%202025-04-21%20at%2011.52.57.png?width=5238&name=Screenshot%202025-04-21%20at%2011.52.57.png)
+
+### **Step 1: Access your Loyalty Scheme**
+
+**Access the Loyalty Dashboard:**
+
+- Navigate to **Loyalty** in your Stampede dashboard.
+- Click on your **Loyalty Card** to access your pre-configured scheme.​
+
+**Explore the Dashboard:**
+
+- Review the pre-built **Sign-Up Form**.
+- Familiarise yourself with tabs for **Automations**, **Rewards**, and **Interactions**.​
+
+**Understand the Setup Flow:**
+
+- Configure how points are awarded (e.g., Wi-Fi usage, bookings).
+- Build your rewards catalogue.
+- Enable customer sign-ups via the sign-up form.
+- Monitor customer activity and campaign performance.​
+
+_For detailed guidance, refer to the [Getting Started](https://help.stampede.ai/hc/en-gb/sections/23131308922002-Get-started)_ _with Stampede Loyalty Program._
+
+* * *
+
+![Screenshot 2025-04-21 at 11.53.41](https://h.stampede.ai/hs-fs/hubfs/Screenshot%202025-04-21%20at%2011.53.41.png?width=4038&name=Screenshot%202025-04-21%20at%2011.53.41.png)
+
+### **Step 2: Create Your Rewards**
+
+D **esign Appealing Rewards:**
+
+- Determine the number of points required for each reward.
+- Ensure rewards are achievable and valuable to your customers.
+- Examples include: free items, discounts, exclusive access.​
+
+**Add Rewards in the Dashboard:**
+
+- Go to **Loyalty > Rewards > Create New Reward**.
+- Input reward details, including name, description, and point cost.
+- Upload relevant images and set availability parameters.
+
+_For step-by-step instructions, see [How to Create a Reward](https://help.stampede.ai/hc/en-gb/articles/26104377899154-How-to-Create-a-Reward)_
+
+![Screenshot 2025-04-21 at 12.01.23](https://h.stampede.ai/hs-fs/hubfs/Screenshot%202025-04-21%20at%2012.01.23.png?width=5004&height=3630&name=Screenshot%202025-04-21%20at%2012.01.23.png)
+
+### Step 3: Configure Loyalty Automations
+
+**Automate Point Allocation:**
+
+- Navigate to **Loyalty > Automations > Create Automation**.
+- Set triggers such as Wi-Fi logins, bookings, or purchases.
+- Define the number of points awarded per action.​
+
+**Test Automations:**
+
+- Ensure points are correctly awarded upon trigger actions.
+- Monitor the **Interactions** tab to verify automation performance.​
+
+_Detailed setup can be found inHow to Set Up Loyalty Automations._
+
+* * *
+
+![Screenshot 2025-04-21 at 11.57.53](https://h.stampede.ai/hs-fs/hubfs/Screenshot%202025-04-21%20at%2011.57.53.png?width=5034&height=3660&name=Screenshot%202025-04-21%20at%2011.57.53.png)
+
+### **Step 4: Enable Customer Sign-Ups**
+
+**Promote Sign-Up Opportunities:**
+
+- Share the loyalty sign-up link via email, SMS, and social media.
+- Display QR codes in your venue for easy access.
+- Encourage staff to inform customers about the loyalty program.​
+
+**Digital Wallet Integration:**
+
+- Customers can add their loyalty card to Apple or Google Wallets.
+- This facilitates easy access and redemption of rewards.​
+
+_For customer guidance, refer to [How Customers can sign up to your loyalty scheme.](https://help.stampede.ai/hc/en-gb/articles/23689658986258-How-Customers-Can-Sign-Up-to-Your-Loyalty-Scheme)_
+
+* * *
+
+![Screenshot 2025-04-21 at 11.54.01](https://h.stampede.ai/hs-fs/hubfs/Screenshot%202025-04-21%20at%2011.54.01.png?width=5034&height=3660&name=Screenshot%202025-04-21%20at%2011.54.01.png)
+
+### **Step 5:** Monitor and Optimize Engagement
+
+**Track Performance:**
+
+- Use the **Loyalty Dashboard** to monitor sign-ups, point accruals, and reward redemptions.
+- Identify popular rewards and customer engagement trends.​
+
+**Adjust Strategies:**
+
+- Based on data insights, tweak rewards and automations to enhance engagement.
+- Consider seasonal promotions or limited-time offers to boost participation.​
+
+* * *
+
+![Screenshot 2025-04-21 at 12.00.00](https://h.stampede.ai/hs-fs/hubfs/Screenshot%202025-04-21%20at%2012.00.00.png?width=5202&height=3648&name=Screenshot%202025-04-21%20at%2012.00.00.png)
+
+### Final Checks Before Launch
+
+Before you go live:
+
+✔ All rewards are correctly set up with clear descriptions and images.
+
+✔ Automations are tested and functioning as intended.
+
+✔ Sign-up processes are seamless across all customer touchpoints.
+
+✔ Staff are trained to promote and assist with the loyalty program.
+
+✔ Marketing materials (emails, social posts) are prepared to announce the launch.​
+
+### You're Ready to Launch Your Loyalty Program!
+
+With your Stampede Loyalty program configured and tested, you're set to enhance customer retention and drive repeat business. Monitor performance regularly and adapt your strategies to maintain engagement and maximise the program's success.​
+
+💡 **Bonus Tip**: Check the [Loyalty Section within our Stampede Knowledge Base](https://help.stampede.ai/hc/en-gb/categories/25679132684434-Loyalty)for setup help and troubleshooting.

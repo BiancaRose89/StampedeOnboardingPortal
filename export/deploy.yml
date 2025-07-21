@@ -1,0 +1,61 @@
+# Deployment Configuration for Stampede Onboarding Portal
+
+# Vercel Deployment
+vercel:
+  name: "stampede-onboarding"
+  build:
+    commands:
+      - "npm run build"
+    outputDirectory: "dist/public"
+  env:
+    - DATABASE_URL
+    - SESSION_SECRET
+    - NODE_ENV
+
+# Railway Deployment  
+railway:
+  build:
+    buildCommand: "npm run build"
+    startCommand: "npm start"
+  env:
+    - DATABASE_URL
+    - SESSION_SECRET=generate-secure-key
+    - NODE_ENV=production
+
+# Render Deployment
+render:
+  services:
+    - type: web
+      name: stampede-onboarding
+      env: node
+      buildCommand: npm run build
+      startCommand: npm start
+      envVars:
+        - key: DATABASE_URL
+          sync: false
+        - key: SESSION_SECRET
+          generateValue: true
+        - key: NODE_ENV
+          value: production
+
+# Environment Variables Template
+environment:
+  required:
+    - DATABASE_URL: "PostgreSQL connection string"
+    - NODE_ENV: "development or production"
+  optional:
+    - SESSION_SECRET: "Secure random string for sessions"
+    - VITE_TAWK_PROPERTY_ID: "Tawk.to chat widget ID"
+
+# Database Setup Commands
+database:
+  setup: "npm run db:push"
+  tables: "Auto-created on first run"
+  admin: "admin@stampede.ai / admin123"
+
+# Performance Notes
+performance:
+  frontend: "Vite build optimization"
+  backend: "Express with efficient DB queries"
+  database: "PostgreSQL with connection pooling"
+  assets: "Static asset optimization"

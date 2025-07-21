@@ -1,0 +1,59 @@
+You are a UI/UX designer and front-end developer tasked with creating a self-service onboarding portal that matches an existing partner portal's branding, layout, and user experience.
+
+Here's what I need you to build:
+
+1. Section: "Your Onboarding Progress"
+Display a series of feature or setting blocks (e.g., “Custom Branding”, “Adding Users”, “Setting Permissions”)
+
+Each block should be clickable, leading to a dedicated onboarding page or modal.
+
+Dedicated onboarding pages must include:
+
+A main embedded video
+
+Sub-videos or step-by-step tutorials
+
+A section for articles or in-depth guides
+
+Optional: progress indicator (e.g., “Step 2 of 6”)
+
+Use layout/styling that mirrors the existing partner portal (color, typography, components)
+
+2. Section: "Master Your Platform"
+Design a tab-based layout where each tab corresponds to a feature or product area
+
+The goal is to embed or migrate content from existing external URLs into the portal interface itself
+
+Each tab should:
+
+Display the same information from the corresponding external URL, now fully integrated into the portal
+
+Organize the content cleanly using accordions, cards, or split-sections for readability
+
+You must help determine the best technical or structural way to replace the use of external links entirely
+
+3. Section: "Knowledge Base & Resources" (BOTTOM SECTION)
+This section should feel complementary but distinct from the training above
+
+Suggest and implement a format that focuses on searchability, discovery, and utility
+
+Example ideas:
+
+A smart search bar with tags or filters
+
+A “Top 5 Questions This Week” area based on trending topics
+
+A Resource Hub with downloadable checklists, templates, or PDFs
+
+A Community Q&A feed or integration with a support system (if applicable)
+
+Design this to be lightweight, accessible, and engaging, with a focus on support and empowerment
+
+Technical Requirements:
+Provide front-end structure using HTML/CSS or React (preferred)
+
+Include dummy content or placeholder data where real media will be used
+
+Ensure responsiveness and accessibility
+
+Minimize reliance on external links; make the experience seamless and in-portal

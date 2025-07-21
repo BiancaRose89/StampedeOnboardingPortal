@@ -1,0 +1,352 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  /* Light Mode Colors */
+  --background: 0 0% 100%; /* Pure white #FFFFFF */
+  --foreground: 0 0% 0%; /* Pure black #000000 */
+  --muted: 0 0% 96%; /* Light gray muted areas */
+  --muted-foreground: 0 0% 45%; /* Medium gray text */
+  --popover: 0 0% 100%; /* White popover */
+  --popover-foreground: 0 0% 0%; /* Black text */
+  --card: 0 0% 100%; /* White cards */
+  --card-foreground: 0 0% 0%; /* Black text */
+  --border: 0 0% 90%; /* Light gray borders */
+  --input: 0 0% 96%; /* Light gray inputs */
+  --primary: 324 100% 62%; /* Pink primary #FF389A */
+  --primary-foreground: 0 0% 100%; /* White text on pink */
+  --secondary: 0 0% 96%; /* Light gray secondary */
+  --secondary-foreground: 0 0% 0%; /* Black text */
+  --accent: 0 0% 96%; /* Light gray accent */
+  --accent-foreground: 0 0% 0%; /* Black text */
+  --destructive: 0 84.2% 60.2%; /* Red destructive */
+  --destructive-foreground: 0 0% 98%; /* White text */
+  --ring: 324 100% 62%; /* Pink focus ring */
+  --radius: 0.5rem;
+  
+  /* Brand colors */
+  --stampede-pink: 324 100% 62%; /* #FF389A */
+}
+
+.dark {
+  /* Dark Mode Colors - Pure Black Theme */
+  --background: 0 0% 0%; /* Pure black background #000000 */
+  --foreground: 0 0% 100%; /* Pure white text */
+  --muted: 0 0% 5%; /* Very dark gray muted areas */
+  --muted-foreground: 0 0% 65%; /* Light gray text */
+  --popover: 0 0% 0%; /* Black popover */
+  --popover-foreground: 0 0% 100%; /* White text */
+  --card: 0 0% 0%; /* Pure black cards */
+  --card-foreground: 0 0% 100%; /* White text */
+  --border: 0 0% 20%; /* Dark gray borders */
+  --input: 0 0% 5%; /* Very dark gray inputs */
+  --primary: 324 100% 62%; /* Pink primary #FF389A */
+  --primary-foreground: 0 0% 100%; /* White text on pink */
+  --secondary: 0 0% 10%; /* Dark gray secondary */
+  --secondary-foreground: 0 0% 100%; /* White text */
+  --accent: 0 0% 10%; /* Dark gray accent */
+  --accent-foreground: 0 0% 100%; /* White text */
+  --destructive: 0 84.2% 60.2%; /* Red destructive */
+  --destructive-foreground: 0 0% 100%; /* White text */
+  --ring: 324 100% 62%; /* Pink focus ring */
+  
+  /* Brand colors */
+  --stampede-pink: 324 100% 62%; /* #FF389A */
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply font-sans antialiased bg-background text-foreground transition-colors duration-300;
+  }
+  
+  html, #root {
+    @apply bg-background transition-colors duration-300;
+  }
+
+  /* Custom scrollbar for webkit browsers - dark theme */
+  ::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+  }
+
+  ::-webkit-scrollbar-track {
+    @apply bg-black;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    @apply bg-gray-700 rounded-md;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    @apply bg-gray-600;
+  }
+  
+  /* Ensure all containers maintain black background */
+  .bg-background {
+    background-color: #000000 !important;
+  }
+  
+  /* Add subtle glow to cards for visual hierarchy */
+  .card-glow {
+    box-shadow: 0 0 20px rgba(255, 56, 154, 0.1);
+  }
+
+  /* Iframe responsive styling */
+  .iframe-container {
+    position: relative;
+    width: 100%;
+    height: 0;
+    padding-bottom: 56.25%; /* 16:9 aspect ratio */
+  }
+
+  .iframe-container iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+  }
+
+  /* Custom animations */
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+      transform: translateY(10px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .fade-in {
+    animation: fadeIn 0.3s ease-out;
+  }
+
+  /* Stampede brand gradient */
+  .stampede-gradient {
+    background: linear-gradient(135deg, hsl(226 81% 9%) 0%, hsl(322 95% 66%) 100%);
+  }
+
+  .stampede-navy-gradient {
+    background: linear-gradient(135deg, hsl(226 81% 9%) 0%, hsl(226 81% 15%) 100%);
+  }
+
+  .stampede-pink-gradient {
+    background: linear-gradient(135deg, hsl(322 95% 66%) 0%, hsl(322 95% 56%) 100%);
+  }
+
+  /* Enhanced focus styles for accessibility */
+  .focus-visible:focus-visible {
+    @apply outline-none ring-2 ring-blue-600 ring-offset-2;
+  }
+}
+
+@layer components {
+  /* Theme-aware button styles */
+  .btn-brand-pink {
+    @apply bg-[#FF389A] text-white hover:bg-[#E6329] active:bg-[#CC2D7F] transition-all duration-200 shadow-lg hover:shadow-xl font-bold;
+    box-shadow: 0 4px 16px rgba(255, 56, 154, 0.4);
+  }
+
+  .btn-brand-white {
+    @apply bg-background text-foreground border border-border hover:bg-muted active:bg-muted/80 transition-all duration-200 shadow-lg hover:shadow-xl font-bold;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+  }
+
+  .dark .btn-brand-white {
+    box-shadow: 0 4px 16px rgba(255, 255, 255, 0.1);
+  }
+
+  .btn-brand-navy {
+    @apply bg-foreground text-background hover:bg-foreground/90 active:bg-foreground/80 transition-all duration-200 shadow-lg hover:shadow-xl font-bold border border-[#FF389A]/30;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+  }
+
+  .dark .btn-brand-navy {
+    box-shadow: 0 4px 16px rgba(255, 255, 255, 0.2);
+  }
+
+  .btn-brand-outline {
+    @apply bg-transparent text-[#FF389A] border-2 border-[#FF389A] hover:bg-[#FF389A] hover:text-white transition-all duration-200 shadow-lg hover:shadow-xl font-bold;
+  }
+
+  /* Enhanced card styling with theme awareness */
+  .card-glow {
+    @apply bg-card border border-border/50 backdrop-blur-sm transition-all duration-300;
+    box-shadow: 0 4px 24px rgba(0, 0, 0, 0.1), 0 0 0 1px rgba(255, 56, 154, 0.1);
+  }
+
+  .dark .card-glow {
+    box-shadow: 0 4px 24px rgba(255, 255, 255, 0.1), 0 0 0 1px rgba(255, 56, 154, 0.1);
+  }
+
+  .card-glow:hover {
+    @apply transform -translate-y-2;
+    box-shadow: 0 12px 40px rgba(255, 56, 154, 0.2), 0 0 0 2px rgba(255, 56, 154, 0.3);
+  }
+
+  /* Progress indicator with navy and pink theme */
+  .progress-step {
+    @apply flex items-center justify-center w-12 h-12 rounded-full border-2 transition-all duration-300 font-bold;
+  }
+
+  .progress-step.completed {
+    @apply bg-[#FF389A] border-[#FF389A] text-white shadow-lg;
+    box-shadow: 0 0 20px rgba(255, 56, 154, 0.6);
+  }
+
+  .progress-step.current {
+    @apply bg-background border-foreground text-foreground shadow-lg;
+    box-shadow: 0 0 20px rgba(255, 56, 154, 0.3);
+  }
+
+  .progress-step.pending {
+    @apply bg-muted border-border text-muted-foreground;
+  }
+
+  /* Interactive card with theme-aware hover effects */
+  .interactive-card {
+    @apply bg-card border border-border/50 rounded-xl p-6 transition-all duration-300 cursor-pointer;
+    backdrop-filter: blur(8px);
+    box-shadow: 0 4px 24px rgba(0, 0, 0, 0.1), 0 0 0 1px rgba(255, 56, 154, 0.1);
+  }
+
+  .dark .interactive-card {
+    box-shadow: 0 4px 24px rgba(255, 255, 255, 0.1), 0 0 0 1px rgba(255, 56, 154, 0.1);
+  }
+
+  .interactive-card:hover {
+    @apply transform -translate-y-3 border-[#FF389A]/50;
+    box-shadow: 0 16px 48px rgba(255, 56, 154, 0.25), 0 0 0 2px rgba(255, 56, 154, 0.4);
+  }
+
+  /* Mobile mockup hover effects */
+  .mobile-mockup {
+    @apply transition-all duration-500 hover:scale-105;
+    filter: drop-shadow(0 10px 25px rgba(255, 56, 154, 0.3));
+  }
+
+  .mobile-mockup:hover {
+    filter: drop-shadow(0 20px 40px rgba(255, 56, 154, 0.4));
+    transform: translateY(-5px) scale(1.05);
+  }
+
+  /* Glowing text effects for navy and pink theme */
+  .text-glow-white {
+    color: #FFFFFF;
+    text-shadow: 0 0 15px rgba(255, 255, 255, 0.5);
+  }
+
+  .text-glow-pink {
+    color: #FF389A;
+    text-shadow: 0 0 15px rgba(255, 56, 154, 0.6);
+  }
+
+  /* Enhanced tab styling */
+  .brand-tab {
+    @apply relative px-6 py-3 font-semibold transition-all duration-200 rounded-lg;
+  }
+
+  .brand-tab.active {
+    @apply bg-[#FF2E88] text-white shadow-lg;
+    box-shadow: 0 4px 16px rgba(255, 46, 136, 0.25);
+  }
+
+  .brand-tab:not(.active) {
+    @apply text-muted-foreground hover:text-foreground hover:bg-muted/50;
+  }
+
+  /* Modern loading skeleton */
+  .skeleton {
+    @apply animate-pulse bg-muted rounded-lg;
+    background: linear-gradient(90deg, hsl(var(--muted)) 25%, hsl(var(--muted)/0.5) 50%, hsl(var(--muted)) 75%);
+    background-size: 200% 100%;
+    animation: skeleton-loading 1.5s infinite;
+  }
+
+  @keyframes skeleton-loading {
+    0% { background-position: 200% 0; }
+    100% { background-position: -200% 0; }
+  }
+}
+
+@layer utilities {
+  /* Custom spacing utilities */
+  .section-padding {
+    @apply py-16 px-4 sm:px-6 lg:px-8;
+  }
+
+  .container-max {
+    @apply max-w-7xl mx-auto;
+  }
+
+  /* Text utilities */
+  .text-balance {
+    text-wrap: balance;
+  }
+
+  /* Responsive iframe utilities */
+  .iframe-16-9 {
+    aspect-ratio: 16 / 9;
+  }
+
+  .iframe-4-3 {
+    aspect-ratio: 4 / 3;
+  }
+
+  /* Safe area utilities for mobile */
+  .safe-top {
+    padding-top: env(safe-area-inset-top);
+  }
+
+  .safe-bottom {
+    padding-bottom: env(safe-area-inset-bottom);
+  }
+}
+
+/* Print styles */
+@media print {
+  .no-print {
+    display: none !important;
+  }
+
+  body {
+    @apply text-black bg-white;
+  }
+
+  .shadow-lg,
+  .shadow-md,
+  .shadow-sm {
+    box-shadow: none !important;
+  }
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+  :root {
+    --border: 240 100% 0%;
+    --ring: 240 100% 0%;
+  }
+
+  .dark {
+    --border: 0 0% 100%;
+    --ring: 0 0% 100%;
+  }
+}
+
+/* Reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}

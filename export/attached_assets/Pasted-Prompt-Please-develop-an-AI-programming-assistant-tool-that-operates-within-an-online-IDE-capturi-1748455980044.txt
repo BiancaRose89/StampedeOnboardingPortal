@@ -1,0 +1,41 @@
+Prompt:
+"Please develop an AI programming assistant tool that operates within an online IDE, capturing the aesthetic and functional essence of Replit AI. The assistant should encompass the following features, focusing on design, user experience, and functionality:
+1. Intuitive User Interface: Design a sleek, modern UI with:
+    * 		A dark mode theme that maintains a visually appealing contrast.
+    * 		Smooth animations for transitions and interactions.
+    * 		A responsive layout that adapts seamlessly to different screen sizes.
+2. Code Understanding:
+    * 		Implement advanced parsing capabilities to analyze code structures, types, and conventions.
+    * 		Use tooltips and modals to display helpful information without cluttering the interface.
+3. Dynamic Code Generation:
+    * 		Allow users to generate code snippets tailored to their requests, ensuring the output is both functional and elegantly styled.
+    * 		Fellow prompts should recognize context to provide relevant suggestions based on previous user interactions.
+4. Error Detection and Resolution:
+    * 		Include a real-time error detection system that highlights issues in code as the user types, enhancing the debugging process.
+    * 		Suggestions for fixing errors should be presented in a visually distinct manner, possibly using card components.
+5. Enhanced Interactivity:
+    * 		Create an engaging chat interface that allows users to have fluid conversations with the assistant.
+    * 		Incorporate interactive elements such as buttons, menus, and links directly within messages for easy navigation.
+6. Task Management Capabilities:
+    * 		Implement feature requests for fixing multiple issues promptly. Each task should include expandable sections that outline specific areas of focus based on the user’s code.
+    * 		Visual indicators for progress tracking related to task completion.
+7. Comprehensive Documentation Access:
+    * 		Include an integrated view of related documents when referencing code, allowing users to see documentation side-by-side with their code.
+8. Performance Insights:
+    * 		Provide users with analytics on their code performance metrics, displayed attractively through graphs and summaries.
+    * 		Use visually pleasing design patterns (such as gradients and shadows) to convey information effectively.
+9. State Management Efficiency:
+    * 		Optimize the state management philosophy to minimize unnecessary renders and maintain UI agility, ensuring a fluid user experience.
+10. Cross-Platform Compatibility:
+    * 		Ensure the assistant tool operates smoothly across various browsers and devices, prioritizing a cohesive experience.
+11. Security Protocols:
+    * 		Implement the latest security measures for user data protection, ensuring no sensitive information is exposed during interactions.
+12. Architecture and Technology:
+    * 		Utilize modern web technologies such as React, Redux, and CSS animations for the frontend; Node.js with Express for backend services.
+Technical Specifications:
+* 		Focus on clean, maintainable code, following best practices for web development.
+* 		Ensure the deployment process is streamlined for Replit, enabling effortless updates and functionality extensions.
+Please outline the visual design aspects, providing mockups or sketches if necessary, as well as the architectural framework, key interactions, and user flow. Include code examples showcasing how the assistant interacts with user inputs and how information is visually structured within the UI."
+
+To help you recreate your portal, here is an example structure and code that you can copy and paste into your own Replit environment. This is a simplified version of the backend using Node.js with Express and a basic frontend using React.
+File Structure

@@ -1,0 +1,78 @@
+You are a UI/UX designer and front-end developer tasked with creating a fully branded onboarding portal that mirrors the design system and layout of an existing partner portal. The branding must visually match the attached screenshots.
+You will build this experience using HTML/CSS or React (preferred), and make everything visually and functionally consistent across the portal.
+
+1. Your Onboarding Progress
+Display a clean grid or card layout of feature or setting blocks
+
+Each block should:
+
+Use interactive styling and highlight states that match the provided screenshots (dark mode, modern fonts, soft glow effects)
+
+Be clickable, leading to a dedicated feature page
+
+Dedicated pages should include:
+
+A main embedded video
+
+Sub-videos or steps/tutorials beneath
+
+Articles, checklists or guides embedded inline
+
+Optional: progress bar or stepper component
+
+2. Master Your Platform
+This section should use a tabbed interface to switch between platform areas (e.g., settings, insights, users, automations)
+
+Each tab must display all the content from currently live external URLs but now directly embedded or loaded within the portal (no external linking)
+
+Help implement or suggest:
+
+Image scraping or pulling visual assets directly into the internal CMS
+
+Rewriting or dynamically embedding static HTML content from those URLs
+
+Content layout should mirror the screenshots — use cards, icon-text pairings, and visual hierarchy
+
+3. Knowledge Base & Resources
+Place this at the bottom of the page
+
+This section should offer contextual help and discovery, separate from training
+
+Suggestions to implement:
+
+Smart search bar with tagging and filters
+
+"Top 5 FAQs This Week" or trending articles
+
+Downloadable resources area (PDFs, guides, branding kits)
+
+A "Need more help?" CTA that links to a chat or community
+
+Layout must remain clean and complementary to the training area
+
+4. Design & Branding Requirements
+Use the dark color scheme and visual language of the provided screenshots:
+
+Deep navy/purple backgrounds
+
+Bold sans-serif fonts (use font-weight: 800 or similar for titles)
+
+Bright highlight buttons (#FF2E88, #00D98B, etc.)
+
+Soft shadows, glowing edges or layered UI cards
+
+All sections must be responsive and accessible (WCAG compliant)
+
+Use consistent padding, spacing and modern micro-interactions (e.g. hover animations)
+
+5. Developer Output Needed
+Provide the HTML/CSS or React structure for each section
+
+Use placeholders for videos and articles
+
+Indicate areas where content/images from a URL should be embedded or migrated
+
+Clearly note which assets should be pulled in (e.g. screenshots, icons, illustrations)
+
+Suggest tooling or scripting if required to extract images or content from the live URLs
+

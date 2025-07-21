@@ -1,0 +1,111 @@
+You are a UI/UX designer and front-end developer tasked with creating a branded, self-service onboarding portal that visually matches the dark mode examples provided and uses a strong accent color (#FF0000) as the main background.
+
+🎯 Global Styling:
+The overall background color of the portal must be #FF0000
+
+All components and typography should follow dark mode visual design, as seen in the reference screenshots
+
+Use high contrast text, modern bold headings, glowing effect buttons, and layered UI
+
+Use pop-out images or icons in cards or hero areas to create visual interest
+
+🧭 Top Banner (Hero Section):
+Create a dark-mode banner/header section that matches the visual language of the screenshots
+
+It should include:
+
+A bold heading that welcomes the user
+
+A subheading with brief context
+
+A background or side image or floating UI preview for visual pop
+
+An optional call-to-action or “Start here” anchor link
+
+✅ Section: "Your Onboarding Progress"
+Subtitle: Complete these essential setup tasks to get the most out of your platform
+
+Create a grid of 6 main feature blocks (cards or tiles), each clickable:
+
+Account Setup
+
+WiFi
+
+Marketing
+
+Reviews
+
+Loyalty
+
+Bookings
+
+Each card should:
+
+Be visually consistent with the dark UI
+
+Use icons or small illustrations
+
+Have hover or click animations
+
+Route to a dedicated content page for that area
+
+💡 Section: "Master Your Platform"
+Subtitle: Comprehensive training and resources for every feature and capability
+
+This section builds on the categories above. Each of the 6 blocks should expand into sub-feature areas, e.g.:
+
+Marketing
+
+Automation Emails
+
+Scheduled Campaigns
+
+Promo Code Setup
+
+Bookings
+
+Create a Walk-In
+
+Block Off Father's Day
+
+Set Business Hours
+
+Loyalty
+
+Design a Loyalty Card
+
+Reward Rules
+
+Tracking Redemptions
+
+Sub-areas must be:
+
+Presented in a tabbed or accordion-style layout
+
+Contain embedded videos, how-to articles, and support links
+
+Visually aligned with the section above
+
+📚 Knowledge Base & Resources (Bottom Section)
+Appears below the training content
+
+Include:
+
+Smart Search with tags and filters
+
+Top FAQs this week
+
+Downloadable assets
+
+Optional community links or chat prompt
+
+Clean and minimal design for ease of scanning
+
+🧑‍💻 Developer Output
+Use HTML/CSS or React to structure the layout
+
+Provide placeholder content where real videos or articles will be embedded
+
+Suggest best practice methods for content structure (e.g., CMS blocks, Markdown import)
+
+Indicate how images from live URLs can be pulled in and stored internally

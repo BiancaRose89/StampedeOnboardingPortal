@@ -1,0 +1,132 @@
+Now that you have run through the setup and features, let's master the platform
+Master Your Platform
+Deep-dive into features and best practices to unlock the full potential of your platform.
+
+6
+Core Features
+Marketing
+3 Features
+Master essential marketing features with step-by-step guidance and best practices.
+
+1
+Email Automations
+Set up welcome sequences, birthday campaigns, and win-back series to engage customers automatically
+
+Easy
+2
+Create Lead Forms
+Build high-converting forms for newsletters, events, and special promotions with custom fields
+
+Easy
+3
+Customer Segmentation
+Group customers by behavior, preferences, or demographics for targeted campaigns
+
+Medium
+10-20 min total
+Start Learning
+WiFi
+3 Features
+Master essential wifi features with step-by-step guidance and best practices.
+
+1
+Guest Network Setup
+Configure secure guest WiFi with custom landing pages to capture customer data
+
+Medium
+2
+WiFi Marketing Capture
+Turn WiFi access into marketing opportunities with social login and data collection
+
+Easy
+3
+WiFi Analytics
+Track foot traffic, return visits, and dwell time through WiFi connection data
+
+Easy
+10-20 min total
+Start Learning
+Reviews
+3 Features
+Master essential reviews features with step-by-step guidance and best practices.
+
+1
+Automated Review Requests
+Send timed review invitations after visits with personalized messaging
+
+Medium
+2
+Review Response Templates
+Create template responses for positive and negative reviews to maintain reputation
+
+Easy
+3
+Display Reviews on Site
+Showcase positive reviews on your website and social media automatically
+
+Easy
+10-20 min total
+Start Learning
+Loyalty
+3 Features
+Master essential loyalty features with step-by-step guidance and best practices.
+
+1
+Points & Rewards System
+Set up point values for purchases, visits, and actions with tiered rewards
+
+Medium
+2
+Referral Program
+Reward customers for bringing friends with bonus points and special offers
+
+Medium
+3
+VIP Membership Tiers
+Create bronze, silver, gold tiers with exclusive perks and early access
+
+Advanced
+10-20 min total
+Start Learning
+Bookings
+3 Features
+Master essential bookings features with step-by-step guidance and best practices.
+
+1
+Calendar Integration
+Sync with Google Calendar, Outlook, and Apple Calendar for seamless scheduling
+
+Easy
+2
+Smart Booking Rules
+Set minimum advance notice, buffer times, and capacity limits automatically
+
+Medium
+3
+Payment & Deposits
+Collect deposits, full payments, or setup payment plans at booking time
+
+Advanced
+10-20 min total
+Start Learning
+Account Setup
+3 Features
+Master essential account setup features with step-by-step guidance and best practices.
+
+1
+Team Roles & Permissions
+Assign different access levels to staff members based on their responsibilities
+
+Easy
+2
+Business Profile Setup
+Complete your business information, hours, contact details, and social links
+
+Easy
+3
+Third-party Integrations
+Connect POS systems, payment processors, and marketing tools
+
+Advanced
+10-20 min total
+Start Learning
